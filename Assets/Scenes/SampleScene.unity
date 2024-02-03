@@ -437,10 +437,10 @@ MonoBehaviour:
   m_YAxis:
     Value: 0.5
     m_SpeedMode: 0
-    m_MaxSpeed: 2
+    m_MaxSpeed: 300
     m_AccelTime: 0.2
     m_DecelTime: 0.1
-    m_InputAxisName: Mouse Y
+    m_InputAxisName: RightHorizontal
     m_InputAxisValue: 0
     m_InvertInput: 1
     m_MinValue: 0
@@ -464,7 +464,7 @@ MonoBehaviour:
     m_MaxSpeed: 300
     m_AccelTime: 0.1
     m_DecelTime: 0.1
-    m_InputAxisName: Mouse X
+    m_InputAxisName: LeftHorizontal
     m_InputAxisValue: 0
     m_InvertInput: 0
     m_MinValue: -180
@@ -535,6 +535,8 @@ MonoBehaviour:
   playerObj: {fileID: 1972404222}
   rb: {fileID: 1966261791}
   rotationSpeed: 7
+  righthorizontal: 0
+  rightvertical: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
