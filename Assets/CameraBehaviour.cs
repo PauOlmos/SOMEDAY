@@ -45,7 +45,7 @@ public class CameraBehaviour : MonoBehaviour
             playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("LockBoss"))
         {
             lockOnBoss = !lockOnBoss;
         }
