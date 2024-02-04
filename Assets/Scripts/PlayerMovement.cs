@@ -35,6 +35,16 @@ public class PlayerMovement : MonoBehaviour
             pStatus = playerState.stand;
         }
 
+        if (Input.GetAxis("R2") > -1)
+        {
+            pStatus = playerState.attacking;
+        }
+        if (Input.GetAxis("L2") > -1)
+        { 
+            pStatus = playerState.charging;
+
+        }
+
         switch (pStatus)
         {
             case playerState.moving:
@@ -46,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
             case playerState.stand:
                 
                 break;
+
+            default: break;
         }
 
 
