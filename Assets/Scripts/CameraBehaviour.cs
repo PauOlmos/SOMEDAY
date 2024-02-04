@@ -20,7 +20,7 @@ public class CameraBehaviour : MonoBehaviour
     public float rightvertical;
 
     public Transform lockPosition;
-    private float shakeTimer;
+    private float shakeTimer = 0.0f;
     public enum cameraState
     {
         onObjective,onBoss,onPosition,
@@ -29,6 +29,8 @@ public class CameraBehaviour : MonoBehaviour
     public cameraState camState;
     public Image bosslockDot;
     public Camera mainCamera;
+
+    public bool cameraShake =  false;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +62,7 @@ void Update()
         if (Input.GetButtonDown("LockBoss"))
         {
             //CameraOnLock(lockPosition, boss);
+            //cameraShake = true;
             if(camState == cameraState.onBoss)
             {
                 camState = cameraState.onObjective;
@@ -94,6 +97,8 @@ void Update()
             break;
             
         }
+
+        //if (cameraShake) CameraShake(3.0f, 0.25f);
 
     }
 
@@ -137,10 +142,15 @@ void Update()
         }
     }
 
-    public void CameraShake(float intensity, float time, float shakeTimer)
+    public void CameraShake(float intensity, float time)
     {
-        
-        //gameObject.GetComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain += intensity;
-        
+        shakeTimer += Time.deltaTime;
+        if(shakeTimer < time) gameObject.GetComponent<CinemachineFreeLook>().GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = intensity;
+        else
+        {
+            gameObject.GetComponent<CinemachineFreeLook>().GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+            shakeTimer = 0;
+            cameraShake = false;
+        }
     }
 }
