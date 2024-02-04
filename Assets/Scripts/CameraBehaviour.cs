@@ -36,7 +36,7 @@ public class CameraBehaviour : MonoBehaviour
         camState = cameraState.onObjective;
         bosslockDot.gameObject.SetActive(false);
 
-}
+    }
 
 
 // Update is called once per frame
@@ -47,7 +47,7 @@ void Update()
 
         float horizontalInput = Input.GetAxis("LeftHorizontal");
         float verticalInput = Input.GetAxis("LeftVertical");
-        righthorizontal = Input.GetAxis("RightHorizontal");
+        righthorizontal = Input.GetAxis("L2");
         rightvertical = Input.GetAxis("RightVertical");
 
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
@@ -76,8 +76,10 @@ void Update()
         {
             case cameraState.onObjective:
                 CameraLimits(180,0, true);
+                AbilityAttack();
                 break;
             case cameraState.onBoss:
+                AbilityAttack();
                 CameraLimits(45,Angulo(objective,boss), false);
                 bosslockDot.transform.position = mainCamera.GetComponent<Camera>().WorldToScreenPoint(boss.transform.position);
             break;
@@ -119,5 +121,18 @@ void Update()
         gameObject.GetComponent<CinemachineFreeLook>().m_XAxis.m_MaxValue = direction + maxmin;
         gameObject.GetComponent<CinemachineFreeLook>().m_XAxis.m_MinValue = direction - maxmin;
         gameObject.GetComponent<CinemachineFreeLook>().m_XAxis.m_Wrap = wrap;
+    }
+
+    public void AbilityAttack()
+    {
+        if (Input.GetAxis("R2") > -1)
+        {
+            gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "R2";
+            camState = cameraState.onBoss;
+        }
+        else
+        {
+            gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "L2";
+        }
     }
 }

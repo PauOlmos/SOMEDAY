@@ -6,7 +6,7 @@ InputManager:
   serializedVersion: 2
   m_Axes:
   - serializedVersion: 3
-    m_Name: RightHorizontal
+    m_Name: L2
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: left
@@ -20,6 +20,22 @@ InputManager:
     invert: 0
     type: 2
     axis: 3
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: R2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: left
+    positiveButton: right
+    altNegativeButton: a
+    altPositiveButton: d
+    gravity: 3
+    dead: 0.001
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 4
     joyNum: 0
   - serializedVersion: 3
     m_Name: RightVertical
