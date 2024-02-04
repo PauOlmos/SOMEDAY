@@ -20,6 +20,7 @@ public class CameraBehaviour : MonoBehaviour
     public float rightvertical;
 
     public Transform lockPosition;
+    private float shakeTimer;
     public enum cameraState
     {
         onObjective,onBoss,onPosition,
@@ -134,5 +135,12 @@ void Update()
         {
             gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "L2";
         }
+    }
+
+    public void CameraShake(float intensity, float time, float shakeTimer)
+    {
+        
+        //gameObject.GetComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain += intensity;
+        
     }
 }
