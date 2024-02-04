@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using Cinemachine;
 
+
 public class CameraBehaviour : MonoBehaviour
 {
     public Transform orientation;
@@ -31,6 +32,8 @@ public class CameraBehaviour : MonoBehaviour
     public Camera mainCamera;
 
     public bool cameraShake =  false;
+    GameObject player;
+    PlayerMovement pMov;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +41,8 @@ public class CameraBehaviour : MonoBehaviour
         Cursor.visible = false;
         camState = cameraState.onObjective;
         bosslockDot.gameObject.SetActive(false);
-
+        player = GameObject.Find("Player");
+        pMov = player.GetComponent<PlayerMovement>();
     }
 
 
@@ -131,15 +135,23 @@ void Update()
 
     public void AbilityAttack()
     {
-        if (Input.GetAxis("R2") > -1)
+        if (pMov.grounded)
         {
-            gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "R2";
-            camState = cameraState.onBoss;
+            if (Input.GetAxis("R2") > -1)
+            {
+                gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "R2";
+                camState = cameraState.onBoss;
+            }
+            else
+            {
+                gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "L2";
+            }
         }
         else
         {
-            gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "L2";
+            gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = null;
         }
+        
     }
 
     public void CameraShake(float intensity, float time)

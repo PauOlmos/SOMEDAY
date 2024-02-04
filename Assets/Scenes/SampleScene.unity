@@ -1384,7 +1384,7 @@ GameObject:
   - component: {fileID: 1126745858}
   - component: {fileID: 1126745857}
   - component: {fileID: 1126745856}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1472,7 +1472,7 @@ Transform:
   m_GameObject: {fileID: 1126745855}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.6822, y: 7.6822, z: 7.6822}
+  m_LocalScale: {x: 628.6421, y: 628.6421, z: 628.6421}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1631,11 +1631,11 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966261789}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 1.3
+  m_Mass: 3
+  m_Drag: 0.005
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaTensor: {x: 1, y: 3, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1644,8 +1644,8 @@ Rigidbody:
     serializedVersion: 2
     m_Bits: 0
   m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
@@ -1662,9 +1662,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7903aa81e6e8274fa5bfb93e9d38825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 5
   player: {fileID: 1972404222}
   pStatus: 0
+  grounded: 0
+  Ground:
+    serializedVersion: 2
+    m_Bits: 64
+  playerHeight: 1
+  groundDrag: 0
+  jumpForce: 20
 --- !u!1 &1972404221
 GameObject:
   m_ObjectHideFlags: 0
