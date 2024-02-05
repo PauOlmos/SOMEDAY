@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public enum playerState
     {
-        moving,stand,charging,shooting,attacking,jumping,dashing
+        moving,stand,charging,shooting,attacking,dashing
     }
     public float moveSpeed;
 
@@ -23,12 +23,17 @@ public class PlayerMovement : MonoBehaviour
 
     public float jumpForce;
 
-    Rigidbody rb;
+    public Rigidbody rb;
     public float dashForce;
     public float dashTime;
     public float dashTimer;
 
     float playerMass;
+    public bool canParry = true;
+    
+    GameObject parry;
+    Parry p;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +41,9 @@ public class PlayerMovement : MonoBehaviour
         groundDrag = gameObject.GetComponent<Rigidbody>().drag;
         rb = gameObject.GetComponent<Rigidbody>();
         playerMass = rb.mass;
+
+        parry = GameObject.Find("Shield");
+        p = parry.GetComponent<Parry>();
     }
 
     // Update is called once per frame
@@ -58,17 +66,20 @@ public class PlayerMovement : MonoBehaviour
         switch (pStatus)
         {
             case playerState.moving:
-
-                rb.AddForce(player.transform.forward.normalized * moveSpeed, ForceMode.Force);
+                canParry = true;
+                if(p.parrying == false) rb.AddForce(player.transform.forward.normalized * moveSpeed, ForceMode.Force);
                 rb.freezeRotation = true;
                 
                 break;
             case playerState.stand:
+                canParry = true;
                 rb.freezeRotation = true;
 
                 break;
             
             case playerState.dashing:
+                canParry = false;
+
                 dashTimer += Time.deltaTime;
                 if (dashTimer > dashTime)
                 {
@@ -87,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             default:
+                canParry = false;
 
                 rb.freezeRotation = true;
 
