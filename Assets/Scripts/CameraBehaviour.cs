@@ -58,7 +58,7 @@ void Update()
         rightvertical = Input.GetAxis("RightVertical");
 
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        if(inputDir != Vector3.zero)
+        if(inputDir != Vector3.zero && pMov.pStatus != PlayerMovement.playerState.dashing)
         {
             objectiveObj.forward = Vector3.Slerp(objectiveObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
         }
@@ -135,7 +135,7 @@ void Update()
 
     public void AbilityAttack()
     {
-        if (pMov.grounded)
+        if (pMov.grounded && pMov.pStatus != PlayerMovement.playerState.dashing)
         {
             if (Input.GetAxis("R2") > -1)
             {

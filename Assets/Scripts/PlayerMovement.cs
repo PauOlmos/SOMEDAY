@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public enum playerState
     {
-        moving,stand,charging,shooting,attacking,jumping
+        moving,stand,charging,shooting,attacking,jumping,dashing
     }
     public float moveSpeed;
 
@@ -21,11 +22,20 @@ public class PlayerMovement : MonoBehaviour
     public float groundDrag;
 
     public float jumpForce;
+
+    Rigidbody rb;
+    public float dashForce;
+    public float dashTime;
+    public float dashTimer;
+
+    float playerMass;
     // Start is called before the first frame update
     void Start()
     {
         pStatus = playerState.stand;
         groundDrag = gameObject.GetComponent<Rigidbody>().drag;
+        rb = gameObject.GetComponent<Rigidbody>();
+        playerMass = rb.mass;
     }
 
     // Update is called once per frame
@@ -35,11 +45,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded)
         {
-            gameObject.GetComponent<Rigidbody>().drag = groundDrag;
+            rb.drag = groundDrag;
         }
         else
         {
-            gameObject.GetComponent<Rigidbody>().drag = groundDrag / 3.0f;
+            rb.drag = groundDrag / 3.0f;
         }
 
         Inputs();
@@ -48,35 +58,58 @@ public class PlayerMovement : MonoBehaviour
         switch (pStatus)
         {
             case playerState.moving:
-               
-                gameObject.GetComponent<Rigidbody>().AddForce(player.transform.forward.normalized * moveSpeed, ForceMode.Force);
-                gameObject.GetComponent<Rigidbody>().freezeRotation = true;
+
+                rb.AddForce(player.transform.forward.normalized * moveSpeed, ForceMode.Force);
+                rb.freezeRotation = true;
                 
                 break;
             case playerState.stand:
-                
+                rb.freezeRotation = true;
+
+                break;
+            
+            case playerState.dashing:
+                dashTimer += Time.deltaTime;
+                if (dashTimer > dashTime)
+                {
+                    pStatus = playerState.stand;
+                    dashTimer = 0;
+                    rb.mass = playerMass;
+
+                }
+                else
+                {
+                    rb.drag = 0.0f;
+                    rb.freezeRotation = true;
+                }
+                rb.freezeRotation = true;
+
                 break;
 
-            default: break;
+            default:
+
+                rb.freezeRotation = true;
+
+                break;
         }
 
     }
 
     private void SpeedCap()
     {
-        Vector3 flatvel = new Vector3(gameObject.GetComponent<Rigidbody>().velocity.x, 0.0f, gameObject.GetComponent<Rigidbody>().velocity.z);
+        Vector3 flatvel = new Vector3(rb.velocity.x, 0.0f, rb.velocity.z);
 
-        if(flatvel.magnitude > moveSpeed * 2f)
+        if(flatvel.magnitude > moveSpeed * 2f && pStatus != playerState.dashing)
         {
             Vector3 limitedVel = flatvel.normalized * moveSpeed * 2f;
-            gameObject.GetComponent<Rigidbody>().velocity = new Vector3(limitedVel.x, gameObject.GetComponent<Rigidbody>().velocity.y, limitedVel.z);
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
 
     private void Jump()
     {
-        gameObject.GetComponent<Rigidbody>().velocity = new Vector3(gameObject.GetComponent<Rigidbody>().velocity.x, 0.0f, gameObject.GetComponent<Rigidbody>().velocity.z);
-        gameObject.GetComponent<Rigidbody>().AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        rb.velocity = new Vector3(rb.velocity.x, 0.0f, rb.velocity.z);
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
     private void Inputs()
@@ -86,28 +119,42 @@ public class PlayerMovement : MonoBehaviour
 
         if (horizontalInput != 0.0f || verticalInput != 0.0f)
         {
-            pStatus = playerState.moving;
+
+            if (pStatus != playerState.dashing) pStatus = playerState.moving;
 
         }
-        else if (horizontalInput == 0.0f && verticalInput == 0.0f)
+        else if (horizontalInput == 0.0f && verticalInput == 0.0f && pStatus == playerState.moving)
         {
             pStatus = playerState.stand;
         }
 
-        if (Input.GetAxis("R2") > -1)
+        if (Input.GetAxis("R2") > -1 && pStatus != playerState.dashing)
         {
-            pStatus = playerState.attacking;
+            pStatus = playerState.shooting;
         }
-        if (Input.GetAxis("L2") > -1)
+        if (Input.GetAxis("L2") > -1 && pStatus != playerState.dashing)
         {
             pStatus = playerState.charging;
 
         }
 
+
+        if (Input.GetButtonDown("Dash") && pStatus != playerState.charging && pStatus != playerState.shooting) {
+            Dash();
+        }
+        
         if(Input.GetButtonDown("Jump") && grounded) {
             Jump();
-            Debug.Log("Jump");
+
         }
 
+    }
+
+    private void Dash()
+    {
+        pStatus = playerState.dashing;
+        rb.drag = 0;
+        rb.AddForce(player.transform.forward * dashForce, ForceMode.Impulse);
+        rb.mass = playerMass/3;
     }
 }
