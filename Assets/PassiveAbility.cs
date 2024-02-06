@@ -79,7 +79,7 @@ public class PassiveAbility : MonoBehaviour
                                     passiveProjectile.GetComponent<SeekingProjectile>().target = camBehaviour.boss.transform;
                                     passiveProjectile.GetComponent<SeekingProjectile>().speed = 2.0f;
                                     passiveProjectile.GetComponent<SeekingProjectile>().canFail = false;
-
+                                    passiveProjectile.GetComponent<SeekingProjectile>().shotByPlayer = true;
                                     isCharged = false;
                                     passiveCharge = 0;
                                     break;

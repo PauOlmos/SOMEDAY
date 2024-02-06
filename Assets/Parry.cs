@@ -10,21 +10,24 @@ public class Parry : MonoBehaviour
     private float parryCooldown = 3.0f;
     private float parryDuration = 0.25f;
     private bool parryActive = true;
-    GameObject player;
-    PlayerMovement pMov;
+    
     PassiveAbility passiveAbility;
     public bool parrying = false;
+    GameObject player;
+    PlayerMovement pMov;
+    PlayerAttack pAttack;
     void Start()
     {
         player = GameObject.Find("Player");
         pMov = player.GetComponent<PlayerMovement>();
         passiveAbility = player.GetComponent<PassiveAbility>();
+        pAttack = GameObject.Find("Sword").GetComponent<PlayerAttack>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Parry") && parryActive == true && pMov.grounded == true && pMov.canParry == true)
+        if(Input.GetButtonDown("Parry") && parryActive == true && pMov.grounded == true && pMov.canParry == true && pAttack.attacking == false)
         {
             UseParry();
         }
@@ -35,10 +38,15 @@ public class Parry : MonoBehaviour
             if(parryTimer > parryDuration)
             {
                 SetParry(false);
+                //pMov.canAttack = true;
                 parrying = false;
             }
-            
-            if(parryTimer > parryCooldown){
+            else
+            {
+                pMov.canAttack = false;
+            }
+
+            if (parryTimer > parryCooldown){
                 parryTimer = 0;
                 parryActive = true;
             }

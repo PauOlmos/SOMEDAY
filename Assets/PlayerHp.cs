@@ -65,7 +65,7 @@ public class PlayerHp : MonoBehaviour
         }
     }
 
-    void TakeDamage()
+    public void TakeDamage()
     {
         Debug.Log("Damaged");
         passiveAbility.canCharge = false;

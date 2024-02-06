@@ -12,6 +12,7 @@ public class SeekingProjectile : MonoBehaviour
     public float seekTimer;
     public float speed = 1.0f;
     public Vector3 direction;
+    public bool shotByPlayer;
     void Start()
     {
         
@@ -52,11 +53,21 @@ public class SeekingProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Boss")
+        if (other.gameObject.tag == "Boss" || other.gameObject.tag == "Enemy")
         {
-            //  Quitale vida
-            Debug.Log("BOSS HIT");
-            Destroy(gameObject);
+            if (shotByPlayer)
+            {
+                other.gameObject.GetComponent<EnemyHP>().DamageEnemy(2);
+                Destroy(gameObject);
+            }
+        }
+        else if(other.gameObject.tag == "Player")
+        {
+            if (!shotByPlayer)
+            {
+                other.gameObject.GetComponent<PlayerHp>().TakeDamage();
+                Destroy(gameObject);
+            }
         }
     }
 }

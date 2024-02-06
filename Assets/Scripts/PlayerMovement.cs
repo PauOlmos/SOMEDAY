@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     float playerMass;
     public bool canParry = true;
+    public bool canAttack = true;
     
     GameObject parry;
     Parry p;
@@ -67,18 +68,23 @@ public class PlayerMovement : MonoBehaviour
         {
             case playerState.moving:
                 canParry = true;
+                canAttack = true;
                 if(p.parrying == false) rb.AddForce(player.transform.forward.normalized * moveSpeed, ForceMode.Force);
                 rb.freezeRotation = true;
                 
                 break;
             case playerState.stand:
                 canParry = true;
+                canAttack = true;
+
                 rb.freezeRotation = true;
 
                 break;
             
             case playerState.dashing:
                 canParry = false;
+                canAttack = false;
+
 
                 dashTimer += Time.deltaTime;
                 if (dashTimer > dashTime)
@@ -99,6 +105,8 @@ public class PlayerMovement : MonoBehaviour
 
             default:
                 canParry = false;
+                canAttack = false;
+
 
                 rb.freezeRotation = true;
 
@@ -157,7 +165,6 @@ public class PlayerMovement : MonoBehaviour
         
         if(Input.GetButtonDown("Jump") && grounded) {
             Jump();
-
         }
 
     }

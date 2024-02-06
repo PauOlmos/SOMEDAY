@@ -9,6 +9,7 @@ TagManager:
   - NonParryable
   - ParriedAttack
   - Boss
+  - Enemy
   layers:
   - Default
   - TransparentFX
