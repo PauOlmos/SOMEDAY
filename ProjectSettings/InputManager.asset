@@ -102,7 +102,7 @@ InputManager:
     axis: 1
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Jump
+    m_Name: SwapAbilities
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 

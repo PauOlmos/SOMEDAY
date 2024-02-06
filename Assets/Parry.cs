@@ -12,11 +12,13 @@ public class Parry : MonoBehaviour
     private bool parryActive = true;
     GameObject player;
     PlayerMovement pMov;
+    PassiveAbility passiveAbility;
     public bool parrying = false;
     void Start()
     {
         player = GameObject.Find("Player");
         pMov = player.GetComponent<PlayerMovement>();
+        passiveAbility = player.GetComponent<PassiveAbility>();
     }
 
     // Update is called once per frame
@@ -47,8 +49,16 @@ public class Parry : MonoBehaviour
     {
         if (other.gameObject.layer == 7)//7 = Attack
         {
-            if (other.gameObject.tag == "BasicProjectile") Destroy(other.gameObject);
-            if (other.gameObject.tag == "Parryable") other.gameObject.tag = "ParriedAttack";
+            if (other.gameObject.tag == "BasicProjectile") 
+            {
+                passiveAbility.passiveCharge += 2.5f;
+                Destroy(other.gameObject);
+            }
+            if (other.gameObject.tag == "Parryable")
+            {
+                passiveAbility.passiveCharge += 5.0f;
+                other.gameObject.tag = "ParriedAttack";
+            }
         }
     }
 

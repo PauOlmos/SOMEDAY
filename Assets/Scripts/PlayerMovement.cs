@@ -147,8 +147,8 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetAxis("L2") > -1 && pStatus != playerState.dashing)
         {
             pStatus = playerState.charging;
-
         }
+        if (pStatus == playerState.charging && Input.GetAxis("L2") == -1) pStatus = playerState.moving;
 
 
         if (Input.GetButtonDown("Dash") && pStatus != playerState.charging && pStatus != playerState.shooting) {

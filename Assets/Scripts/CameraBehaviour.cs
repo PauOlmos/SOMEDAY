@@ -13,7 +13,7 @@ public class CameraBehaviour : MonoBehaviour
     public Transform objectiveObj;
     public Rigidbody rb;
 
-    public Transform boss;
+    public GameObject boss;
 
     public float rotationSpeed;
 
@@ -24,16 +24,23 @@ public class CameraBehaviour : MonoBehaviour
     private float shakeTimer = 0.0f;
     public enum cameraState
     {
-        onObjective,onBoss,onPosition,
+        onObjective, onBoss, onPosition,
     }
 
     public cameraState camState;
     public Image bosslockDot;
     public Camera mainCamera;
 
-    public bool cameraShake =  false;
+    public bool cameraShake = false;
+
     GameObject player;
     PlayerMovement pMov;
+    PassiveAbility passiveAbility;
+
+    private GameObject closestEnemy;
+    private GameObject[] allBosses;
+    public int numBosses;
+    int currentLockedBoss = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,11 +50,15 @@ public class CameraBehaviour : MonoBehaviour
         bosslockDot.gameObject.SetActive(false);
         player = GameObject.Find("Player");
         pMov = player.GetComponent<PlayerMovement>();
+        passiveAbility = player.GetComponent<PassiveAbility>();
+        boss = FindClosestEnemy("Boss");
+        numBosses = CountBosses();
+        allBosses = AllBosses();
     }
 
 
-// Update is called once per frame
-void Update()
+    // Update is called once per frame
+    void Update()
     {
         Vector3 viewDir = objective.position - new Vector3(transform.position.x, objective.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;
@@ -58,7 +69,7 @@ void Update()
         rightvertical = Input.GetAxis("RightVertical");
 
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        if(inputDir != Vector3.zero && pMov.pStatus != PlayerMovement.playerState.dashing)
+        if (inputDir != Vector3.zero && pMov.pStatus != PlayerMovement.playerState.dashing)
         {
             objectiveObj.forward = Vector3.Slerp(objectiveObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
         }
@@ -67,14 +78,39 @@ void Update()
         {
             //CameraOnLock(lockPosition, boss);
             //cameraShake = true;
-            if(camState == cameraState.onBoss)
+            if(numBosses == 1)
             {
-                camState = cameraState.onObjective;
+                if (camState == cameraState.onBoss)
+                {
+                    camState = cameraState.onObjective;
+                }
+                else if (camState == cameraState.onObjective)
+                {
+                    camState = cameraState.onBoss;
+                }
             }
-            else if(camState == cameraState.onObjective)
+            else if (numBosses > 1)
             {
-                camState = cameraState.onBoss;
-            }
+                switch (currentLockedBoss)
+                {
+                    case 0:
+                        boss = allBosses[0];
+                        currentLockedBoss = 1;
+                        camState = cameraState.onBoss;
+
+                        break;
+                        case 1:
+                        boss = allBosses[1];
+                        currentLockedBoss = 2;
+                        camState = cameraState.onBoss;
+
+                        break;
+                        case 2:
+                        camState = cameraState.onObjective;
+                        currentLockedBoss = 0;
+                        break;
+                }
+            }            
 
         }
 
@@ -83,23 +119,23 @@ void Update()
         switch (camState)
         {
             case cameraState.onObjective:
-                CameraLimits(180,0, true);
+                CameraLimits(180, 0, true);
                 AbilityAttack();
                 break;
             case cameraState.onBoss:
                 AbilityAttack();
-                CameraLimits(45,Angulo(objective,boss), false);
+                if(boss != null) CameraLimits(45, Angulo(objective, boss.transform), false);
                 bosslockDot.transform.position = mainCamera.GetComponent<Camera>().WorldToScreenPoint(boss.transform.position);
-            break;
+                break;
             case cameraState.onPosition:
 
-                CameraLimits(0,0, false);
+                CameraLimits(0, 0, false);
 
                 gameObject.GetComponent<CinemachineFreeLook>().Follow = lockPosition;
                 gameObject.GetComponent<CinemachineFreeLook>().LookAt = objective.transform;
 
-            break;
-            
+                break;
+
         }
 
         //if (cameraShake) CameraShake(3.0f, 0.25f);
@@ -125,7 +161,7 @@ void Update()
         if (position != null) lockPosition = position;
         camState = cameraState.onPosition;
     }
-    
+
     private void CameraLimits(int maxmin, float direction, bool wrap)
     {
         gameObject.GetComponent<CinemachineFreeLook>().m_XAxis.m_MaxValue = direction + maxmin;
@@ -137,7 +173,7 @@ void Update()
     {
         if (pMov.grounded && pMov.pStatus != PlayerMovement.playerState.dashing)
         {
-            if (Input.GetAxis("R2") > -1)
+            if (Input.GetAxis("R2") > -1 && passiveAbility.isCharged && passiveAbility.passive == PassiveAbility.passiveType.shoot)
             {
                 gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "R2";
                 camState = cameraState.onBoss;
@@ -151,18 +187,48 @@ void Update()
         {
             gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = null;
         }
-        
+
     }
 
     public void CameraShake(float intensity, float time)
     {
         shakeTimer += Time.deltaTime;
-        if(shakeTimer < time) gameObject.GetComponent<CinemachineFreeLook>().GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = intensity;
+        if (shakeTimer < time) gameObject.GetComponent<CinemachineFreeLook>().GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = intensity;
         else
         {
             gameObject.GetComponent<CinemachineFreeLook>().GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
             shakeTimer = 0;
             cameraShake = false;
         }
+    }
+
+    public GameObject FindClosestEnemy(string enemyTag)
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        float closestDistance = Mathf.Infinity;
+        closestEnemy = null;
+
+        foreach (GameObject enemy in enemies)
+        {
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemy;
+            }
+        }
+
+        return closestEnemy;
+    }
+
+    public int CountBosses()
+    {
+        GameObject[] bosses = GameObject.FindGameObjectsWithTag("Boss");
+        return bosses.Length;
+    }
+
+    public GameObject[] AllBosses()
+    {
+        return GameObject.FindGameObjectsWithTag("Boss");
     }
 }
