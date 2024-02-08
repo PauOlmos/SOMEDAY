@@ -93,7 +93,7 @@ public class MenuButton : MonoBehaviour
                 {
                     dataToStore.numArchive = 1;
 
-                    SceneManager.LoadScene(1);
+                    SceneManager.LoadScene(2);
                     //Anar al selector de nivells
 
                 }
@@ -109,7 +109,7 @@ public class MenuButton : MonoBehaviour
                 else
                 {
                     dataToStore.numArchive = 2;
-                    SceneManager.LoadScene(1);
+                    SceneManager.LoadScene(2);
                     //Anar al selector de nivells
 
                 }

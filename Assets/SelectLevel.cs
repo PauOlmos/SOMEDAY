@@ -24,6 +24,8 @@ public class SelectLevel : MonoBehaviour
     public bool canMove = true;
 
     public bool justOnce = false;
+    public int scene;
+    public bool collidingWithLevel = true;
     public struct levels
     {
         public GameObject level;
@@ -50,6 +52,13 @@ public class SelectLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetButtonDown("Jump") && collidingWithLevel)
+        {
+            collidingWithLevel = true;
+            SceneManager.LoadScene(scene);
+        }
+
         if (justOnce == false)
         {
             player.transform.position = levelArray[maxLevel - 1].level.transform.position;
@@ -103,10 +112,21 @@ public class SelectLevel : MonoBehaviour
     {
         if (other.gameObject.tag == "Level")
         {
-            if (Input.GetButtonDown("Jump"))
-            {
-                SceneManager.LoadScene(other.gameObject.GetComponent<SceneToLoad>().sceneNum);
-            }
+
+            collidingWithLevel = true;
+            scene = other.gameObject.GetComponent<SceneToLoad>().sceneNum;
+
+        }
+        else
+        {
+            collidingWithLevel = false;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Level")
+        {
+            collidingWithLevel = false;
         }
     }
 
