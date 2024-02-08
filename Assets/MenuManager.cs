@@ -4,6 +4,8 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 
+
+
 public class MenuManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -152,9 +154,7 @@ public class MenuManager : MonoBehaviour
                 if (deleteTimer > 3.0f)
                 {
                     deleteTimer = 0;
-
                     File.Delete(Application.streamingAssetsPath + "/Archive2.json");
-
                 }
             }
             if(currentSelected.name == "Archive3")

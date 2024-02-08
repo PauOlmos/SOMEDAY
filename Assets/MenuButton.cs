@@ -2,6 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
+
+[System.Serializable]
+public class DataToStore
+{
+    public int numArchive;
+    public int maxLevel;
+    public int maxHp;
+    public float charge;
+    public int difficulty;
+}
 
 public class MenuButton : MonoBehaviour
 {
@@ -29,7 +40,7 @@ public class MenuButton : MonoBehaviour
     void Start()
     {
         menuManager = GameObject.Find("MenuManager").GetComponent<MenuManager>();
-        dataToStore = GameObject.Find("DataToStore").GetComponent<DataToStore>();
+        dataToStore = new DataToStore();
     }
 
     // Update is called once per frame
@@ -80,6 +91,9 @@ public class MenuButton : MonoBehaviour
                 }
                 else
                 {
+                    dataToStore.numArchive = 1;
+
+                    SceneManager.LoadScene(1);
                     //Anar al selector de nivells
 
                 }
@@ -94,6 +108,8 @@ public class MenuButton : MonoBehaviour
                 }
                 else
                 {
+                    dataToStore.numArchive = 2;
+                    SceneManager.LoadScene(1);
                     //Anar al selector de nivells
 
                 }
@@ -107,20 +123,23 @@ public class MenuButton : MonoBehaviour
                 }
                 else
                 {
+                    dataToStore.numArchive = 3;
+
+                    SceneManager.LoadScene(2);
                     //Anar al selector de nivells
                 }
                 break;
             case Action.easy:
-                dataToStore.dificulty = DataToStore.Dificulty.easy;
+                dataToStore.difficulty = 0;
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
                 break;
             case Action.hard:
-                dataToStore.dificulty = DataToStore.Dificulty.hard;
+                dataToStore.difficulty = 1;
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
                 break;
             
             case Action.nightmare:
-                dataToStore.dificulty = DataToStore.Dificulty.nightmare;
+                dataToStore.difficulty = 2;
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
                 break;
             
