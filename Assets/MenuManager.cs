@@ -9,6 +9,7 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject player;
 
     public GameObject currentSelected;
     public GameObject currentMenu;
@@ -17,6 +18,8 @@ public class MenuManager : MonoBehaviour
     public GameObject mainMenu;
     public GameObject archivesMenu;
     public GameObject difficultyMenu;
+    public GameObject pauseMenu;
+    public GameObject optionsMenu;
 
     public bool canMoveHorizontally = true;
     public bool canMoveVertically = true;
@@ -28,13 +31,17 @@ public class MenuManager : MonoBehaviour
     public int whichArchiveIsBeingCreated;
 
     private float deleteTimer = 0.0f;
+
+    public bool paused = false;
+    public bool playing = false;
     public enum Menus
     {
-        main, options, archives, difficulty
+        main, options, archives, difficulty, pause,
     }
     void Start()
     {
         currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+        playing = GameObject.Find("Player");
     }
 
     public Menus switchFromMenu;
@@ -123,6 +130,14 @@ public class MenuManager : MonoBehaviour
                         currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
 
                         break;
+
+                    case Menus.pause:
+                        currentMenu = pauseMenu;
+                        backMenu = null;
+                        currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
+                        currentSelected = GameObject.Find("Resume");
+                        currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                        break;
                     default: break;
                 }
             }
@@ -132,6 +147,17 @@ public class MenuManager : MonoBehaviour
             }
 
 
+        }
+        if (Input.GetButtonUp("Pause") && playing)
+        {
+            if(!paused)
+            {
+                PauseGame();
+            }
+            else
+            {
+                ResumeGame();
+            }
         }
     }
 
@@ -175,7 +201,6 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-
     void CheckCreatedArchives()
     {
         if (archivesMenu != null)
@@ -208,5 +233,23 @@ public class MenuManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    void PauseGame()
+    {
+        player.GetComponent<PlayerMovement>().canJump = false;
+        paused = true;
+        Time.timeScale = 0.0f;
+        currentMenu = pauseMenu;
+        currentMenu.SetActive(true);
+        backMenu = null;
+    }
+    public void ResumeGame()
+    {
+        paused = false;
+        Time.timeScale = 1.0f;
+        currentMenu.SetActive(false);
+        currentMenu = null;
+        backMenu = null;
     }
 }

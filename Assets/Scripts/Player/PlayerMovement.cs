@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     float playerMass;
     public bool canParry = true;
     public bool canAttack = true;
+    public bool canJump = true;
+    public float canJumpTimer = 0;
     
     GameObject parry;
     Parry p;
@@ -163,9 +165,19 @@ public class PlayerMovement : MonoBehaviour
             Dash();
         }
         
-        if(Input.GetButtonDown("Jump") && grounded) {
+        if(Input.GetButtonDown("Jump") && grounded && canJump == true) {
             Jump();
         }
+        else
+        {
+            canJumpTimer += Time.deltaTime;
+            if(canJumpTimer > 0.05f)
+            {
+                canJumpTimer = 0;
+                canJump = true;
+            }
+        }
+
 
     }
 

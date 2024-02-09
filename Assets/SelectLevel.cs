@@ -69,9 +69,8 @@ public class SelectLevel : MonoBehaviour
         {
             if (actualPosition - 1 >= 0 && canMove == true)
             {
-                Debug.Log(levelArray[actualPosition - 1].level.name);
-                Debug.Log(levelArray[actualPosition].level.name);
                 agent.destination = (levelArray[actualPosition - 1].level.transform.position);
+                Debug.Log(agent.destination);
                 justOnce = true;
                 actualPosition--;
                 canMove = false;
@@ -79,9 +78,11 @@ public class SelectLevel : MonoBehaviour
         }
         if (Input.GetAxis("HorizontalArrows") > 0)//Right
         {
+
             if (actualPosition + 1 <= maxLevel && actualPosition + 1 < levelArray.Length && canMove == true)
             {
                 agent.destination = (levelArray[actualPosition + 1].level.transform.position);
+                Debug.Log(agent.destination);
                 justOnce = true;
                 actualPosition++;
                 canMove = false;

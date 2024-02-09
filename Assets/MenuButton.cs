@@ -28,12 +28,13 @@ public class MenuButton : MonoBehaviour
     public GameObject optionsMenu;
     public GameObject archivesMenu;
     public GameObject difficultyMenu;
+    public GameObject pauseMenu;
 
     DataToStore dataToStore;
     public int creatingArchiveNum;
     public enum Action
     {
-        start,options,exit,archive1,archive2,archive3,easy,hard,nightmare
+        start,options,exit,archive1,archive2,archive3,easy,hard,nightmare,resume,mainmenu
     }
 
     public Action action;   
@@ -55,14 +56,6 @@ public class MenuButton : MonoBehaviour
         {
             case Action.start:
                 ChangeMenu(mainMenu, archivesMenu, MenuManager.Menus.archives, "Archive1");
-                /*archivesMenu.SetActive(true);
-                menuManager.currentMenu = archivesMenu;
-                menuManager.backMenu = mainMenu;
-                menuManager.currentSelected.GetComponentInChildren<TMPro.TextMeshProUGUI>().alpha = 0.5f;
-                menuManager.currentSelected = GameObject.Find("Archive1");
-                menuManager.currentSelected.GetComponentInChildren<TMPro.TextMeshProUGUI>().alpha = 1.0f;
-                mainMenu.SetActive(false);
-                menuManager.switchFromMenu = MenuManager.Menus.archives;*/
 
                 break;
             case Action.exit:
@@ -70,19 +63,7 @@ public class MenuButton : MonoBehaviour
                 Application.Quit();
 
                 break;
-            case Action.options:
-                //ChangeMenu(mainMenu, archivesMenu, MenuManager.Menus.archives, "Archive1");
-                /*optionsMenu.SetActive(true);
-                mainMenu.SetActive(false);
-                menuManager.currentSelected.GetComponentInChildren<TMPro.TextMeshProUGUI>().alpha = 0.5f;
-                menuManager.currentSelected = GameObject.Find("TEST1");
-                menuManager.currentSelected.GetComponentInChildren<TMPro.TextMeshProUGUI>().alpha = 1.0f;
-                menuManager.currentMenu = optionsMenu;
-                menuManager.backMenu = mainMenu;
-                menuManager.switchFromMenu = MenuManager.Menus.options;*/
-
-                break;
-                case Action.archive1:
+            case Action.archive1:
                 if (!File.Exists(Application.streamingAssetsPath + "/Archive1.json"))
                 {
                     creatingArchiveNum = 1;
@@ -132,17 +113,32 @@ public class MenuButton : MonoBehaviour
             case Action.easy:
                 dataToStore.difficulty = 0;
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
+                SceneManager.LoadScene(0);
                 break;
             case Action.hard:
                 dataToStore.difficulty = 1;
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
+                SceneManager.LoadScene(0);
                 break;
-            
             case Action.nightmare:
                 dataToStore.difficulty = 2;
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
+                SceneManager.LoadScene(0);
                 break;
-            
+            case Action.options:
+                ChangeMenu(pauseMenu, optionsMenu, MenuManager.Menus.pause, "OPTIONS");
+                break;
+            case Action.resume:
+                if (menuManager.paused)
+                {
+                    menuManager.ResumeGame();
+                }
+                
+                break;
+            case Action.mainmenu:
+                Time.timeScale = 1.0f;
+                SceneManager.LoadScene(1);
+                break;
             default: break;
         }
     }
@@ -154,7 +150,6 @@ public class MenuButton : MonoBehaviour
         File.WriteAllText(Application.streamingAssetsPath + "/"+archiveNum+".json", json);
         Debug.Log("Archive " + num.ToString() + " Created");
         //Comença Partida
-
     }
 
     public void CreateArchive(int num)
