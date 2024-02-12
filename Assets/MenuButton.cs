@@ -34,7 +34,7 @@ public class MenuButton : MonoBehaviour
     public int creatingArchiveNum;
     public enum Action
     {
-        start,options,exit,archive1,archive2,archive3,easy,hard,nightmare,resume,mainmenu
+        start,options,exit,archive1,archive2,archive3,easy,hard,nightmare,resume,mainmenu,none
     }
 
     public Action action;   
@@ -126,7 +126,7 @@ public class MenuButton : MonoBehaviour
                 SceneManager.LoadScene(0);
                 break;
             case Action.options:
-                ChangeMenu(pauseMenu, optionsMenu, MenuManager.Menus.pause, "OPTIONS");
+                ChangeMenu(pauseMenu, optionsMenu, MenuManager.Menus.pause, "Predetermined");
                 break;
             case Action.resume:
                 if (menuManager.paused)
