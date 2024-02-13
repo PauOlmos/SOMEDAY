@@ -355,6 +355,22 @@ MonoBehaviour:
   optionsMenu: {fileID: 0}
   archivesMenu: {fileID: 645862600}
   difficultyMenu: {fileID: 287107475}
+  pauseMenu: {fileID: 0}
+  dataToStore:
+    numArchive: 0
+    maxLevel: 0
+    maxHp: 0
+    charge: 0
+    difficulty: 0
+    predetSettings: 1
+    volume: 0.5
+    sensitivity: 1
+    FOV: 50
+    tutorialMessages: 1
+    subtitles: 1
+    subtitlesSize: 2
+    healthBar: 0
+    VSync: 1
   creatingArchiveNum: 0
   action: 5
 --- !u!114 &272311402
@@ -1518,6 +1534,22 @@ MonoBehaviour:
   optionsMenu: {fileID: 0}
   archivesMenu: {fileID: 645862600}
   difficultyMenu: {fileID: 287107475}
+  pauseMenu: {fileID: 0}
+  dataToStore:
+    numArchive: 0
+    maxLevel: 0
+    maxHp: 0
+    charge: 0
+    difficulty: 0
+    predetSettings: 1
+    volume: 0.5
+    sensitivity: 1
+    FOV: 50
+    tutorialMessages: 1
+    subtitles: 1
+    subtitlesSize: 2
+    healthBar: 0
+    VSync: 1
   creatingArchiveNum: 0
   action: 7
 --- !u!114 &980654867
@@ -1818,6 +1850,22 @@ MonoBehaviour:
   optionsMenu: {fileID: 0}
   archivesMenu: {fileID: 645862600}
   difficultyMenu: {fileID: 287107475}
+  pauseMenu: {fileID: 0}
+  dataToStore:
+    numArchive: 0
+    maxLevel: 0
+    maxHp: 0
+    charge: 0
+    difficulty: 0
+    predetSettings: 1
+    volume: 0.5
+    sensitivity: 1
+    FOV: 50
+    tutorialMessages: 1
+    subtitles: 1
+    subtitlesSize: 2
+    healthBar: 0
+    VSync: 1
   creatingArchiveNum: 0
   action: 3
 --- !u!114 &1306436059
@@ -2120,6 +2168,22 @@ MonoBehaviour:
   optionsMenu: {fileID: 0}
   archivesMenu: {fileID: 645862600}
   difficultyMenu: {fileID: 0}
+  pauseMenu: {fileID: 0}
+  dataToStore:
+    numArchive: 0
+    maxLevel: 0
+    maxHp: 0
+    charge: 0
+    difficulty: 0
+    predetSettings: 1
+    volume: 0.5
+    sensitivity: 1
+    FOV: 50
+    tutorialMessages: 1
+    subtitles: 1
+    subtitlesSize: 2
+    healthBar: 0
+    VSync: 1
   creatingArchiveNum: 0
   action: 0
 --- !u!114 &1425761454
@@ -2266,6 +2330,22 @@ MonoBehaviour:
   optionsMenu: {fileID: 0}
   archivesMenu: {fileID: 645862600}
   difficultyMenu: {fileID: 287107475}
+  pauseMenu: {fileID: 0}
+  dataToStore:
+    numArchive: 0
+    maxLevel: 0
+    maxHp: 0
+    charge: 0
+    difficulty: 0
+    predetSettings: 1
+    volume: 0.5
+    sensitivity: 1
+    FOV: 50
+    tutorialMessages: 1
+    subtitles: 1
+    subtitlesSize: 2
+    healthBar: 0
+    VSync: 1
   creatingArchiveNum: 0
   action: 8
 --- !u!114 &1473789180
@@ -2941,19 +3021,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29848c539878b8944931fffa596a5562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   currentSelected: {fileID: 1425761451}
   currentMenu: {fileID: 167300229}
   backMenu: {fileID: 0}
   mainMenu: {fileID: 167300229}
   archivesMenu: {fileID: 645862600}
   difficultyMenu: {fileID: 287107475}
+  pauseMenu: {fileID: 0}
+  optionsMenu: {fileID: 0}
+  Volume: {fileID: 0}
+  Size: {fileID: 0}
+  ChangeSettings: {fileID: 0}
+  SubtitlesSettings: {fileID: 0}
   canMoveHorizontally: 1
   canMoveVertically: 1
   archive1Renamed: 0
   archive2Renamed: 0
   archive3Renamed: 0
   whichArchiveIsBeingCreated: 0
+  paused: 0
+  playing: 0
   switchFromMenu: 0
+  check: {fileID: 21300000, guid: f88ebef7b746d514b8b04e2097995360, type: 3}
+  empty: {fileID: 21300000, guid: be85d88a24b2b794cabd0a8708420836, type: 3}
 --- !u!4 &1720354483
 Transform:
   m_ObjectHideFlags: 0
@@ -3010,6 +3101,22 @@ MonoBehaviour:
   optionsMenu: {fileID: 0}
   archivesMenu: {fileID: 645862600}
   difficultyMenu: {fileID: 287107475}
+  pauseMenu: {fileID: 0}
+  dataToStore:
+    numArchive: 0
+    maxLevel: 0
+    maxHp: 0
+    charge: 0
+    difficulty: 0
+    predetSettings: 1
+    volume: 0.5
+    sensitivity: 1
+    FOV: 50
+    tutorialMessages: 1
+    subtitles: 1
+    subtitlesSize: 2
+    healthBar: 0
+    VSync: 1
   creatingArchiveNum: 0
   action: 6
 --- !u!114 &1845380310
@@ -3250,6 +3357,22 @@ MonoBehaviour:
   optionsMenu: {fileID: 0}
   archivesMenu: {fileID: 645862600}
   difficultyMenu: {fileID: 287107475}
+  pauseMenu: {fileID: 0}
+  dataToStore:
+    numArchive: 0
+    maxLevel: 0
+    maxHp: 0
+    charge: 0
+    difficulty: 0
+    predetSettings: 1
+    volume: 0.5
+    sensitivity: 1
+    FOV: 50
+    tutorialMessages: 1
+    subtitles: 1
+    subtitlesSize: 2
+    healthBar: 0
+    VSync: 1
   creatingArchiveNum: 0
   action: 4
 --- !u!114 &2034351956

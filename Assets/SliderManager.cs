@@ -8,7 +8,6 @@ using UnityEditor.UI;
 public class SliderManager : MonoBehaviour
 {
     private bool canMoveHorizontally = true;
-    private bool canMoveVertically = true;
 
     public MenuManager menuManager;
 
@@ -31,7 +30,6 @@ public class SliderManager : MonoBehaviour
 
 
         if (Input.GetAxis("HorizontalArrows") == 0) canMoveHorizontally = true;
-        if (Input.GetAxis("VerticalArrows") == 0) canMoveVertically = true;
         ChangeSettingsSlider();
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 
@@ -156,7 +157,8 @@ public class MenuButton : MonoBehaviour
                 SceneManager.LoadScene(0);
                 break;
             case Action.options:
-                if(Settings.predetSettings == true)
+                ChangeMenu(pauseMenu, optionsMenu, MenuManager.Menus.pause, "Predetermined");
+                if (Settings.predetSettings == true)
                 {
                     menuManager.ChangeSettings.SetActive(false);
                 }
@@ -173,7 +175,6 @@ public class MenuButton : MonoBehaviour
                     }
                 
                 }
-                ChangeMenu(pauseMenu, optionsMenu, MenuManager.Menus.pause, "Predetermined");
                 break;
             case Action.resume:
                 if (menuManager.paused)
@@ -296,15 +297,15 @@ public class MenuButton : MonoBehaviour
         dataToStore.maxHp = 3;
         dataToStore.charge = 0.0f;
         dataToStore.maxLevel = 0;
-        dataToStore.predetSettings = Settings.predetSettings;
-        dataToStore.volume = Settings.volume;
-        dataToStore.sensitivity = Settings.sensitivity;
-        dataToStore.FOV = Settings.fov;
-        dataToStore.tutorialMessages= Settings.tutorialMessages;
-        dataToStore.subtitles = Settings.subtitles;
-        dataToStore.subtitlesSize = Settings.subtitlesSize;
-        dataToStore.healthBar = Settings.healthBar;
-        dataToStore.VSync = Settings.VSync;
+        dataToStore.predetSettings = true;
+        dataToStore.volume = 0.5f;
+        dataToStore.sensitivity = 1;
+        dataToStore.FOV = 50.0f;
+        dataToStore.tutorialMessages = true;
+        dataToStore.subtitles = true;
+        dataToStore.subtitlesSize = 1;
+        dataToStore.healthBar = false;
+        dataToStore.VSync = true;
         SavePlayerData(dataToStore, dataToStore.numArchive);
     }
 
