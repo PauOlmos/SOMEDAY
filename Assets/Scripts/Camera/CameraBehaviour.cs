@@ -16,6 +16,7 @@ public class CameraBehaviour : MonoBehaviour
     public GameObject boss;
 
     public float rotationSpeed;
+    public static float sensitivity;
 
     public float righthorizontal;
     public float rightvertical;
@@ -69,9 +70,13 @@ public class CameraBehaviour : MonoBehaviour
         rightvertical = Input.GetAxis("RightVertical");
 
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        sensitivity = Settings.sensitivity;
+        gameObject.GetComponent<CinemachineFreeLook>().m_Lens.FieldOfView = Settings.fov;
+
         if (inputDir != Vector3.zero && pMov.pStatus != PlayerMovement.playerState.dashing)
         {
-            objectiveObj.forward = Vector3.Slerp(objectiveObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+            objectiveObj.forward = Vector3.Slerp(objectiveObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed * sensitivity);
         }
 
         if (Input.GetButtonDown("LockBoss"))

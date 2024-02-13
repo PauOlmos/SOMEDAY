@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
-
-
+public static class Settings
+{
+    // Ejemplo de variable global
+    public static int archiveNum;
+    public static float volume = 0.50f;
+    public static float sensitivity = 1.0f;
+    public static float fov = 50.0f;
+}
 
 public class MenuManager : MonoBehaviour
 {
@@ -20,6 +26,8 @@ public class MenuManager : MonoBehaviour
     public GameObject difficultyMenu;
     public GameObject pauseMenu;
     public GameObject optionsMenu;
+    public GameObject Volume;
+    public GameObject ChangeSettings;
 
     public bool canMoveHorizontally = true;
     public bool canMoveVertically = true;
@@ -47,6 +55,10 @@ public class MenuManager : MonoBehaviour
     public Menus switchFromMenu;
     private bool isPressingTriangle;
     private float pressingStartTime;
+
+    public bool predetActive = true;
+    public Sprite check;
+    public Sprite empty;
 
     // Update is called once per frame
     void Update()
@@ -137,6 +149,12 @@ public class MenuManager : MonoBehaviour
                         currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
                         currentSelected = GameObject.Find("Resume");
                         currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+
+                        DataToStore data = new DataToStore();
+                        data = LoadPlayerData(Settings.archiveNum);
+                        data.volume = Settings.volume;
+                        data.sensitivity = Settings.sensitivity;
+                        data.FOV = Settings.fov;
                         break;
                     default: break;
                 }
@@ -252,4 +270,28 @@ public class MenuManager : MonoBehaviour
         currentMenu = null;
         backMenu = null;
     }
+    public DataToStore LoadPlayerData(int numArchive)
+    {
+        string path = Application.streamingAssetsPath + "/Archive" + numArchive.ToString() + ".json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            Debug.Log(json);
+            return JsonUtility.FromJson<DataToStore>(json);
+        }
+        else
+        {
+            Debug.LogWarning("No se encontraron datos de jugador guardados.");
+            return null;
+        }
+    }
+    public void SavePlayerData(DataToStore data, int num)
+    {
+        string json = JsonUtility.ToJson(data);
+        string archiveNum = "Archive" + num.ToString(); ;
+        File.WriteAllText(Application.streamingAssetsPath + "/" + archiveNum + ".json", json);
+        Debug.Log("Archive " + num.ToString() + " Created");
+        //Comença Partida
+    }
+
 }

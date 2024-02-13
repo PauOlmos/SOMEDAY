@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.IO.Archive;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -35,7 +36,7 @@ public class SelectLevel : MonoBehaviour
 
     void Start()
     {
-        dataToStore = LoadPlayerData(1);
+        dataToStore = LoadPlayerData(Settings.archiveNum);
         maxLevel = dataToStore.maxLevel + 1;
         levelArray = new levels[maxLevel];
         for(int i = 0; i < levelArray.Length; i++)
