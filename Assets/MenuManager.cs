@@ -7,9 +7,15 @@ public static class Settings
 {
     // Ejemplo de variable global
     public static int archiveNum;
+    public static bool predetSettings = true;
     public static float volume = 0.50f;
     public static float sensitivity = 1.0f;
     public static float fov = 50.0f;
+    public static bool tutorialMessages = true;
+    public static bool subtitles = true;
+    public static int subtitlesSize = 2;
+    public static bool healthBar = false;
+    public static bool VSync = true;
 }
 
 public class MenuManager : MonoBehaviour
@@ -27,7 +33,9 @@ public class MenuManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject optionsMenu;
     public GameObject Volume;
+    public GameObject Size;
     public GameObject ChangeSettings;
+    public GameObject SubtitlesSettings;
 
     public bool canMoveHorizontally = true;
     public bool canMoveVertically = true;
@@ -56,7 +64,6 @@ public class MenuManager : MonoBehaviour
     private bool isPressingTriangle;
     private float pressingStartTime;
 
-    public bool predetActive = true;
     public Sprite check;
     public Sprite empty;
 
@@ -87,7 +94,7 @@ public class MenuManager : MonoBehaviour
                 currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
             }
         }
-        if (Input.GetAxis("VerticalArrows") > 0 && canMoveVertically)
+        if (Input.GetAxis("VerticalArrows") > 0 && canMoveVertically )
         {
             canMoveVertically = false;
             if (currentSelected.GetComponent<MenuButton>().upButton != null)
@@ -150,11 +157,17 @@ public class MenuManager : MonoBehaviour
                         currentSelected = GameObject.Find("Resume");
                         currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
 
-                        DataToStore data = new DataToStore();
-                        data = LoadPlayerData(Settings.archiveNum);
+                        DataToStore data = LoadPlayerData(Settings.archiveNum);
+                        data.predetSettings = Settings.predetSettings;
                         data.volume = Settings.volume;
                         data.sensitivity = Settings.sensitivity;
                         data.FOV = Settings.fov;
+                        data.tutorialMessages = Settings.tutorialMessages;
+                        data.subtitles = Settings.subtitles;
+                        data.subtitlesSize = Settings.subtitlesSize;
+                        data.healthBar = Settings.healthBar;
+                        data.VSync = Settings.VSync;
+                        SavePlayerData(data,Settings.archiveNum);
                         break;
                     default: break;
                 }

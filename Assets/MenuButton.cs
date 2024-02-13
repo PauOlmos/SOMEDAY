@@ -14,14 +14,15 @@ public class DataToStore
     public float charge;
     public int difficulty;
 
-    public float volume;
-    public float sensitivity;
-    public float FOV;
-    public bool tutorialMessages;
-    public bool subtitles;
-    public int subtitlesSize;
-    public bool healthBar;
-    public bool VSync;
+    public bool predetSettings = Settings.predetSettings;
+    public float volume = Settings.volume;
+    public float sensitivity = Settings.sensitivity;
+    public float FOV = Settings.fov;
+    public bool tutorialMessages = Settings.tutorialMessages;
+    public bool subtitles = Settings.subtitles;
+    public int subtitlesSize = Settings.subtitlesSize;
+    public bool healthBar = Settings.healthBar;
+    public bool VSync = Settings.VSync;
 }
 
 public class MenuButton : MonoBehaviour
@@ -45,7 +46,7 @@ public class MenuButton : MonoBehaviour
     public enum Action
     {
         start,options,exit,archive1,archive2,archive3,easy,hard,nightmare,resume,mainmenu,none,
-        settingsPreferences,tutorial
+        settingsPreferences,tutorial,subtitles,subtitlesSize1,subtitlesSize2,subtitlesSize3,healthBar,VSync
     }
 
     public Action action;   
@@ -86,6 +87,7 @@ public class MenuButton : MonoBehaviour
                 {
                     dataToStore.numArchive = 1;
                     Settings.archiveNum = 1;
+                    LoadSettings(1);
                     SceneManager.LoadScene(2);
                     //Anar al selector de nivells
 
@@ -105,7 +107,9 @@ public class MenuButton : MonoBehaviour
                     Settings.archiveNum = 2;
 
                     dataToStore.numArchive = 2;
-                    SceneManager.LoadScene(2);
+                    LoadSettings(2);
+                    SceneManager.LoadScene(2); 
+
                     //Anar al selector de nivells
 
                 }
@@ -123,7 +127,7 @@ public class MenuButton : MonoBehaviour
                 {
                     dataToStore.numArchive = 3;
                     Settings.archiveNum = 3;
-
+                    LoadSettings(3);
                     SceneManager.LoadScene(2);
                     //Anar al selector de nivells
                 }
@@ -131,26 +135,43 @@ public class MenuButton : MonoBehaviour
             case Action.easy:
                 dataToStore.difficulty = 0;
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
+                Settings.archiveNum = menuManager.whichArchiveIsBeingCreated;
+                LoadSettings(menuManager.whichArchiveIsBeingCreated);
                 SceneManager.LoadScene(0);
                 break;
             case Action.hard:
                 dataToStore.difficulty = 1;
+                Settings.archiveNum = menuManager.whichArchiveIsBeingCreated;
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
+                LoadSettings(menuManager.whichArchiveIsBeingCreated);
+
                 SceneManager.LoadScene(0);
                 break;
             case Action.nightmare:
                 dataToStore.difficulty = 2;
+                Settings.archiveNum = menuManager.whichArchiveIsBeingCreated;
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
+                LoadSettings(menuManager.whichArchiveIsBeingCreated);
+
                 SceneManager.LoadScene(0);
                 break;
             case Action.options:
-                if(menuManager.predetActive == true)
+                if(Settings.predetSettings == true)
                 {
                     menuManager.ChangeSettings.SetActive(false);
                 }
                 else
                 {
                     menuManager.ChangeSettings.SetActive(true);
+                    if(Settings.subtitles == true)
+                    {
+                        menuManager.SubtitlesSettings.SetActive(true);
+                    }
+                    else
+                    {
+                        menuManager.SubtitlesSettings.SetActive(false);
+                    }
+                
                 }
                 ChangeMenu(pauseMenu, optionsMenu, MenuManager.Menus.pause, "Predetermined");
                 break;
@@ -167,28 +188,97 @@ public class MenuButton : MonoBehaviour
                 break;
             case Action.settingsPreferences:
 
-                if(menuManager.predetActive == false)
+                if(Settings.predetSettings == false)
                 {
-                    menuManager.predetActive = true;
+                    Settings.predetSettings = true;
                     downButton = null;
                     menuManager.ChangeSettings.SetActive(false);
                     Settings.volume = 0.5f;
                     Settings.sensitivity = 1.0f;
                     Settings.fov = 50.0f;
+                    Settings.tutorialMessages = true;
+                    Settings.subtitles = true;
+                    Settings.subtitlesSize = 2;
+                    Settings.healthBar = false;
+                    Settings.VSync = true;
+                    menuManager.SubtitlesSettings.SetActive(true);
                     SavePlayerData(dataToStore,Settings.archiveNum);
 
                 }
                 else
                 {
                     menuManager.ChangeSettings.SetActive(true);
-                    menuManager.predetActive = false;
+                    Settings.predetSettings = false;
                     downButton = menuManager.Volume;
 
                 }
 
                 break;
+            case Action.tutorial:
+                
+                Settings.tutorialMessages = !Settings.tutorialMessages;
+                
+                break;
+            case Action.subtitles:
+                
+                Settings.subtitles = !Settings.subtitles;
+                menuManager.SubtitlesSettings.SetActive(Settings.subtitles);
+
+                if(Settings.subtitles == true)
+                {
+                    rightButton = menuManager.Size;
+                }
+                else
+                {
+                    rightButton = null;
+                }
+
+                break;
+            case Action.subtitlesSize1:
+
+                Settings.subtitlesSize = 1;
+
+                break;
+            case Action.subtitlesSize2:
+
+                Settings.subtitlesSize = 2;
+
+                break;
+            case Action.subtitlesSize3:
+
+                Settings.subtitlesSize = 3;
+
+                break;
+            case Action.healthBar:
+                
+                Settings.healthBar = !Settings.healthBar;
+
+                break;
+            case Action.VSync:
+                
+                Settings.VSync = !Settings.VSync;
+                if (Settings.VSync) QualitySettings.vSyncCount = 1;
+                else QualitySettings.vSyncCount = 0;
+                
+
+                break;
             default: break;
         }
+    }
+
+    public void LoadSettings(int num)
+    {
+        DataToStore data;
+        data = LoadPlayerData(num);
+        Settings.predetSettings = data.predetSettings;
+        Settings.volume = data.volume;
+        Settings.sensitivity = data.sensitivity;
+        Settings.fov = data.FOV;
+        Settings.tutorialMessages = data.tutorialMessages;
+        Settings.subtitles = data.subtitles;
+        Settings.subtitlesSize = data.subtitlesSize;
+        Settings.healthBar = data.healthBar;
+        Settings.VSync = data.VSync;
     }
 
     public void SavePlayerData(DataToStore data, int num)
@@ -206,6 +296,15 @@ public class MenuButton : MonoBehaviour
         dataToStore.maxHp = 3;
         dataToStore.charge = 0.0f;
         dataToStore.maxLevel = 0;
+        dataToStore.predetSettings = Settings.predetSettings;
+        dataToStore.volume = Settings.volume;
+        dataToStore.sensitivity = Settings.sensitivity;
+        dataToStore.FOV = Settings.fov;
+        dataToStore.tutorialMessages= Settings.tutorialMessages;
+        dataToStore.subtitles = Settings.subtitles;
+        dataToStore.subtitlesSize = Settings.subtitlesSize;
+        dataToStore.healthBar = Settings.healthBar;
+        dataToStore.VSync = Settings.VSync;
         SavePlayerData(dataToStore, dataToStore.numArchive);
     }
 

@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upButton: {fileID: 16811836}
-  downButton: {fileID: 16811836}
+  downButton: {fileID: 86664118}
   rightButton: {fileID: 0}
   leftButton: {fileID: 0}
   menuManager: {fileID: 182496066}
@@ -338,6 +338,7 @@ MonoBehaviour:
     maxHp: 0
     charge: 0
     difficulty: 0
+    predetSettings: 0
     volume: 0
     sensitivity: 0
     FOV: 0
@@ -927,6 +928,7 @@ MonoBehaviour:
     maxHp: 0
     charge: 0
     difficulty: 0
+    predetSettings: 0
     volume: 0
     sensitivity: 0
     FOV: 0
@@ -1262,7 +1264,9 @@ MonoBehaviour:
   pauseMenu: {fileID: 1981518803}
   optionsMenu: {fileID: 93357396}
   Volume: {fileID: 86664118}
+  Size: {fileID: 1052334755}
   ChangeSettings: {fileID: 711643269}
+  SubtitlesSettings: {fileID: 1987287925}
   canMoveHorizontally: 1
   canMoveVertically: 1
   archive1Renamed: 0
@@ -1272,7 +1276,6 @@ MonoBehaviour:
   paused: 0
   playing: 0
   switchFromMenu: 0
-  predetActive: 1
   check: {fileID: 0}
   empty: {fileID: 0}
 --- !u!4 &182496067
@@ -1549,6 +1552,7 @@ MonoBehaviour:
     maxHp: 0
     charge: 0
     difficulty: 0
+    predetSettings: 0
     volume: 0
     sensitivity: 0
     FOV: 0
@@ -1927,8 +1931,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c39b9967c3bfda41b02254c1d734c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upButton: {fileID: 381350939}
-  downButton: {fileID: 0}
+  upButton: {fileID: 1696460056}
+  downButton: {fileID: 1480036804}
   rightButton: {fileID: 0}
   leftButton: {fileID: 0}
   menuManager: {fileID: 182496066}
@@ -1943,6 +1947,7 @@ MonoBehaviour:
     maxHp: 0
     charge: 0
     difficulty: 0
+    predetSettings: 0
     volume: 0
     sensitivity: 0
     FOV: 0
@@ -1952,7 +1957,7 @@ MonoBehaviour:
     healthBar: 0
     VSync: 0
   creatingArchiveNum: 0
-  action: 7
+  action: 18
 --- !u!114 &381350942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2403,6 +2408,7 @@ GameObject:
   - component: {fileID: 452175736}
   - component: {fileID: 452175735}
   - component: {fileID: 452175734}
+  - component: {fileID: 452175737}
   m_Layer: 5
   m_Name: Medium
   m_TagString: Untagged
@@ -2423,7 +2429,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1032680948}
-  m_Father: {fileID: 711643270}
+  m_Father: {fileID: 1987287926}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2513,6 +2519,45 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 452175732}
   m_CullTransparentMesh: 1
+--- !u!114 &452175737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452175732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c39b9967c3bfda41b02254c1d734c38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upButton: {fileID: 1601080473}
+  downButton: {fileID: 381350939}
+  rightButton: {fileID: 1336907604}
+  leftButton: {fileID: 1052334755}
+  menuManager: {fileID: 182496066}
+  mainMenu: {fileID: 0}
+  optionsMenu: {fileID: 93357396}
+  archivesMenu: {fileID: 0}
+  difficultyMenu: {fileID: 0}
+  pauseMenu: {fileID: 1981518803}
+  dataToStore:
+    numArchive: 0
+    maxLevel: 0
+    maxHp: 0
+    charge: 0
+    difficulty: 0
+    predetSettings: 0
+    volume: 0
+    sensitivity: 0
+    FOV: 0
+    tutorialMessages: 0
+    subtitles: 0
+    subtitlesSize: 0
+    healthBar: 0
+    VSync: 0
+  creatingArchiveNum: 0
+  action: 16
 --- !u!1 &495231752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2592,6 +2637,7 @@ MonoBehaviour:
     maxHp: 0
     charge: 0
     difficulty: 0
+    predetSettings: 0
     volume: 0
     sensitivity: 0
     FOV: 0
@@ -3202,9 +3248,7 @@ Transform:
   - {fileID: 1575523274}
   - {fileID: 1601080474}
   - {fileID: 1696460057}
-  - {fileID: 1052334756}
-  - {fileID: 452175733}
-  - {fileID: 1336907605}
+  - {fileID: 1987287926}
   - {fileID: 381350940}
   - {fileID: 1480036805}
   m_Father: {fileID: 93357397}
@@ -4110,6 +4154,7 @@ MonoBehaviour:
     maxHp: 0
     charge: 0
     difficulty: 0
+    predetSettings: 0
     volume: 0
     sensitivity: 0
     FOV: 0
@@ -4235,6 +4280,7 @@ GameObject:
   - component: {fileID: 1052334759}
   - component: {fileID: 1052334758}
   - component: {fileID: 1052334757}
+  - component: {fileID: 1052334760}
   m_Layer: 5
   m_Name: Small
   m_TagString: Untagged
@@ -4255,7 +4301,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 603125822}
-  m_Father: {fileID: 711643270}
+  m_Father: {fileID: 1987287926}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4345,6 +4391,45 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1052334755}
   m_CullTransparentMesh: 1
+--- !u!114 &1052334760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052334755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c39b9967c3bfda41b02254c1d734c38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upButton: {fileID: 1601080473}
+  downButton: {fileID: 381350939}
+  rightButton: {fileID: 452175732}
+  leftButton: {fileID: 1696460056}
+  menuManager: {fileID: 182496066}
+  mainMenu: {fileID: 0}
+  optionsMenu: {fileID: 93357396}
+  archivesMenu: {fileID: 0}
+  difficultyMenu: {fileID: 0}
+  pauseMenu: {fileID: 1981518803}
+  dataToStore:
+    numArchive: 0
+    maxLevel: 0
+    maxHp: 0
+    charge: 0
+    difficulty: 0
+    predetSettings: 0
+    volume: 0
+    sensitivity: 0
+    FOV: 0
+    tutorialMessages: 0
+    subtitles: 0
+    subtitlesSize: 0
+    healthBar: 0
+    VSync: 0
+  creatingArchiveNum: 0
+  action: 15
 --- !u!1 &1064434010
 GameObject:
   m_ObjectHideFlags: 0
@@ -5403,6 +5488,7 @@ GameObject:
   - component: {fileID: 1336907608}
   - component: {fileID: 1336907607}
   - component: {fileID: 1336907606}
+  - component: {fileID: 1336907609}
   m_Layer: 5
   m_Name: Big
   m_TagString: Untagged
@@ -5423,7 +5509,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1558918136}
-  m_Father: {fileID: 711643270}
+  m_Father: {fileID: 1987287926}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5513,6 +5599,45 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1336907604}
   m_CullTransparentMesh: 1
+--- !u!114 &1336907609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336907604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c39b9967c3bfda41b02254c1d734c38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upButton: {fileID: 1601080473}
+  downButton: {fileID: 381350939}
+  rightButton: {fileID: 1336907604}
+  leftButton: {fileID: 452175732}
+  menuManager: {fileID: 182496066}
+  mainMenu: {fileID: 0}
+  optionsMenu: {fileID: 93357396}
+  archivesMenu: {fileID: 0}
+  difficultyMenu: {fileID: 0}
+  pauseMenu: {fileID: 1981518803}
+  dataToStore:
+    numArchive: 0
+    maxLevel: 0
+    maxHp: 0
+    charge: 0
+    difficulty: 0
+    predetSettings: 0
+    volume: 0
+    sensitivity: 0
+    FOV: 0
+    tutorialMessages: 0
+    subtitles: 0
+    subtitlesSize: 0
+    healthBar: 0
+    VSync: 0
+  creatingArchiveNum: 0
+  action: 17
 --- !u!1 &1345360993
 GameObject:
   m_ObjectHideFlags: 0
@@ -5739,6 +5864,7 @@ MonoBehaviour:
     maxHp: 0
     charge: 0
     difficulty: 0
+    predetSettings: 0
     volume: 0
     sensitivity: 0
     FOV: 0
@@ -6392,7 +6518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c39b9967c3bfda41b02254c1d734c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upButton: {fileID: 1480036804}
+  upButton: {fileID: 381350939}
   downButton: {fileID: 0}
   rightButton: {fileID: 0}
   leftButton: {fileID: 0}
@@ -6408,6 +6534,7 @@ MonoBehaviour:
     maxHp: 0
     charge: 0
     difficulty: 0
+    predetSettings: 0
     volume: 0
     sensitivity: 0
     FOV: 0
@@ -6417,7 +6544,7 @@ MonoBehaviour:
     healthBar: 0
     VSync: 0
   creatingArchiveNum: 0
-  action: 7
+  action: 19
 --- !u!114 &1480036807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6802,6 +6929,7 @@ MonoBehaviour:
     maxHp: 0
     charge: 0
     difficulty: 0
+    predetSettings: 0
     volume: 0
     sensitivity: 0
     FOV: 0
@@ -6882,6 +7010,7 @@ MonoBehaviour:
     maxHp: 0
     charge: 0
     difficulty: 0
+    predetSettings: 0
     volume: 0
     sensitivity: 0
     FOV: 0
@@ -7299,10 +7428,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c39b9967c3bfda41b02254c1d734c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upButton: {fileID: 1696460056}
-  downButton: {fileID: 0}
-  rightButton: {fileID: 0}
-  leftButton: {fileID: 0}
+  upButton: {fileID: 1601080473}
+  downButton: {fileID: 381350939}
+  rightButton: {fileID: 1052334755}
+  leftButton: {fileID: 1696460056}
   menuManager: {fileID: 182496066}
   mainMenu: {fileID: 0}
   optionsMenu: {fileID: 93357396}
@@ -7315,6 +7444,7 @@ MonoBehaviour:
     maxHp: 0
     charge: 0
     difficulty: 0
+    predetSettings: 0
     volume: 0
     sensitivity: 0
     FOV: 0
@@ -7324,7 +7454,7 @@ MonoBehaviour:
     healthBar: 0
     VSync: 0
   creatingArchiveNum: 0
-  action: 7
+  action: 14
 --- !u!114 &1696460059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8293,6 +8423,40 @@ Transform:
   - {fileID: 236472394}
   - {fileID: 1931598772}
   m_Father: {fileID: 1345360997}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1987287925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1987287926}
+  m_Layer: 0
+  m_Name: Subtitles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1987287926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987287925}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1052334756}
+  - {fileID: 452175733}
+  - {fileID: 1336907605}
+  m_Father: {fileID: 711643270}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2050648363
