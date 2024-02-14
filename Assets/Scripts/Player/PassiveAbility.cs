@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class PassiveAbility : MonoBehaviour
@@ -34,6 +35,7 @@ public class PassiveAbility : MonoBehaviour
         playerHp = GetComponent<PlayerHp>();
         cam = GameObject.Find("Game Camera");
         camBehaviour = cam.GetComponent<CameraBehaviour>();
+        necessaryCharge += LoadPlayerData(Settings.archiveNum).difficulty * 15;
     }
 
     // Update is called once per frame
@@ -84,12 +86,22 @@ public class PassiveAbility : MonoBehaviour
                                     passiveCharge = 0;
                                     break;
                                 case passiveType.hp:
-                                    if (playerHp.playerHp < 4)
+                                    if(LoadPlayerData(Settings.archiveNum).difficulty == 2)
+                                    {
+                                        if (playerHp.playerHp < 3)
+                                        {
+                                            RestoreHp(1);
+                                            isCharged = false;
+                                            passiveCharge = 0;
+                                            break;
+                                        }
+                                    }
+                                    else if (playerHp.playerHp < 4)
                                     {
                                         RestoreHp(1);
                                         isCharged = false;
                                         passiveCharge = 0;
-
+                                        break;
                                     }
                                     break;
 
@@ -121,6 +133,22 @@ public class PassiveAbility : MonoBehaviour
 
     private void RestoreHp(int hp)
     {
-        playerHp.playerHp += hp; ;
+        playerHp.playerHp += hp;
+    }
+
+    public DataToStore LoadPlayerData(int numArchive)
+    {
+        string path = Application.streamingAssetsPath + "/Archive" + numArchive.ToString() + ".json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            Debug.Log(json);
+            return JsonUtility.FromJson<DataToStore>(json);
+        }
+        else
+        {
+            Debug.LogWarning("No se encontraron datos de jugador guardados.");
+            return null;
+        }
     }
 }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHp : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class PlayerHp : MonoBehaviour
     private float damagedTime = 0.25f;
     private float cameraShakeTimer;
 
+    public BossManager bossManager;
     GameObject GameCamera;
     CameraBehaviour cameraBehaviour;
 
@@ -74,5 +77,53 @@ public class PlayerHp : MonoBehaviour
         isInvencible = true;
         invencibilityTimer = 0;
         gotDamaged = true;
+        if(playerHp <= 0)
+        {
+            if (LoadPlayerData(Settings.archiveNum).difficulty == 2) File.Delete(Application.streamingAssetsPath + "/Archive" + Settings.archiveNum.ToString() + ".json");
+            else
+            {
+                DataToStore data = new DataToStore();
+                data.maxLevel = bossManager.currentBoss;
+                data.maxHp = 3;
+                data.charge = 0;
+                data.difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
+                data.predetSettings = Settings.predetSettings;
+                data.volume = Settings.volume;
+                data.sensitivity = Settings.sensitivity;
+                data.FOV = Settings.fov;
+                data.tutorialMessages = Settings.tutorialMessages;
+                data.subtitles = Settings.subtitles;
+                data.subtitlesSize = Settings.subtitlesSize;
+                data.healthBar = Settings.healthBar;
+                data.VSync = Settings.VSync;
+                SavePlayerData(data, Settings.archiveNum);
+            }
+            SceneManager.LoadScene(1);
+        }
     }
+    public DataToStore LoadPlayerData(int numArchive)
+    {
+        string path = Application.streamingAssetsPath + "/Archive" + numArchive.ToString() + ".json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            Debug.Log(json);
+            return JsonUtility.FromJson<DataToStore>(json);
+        }
+        else
+        {
+            Debug.LogWarning("No se encontraron datos de jugador guardados.");
+            return null;
+        }
+    }
+
+    public void SavePlayerData(DataToStore data, int num)
+    {
+        string json = JsonUtility.ToJson(data);
+        string archiveNum = "Archive" + num.ToString(); ;
+        File.WriteAllText(Application.streamingAssetsPath + "/" + archiveNum + ".json", json);
+        Debug.Log("Archive " + num.ToString() + " Created");
+        //Comença Partida
+    }
+
 }

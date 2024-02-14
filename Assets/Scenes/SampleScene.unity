@@ -2605,6 +2605,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &496854576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 496854578}
+  - component: {fileID: 496854577}
+  m_Layer: 0
+  m_Name: BossManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &496854577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496854576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6f1368a8339b444a4f101afb4d1298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentBoss: 0
+--- !u!4 &496854578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496854576}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 249.29582, y: 973.01996, z: -0.0012512207}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &554403953
 GameObject:
   m_ObjectHideFlags: 0
@@ -5691,6 +5736,8 @@ MonoBehaviour:
   nonActivePassive: {fileID: 21300000, guid: f8d792ec32bd9da4c819ad2bc485bec9, type: 3}
   distanceAttack: {fileID: 21300000, guid: 40629eea3dae29348bc59cf8f97e1a08, type: 3}
   restoreHp: {fileID: 21300000, guid: dd55afe1ee60bd642959bdab88bea33b, type: 3}
+  auxColor: {r: 0, g: 0, b: 0, a: 0}
+  klk: 0
 --- !u!4 &1314470602
 Transform:
   m_ObjectHideFlags: 0
@@ -8378,7 +8425,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754425188}
-  m_LocalRotation: {x: 0.22652903, y: 0.00000001873723, z: -0.0000000043578106, w: 0.97400445}
+  m_LocalRotation: {x: 0.22652903, y: -0.00000001873723, z: 0.0000000043578106, w: 0.97400445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8853,6 +8900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHp: 0
+  bossManager: {fileID: 496854577}
 --- !u!114 &1966261794
 MonoBehaviour:
   m_ObjectHideFlags: 0

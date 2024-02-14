@@ -46,13 +46,13 @@ public class UIManager : MonoBehaviour
     }
     public void GetChargedAbility()
     {
-        if (ability.passiveCharge < 100.0f)
+        if (ability.passiveCharge < ability.necessaryCharge)
         {
             chargedPassive.sprite = nonActivePassive;
-            auxColor.r = ability.passiveCharge / 100;
-            auxColor.g = ability.passiveCharge / 100;
-            auxColor.b = ability.passiveCharge / 100;
-            auxColor.a = ability.passiveCharge / 50;
+            auxColor.r = ability.passiveCharge / ability.necessaryCharge;
+            auxColor.g = ability.passiveCharge / ability.necessaryCharge;
+            auxColor.b = ability.passiveCharge / ability.necessaryCharge;
+            auxColor.a = ability.passiveCharge / ability.necessaryCharge / 2;
             chargedPassive.color = auxColor;
         }
         else
