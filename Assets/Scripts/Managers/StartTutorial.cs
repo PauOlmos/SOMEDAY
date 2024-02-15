@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StartTutorial : MonoBehaviour
 {
@@ -13,9 +14,14 @@ public class StartTutorial : MonoBehaviour
     public bool spawningBoss = false;
     public float spawningBossTimer = 0.0f;
     public float spawningBossTime = 4.0f;
+
+    public float blackTimer = 0.0f;
+    public float blackDuration = 5.0f;
+    public Image black;
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.gameObject.GetComponent<Rigidbody>().useGravity = false;
         Boss.gameObject.GetComponent<Rigidbody>().useGravity = false;
         Boss.gameObject.GetComponent<Collider>().isTrigger = true;
         Camera.LookAt = initialPosition;
@@ -26,23 +32,34 @@ public class StartTutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if(Physics.Raycast(transform.position, Vector3.down, 1.5f + 0.2f, Ground))
+        blackTimer += Time.deltaTime;
+        if (blackTimer > blackDuration)
         {
-            spawningBoss = true;
-        }
-        if (spawningBoss)
-        {
-            spawningBossTimer += Time.deltaTime;
-            if(spawningBossTimer < spawningBossTime)
+            Debug.Log("!!!!!");
+            gameObject.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            if (Physics.Raycast(transform.position, Vector3.down, 1.5f + 0.2f, Ground))
             {
-                SpawnBoss();
+                spawningBoss = true;
             }
-            else
+            if (spawningBoss)
             {
-                BeginTutorial();
-                Destroy(gameObject.GetComponent<StartTutorial>());
+                spawningBossTimer += Time.deltaTime;
+                if (spawningBossTimer < spawningBossTime)
+                {
+                    SpawnBoss();
+                }
+                else
+                {
+                    BeginTutorial();
+                    Destroy(black.gameObject);
+                    Destroy(gameObject.GetComponent<StartTutorial>());
+                }
             }
+
         }
+        else black.CrossFadeAlpha(0.0f, blackDuration, false);
+        
+        
     }
 
     public void BeginTutorial()
