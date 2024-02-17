@@ -9,14 +9,18 @@ public class StartTutorial : MonoBehaviour
     public GameObject Boss;
     public CinemachineFreeLook Camera;
     public Transform initialPosition;
-
+    public Transform initialPlayerPosition;
+    public bool klk = true;
+    public BossManager BossManager;
     public LayerMask Ground;
     public bool spawningBoss = false;
     public float spawningBossTimer = 0.0f;
     public float spawningBossTime = 4.0f;
 
     public float blackTimer = 0.0f;
+    public float blackInitialTimer = 0.0f;
     public float blackDuration = 5.0f;
+    public float blackInitialDuration = 5.0f;
     public Image black;
     // Start is called before the first frame update
     void Start()
@@ -26,40 +30,58 @@ public class StartTutorial : MonoBehaviour
         Boss.gameObject.GetComponent<Collider>().isTrigger = true;
         Camera.LookAt = initialPosition;
         Camera.Follow = initialPosition;
-
+        BossManager.enabled = false;
+        transform.position = initialPlayerPosition.position;
+        transform.rotation = initialPlayerPosition.rotation;
     }
 
     // Update is called once per frame
     void Update()
     {
-        blackTimer += Time.deltaTime;
-        if (blackTimer > blackDuration)
+        if (klk)
         {
-            Debug.Log("!!!!!");
-            gameObject.gameObject.GetComponent<Rigidbody>().useGravity = true;
-            if (Physics.Raycast(transform.position, Vector3.down, 1.5f + 0.2f, Ground))
-            {
-                spawningBoss = true;
-            }
-            if (spawningBoss)
-            {
-                spawningBossTimer += Time.deltaTime;
-                if (spawningBossTimer < spawningBossTime)
-                {
-                    SpawnBoss();
-                }
-                else
-                {
-                    BeginTutorial();
-                    Destroy(black.gameObject);
-                    Destroy(gameObject.GetComponent<StartTutorial>());
-                }
-            }
-
+            transform.position = initialPlayerPosition.position;
+            transform.rotation = initialPlayerPosition.rotation;
         }
-        else black.CrossFadeAlpha(0.0f, blackDuration, false);
-        
-        
+        blackInitialTimer += Time.deltaTime;
+        if(blackInitialTimer > blackInitialDuration)
+        {
+            
+            blackTimer += Time.deltaTime;
+            if (blackTimer > blackDuration)
+            {
+                klk = false;
+                Debug.Log("!!!!!");
+                gameObject.GetComponent<Rigidbody>().useGravity = true;
+
+                if (Physics.Raycast(transform.position, Vector3.down, 1.5f + 0.2f, Ground))
+                {
+                    spawningBoss = true;
+                }
+                if (spawningBoss)
+                {
+                    Debug.Log("???????????");
+                    spawningBossTimer += Time.deltaTime;
+                    if (spawningBossTimer < spawningBossTime)
+                    {
+                        SpawnBoss();
+                    }
+                    else
+                    {
+                        BeginTutorial();
+                        Destroy(black.gameObject);
+                        Destroy(gameObject.GetComponent<StartTutorial>());
+                    }
+                }
+
+            }
+            else
+            {
+                black.CrossFadeAlpha(0.0f, blackDuration, false);
+            }
+        }
+
+
     }
 
     public void BeginTutorial()
@@ -82,6 +104,7 @@ public class StartTutorial : MonoBehaviour
     {
         Boss.GetComponent<Rigidbody>().useGravity = true;
         Boss.gameObject.GetComponent<Collider>().isTrigger = false;
+        BossManager.enabled = true;
     }
     public void ActivateCamera()
     {
