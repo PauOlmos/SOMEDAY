@@ -16,18 +16,20 @@ public class Parry : MonoBehaviour
     GameObject player;
     PlayerMovement pMov;
     PlayerAttack pAttack;
+    PlayerHp pHp;
     void Start()
     {
         player = GameObject.Find("Player");
         pMov = player.GetComponent<PlayerMovement>();
         passiveAbility = player.GetComponent<PassiveAbility>();
         pAttack = GameObject.Find("Sword").GetComponent<PlayerAttack>();
+        pHp = gameObject.GetComponent<PlayerHp>();
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if(Input.GetButtonDown("Parry") && parryActive == true && pMov.grounded == true && pMov.canParry == true && pAttack.attacking == false)
+    {//Que no estigui invencible
+        if(Input.GetButtonDown("Parry") && parryActive == true && pMov.grounded == true && pMov.canParry == true && pAttack.attacking == false && pHp.isInvencible == false)
         {
             UseParry();
         }
@@ -40,6 +42,7 @@ public class Parry : MonoBehaviour
                 SetParry(false);
                 //pMov.canAttack = true;
                 parrying = false;
+                player.GetComponentInChildren<BoxCollider>().enabled = true;
             }
             else
             {
@@ -94,6 +97,7 @@ public class Parry : MonoBehaviour
         SetParry(true);
         parryActive = false;
         parrying = true;
+        player.GetComponentInChildren<BoxCollider>().enabled = false;
     }
 
     void SetParry(bool active)

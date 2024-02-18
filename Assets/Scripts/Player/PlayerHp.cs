@@ -9,7 +9,7 @@ public class PlayerHp : MonoBehaviour
 {
     public int playerHp;
     private float invencibilityCooldown = 0.75f;
-    private bool isInvencible;
+    public bool isInvencible;
     private float invencibilityTimer;
     private bool gotDamaged = false;
     private float damagedTime = 0.25f;

@@ -115,20 +115,13 @@ public class TutorialBoss : MonoBehaviour
                         canMove = false;
                         attackType = AttackType.proximity;
                         farTimer = 0;
+
+                        agent.speed = 3.5f;
                     }
                     else
                     {
                         farTimer += Time.deltaTime;
-                        if(farTimer > 7.5f)
-                        {
-                            agent.destination = player.transform.position;
-                            agent.enabled = false;
-                            canAttack = true;
-                            canMove = false;
-                            attackType = AttackType.distance;
-                            farTimer = 0;
-                            JumpToPosition(player.transform.position, Vector3.Distance(player.transform.position, gameObject.transform.position), 10.0f);
-                        }
+                        if(farTimer > 7.5f) agent.speed = 7;
                     }
                 }
                 if (canAttack && gameObject.GetComponent<EnemyHP>().stun == false)

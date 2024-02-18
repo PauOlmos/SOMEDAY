@@ -165,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
             Dash();
         }
         
-        if(Input.GetButtonDown("Jump") && grounded && canJump == true) {
+        if(Input.GetButtonDown("Jump") && grounded && canJump == true && pStatus != playerState.charging) {
             Jump();
         }
         else
