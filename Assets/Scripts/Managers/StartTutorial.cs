@@ -26,7 +26,6 @@ public class StartTutorial : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.gameObject.GetComponent<Rigidbody>().useGravity = false;
         Boss.gameObject.GetComponent<Rigidbody>().useGravity = false;
         Boss.gameObject.GetComponent<Collider>().isTrigger = true;
         Camera.LookAt = initialPosition;
@@ -53,7 +52,7 @@ public class StartTutorial : MonoBehaviour
             {
                 klk = false;
                 Debug.Log("!!!!!");
-                gameObject.GetComponent<Rigidbody>().useGravity = true;
+                gameObject.GetComponentInChildren<Rigidbody>().useGravity = true;
 
                 if (Physics.Raycast(transform.position, Vector3.down, 1.5f + 0.2f, Ground))
                 {

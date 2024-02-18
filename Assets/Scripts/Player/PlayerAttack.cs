@@ -51,9 +51,36 @@ public class PlayerAttack : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Boss" || other.gameObject.tag == "Enemy")
+        if (other != null)
         {
-            other.gameObject.GetComponent<EnemyHP>().DamageEnemy(1);
+
+            if (other.gameObject.tag == "Boss" || other.gameObject.tag == "Enemy" || other.gameObject.tag == "WeakPoint")
+            {
+
+                if (other.gameObject.tag == "WeakPoint")
+                {
+                    Debug.Log("WeakPointHit");
+                    other.gameObject.GetComponentInParent<EnemyHP>().DamageEnemy(1,true);
+                }
+                else other.gameObject.GetComponent<EnemyHP>().DamageEnemy(1,false);
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision != null)
+        {
+
+            if (collision.gameObject.tag == "Boss" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "WeakPoint")
+            {
+                if (collision.gameObject.tag == "WeakPoint")
+                {
+                    Debug.Log("WeakPointHit");
+                    collision.gameObject.GetComponentInParent<EnemyHP>().DamageEnemy(1,true);
+                }
+                else collision.gameObject.GetComponent<EnemyHP>().DamageEnemy(1,false);
+            }
         }
     }
 

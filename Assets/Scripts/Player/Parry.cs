@@ -17,13 +17,16 @@ public class Parry : MonoBehaviour
     PlayerMovement pMov;
     PlayerAttack pAttack;
     PlayerHp pHp;
+
+    public LayerMask attack;
+    public LayerMask nothing;
     void Start()
     {
         player = GameObject.Find("Player");
         pMov = player.GetComponent<PlayerMovement>();
         passiveAbility = player.GetComponent<PassiveAbility>();
         pAttack = GameObject.Find("Sword").GetComponent<PlayerAttack>();
-        pHp = gameObject.GetComponent<PlayerHp>();
+        pHp = player.GetComponent<PlayerHp>();
     }
 
     // Update is called once per frame
@@ -42,7 +45,8 @@ public class Parry : MonoBehaviour
                 SetParry(false);
                 //pMov.canAttack = true;
                 parrying = false;
-                player.GetComponentInChildren<BoxCollider>().enabled = true;
+                player.GetComponentInChildren<BoxCollider>().excludeLayers = nothing;
+
             }
             else
             {
@@ -62,12 +66,16 @@ public class Parry : MonoBehaviour
         {
             if (other.gameObject.tag == "BasicProjectile") 
             {
+                Debug.Log(other.gameObject.name);
                 passiveAbility.passiveCharge += 2.5f;
+                other.gameObject.transform.localScale = Vector3.zero;
                 Destroy(other.gameObject);
+                Debug.Log(other.gameObject.transform.position);
             }
             if (other.gameObject.tag == "Parryable")
             {
-                Debug.Log("NiceParryG");
+                Debug.Log(other.gameObject.name);
+
                 passiveAbility.passiveCharge += 5.0f;
                 other.gameObject.tag = "ParriedAttack";
             }
@@ -80,12 +88,17 @@ public class Parry : MonoBehaviour
         {
             if (collision.gameObject.tag == "BasicProjectile")
             {
+                Debug.Log(collision.gameObject.name);
+
                 passiveAbility.passiveCharge += 2.5f;
+                collision.gameObject.transform.Translate(Vector3.up * 10000.0f);
                 Destroy(collision.gameObject);
+                Debug.Log(collision.gameObject.transform.position);
             }
             if (collision.gameObject.tag == "Parryable")
             {
-                Debug.Log("NiceParryG");
+                Debug.Log(collision.gameObject.name);
+
                 passiveAbility.passiveCharge += 5.0f;
                 collision.gameObject.tag = "ParriedAttack";
             }
@@ -97,7 +110,7 @@ public class Parry : MonoBehaviour
         SetParry(true);
         parryActive = false;
         parrying = true;
-        player.GetComponentInChildren<BoxCollider>().enabled = false;
+        player.GetComponentInChildren<BoxCollider>().excludeLayers = attack;
     }
 
     void SetParry(bool active)

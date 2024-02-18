@@ -11,6 +11,7 @@ TagManager:
   - Boss
   - Enemy
   - Level
+  - WeakPoint
   layers:
   - Default
   - TransparentFX

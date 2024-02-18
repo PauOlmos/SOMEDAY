@@ -19,9 +19,9 @@ public class EnemyHP : MonoBehaviour
         
     }
 
-    public void DamageEnemy(int damage)
+    public void DamageEnemy(int damage, bool weakPoint)
     {
-        if (canBeDamaged)
+        if (canBeDamaged || weakPoint)
         {
             hp -= damage;
             canBeDamaged = false;

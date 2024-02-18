@@ -40,7 +40,7 @@ public class TutorialBoss : MonoBehaviour
     public float farTimer = 0.0f;
 
     public float stunTimer = 0.0f;
-    
+    public GameObject weakPoint;
     
     public enum MovementState
     {
@@ -148,15 +148,10 @@ public class TutorialBoss : MonoBehaviour
                             }
                             break;
 
-                        case AttackType.distance:
-
-                            //if(Physics.Raycast(transform.position, Vector3.down, 2f + 0.2f, Ground));
-
-                            break;
                     }
                 }
-               
 
+                weakPoint.SetActive(gameObject.GetComponent<EnemyHP>().stun);
                 if(gameObject.GetComponent<EnemyHP>().stun == true)
                 {
                     stunTimer += Time.deltaTime;

@@ -57,7 +57,7 @@ public class SeekingProjectile : MonoBehaviour
         {
             if (shotByPlayer)
             {
-                other.gameObject.GetComponent<EnemyHP>().DamageEnemy(2);
+                other.gameObject.GetComponent<EnemyHP>().DamageEnemy(2,false);
                 Destroy(gameObject);
             }
         }

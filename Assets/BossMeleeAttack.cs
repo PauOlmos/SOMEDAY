@@ -1,9 +1,11 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BossMeleeAttack : MonoBehaviour
 {
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +17,6 @@ public class BossMeleeAttack : MonoBehaviour
     {
         if(gameObject.tag == "ParriedAttack")
         {
-            gameObject.GetComponentInParent<EnemyHP>().canBeDamaged = true;
             gameObject.GetComponentInParent<EnemyHP>().stun = true;
             gameObject.SetActive(false);
         }

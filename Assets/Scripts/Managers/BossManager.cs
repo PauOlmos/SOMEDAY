@@ -33,6 +33,7 @@ public class BossManager : MonoBehaviour
     public NavMeshAgent agent;
     public float transfromTimer = 0.0f;
     public GameObject proximityArea;
+    public GameObject weakPoint;
     void Start()
     {
         ActivateBoss(currentBoss);
@@ -58,6 +59,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<TutorialBoss>().Ground = 6;
                 boss.GetComponent<TutorialBoss>().agent = agent;
                 boss.GetComponent<TutorialBoss>().proximityArea = proximityArea;
+                boss.GetComponent<TutorialBoss>().weakPoint = weakPoint;
                 break;
                 default: break;
         }
