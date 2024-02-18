@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class TutorialBoss : MonoBehaviour
@@ -26,13 +27,23 @@ public class TutorialBoss : MonoBehaviour
     public GameObject[] circlesPrefabs = new GameObject[3];
 
     public int circlesCount = 0;
+
+    public int phase = 0;
+    public int maxPhases = 3;
+
+    public NavMeshAgent agent;
+
+    public GameObject proximityArea;
+    public float proximityAreaTimer = 0.0f;
+
+    public float stunTimer = 0.0f;
     public enum MovementState
     {
         none, jump,
     }
     public enum AttackType
     {
-        none, circles
+        none, circles, proximity,distance,
     }
 
     public MovementState movementState = MovementState.none;
@@ -45,41 +56,118 @@ public class TutorialBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canMove)
+        switch (phase)
         {
-            switch (movementState)
-            {
-                case MovementState.none:
+            case 0:
+                if (canMove)
+                {
 
-                    circlesAttackChargeTimer += Time.deltaTime;
-                    if(circlesAttackChargeTimer > circlesAttackCharge)
+                    switch (movementState)
                     {
-                        circlesAttackChargeTimer = 0;
-                        movementState = MovementState.jump;
+                        case MovementState.none:
+
+                            circlesAttackChargeTimer += Time.deltaTime;
+                            if (circlesAttackChargeTimer > circlesAttackCharge)
+                            {
+                                circlesAttackChargeTimer = 0;
+                                movementState = MovementState.jump;
+                            }
+
+                            break;
+                        case MovementState.jump:
+                            JumpMovement();
+                            break;
+                        default: break;
                     }
+                }
+                if (canAttack)
+                {
+                    switch (attackType)
+                    {
+                        case AttackType.none:
 
-                    break;
-                case MovementState.jump:
-                    JumpMovement();
-                    break;
-                default: break;
-            }
-        }
-        if (canAttack)
-        {
-            switch (attackType)
-            {
-                case AttackType.none:
+                            break;
+                        case AttackType.circles:
+                            int value = Random.Range(3, 6);
+                            canAttack = CirclesAttack(value);
 
-                    break;
-                case AttackType.circles:
-                    int value = Random.Range(3, 6);
-                    canAttack = CirclesAttack(value);
-                    
-                    break;
-                default: break;
-            }
+                            break;
+                        default: break;
+                    }
+                }
+                break;
+
+            case 1:
+
+                if (canMove && gameObject.GetComponent<EnemyHP>().stun == false)
+                {
+                    agent.destination = player.transform.position;
+                    if(IsNear(3.0f))
+                    {
+                        agent.destination = gameObject.transform.position;
+                        canAttack = true;
+                        canMove = false;
+                        attackType = AttackType.proximity;
+                    }
+                }
+                if (canAttack && gameObject.GetComponent<EnemyHP>().stun == false)
+                {
+                    switch (attackType)
+                    {
+                        case AttackType.proximity:
+                            proximityAreaTimer += Time.deltaTime;
+                            if (proximityAreaTimer > 1.0f && proximityArea.activeInHierarchy == false)
+                            {
+                                proximityArea.SetActive(true);
+                                proximityArea.tag = "Parryable";
+                            }
+                            if (proximityAreaTimer > 1.5f)
+                            {
+                                proximityArea.SetActive(false);
+                                proximityArea.tag = "Parryable";
+                            }
+                            if (proximityAreaTimer > 2.5f)
+                            {
+                                proximityAreaTimer = 0.0f;
+                                canAttack = false;
+                                canMove = true;
+                            }
+                            break;
+
+                        case AttackType.distance:
+                            break;
+                    }
+                }
+               
+
+                if(gameObject.GetComponent<EnemyHP>().stun == true)
+                {
+                    stunTimer += Time.deltaTime;
+                    if(stunTimer > 3.0f)
+                    {
+                        stunTimer = 0.0f;
+                        gameObject.GetComponent<EnemyHP>().stun = false;
+                        gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
+                        canMove = true;
+                    }
+                    else
+                    {
+                        proximityAreaTimer = 0.0f;
+                        canAttack = false;
+                        canMove = false;
+                    }
+                }
+
+                break;
         }
+        
+    }
+
+
+    public bool IsNear(float distanceToAttack)
+    {
+        if(Vector3.Distance(player.transform.position, proximityArea.transform.position) < distanceToAttack) { return true; }
+        else { return false; }
     }
 
     public bool CirclesAttack(int numCircles)
@@ -106,11 +194,11 @@ public class TutorialBoss : MonoBehaviour
                     break;
                 case 1:
 
-                    InstanciarObjetos(10, 360, circlesPrefabs[value], 2, 10, true);
+                    CreateCircles(10, 360, circlesPrefabs[value], 2, 10, true);
 
                     break;
                 case 2:
-                    InstanciarObjetos(10, 360, circlesPrefabs[value], 2, 10,false);
+                    CreateCircles(10, 360, circlesPrefabs[value], 2, 10,false);
                     break;
             }
             circlesCount++;
@@ -118,26 +206,7 @@ public class TutorialBoss : MonoBehaviour
         }
         return true;
     }
-    /*void InstanciarObjetos(int numeroDeObjetos, float separacionAngular, GameObject objetoBase, float radio, float fuerzaHaciaAdelante)
-    {
-        for (int i = 0; i < numeroDeObjetos; i++)
-        {
-            // Calcular la posición alrededor del objeto principal
-            float angulo = i * (separacionAngular / numeroDeObjetos);
-            Vector3 posicion = transform.position + Quaternion.Euler(0, angulo, 0) * Vector3.forward * radio;
-
-            // Instanciar el objeto en la posición calculada
-            GameObject nuevoObjeto = Instantiate(objetoBase, posicion, Quaternion.identity);
-
-            // Aplicar fuerza hacia adelante al objeto
-            Rigidbody rb = nuevoObjeto.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.AddForce(nuevoObjeto.transform.forward * fuerzaHaciaAdelante, ForceMode.Impulse);
-            }
-        }
-    }*/
-    void InstanciarObjetos(int numberOfCircles, float angularSeparation,GameObject circlePrefab, float radius, float force, bool discontinious)
+    void CreateCircles(int numberOfCircles, float angularSeparation,GameObject circlePrefab, float radius, float force, bool discontinious)
     {
         for (int i = 0; i < numberOfCircles; i++)
         {

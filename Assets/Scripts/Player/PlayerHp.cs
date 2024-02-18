@@ -68,6 +68,16 @@ public class PlayerHp : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 7)//7 = Attack
+        {
+            Debug.Log("Hit");
+            if (!isInvencible && other.gameObject.tag != "ParriedAttack") TakeDamage();
+            if (other.gameObject.tag == "BasicProjectile") Destroy(other.gameObject);
+        }
+    }
+
     public void TakeDamage()
     {
         Debug.Log("Damaged");

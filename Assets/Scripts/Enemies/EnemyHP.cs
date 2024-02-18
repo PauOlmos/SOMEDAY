@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyHP : MonoBehaviour
 {
     public int hp = 10;
+    public bool canBeDamaged = true;
+    public bool stun = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,10 @@ public class EnemyHP : MonoBehaviour
 
     public void DamageEnemy(int damage)
     {
-        hp -= damage;
+        if (canBeDamaged)
+        {
+            hp -= damage;
+            canBeDamaged = false;
+        }
     }
 }

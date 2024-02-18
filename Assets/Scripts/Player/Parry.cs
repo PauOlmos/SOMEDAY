@@ -64,6 +64,7 @@ public class Parry : MonoBehaviour
             }
             if (other.gameObject.tag == "Parryable")
             {
+                Debug.Log("NiceParryG");
                 passiveAbility.passiveCharge += 5.0f;
                 other.gameObject.tag = "ParriedAttack";
             }
