@@ -71,6 +71,23 @@ public class Parry : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 7)//7 = Attack
+        {
+            if (collision.gameObject.tag == "BasicProjectile")
+            {
+                passiveAbility.passiveCharge += 2.5f;
+                Destroy(collision.gameObject);
+            }
+            if (collision.gameObject.tag == "Parryable")
+            {
+                Debug.Log("NiceParryG");
+                passiveAbility.passiveCharge += 5.0f;
+                collision.gameObject.tag = "ParriedAttack";
+            }
+        }
+    }
 
     void UseParry()
     {

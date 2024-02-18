@@ -87,7 +87,7 @@ public class BossManager : MonoBehaviour
                             }
                             else
                             {
-                                boss.transform.localScale += Vector3.one * Time.deltaTime;
+                                boss.transform.localScale += Vector3.one * Time.deltaTime / 2;
                             }
                             
                         }

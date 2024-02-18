@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
 public class TutorialBoss : MonoBehaviour
@@ -36,7 +37,11 @@ public class TutorialBoss : MonoBehaviour
     public GameObject proximityArea;
     public float proximityAreaTimer = 0.0f;
 
+    public float farTimer = 0.0f;
+
     public float stunTimer = 0.0f;
+    
+    
     public enum MovementState
     {
         none, jump,
@@ -59,6 +64,7 @@ public class TutorialBoss : MonoBehaviour
         switch (phase)
         {
             case 0:
+                gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
                 if (canMove)
                 {
 
@@ -108,6 +114,21 @@ public class TutorialBoss : MonoBehaviour
                         canAttack = true;
                         canMove = false;
                         attackType = AttackType.proximity;
+                        farTimer = 0;
+                    }
+                    else
+                    {
+                        farTimer += Time.deltaTime;
+                        if(farTimer > 7.5f)
+                        {
+                            agent.destination = player.transform.position;
+                            agent.enabled = false;
+                            canAttack = true;
+                            canMove = false;
+                            attackType = AttackType.distance;
+                            farTimer = 0;
+                            JumpToPosition(player.transform.position, Vector3.Distance(player.transform.position, gameObject.transform.position), 10.0f);
+                        }
                     }
                 }
                 if (canAttack && gameObject.GetComponent<EnemyHP>().stun == false)
@@ -135,6 +156,9 @@ public class TutorialBoss : MonoBehaviour
                             break;
 
                         case AttackType.distance:
+
+                            //if(Physics.Raycast(transform.position, Vector3.down, 2f + 0.2f, Ground));
+
                             break;
                     }
                 }
@@ -239,13 +263,13 @@ public class TutorialBoss : MonoBehaviour
         {
             Debug.Log("Near");
             Vector3 posicionSalto = RandomPositionInCircle(tutorialMap.transform.position, radius);
-            JumpToPosition(posicionSalto, Vector3.Distance(posicionSalto, gameObject.transform.position));
+            JumpToPosition(posicionSalto, Vector3.Distance(posicionSalto, gameObject.transform.position),0.5f);
             canMove = false;    
         }
         else
         {
             Debug.Log("Far" + Vector3.Distance(player.transform.position, gameObject.transform.position));
-            JumpToPosition(player.transform.position, Vector3.Distance(player.transform.position, gameObject.transform.position));
+            JumpToPosition(player.transform.position, Vector3.Distance(player.transform.position, gameObject.transform.position), 0.5f);
             canMove = false;
         }
     }
@@ -261,7 +285,7 @@ public class TutorialBoss : MonoBehaviour
         return new Vector3(x, center.y, z);
     }
 
-    private void JumpToPosition(Vector3 targetPosition, float jumpDistance)
+    private void JumpToPosition(Vector3 targetPosition, float jumpDistance, float jumpForceMultiplier)
     {
         // Calcula la dirección hacia la posición objetivo
         Vector3 direccionSalto = targetPosition - transform.position;
@@ -274,10 +298,11 @@ public class TutorialBoss : MonoBehaviour
         Vector3 fuerzaSalto = direccionNormalizada * jumpDistance/ 2;
 
         // Aplica una fuerza hacia arriba para simular el salto
-        gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpDistance/ 2, ForceMode.VelocityChange);
+        gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpDistance * jumpForceMultiplier, ForceMode.VelocityChange);
 
         // Aplica la fuerza del salto en la dirección calculada
         gameObject.GetComponent<Rigidbody>().AddForce(fuerzaSalto, ForceMode.VelocityChange);
+        Debug.Log("JumpToPlayer");
     }
 
     private void OnCollisionEnter(Collision collision)
