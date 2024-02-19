@@ -20,6 +20,8 @@ public class Parry : MonoBehaviour
 
     public LayerMask attack;
     public LayerMask nothing;
+
+    public Transform parryPos;
     void Start()
     {
         player = GameObject.Find("Player");
@@ -115,6 +117,17 @@ public class Parry : MonoBehaviour
 
     void SetParry(bool active)
     {
+        if (active)
+        {
+            gameObject.transform.position = parryPos.position;
+            gameObject.transform.rotation = parryPos.rotation;
+        }
+        else
+        {
+            gameObject.transform.position = new Vector3(0,-40000,0);
+
+        }
+
         gameObject.GetComponent<MeshRenderer>().enabled = active;
         gameObject.GetComponent<BoxCollider>().enabled = active;
 

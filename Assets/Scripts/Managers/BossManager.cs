@@ -81,7 +81,7 @@ public class BossManager : MonoBehaviour
                 switch (boss.GetComponent<TutorialBoss>().phase)
                 {
                     case 0:
-                        if (boss.GetComponent<EnemyHP>().hp < 7)
+                        if (boss.GetComponent<EnemyHP>().hp < 6)
                         {
                             transfromTimer += Time.deltaTime;
                             if(transfromTimer > 3.0f)
@@ -102,7 +102,7 @@ public class BossManager : MonoBehaviour
                         }
                         break;
                     case 1:
-                        if (boss.GetComponent<EnemyHP>().hp < 2)
+                        if (boss.GetComponent<EnemyHP>().hp < 3)
                         {
                             transfromTimer += Time.deltaTime;
                             if (transfromTimer > 3.0f)
