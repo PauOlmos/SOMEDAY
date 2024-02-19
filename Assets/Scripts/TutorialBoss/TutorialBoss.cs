@@ -43,14 +43,15 @@ public class TutorialBoss : MonoBehaviour
     public GameObject weakPoint;
 
     public float startSpinTimer;
+    public float spinTimer;
     public Vector3 spinDirection;
     public enum MovementState
     {
-        none, jump, startSpinning,spin,holdSpin
+        none, jump, startSpinning, spin, holdSpin
     }
     public enum AttackType
     {
-        none, circles, proximity,distance,
+        none, circles, proximity, distance,
     }
 
     public MovementState movementState = MovementState.none;
@@ -110,7 +111,7 @@ public class TutorialBoss : MonoBehaviour
                 if (canMove && gameObject.GetComponent<EnemyHP>().stun == false)
                 {
                     agent.destination = player.transform.position;
-                    if(IsNear(3.0f))
+                    if (IsNear(3.0f))
                     {
                         agent.destination = gameObject.transform.position;
                         canAttack = true;
@@ -123,7 +124,7 @@ public class TutorialBoss : MonoBehaviour
                     else
                     {
                         farTimer += Time.deltaTime;
-                        if(farTimer > 7.5f) agent.speed = 7;
+                        if (farTimer > 7.5f) agent.speed = 7;
                     }
                 }
                 if (canAttack && gameObject.GetComponent<EnemyHP>().stun == false)
@@ -154,10 +155,10 @@ public class TutorialBoss : MonoBehaviour
                 }
 
                 weakPoint.SetActive(gameObject.GetComponent<EnemyHP>().stun);
-                if(gameObject.GetComponent<EnemyHP>().stun == true)
+                if (gameObject.GetComponent<EnemyHP>().stun == true)
                 {
                     stunTimer += Time.deltaTime;
-                    if(stunTimer > 3.0f)
+                    if (stunTimer > 3.0f)
                     {
                         stunTimer = 0.0f;
                         gameObject.GetComponent<EnemyHP>().stun = false;
@@ -184,47 +185,47 @@ public class TutorialBoss : MonoBehaviour
                         if (startSpinTimer > 3.0f)
                         {
                             movementState = MovementState.spin;
-                            spinDirection = gameObject.transform.position - player.transform.position;
+                            spinDirection = player.transform.position - gameObject.transform.position;
                             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
-                            StartCoroutine(AddForceForDuration());
                         }
                         break;
                     case MovementState.spin:
                         gameObject.transform.Rotate(Vector3.up * startSpinTimer);
+                        spinTimer += Time.deltaTime;
+                        if(spinTimer > 15.0f)
+                        {
+                            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                            gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                            movementState = MovementState.holdSpin;
+                            spinTimer = 0;
+                            startSpinTimer = 0;
+                        }
+                        else
+                        {
+                            gameObject.GetComponent<Rigidbody>().AddForce(spinDirection * 1, ForceMode.VelocityChange);
+                        }
                         break;
-                        default: break; 
+                    default: break;
                 }
 
                 break;
         }
-        
-    }
-    IEnumerator AddForceForDuration()
-    {
-        // Add force in the specified direction
-        gameObject.GetComponent<Rigidbody>().AddForce(spinDirection.normalized * 100, ForceMode.VelocityChange);
 
-        // Wait for the specified duration
-        yield return new WaitForSeconds(15.0f);
-
-        // Remove the force after the duration
-        //gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        //gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
     }
 
     public bool IsNear(float distanceToAttack)
     {
-        if(Vector3.Distance(player.transform.position, proximityArea.transform.position) < distanceToAttack) { return true; }
+        if (Vector3.Distance(player.transform.position, proximityArea.transform.position) < distanceToAttack) { return true; }
         else { return false; }
     }
 
     public bool CirclesAttack(int numCircles)
     {
         circlesAttackCooldown += Time.deltaTime;
-        if(circlesCount == numCircles)
+        if (circlesCount == numCircles)
         {
             circlesCount = 0;
-            movementState = MovementState.none; 
+            movementState = MovementState.none;
             circlesAttackCooldown = 0;
             canAttack = false;
             canMove = true;
@@ -246,7 +247,7 @@ public class TutorialBoss : MonoBehaviour
 
                     break;
                 case 2:
-                    CreateCircles(10, 360, circlesPrefabs[value], 2, 10,false);
+                    CreateCircles(10, 360, circlesPrefabs[value], 2, 10, false);
                     break;
             }
             circlesCount++;
@@ -254,7 +255,7 @@ public class TutorialBoss : MonoBehaviour
         }
         return true;
     }
-    void CreateCircles(int numberOfCircles, float angularSeparation,GameObject circlePrefab, float radius, float force, bool discontinious)
+    void CreateCircles(int numberOfCircles, float angularSeparation, GameObject circlePrefab, float radius, float force, bool discontinious)
     {
         for (int i = 0; i < numberOfCircles; i++)
         {
@@ -265,7 +266,7 @@ public class TutorialBoss : MonoBehaviour
             // Instanciar el objeto en la posición calculada
             GameObject circle = Instantiate(circlePrefab, position, Quaternion.identity);
             Quaternion forwardRotation = Quaternion.LookRotation(position - transform.position, Vector3.up);
-           
+
             // Aplicar la rotación al objeto
             circle.transform.rotation = forwardRotation;
             // Aplicar fuerza hacia adelante al objeto
@@ -287,8 +288,8 @@ public class TutorialBoss : MonoBehaviour
         {
             Debug.Log("Near");
             Vector3 posicionSalto = RandomPositionInCircle(tutorialMap.transform.position, radius);
-            JumpToPosition(posicionSalto, Vector3.Distance(posicionSalto, gameObject.transform.position),0.5f);
-            canMove = false;    
+            JumpToPosition(posicionSalto, Vector3.Distance(posicionSalto, gameObject.transform.position), 0.5f);
+            canMove = false;
         }
         else
         {
@@ -319,7 +320,7 @@ public class TutorialBoss : MonoBehaviour
         Vector3 direccionNormalizada = direccionSalto.normalized;
 
         // Calcula la fuerza del salto utilizando la dirección normalizada y la distancia del salto
-        Vector3 fuerzaSalto = direccionNormalizada * jumpDistance/ 2;
+        Vector3 fuerzaSalto = direccionNormalizada * jumpDistance / 2;
 
         // Aplica una fuerza hacia arriba para simular el salto
         gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpDistance * jumpForceMultiplier, ForceMode.VelocityChange);
@@ -338,6 +339,32 @@ public class TutorialBoss : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             canAttack = true;
         }
-    }
+        if (collision.gameObject.layer == 4 && phase == 2 || collision.gameObject.tag == "Player")//World
+        {
 
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            Vector3[] rayCastList = new Vector3[8];
+            int rayCastIndex = 0;
+            // Crear 8 rayos en todas las direcciones
+            for (int i = 0; i < 8; i++)
+            {
+                float angle = i * 45f;
+                Vector3 direction = Quaternion.Euler(0, angle, 0) * transform.forward;
+
+                RaycastHit hit;
+                // Lanzar el rayo en la dirección actual
+                if (!Physics.Raycast(transform.position, direction, out hit, 15.0f, 4))
+                {
+
+                    rayCastList[rayCastIndex] = direction;
+                    Debug.Log("Direction" + rayCastList[rayCastIndex]);
+                    rayCastIndex++;
+                }
+            }
+            int value = Random.Range(0, rayCastIndex);
+            spinDirection = rayCastList[value];
+            rayCastIndex = 0;
+        }
+    }
 }
