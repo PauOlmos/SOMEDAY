@@ -14,6 +14,8 @@ public class PlayerAttack : MonoBehaviour
     public bool attacking = false;
     PlayerMovement pMov;
     Parry parry;
+
+    public Transform attacPos;
     void Start()
     {
         pMov = GameObject.Find("Player").GetComponent<PlayerMovement>();
@@ -94,6 +96,16 @@ public class PlayerAttack : MonoBehaviour
 
     void SetAttack(bool active)
     {
+        if (active)
+        {
+            gameObject.transform.position = attacPos.position;
+            gameObject.transform.rotation = attacPos.rotation;
+        }
+        else
+        {
+            gameObject.transform.position = new Vector3(0, -30000, 0);
+
+        }
         gameObject.GetComponent<MeshRenderer>().enabled = active;
         gameObject.GetComponent<BoxCollider>().enabled = active;
 
