@@ -34,6 +34,11 @@ public class BossManager : MonoBehaviour
     public float transfromTimer = 0.0f;
     public GameObject proximityArea;
     public GameObject weakPoint;
+    public LayerMask Ground;
+
+    public GameObject Sword1;
+    public GameObject Sword2;
+
     void Start()
     {
         ActivateBoss(currentBoss);
@@ -60,6 +65,8 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<TutorialBoss>().agent = agent;
                 boss.GetComponent<TutorialBoss>().proximityArea = proximityArea;
                 boss.GetComponent<TutorialBoss>().weakPoint = weakPoint;
+                boss.GetComponent<TutorialBoss>().Sword1 = Sword1;
+                boss.GetComponent<TutorialBoss>().Sword2 = Sword2;
                 break;
                 default: break;
         }
@@ -106,6 +113,9 @@ public class BossManager : MonoBehaviour
                                 boss.GetComponent<TutorialBoss>().proximityArea.SetActive(false);
                                 boss.GetComponent<NavMeshAgent>().enabled = false;
                                 boss.GetComponent<TutorialBoss>().movementState = TutorialBoss.MovementState.startSpinning;
+                                boss.GetComponent<TutorialBoss>().Ground = Ground;
+                                boss.GetComponent<TutorialBoss>().Sword1.SetActive(true);
+                                boss.GetComponent<TutorialBoss>().Sword2.SetActive(true);
 
                             }
                         }

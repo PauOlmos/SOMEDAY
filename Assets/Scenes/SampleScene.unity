@@ -456,7 +456,7 @@ Transform:
   m_GameObject: {fileID: 19457620}
   m_LocalRotation: {x: 0.001328346, y: 0.2950048, z: 0.002778747, w: -0.95549077}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1131263945}
@@ -851,7 +851,7 @@ Transform:
   m_GameObject: {fileID: 66208956}
   m_LocalRotation: {x: -0, y: 0.8316701, z: -0, w: 0.55527014}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 528120050}
@@ -883,7 +883,7 @@ Transform:
   m_GameObject: {fileID: 66817299}
   m_LocalRotation: {x: -0, y: 0.88059974, z: -0, w: 0.47386098}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1121238906}
@@ -1097,7 +1097,7 @@ GameObject:
   - component: {fileID: 103655598}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1213,7 +1213,7 @@ Transform:
   m_GameObject: {fileID: 113587904}
   m_LocalRotation: {x: 0.0024799926, y: 0.71004784, z: 0.0018263556, w: -0.7041468}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1027054683}
@@ -1245,7 +1245,7 @@ Transform:
   m_GameObject: {fileID: 162438203}
   m_LocalRotation: {x: 0.0020821684, y: 0.5612677, z: 0.0022694755, w: -0.82762855}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1007745842}
@@ -1794,7 +1794,7 @@ Transform:
   m_GameObject: {fileID: 232815965}
   m_LocalRotation: {x: -0, y: 0.63171107, z: -0, w: 0.77520394}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1596213197}
@@ -1988,7 +1988,7 @@ Transform:
   m_GameObject: {fileID: 243775730}
   m_LocalRotation: {x: 0.0029072785, y: 0.88565874, z: 0.0010166978, w: -0.46432644}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1160910169}
@@ -2020,7 +2020,7 @@ Transform:
   m_GameObject: {fileID: 293435666}
   m_LocalRotation: {x: -0, y: 0.9813188, z: -0, w: 0.19238907}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1398203573}
@@ -2041,7 +2041,7 @@ GameObject:
   - component: {fileID: 303697537}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2222,7 +2222,7 @@ GameObject:
   - component: {fileID: 355231534}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2712,7 +2712,7 @@ Transform:
   m_GameObject: {fileID: 399085955}
   m_LocalRotation: {x: -0, y: 0.4707214, z: -0, w: 0.8822819}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1789836946}
@@ -2820,7 +2820,7 @@ Transform:
   m_GameObject: {fileID: 406044979}
   m_LocalRotation: {x: 0.0027930306, y: 0.835631, z: 0.0012980433, w: -0.54928267}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 434588452}
@@ -2841,7 +2841,7 @@ GameObject:
   - component: {fileID: 424480100}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2946,7 +2946,7 @@ GameObject:
   - component: {fileID: 434588453}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3574,6 +3574,11 @@ MonoBehaviour:
   transfromTimer: 0
   proximityArea: {fileID: 776516354}
   weakPoint: {fileID: 516542432}
+  Ground:
+    serializedVersion: 2
+    m_Bits: 64
+  Sword1: {fileID: 1914592617}
+  Sword2: {fileID: 1089133411}
 --- !u!4 &496854578
 Transform:
   m_ObjectHideFlags: 0
@@ -3614,7 +3619,7 @@ Transform:
   m_GameObject: {fileID: 505045705}
   m_LocalRotation: {x: 0.003074624, y: 0.9961446, z: -0.00018061404, w: -0.08767281}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1973010799}
@@ -3740,7 +3745,7 @@ GameObject:
   - component: {fileID: 528120051}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3856,7 +3861,7 @@ Transform:
   m_GameObject: {fileID: 535669840}
   m_LocalRotation: {x: -0, y: 0.38489196, z: -0, w: 0.92296165}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1857717459}
@@ -4039,7 +4044,7 @@ GameObject:
   - component: {fileID: 567022667}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -4477,7 +4482,7 @@ GameObject:
   - component: {fileID: 671005970}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -4752,7 +4757,7 @@ GameObject:
   - component: {fileID: 719404814}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -4944,7 +4949,7 @@ Transform:
   m_GameObject: {fileID: 755808249}
   m_LocalRotation: {x: 0.0022955297, y: 0.640039, z: 0.0020534073, w: -0.7683363}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2079793858}
@@ -5202,7 +5207,7 @@ Transform:
   m_GameObject: {fileID: 800805293}
   m_LocalRotation: {x: -0, y: 0.55531466, z: -0, w: 0.83164036}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 424480099}
@@ -5310,7 +5315,7 @@ Transform:
   m_GameObject: {fileID: 842524103}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1171265434}
@@ -5627,7 +5632,7 @@ Transform:
   m_GameObject: {fileID: 891573519}
   m_LocalRotation: {x: -0, y: 0.28467536, z: -0, w: 0.95862406}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 719404813}
@@ -5659,7 +5664,7 @@ Transform:
   m_GameObject: {fileID: 909691639}
   m_LocalRotation: {x: -0, y: 0.70926726, z: -0, w: 0.7049397}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2051637554}
@@ -5728,7 +5733,7 @@ Transform:
   m_GameObject: {fileID: 921111603}
   m_LocalRotation: {x: 0.0030774677, y: 0.9826696, z: 0.00012303237, w: -0.18534037}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1255438042}
@@ -5749,7 +5754,7 @@ GameObject:
   - component: {fileID: 938443322}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -6018,7 +6023,7 @@ GameObject:
   - component: {fileID: 987888980}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -6215,7 +6220,7 @@ GameObject:
   - component: {fileID: 1007745843}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -6320,7 +6325,7 @@ GameObject:
   - component: {fileID: 1027054684}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -6976,7 +6981,7 @@ GameObject:
   - component: {fileID: 1058299917}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -7227,13 +7232,118 @@ Transform:
   m_GameObject: {fileID: 1077345560}
   m_LocalRotation: {x: -0, y: 0.7729489, z: -0, w: 0.6344682}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 671005969}
   m_Father: {fileID: 0}
   m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 101.239, z: 0}
+--- !u!1 &1089133411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1089133412}
+  - component: {fileID: 1089133415}
+  - component: {fileID: 1089133414}
+  - component: {fileID: 1089133413}
+  m_Layer: 7
+  m_Name: BossSword2
+  m_TagString: NonParryable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1089133412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089133411}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalScale: {x: 1.418059, y: 0.46083, z: 0.46083}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1090940205}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1089133413
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089133411}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1089133414
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089133411}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1089133415
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089133411}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1090940201
 GameObject:
   m_ObjectHideFlags: 0
@@ -7312,6 +7422,8 @@ Transform:
   m_Children:
   - {fileID: 776516359}
   - {fileID: 516542433}
+  - {fileID: 1914592618}
+  - {fileID: 1089133412}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7340,7 +7452,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 1
 --- !u!114 &1090940207
 MonoBehaviour:
@@ -7735,7 +7847,7 @@ GameObject:
   - component: {fileID: 1121238907}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -7851,7 +7963,7 @@ Transform:
   m_GameObject: {fileID: 1125019284}
   m_LocalRotation: {x: 0.0029906225, y: 0.9257166, z: 0.00073628535, w: -0.37820542}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1611897734}
@@ -7872,7 +7984,7 @@ GameObject:
   - component: {fileID: 1131263946}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8008,7 +8120,7 @@ GameObject:
   - component: {fileID: 1160910170}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8113,7 +8225,7 @@ GameObject:
   - component: {fileID: 1171265435}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8399,7 +8511,7 @@ GameObject:
   - component: {fileID: 1255438043}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8515,7 +8627,7 @@ Transform:
   m_GameObject: {fileID: 1275258617}
   m_LocalRotation: {x: 0.0015859863, y: 0.38432556, z: 0.002640188, w: -0.9231925}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 987888979}
@@ -9461,7 +9573,7 @@ GameObject:
   - component: {fileID: 1388350902}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9738,7 +9850,7 @@ GameObject:
   - component: {fileID: 1398203574}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9854,7 +9966,7 @@ Transform:
   m_GameObject: {fileID: 1407254365}
   m_LocalRotation: {x: 0.0030519129, y: 0.9606529, z: 0.000414451, w: -0.27773485}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 103655597}
@@ -9886,7 +9998,7 @@ Transform:
   m_GameObject: {fileID: 1440555459}
   m_LocalRotation: {x: -0, y: 0.95760393, z: -0, w: 0.28808808}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 567022666}
@@ -10042,7 +10154,7 @@ GameObject:
   - component: {fileID: 1444671357}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -10456,7 +10568,7 @@ Transform:
   m_GameObject: {fileID: 1486653740}
   m_LocalRotation: {x: -0, y: 0.19244227, z: -0, w: 0.9813083}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1647971066}
@@ -10488,7 +10600,7 @@ Transform:
   m_GameObject: {fileID: 1535331467}
   m_LocalRotation: {x: -0, y: 0.92595226, z: -0, w: 0.3776406}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1058299916}
@@ -10898,7 +11010,7 @@ GameObject:
   - component: {fileID: 1596213198}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -11177,7 +11289,7 @@ Transform:
   m_GameObject: {fileID: 1608202975}
   m_LocalRotation: {x: -0, y: 0.995145, z: -0, w: 0.09842}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1685197564}
@@ -11198,7 +11310,7 @@ GameObject:
   - component: {fileID: 1611897735}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -11395,7 +11507,7 @@ GameObject:
   - component: {fileID: 1647971067}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -11511,7 +11623,7 @@ Transform:
   m_GameObject: {fileID: 1661924318}
   m_LocalRotation: {x: 0.00076876685, y: 0.1056133, z: 0.0029824371, w: -0.9944025}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1744088688}
@@ -11819,7 +11931,7 @@ GameObject:
   - component: {fileID: 1685197565}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12266,7 +12378,7 @@ GameObject:
   - component: {fileID: 1744088689}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12450,7 +12562,7 @@ GameObject:
   - component: {fileID: 1789836947}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12668,7 +12780,7 @@ GameObject:
   - component: {fileID: 1857717460}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12929,6 +13041,111 @@ RectTransform:
   m_AnchoredPosition: {x: 183, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1914592617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1914592618}
+  - component: {fileID: 1914592621}
+  - component: {fileID: 1914592620}
+  - component: {fileID: 1914592619}
+  m_Layer: 7
+  m_Name: BossSword1
+  m_TagString: NonParryable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1914592618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914592617}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 1.418059, y: 0.46083, z: 0.46083}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1090940205}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1914592619
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914592617}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1914592620
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914592617}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1914592621
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914592617}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1931598771
 GameObject:
   m_ObjectHideFlags: 0
@@ -13190,7 +13407,7 @@ Transform:
   m_GameObject: {fileID: 1967933306}
   m_LocalRotation: {x: 0.0026572805, y: 0.7797483, z: 0.0015571758, w: -0.62608546}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 938443321}
@@ -13319,7 +13536,7 @@ GameObject:
   - component: {fileID: 1973010800}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -13435,7 +13652,7 @@ Transform:
   m_GameObject: {fileID: 1973528476}
   m_LocalRotation: {x: -0, y: 0.09487458, z: -0, w: 0.9954893}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1444671356}
@@ -13673,7 +13890,7 @@ Transform:
   m_GameObject: {fileID: 2012152309}
   m_LocalRotation: {x: 0.0010482545, y: 0.19947965, z: 0.0028960484, w: -0.97989714}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 355231533}
@@ -13750,7 +13967,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2050648363}
-  m_LocalRotation: {x: 0.1810129, y: -0.000000016922145, z: 0.0000000031145773, w: 0.98348075}
+  m_LocalRotation: {x: 0.1810129, y: -0.000000016922144, z: 0.000000003114577, w: 0.98348075}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13773,7 +13990,7 @@ GameObject:
   - component: {fileID: 2051637555}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -13889,7 +14106,7 @@ Transform:
   m_GameObject: {fileID: 2064764282}
   m_LocalRotation: {x: 0.0030436195, y: 0.9999692, z: -0.00047150458, w: 0.0072319712}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 303697536}
@@ -14002,7 +14219,7 @@ GameObject:
   - component: {fileID: 2079793859}
   m_Layer: 3
   m_Name: WallCollider
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -14118,7 +14335,7 @@ Transform:
   m_GameObject: {fileID: 2092807708}
   m_LocalRotation: {x: 0.00185746, y: 0.48021483, z: 0.0024567833, w: -0.8771456}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95581, y: 56.056343, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1388350901}

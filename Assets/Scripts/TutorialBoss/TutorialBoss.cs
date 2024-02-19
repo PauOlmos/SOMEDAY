@@ -43,8 +43,15 @@ public class TutorialBoss : MonoBehaviour
     public GameObject weakPoint;
 
     public float startSpinTimer;
+    public float holdSpinTimer;
     public float spinTimer;
     public Vector3 spinDirection;
+
+    public GameObject[] walls;
+    public bool hasCollided = false;
+
+    public GameObject Sword1;
+    public GameObject Sword2;
     public enum MovementState
     {
         none, jump, startSpinning, spin, holdSpin
@@ -59,6 +66,7 @@ public class TutorialBoss : MonoBehaviour
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
+        walls = GameObject.FindGameObjectsWithTag("Wall");
     }
 
     // Update is called once per frame
@@ -185,14 +193,14 @@ public class TutorialBoss : MonoBehaviour
                         if (startSpinTimer > 3.0f)
                         {
                             movementState = MovementState.spin;
-                            spinDirection = player.transform.position - gameObject.transform.position;
+                            spinDirection = (player.transform.position - gameObject.transform.position).normalized;
                             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
                         }
                         break;
                     case MovementState.spin:
                         gameObject.transform.Rotate(Vector3.up * startSpinTimer);
                         spinTimer += Time.deltaTime;
-                        if(spinTimer > 15.0f)
+                        if(spinTimer > 10.0f)
                         {
                             gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                             gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
@@ -202,7 +210,18 @@ public class TutorialBoss : MonoBehaviour
                         }
                         else
                         {
-                            gameObject.GetComponent<Rigidbody>().AddForce(spinDirection * 1, ForceMode.VelocityChange);
+                            gameObject.GetComponent<Rigidbody>().AddForce(spinDirection / 5.0f, ForceMode.VelocityChange);
+                        }
+                        break;
+                    case MovementState.holdSpin:
+                        gameObject.transform.Rotate(Vector3.up * 3.0f);
+                        holdSpinTimer += Time.deltaTime;
+                        if(holdSpinTimer > 5.0f)
+                        {
+                            holdSpinTimer = 0.0f;
+                            spinDirection = (player.transform.position - gameObject.transform.position).normalized;
+                            movementState = MovementState.spin;
+                            startSpinTimer = 3.0f;
                         }
                         break;
                     default: break;
@@ -329,7 +348,13 @@ public class TutorialBoss : MonoBehaviour
         gameObject.GetComponent<Rigidbody>().AddForce(fuerzaSalto, ForceMode.VelocityChange);
         Debug.Log("JumpToPlayer");
     }
-
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.layer == 4 && phase == 2 || collision.gameObject.tag == "Player")//World
+        { 
+            //hasCollided = false;
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         // Si colisiona con el suelo, detiene todas las fuerzas
@@ -339,32 +364,25 @@ public class TutorialBoss : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             canAttack = true;
         }
-        if (collision.gameObject.layer == 4 && phase == 2 || collision.gameObject.tag == "Player")//World
+        if(phase == 2 && movementState == MovementState.spin)
         {
-
-            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-            Vector3[] rayCastList = new Vector3[8];
-            int rayCastIndex = 0;
-            // Crear 8 rayos en todas las direcciones
-            for (int i = 0; i < 8; i++)
+            if (collision.gameObject.tag == "Wall")//World
             {
-                float angle = i * 45f;
-                Vector3 direction = Quaternion.Euler(0, angle, 0) * transform.forward;
+                gameObject.GetComponent<Rigidbody>().Sleep();
+                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                hasCollided = true;
+                Debug.Log("Wallllll");
+                int numWall = Random.Range(0, walls.Length);
 
-                RaycastHit hit;
-                // Lanzar el rayo en la dirección actual
-                if (!Physics.Raycast(transform.position, direction, out hit, 15.0f, 4))
-                {
-
-                    rayCastList[rayCastIndex] = direction;
-                    Debug.Log("Direction" + rayCastList[rayCastIndex]);
-                    rayCastIndex++;
-                }
+                Vector3 pos = new Vector3(walls[numWall].transform.position.x, 0.5f, walls[numWall].transform.position.z);
+                spinDirection = pos.normalized;
+                gameObject.transform.forward = spinDirection;
+                Debug.Log(numWall);
+                Debug.Log(pos);
+                Debug.Log(Vector3.Distance(pos, gameObject.transform.position));
             }
-            int value = Random.Range(0, rayCastIndex);
-            spinDirection = rayCastList[value];
-            rayCastIndex = 0;
         }
+        
     }
 }

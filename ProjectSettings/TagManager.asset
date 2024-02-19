@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - Level
   - WeakPoint
+  - Wall
   layers:
   - Default
   - TransparentFX
