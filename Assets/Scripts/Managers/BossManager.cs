@@ -95,7 +95,20 @@ public class BossManager : MonoBehaviour
                         }
                         break;
                     case 1:
-                        if(boss.GetComponent<EnemyHP>().hp < 2) boss.GetComponent<TutorialBoss>().phase++;
+                        if (boss.GetComponent<EnemyHP>().hp < 2)
+                        {
+                            transfromTimer += Time.deltaTime;
+                            if (transfromTimer > 3.0f)
+                            {
+                                transfromTimer = 0.0f;
+                                boss.GetComponent<TutorialBoss>().phase++;
+                                boss.GetComponent<TutorialBoss>().weakPoint.SetActive(false);
+                                boss.GetComponent<TutorialBoss>().proximityArea.SetActive(false);
+                                boss.GetComponent<NavMeshAgent>().enabled = false;
+                                boss.GetComponent<TutorialBoss>().movementState = TutorialBoss.MovementState.startSpinning;
+
+                            }
+                        }
                         break;
                     case 2:
                         if (boss.GetComponent<EnemyHP>().hp <= 0); //Kill&SwitchBoss boss.GetComponent<TutorialBoss>().phase++;

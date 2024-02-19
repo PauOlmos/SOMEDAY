@@ -41,10 +41,12 @@ public class TutorialBoss : MonoBehaviour
 
     public float stunTimer = 0.0f;
     public GameObject weakPoint;
-    
+
+    public float startSpinTimer;
+    public Vector3 spinDirection;
     public enum MovementState
     {
-        none, jump,
+        none, jump, startSpinning,spin,holdSpin
     }
     public enum AttackType
     {
@@ -171,10 +173,44 @@ public class TutorialBoss : MonoBehaviour
                 }
 
                 break;
+
+            case 2:
+
+                switch (movementState)
+                {
+                    case MovementState.startSpinning:
+                        startSpinTimer += Time.deltaTime;
+                        gameObject.transform.Rotate(Vector3.up * startSpinTimer);
+                        if (startSpinTimer > 3.0f)
+                        {
+                            movementState = MovementState.spin;
+                            spinDirection = gameObject.transform.position - player.transform.position;
+                            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+                            StartCoroutine(AddForceForDuration());
+                        }
+                        break;
+                    case MovementState.spin:
+                        gameObject.transform.Rotate(Vector3.up * startSpinTimer);
+                        break;
+                        default: break; 
+                }
+
+                break;
         }
         
     }
+    IEnumerator AddForceForDuration()
+    {
+        // Add force in the specified direction
+        gameObject.GetComponent<Rigidbody>().AddForce(spinDirection.normalized * 100, ForceMode.VelocityChange);
 
+        // Wait for the specified duration
+        yield return new WaitForSeconds(15.0f);
+
+        // Remove the force after the duration
+        //gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+    }
 
     public bool IsNear(float distanceToAttack)
     {
