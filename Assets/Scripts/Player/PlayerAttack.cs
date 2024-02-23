@@ -6,9 +6,9 @@ public class PlayerAttack : MonoBehaviour
 {
     // Start is called before the first frame update
     private float attackTimer;
-    private float attackCooldown = 3.0f;
-    private float attackDuration = 0.25f;
-    private bool attackActive = true;
+    private float attackCooldown = 1.2f;
+    private float attackDuration = 1.05f;
+    public bool attackActive = true;
 
     PassiveAbility passiveAbility;
     public bool attacking = false;

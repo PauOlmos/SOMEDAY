@@ -11982,6 +11982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8562de0173157c4d920188a00332371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackActive: 1
   attacking: 0
   attacPos: {fileID: 2101353473}
 --- !u!54 &1676030877
@@ -12725,7 +12726,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754425188}
-  m_LocalRotation: {x: 0.22652903, y: 9.2354973e-17, z: -8.3385636e-17, w: 0.97400445}
+  m_LocalRotation: {x: 0.22652903, y: -9.2354973e-17, z: 8.3385636e-17, w: 0.97400445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13476,6 +13477,7 @@ MonoBehaviour:
   canAttack: 1
   canJump: 1
   canJumpTimer: 0
+  pAttack: {fileID: 1676030876}
 --- !u!114 &1966261793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16434,7 +16436,9 @@ MonoBehaviour:
   animations:
   - {fileID: -4791504522942941401, guid: f3b86d9aeb307af4b93e493272203da9, type: 3}
   - {fileID: -4791504522942941401, guid: 4e6032cea239e434ea869fa9bbc58f6a, type: 3}
+  - {fileID: -6842666708266138392, guid: 9b325b50ff27b874ab0cdefea46ccd03, type: 3}
   pMov: {fileID: 1966261792}
+  pAttack: {fileID: 1676030876}
   animState: 0
 --- !u!95 &7755586244191410907
 Animator:

@@ -10,6 +10,7 @@ public class PlayerAnimations : MonoBehaviour
     private Animator animation;
 
     public PlayerMovement pMov;
+    public PlayerAttack pAttack;
 
     public enum AnimationState
     {
@@ -41,24 +42,38 @@ public class PlayerAnimations : MonoBehaviour
                 animation.Play(animations[1].name);
 
                 break;
+            case AnimationState.attack:
+
+                Debug.Log(animations[2].name);
+                animation.Play(animations[2].name);
+
+                break;
         }
 
     }
 
     private void CheckMovement()
     {
-        switch (pMov.pStatus)
+        if (pAttack.attackActive == false)
         {
-            case PlayerMovement.playerState.stand:
+            Debug.Log("Ataaaaaaack");
+            animState = AnimationState.attack;
+        }
+        else//Priority
+        {
+            switch (pMov.pStatus)
+            {
+                case PlayerMovement.playerState.stand:
 
-                animState = AnimationState.idle;
+                    animState = AnimationState.idle;
 
-                break;
-            case PlayerMovement.playerState.moving:
+                    break;
+                case PlayerMovement.playerState.moving:
 
-                animState = AnimationState.run;
-                
-                break;
+                    animState = AnimationState.run;
+
+                    break;
+            }
         }
     }
 }
