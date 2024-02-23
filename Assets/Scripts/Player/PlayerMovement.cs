@@ -147,6 +147,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (horizontalInput == 0.0f && verticalInput == 0.0f && pStatus == playerState.moving)
         {
+            Debug.Log("Standddddddd");
             pStatus = playerState.stand;
         }
 
@@ -156,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetAxis("L2") > -1 && pStatus != playerState.dashing)
         {
+            Debug.Log("Charge");
             pStatus = playerState.charging;
         }
         if (pStatus == playerState.charging && Input.GetAxis("L2") == -1) pStatus = playerState.moving;
