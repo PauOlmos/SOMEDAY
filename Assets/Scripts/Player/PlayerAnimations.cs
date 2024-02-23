@@ -11,7 +11,10 @@ public class PlayerAnimations : MonoBehaviour
 
     public PlayerMovement pMov;
     public PlayerAttack pAttack;
+    public PassiveAbility pAbility;
 
+    public GameObject sword;
+    public float animationsTimer = 0.0f;
     public enum AnimationState
     {
         idle,run,jump,dash,parry,attack,takeDmg,restoreHp,shootProj,chargePassive,die,
@@ -48,32 +51,60 @@ public class PlayerAnimations : MonoBehaviour
                 animation.Play(animations[2].name);
 
                 break;
+            case AnimationState.shootProj:
+                animationsTimer += Time.deltaTime;
+
+                if (animationsTimer >= animations[3].length)
+                {
+                    animState = AnimationState.idle;
+                    animationsTimer = 0;
+                    sword.SetActive(true);
+
+                }
+
+                Debug.Log(animations[3].name);
+                animation.Play(animations[3].name);
+
+                break;
         }
 
     }
 
     private void CheckMovement()
     {
-        if (pAttack.attackActive == false)
+        if(pAbility.shootNow == true)//Projectile
         {
-            Debug.Log("Ataaaaaaack");
-            animState = AnimationState.attack;
+            animState = AnimationState.shootProj;
+            sword.SetActive(false);
+            pAbility.shootNow = false;
         }
-        else//Priority
+        if (animState != AnimationState.shootProj) 
         {
-            switch (pMov.pStatus)
+            if (pAttack.attackActive == false)
             {
-                case PlayerMovement.playerState.stand:
+                animState = AnimationState.attack;
+            }//Attack
+            else
+            {
+                switch (pMov.pStatus)
+                {
+                    case PlayerMovement.playerState.stand:
 
-                    animState = AnimationState.idle;
+                        animState = AnimationState.idle;
 
-                    break;
-                case PlayerMovement.playerState.moving:
+                        break;
+                    case PlayerMovement.playerState.moving:
 
-                    animState = AnimationState.run;
+                        animState = AnimationState.run;
 
-                    break;
-            }
-        }
+                        break;
+                }
+
+
+
+            }//Movement
+        }//Projectile Priority
+
+
     }
 }

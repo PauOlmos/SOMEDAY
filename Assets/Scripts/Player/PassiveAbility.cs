@@ -28,6 +28,7 @@ public class PassiveAbility : MonoBehaviour
     public GameObject playerProjectile;
     GameObject cam;
     CameraBehaviour camBehaviour;
+    public bool shootNow = false;
 
     // Start is called before the first frame update
     void Start()
@@ -84,6 +85,7 @@ public class PassiveAbility : MonoBehaviour
                                     passiveProjectile.GetComponent<SeekingProjectile>().shotByPlayer = true;
                                     isCharged = false;
                                     passiveCharge = 0;
+                                    shootNow = true;
                                     break;
                                 case passiveType.hp:
                                     if(LoadPlayerData(Settings.archiveNum).difficulty == 2)

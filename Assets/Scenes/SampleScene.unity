@@ -12726,7 +12726,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754425188}
-  m_LocalRotation: {x: 0.22652903, y: -9.2354973e-17, z: 8.3385636e-17, w: 0.97400445}
+  m_LocalRotation: {x: 0.22652902, y: 0.000000029027598, z: -0.0000000067510917, w: 0.97400445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13514,6 +13514,7 @@ MonoBehaviour:
   passive: 0
   boss: {fileID: 1090940205}
   playerProjectile: {fileID: 1859229329704589724, guid: c278a953f140f3d4ea614aef2a7bdec4, type: 3}
+  shootNow: 0
 --- !u!114 &1966261795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16437,8 +16438,12 @@ MonoBehaviour:
   - {fileID: -4791504522942941401, guid: f3b86d9aeb307af4b93e493272203da9, type: 3}
   - {fileID: -4791504522942941401, guid: 4e6032cea239e434ea869fa9bbc58f6a, type: 3}
   - {fileID: -6842666708266138392, guid: 9b325b50ff27b874ab0cdefea46ccd03, type: 3}
+  - {fileID: -4791504522942941401, guid: c4004b894da26084ca9d1e7ecbc874d4, type: 3}
   pMov: {fileID: 1966261792}
   pAttack: {fileID: 1676030876}
+  pAbility: {fileID: 1966261794}
+  sword: {fileID: 366417232}
+  animationsTimer: 0
   animState: 0
 --- !u!95 &7755586244191410907
 Animator:
