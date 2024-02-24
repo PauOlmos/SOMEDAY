@@ -118,6 +118,11 @@ public class BossManager : MonoBehaviour
                                 boss.GetComponent<TutorialBoss>().Sword2.SetActive(true);
 
                             }
+                            else
+                            {
+                                boss.transform.localScale -= Vector3.one * Time.deltaTime / 4;
+
+                            }
                         }
                         break;
                     case 2:

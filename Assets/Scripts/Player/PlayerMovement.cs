@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public float canJumpTimer = 0;
 
     public PlayerAttack pAttack;
-
+    public ParticleSystem chargeParticles;
     GameObject parry;
     Parry p;
 
@@ -55,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        CheckCharging();
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, Ground);
 
         if (grounded)
@@ -118,6 +120,18 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
 
+    }
+
+    private void CheckCharging()
+    {
+        if(pStatus == playerState.charging)
+        {
+            chargeParticles.gameObject.SetActive(true);
+        }
+        else
+        {
+            chargeParticles.gameObject.SetActive(false);
+        }
     }
 
     private void SpeedCap()
