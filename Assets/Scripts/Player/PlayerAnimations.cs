@@ -86,6 +86,12 @@ public class PlayerAnimations : MonoBehaviour
                 animation.Play(animations[5].name);
 
                 break;
+            case AnimationState.dash:
+
+                Debug.Log(animations[6].name);
+                animation.Play(animations[6].name);
+
+                break;
 
         }
 
