@@ -12726,7 +12726,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754425188}
-  m_LocalRotation: {x: 0.22652903, y: -9.2354973e-17, z: 8.3385636e-17, w: 0.97400445}
+  m_LocalRotation: {x: 0.22652902, y: 0.000000029027598, z: -0.0000000067510917, w: 0.97400445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13493,8 +13493,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHp: 0
   isInvencible: 0
+  dying: 0
+  dieTimer: 0
   bossManager: {fileID: 496854577}
   pAnim: {fileID: 7755586244191410906}
+  black: {fileID: 384420437}
+  pAttack: {fileID: 1676030876}
+  pHp: {fileID: 1966261793}
+  pMov: {fileID: 1966261792}
+  parry: {fileID: 1324035956}
+  pAbility: {fileID: 1966261794}
 --- !u!114 &1966261794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16445,6 +16453,7 @@ MonoBehaviour:
   - {fileID: -4791504522942941401, guid: 009f6b2510737d8428c1583ff607b5da, type: 3}
   - {fileID: -4791504522942941401, guid: f874b0b2101b7744ea5ec65588784536, type: 3}
   - {fileID: -4791504522942941401, guid: db9927c47f2d1744b80860b448f2c244, type: 3}
+  - {fileID: -4791504522942941401, guid: a8b28526861c09444bf9f5eaffc12e00, type: 3}
   pMov: {fileID: 1966261792}
   pAttack: {fileID: 1676030876}
   pAbility: {fileID: 1966261794}

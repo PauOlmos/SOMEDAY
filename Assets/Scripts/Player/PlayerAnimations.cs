@@ -108,60 +108,69 @@ public class PlayerAnimations : MonoBehaviour
                 animation.Play(animations[7].name);
 
                 break;
+            case AnimationState.die:
 
+                Debug.Log(animations[8].name);
+                animation.Play(animations[8].name);
+
+                break;
         }
 
     }
 
     private void CheckMovement()
     {
-        if(animState != AnimationState.takeDmg)
+        if(animState != AnimationState.die)
         {
-            if (pAbility.shootNow == true)//Projectile
+            if (animState != AnimationState.takeDmg)
             {
-                animState = AnimationState.shootProj;
-                sword.SetActive(false);
-                pAbility.shootNow = false;
-            }
-            if (animState != AnimationState.shootProj && animState != AnimationState.jump)
-            {
-                if (pMov.grounded == false && pMov.enabled == true)
+                if (pAbility.shootNow == true)//Projectile
                 {
-                    animState = AnimationState.floating;
+                    animState = AnimationState.shootProj;
+                    sword.SetActive(false);
+                    pAbility.shootNow = false;
                 }
-                else
+                if (animState != AnimationState.shootProj && animState != AnimationState.jump)
                 {
-                    animation.SetBool("JumpToFloat", false);
-
-                    switch (pMov.pStatus)
+                    if (pMov.grounded == false && pMov.enabled == true)
                     {
-                        case PlayerMovement.playerState.stand:
-
-                            animState = AnimationState.idle;
-
-                            break;
-                        case PlayerMovement.playerState.moving:
-
-                            animState = AnimationState.run;
-
-                            break;
+                        animState = AnimationState.floating;
                     }
+                    else
+                    {
+                        animation.SetBool("JumpToFloat", false);
+
+                        switch (pMov.pStatus)
+                        {
+                            case PlayerMovement.playerState.stand:
+
+                                animState = AnimationState.idle;
+
+                                break;
+                            case PlayerMovement.playerState.moving:
+
+                                animState = AnimationState.run;
+
+                                break;
+                        }
 
 
 
-                }//Movement
-                if (pAttack.attackActive == false)
-                {
-                    animState = AnimationState.attack;
-                }
-                if (pMov.pStatus == PlayerMovement.playerState.dashing)
-                {
-                    animState = AnimationState.dash;
-                }
-            }//Projectile Priority
+                    }//Movement
+                    if (pAttack.attackActive == false)
+                    {
+                        animState = AnimationState.attack;
+                    }
+                    if (pMov.pStatus == PlayerMovement.playerState.dashing)
+                    {
+                        animState = AnimationState.dash;
+                    }
+                }//Projectile Priority
 
 
+            }
         }
+        
     }
         
 }

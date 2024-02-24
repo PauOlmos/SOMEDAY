@@ -69,7 +69,7 @@ public class StartTutorial : MonoBehaviour
                     else
                     {
                         BeginTutorial();
-                        Destroy(black.gameObject);
+                        //Destroy(black.gameObject);
                         Destroy(gameObject.GetComponent<StartTutorial>());
                     }
                 }

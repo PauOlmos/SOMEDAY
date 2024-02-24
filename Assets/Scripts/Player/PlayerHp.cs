@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerHp : MonoBehaviour
 {
@@ -14,14 +15,21 @@ public class PlayerHp : MonoBehaviour
     private bool gotDamaged = false;
     private float damagedTime = 0.25f;
     private float cameraShakeTimer;
-
+    public bool dying = false;
+    public float dieTimer = 0.0f;
     public BossManager bossManager;
     GameObject GameCamera;
     CameraBehaviour cameraBehaviour;
 
     public PlayerAnimations pAnim;
-
+    public Image black;
     PassiveAbility passiveAbility;
+
+    public PlayerAttack pAttack;
+    public PlayerMovement pMov;
+    public Parry parry;
+    public PassiveAbility pAbility;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +66,38 @@ public class PlayerHp : MonoBehaviour
                 cameraBehaviour.CameraShake(3.0f, 0.25f);
             }
         }
+        if(dying == true)
+        {
+            dieTimer += Time.deltaTime;
+            if(dieTimer > 5.0f)
+            {
+                if (LoadPlayerData(Settings.archiveNum).difficulty == 2) File.Delete(Application.streamingAssetsPath + "/Archive" + Settings.archiveNum.ToString() + ".json");
+                else
+                {
+                    DataToStore data = new DataToStore();
+                    data.maxLevel = bossManager.currentBoss;
+                    data.maxHp = 3;
+                    data.charge = 0;
+                    data.difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
+                    data.predetSettings = Settings.predetSettings;
+                    data.volume = Settings.volume;
+                    data.sensitivity = Settings.sensitivity;
+                    data.FOV = Settings.fov;
+                    data.tutorialMessages = Settings.tutorialMessages;
+                    data.subtitles = Settings.subtitles;
+                    data.subtitlesSize = Settings.subtitlesSize;
+                    data.healthBar = Settings.healthBar;
+                    data.VSync = Settings.VSync;
+                    SavePlayerData(data, Settings.archiveNum);
+                }
+                SceneManager.LoadScene(1);
+            }
+            else
+            {
+                black.CrossFadeAlpha(1.0f, 4.5f, false);
+            }
+
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -91,26 +131,14 @@ public class PlayerHp : MonoBehaviour
         gotDamaged = true;
         if(playerHp <= 0)
         {
-            if (LoadPlayerData(Settings.archiveNum).difficulty == 2) File.Delete(Application.streamingAssetsPath + "/Archive" + Settings.archiveNum.ToString() + ".json");
-            else
-            {
-                DataToStore data = new DataToStore();
-                data.maxLevel = bossManager.currentBoss;
-                data.maxHp = 3;
-                data.charge = 0;
-                data.difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
-                data.predetSettings = Settings.predetSettings;
-                data.volume = Settings.volume;
-                data.sensitivity = Settings.sensitivity;
-                data.FOV = Settings.fov;
-                data.tutorialMessages = Settings.tutorialMessages;
-                data.subtitles = Settings.subtitles;
-                data.subtitlesSize = Settings.subtitlesSize;
-                data.healthBar = Settings.healthBar;
-                data.VSync = Settings.VSync;
-                SavePlayerData(data, Settings.archiveNum);
-            }
-            SceneManager.LoadScene(1);
+            pAttack.enabled = false;
+            pMov.enabled = false;
+            cameraBehaviour.enabled = false;
+            parry.enabled = false;
+            pAbility.enabled = false;
+            dying = true;
+            pAnim.animState = PlayerAnimations.AnimationState.die;
+
         }
         else
         {
@@ -142,4 +170,8 @@ public class PlayerHp : MonoBehaviour
         //Comença Partida
     }
 
+    public void Die()
+    {
+
+    }
 }
