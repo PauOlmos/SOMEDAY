@@ -113,7 +113,7 @@ public class PlayerAttack : MonoBehaviour
         {
             gameObject.transform.position = new Vector3(0, -30000, 0);
         }
-        gameObject.GetComponent<MeshRenderer>().enabled = active;
+        //gameObject.GetComponent<MeshRenderer>().enabled = active;
         gameObject.GetComponent<BoxCollider>().enabled = active;
 
     }

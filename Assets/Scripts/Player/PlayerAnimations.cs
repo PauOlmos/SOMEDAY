@@ -12,6 +12,7 @@ public class PlayerAnimations : MonoBehaviour
     public PlayerMovement pMov;
     public PlayerAttack pAttack;
     public PassiveAbility pAbility;
+    public Parry parry;
 
     public GameObject sword;
     public float animationsTimer = 0.0f;
@@ -130,6 +131,19 @@ public class PlayerAnimations : MonoBehaviour
                 animation.Play(animations[9].name);
 
                 break;
+            case AnimationState.parry:
+                animationsTimer += Time.deltaTime;
+
+                if (animationsTimer >= animations[10].length)
+                {
+                    animState = AnimationState.idle;
+                    animationsTimer = 0;
+                }
+
+                Debug.Log(animations[10].name);
+                animation.Play(animations[10].name);
+
+                break;
         }
 
     }
@@ -186,6 +200,10 @@ public class PlayerAnimations : MonoBehaviour
                     if (pMov.pStatus == PlayerMovement.playerState.dashing)
                     {
                         animState = AnimationState.dash;
+                    }
+                    if (parry.parrying == true)
+                    {
+                        animState = AnimationState.parry;
                     }
                 }//Projectile Priority
 

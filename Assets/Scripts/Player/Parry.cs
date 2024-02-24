@@ -8,7 +8,7 @@ public class Parry : MonoBehaviour
 
     private float parryTimer;
     private float parryCooldown = 3.0f;
-    private float parryDuration = 0.25f;
+    private float parryDuration = 0.75f;
     private bool parryActive = true;
     
     PassiveAbility passiveAbility;
@@ -22,6 +22,8 @@ public class Parry : MonoBehaviour
     public LayerMask nothing;
 
     public Transform parryPos;
+
+    public GameObject shield;
     void Start()
     {
         player = GameObject.Find("Player");
@@ -41,7 +43,7 @@ public class Parry : MonoBehaviour
         if(parryActive == false)
         { 
             parryTimer += Time.deltaTime;
-            
+            shield.transform.localScale += Vector3.one * Time.deltaTime* 0.5f;
             if(parryTimer > parryDuration)
             {
                 SetParry(false);
@@ -53,6 +55,17 @@ public class Parry : MonoBehaviour
             else
             {
                 pMov.canAttack = false;
+                if (pMov.pStatus != PlayerMovement.playerState.dashing)
+                {
+
+                    gameObject.transform.position = parryPos.position;
+                    gameObject.transform.rotation = parryPos.rotation;
+                }
+                else
+                {
+                    gameObject.transform.position = new Vector3(0, -30000, 0);
+
+                }
             }
 
             if (parryTimer > parryCooldown){
@@ -117,18 +130,13 @@ public class Parry : MonoBehaviour
 
     void SetParry(bool active)
     {
-        if (active)
+        if (active == false)
         {
-            gameObject.transform.position = parryPos.position;
-            gameObject.transform.rotation = parryPos.rotation;
-        }
-        else
-        {
-            gameObject.transform.position = new Vector3(0,-40000,0);
-
+            shield.transform.localScale = new Vector3(0, 0, 0);
+            gameObject.transform.position = new Vector3(0, -30000, 0);
         }
 
-        gameObject.GetComponent<MeshRenderer>().enabled = active;
+        //gameObject.GetComponent<MeshRenderer>().enabled = active;
         gameObject.GetComponent<BoxCollider>().enabled = active;
 
     }
