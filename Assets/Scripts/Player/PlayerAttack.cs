@@ -35,12 +35,16 @@ public class PlayerAttack : MonoBehaviour
 
             if (attackTimer > attackDuration)
             {
+
                 SetAttack(false);
                 attacking = false;
             }
             else
+
             {
                 pMov.canAttack = false;
+                gameObject.transform.position = attacPos.position;
+                gameObject.transform.rotation = attacPos.rotation;
             }
 
             if (attackTimer > attackCooldown)
@@ -96,15 +100,9 @@ public class PlayerAttack : MonoBehaviour
 
     void SetAttack(bool active)
     {
-        if (active)
-        {
-            gameObject.transform.position = attacPos.position;
-            gameObject.transform.rotation = attacPos.rotation;
-        }
-        else
+        if (active == false)
         {
             gameObject.transform.position = new Vector3(0, -30000, 0);
-
         }
         gameObject.GetComponent<MeshRenderer>().enabled = active;
         gameObject.GetComponent<BoxCollider>().enabled = active;
