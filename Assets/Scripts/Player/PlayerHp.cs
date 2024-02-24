@@ -19,6 +19,8 @@ public class PlayerHp : MonoBehaviour
     GameObject GameCamera;
     CameraBehaviour cameraBehaviour;
 
+    public PlayerAnimations pAnim;
+
     PassiveAbility passiveAbility;
     // Start is called before the first frame update
     void Start()
@@ -109,6 +111,10 @@ public class PlayerHp : MonoBehaviour
                 SavePlayerData(data, Settings.archiveNum);
             }
             SceneManager.LoadScene(1);
+        }
+        else
+        {
+            pAnim.animState = PlayerAnimations.AnimationState.takeDmg;
         }
     }
     public DataToStore LoadPlayerData(int numArchive)
