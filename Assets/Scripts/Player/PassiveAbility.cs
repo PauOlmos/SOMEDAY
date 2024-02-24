@@ -29,6 +29,7 @@ public class PassiveAbility : MonoBehaviour
     GameObject cam;
     CameraBehaviour camBehaviour;
     public bool shootNow = false;
+    public bool healNow = false;
 
     // Start is called before the first frame update
     void Start()
@@ -95,6 +96,7 @@ public class PassiveAbility : MonoBehaviour
                                             RestoreHp(1);
                                             isCharged = false;
                                             passiveCharge = 0;
+                                            healNow = true;
                                             break;
                                         }
                                     }
@@ -103,6 +105,7 @@ public class PassiveAbility : MonoBehaviour
                                         RestoreHp(1);
                                         isCharged = false;
                                         passiveCharge = 0;
+                                        healNow = true;
                                         break;
                                     }
                                     break;

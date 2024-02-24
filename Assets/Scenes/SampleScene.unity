@@ -12726,7 +12726,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754425188}
-  m_LocalRotation: {x: 0.22652902, y: 0.000000029027598, z: -0.0000000067510917, w: 0.97400445}
+  m_LocalRotation: {x: 0.22652903, y: 9.2354973e-17, z: -8.3385636e-17, w: 0.97400445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13499,7 +13499,6 @@ MonoBehaviour:
   pAnim: {fileID: 7755586244191410906}
   black: {fileID: 384420437}
   pAttack: {fileID: 1676030876}
-  pHp: {fileID: 1966261793}
   pMov: {fileID: 1966261792}
   parry: {fileID: 1324035956}
   pAbility: {fileID: 1966261794}
@@ -13525,6 +13524,7 @@ MonoBehaviour:
   boss: {fileID: 1090940205}
   playerProjectile: {fileID: 1859229329704589724, guid: c278a953f140f3d4ea614aef2a7bdec4, type: 3}
   shootNow: 0
+  healNow: 0
 --- !u!114 &1966261795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14167,7 +14167,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2050648363}
-  m_LocalRotation: {x: 0.1810129, y: -0.000000016922144, z: 0.000000003114577, w: 0.98348075}
+  m_LocalRotation: {x: 0.1810129, y: -0.000000016922145, z: 0.0000000031145773, w: 0.98348075}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16454,6 +16454,7 @@ MonoBehaviour:
   - {fileID: -4791504522942941401, guid: f874b0b2101b7744ea5ec65588784536, type: 3}
   - {fileID: -4791504522942941401, guid: db9927c47f2d1744b80860b448f2c244, type: 3}
   - {fileID: -4791504522942941401, guid: a8b28526861c09444bf9f5eaffc12e00, type: 3}
+  - {fileID: -4791504522942941401, guid: 9cf2b23cc33b1a744a4af95dece45784, type: 3}
   pMov: {fileID: 1966261792}
   pAttack: {fileID: 1676030876}
   pAbility: {fileID: 1966261794}

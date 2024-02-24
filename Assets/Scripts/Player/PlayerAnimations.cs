@@ -114,6 +114,22 @@ public class PlayerAnimations : MonoBehaviour
                 animation.Play(animations[8].name);
 
                 break;
+
+            case AnimationState.restoreHp:
+                animationsTimer += Time.deltaTime;
+
+                if (animationsTimer >= animations[9].length)
+                {
+                    animState = AnimationState.idle;
+                    animationsTimer = 0;
+                    sword.SetActive(true);
+
+                }
+
+                Debug.Log(animations[9].name);
+                animation.Play(animations[9].name);
+
+                break;
         }
 
     }
@@ -130,7 +146,13 @@ public class PlayerAnimations : MonoBehaviour
                     sword.SetActive(false);
                     pAbility.shootNow = false;
                 }
-                if (animState != AnimationState.shootProj && animState != AnimationState.jump)
+                if (pAbility.healNow == true)//Projectile
+                {
+                    animState = AnimationState.restoreHp;
+                    sword.SetActive(false);
+                    pAbility.healNow = false;
+                }
+                if (animState != AnimationState.shootProj && animState != AnimationState.jump && animState != AnimationState.restoreHp)
                 {
                     if (pMov.grounded == false && pMov.enabled == true)
                     {
