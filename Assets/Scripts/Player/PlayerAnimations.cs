@@ -17,7 +17,7 @@ public class PlayerAnimations : MonoBehaviour
     public float animationsTimer = 0.0f;
     public enum AnimationState
     {
-        idle,run,jump,dash,parry,attack,takeDmg,restoreHp,shootProj,chargePassive,die,
+        idle,run,jump,dash,parry,attack,takeDmg,restoreHp,shootProj,chargePassive,die,floating
     }
 
     public AnimationState animState = AnimationState.idle;
@@ -66,6 +66,27 @@ public class PlayerAnimations : MonoBehaviour
                 animation.Play(animations[3].name);
 
                 break;
+            case AnimationState.jump:
+                animationsTimer += Time.deltaTime;
+
+                if (animationsTimer >= animations[4].length / 2)
+                {
+                    animState = AnimationState.floating;
+                    animation.SetBool("JumpToFloat", true);
+                    animationsTimer = 0;
+                }
+
+                Debug.Log(animations[4].name);
+                animation.Play(animations[4].name);
+
+                break;
+            case AnimationState.floating:
+
+                Debug.Log(animations[5].name);
+                animation.Play(animations[5].name);
+
+                break;
+
         }
 
     }
@@ -78,14 +99,16 @@ public class PlayerAnimations : MonoBehaviour
             sword.SetActive(false);
             pAbility.shootNow = false;
         }
-        if (animState != AnimationState.shootProj) 
+        if (animState != AnimationState.shootProj && animState != AnimationState.jump) 
         {
-            if (pAttack.attackActive == false)
+            if(pMov.grounded == false && pMov.enabled == true)
             {
-                animState = AnimationState.attack;
-            }//Attack
+                animState = AnimationState.floating;
+            }
             else
             {
+                animation.SetBool("JumpToFloat", false);
+
                 switch (pMov.pStatus)
                 {
                     case PlayerMovement.playerState.stand:
@@ -103,6 +126,14 @@ public class PlayerAnimations : MonoBehaviour
 
 
             }//Movement
+            if (pAttack.attackActive == false)
+            {
+                animState = AnimationState.attack;
+            }
+            if(pMov.pStatus == PlayerMovement.playerState.dashing)
+            {
+                animState = AnimationState.dash;
+            }
         }//Projectile Priority
 
 
