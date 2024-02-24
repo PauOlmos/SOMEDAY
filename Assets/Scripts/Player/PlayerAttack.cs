@@ -43,8 +43,17 @@ public class PlayerAttack : MonoBehaviour
 
             {
                 pMov.canAttack = false;
-                gameObject.transform.position = attacPos.position;
-                gameObject.transform.rotation = attacPos.rotation;
+                if (pMov.pStatus != PlayerMovement.playerState.dashing)
+                {
+
+                    gameObject.transform.position = attacPos.position;
+                    gameObject.transform.rotation = attacPos.rotation;
+                }
+                else
+                {
+                    gameObject.transform.position = new Vector3(0, -30000, 0);
+
+                }
             }
 
             if (attackTimer > attackCooldown)
