@@ -144,6 +144,12 @@ public class PlayerAnimations : MonoBehaviour
                 animation.Play(animations[10].name);
 
                 break;
+
+            case AnimationState.chargePassive:
+                Debug.Log(animations[11].name);
+                animation.Play(animations[11].name);
+
+                break;
         }
 
     }
@@ -179,13 +185,20 @@ public class PlayerAnimations : MonoBehaviour
                         switch (pMov.pStatus)
                         {
                             case PlayerMovement.playerState.stand:
+                                sword.SetActive(true);
 
                                 animState = AnimationState.idle;
 
                                 break;
                             case PlayerMovement.playerState.moving:
+                                sword.SetActive(true);
 
                                 animState = AnimationState.run;
+
+                                break;
+                            case PlayerMovement.playerState.charging:
+                                sword.SetActive(false);
+                                animState = AnimationState.chargePassive;
 
                                 break;
                         }

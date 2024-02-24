@@ -16597,6 +16597,7 @@ MonoBehaviour:
   - {fileID: -4791504522942941401, guid: a8b28526861c09444bf9f5eaffc12e00, type: 3}
   - {fileID: -4791504522942941401, guid: 9cf2b23cc33b1a744a4af95dece45784, type: 3}
   - {fileID: -4791504522942941401, guid: 59f6caa4788ab774ca2a0e885bb5459d, type: 3}
+  - {fileID: -4791504522942941401, guid: 8a033ab48104db645a180af0acb97702, type: 3}
   pMov: {fileID: 1966261792}
   pAttack: {fileID: 1676030876}
   pAbility: {fileID: 1966261794}
