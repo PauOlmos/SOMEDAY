@@ -35,7 +35,8 @@ public class PlayerHp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (bossManager.currentBoss <= LoadPlayerData(Settings.archiveNum).maxLevel) playerHp = LoadPlayerData(Settings.archiveNum).maxHp;
+        Debug.Log("CurrentBoss = " + Settings.actualBoss + ". MaxLevel = " + LoadPlayerData(Settings.archiveNum).maxLevel);
+        if (Settings.actualBoss == LoadPlayerData(Settings.archiveNum).maxLevel) playerHp = LoadPlayerData(Settings.archiveNum).maxHp;
         else playerHp = 3;
         GameCamera = GameObject.Find("Game Camera");
         cameraBehaviour = GameCamera.GetComponent<CameraBehaviour>();

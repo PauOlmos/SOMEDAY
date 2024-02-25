@@ -12,8 +12,9 @@ using Random = UnityEngine.Random;
 public class BossManager : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    [Header("Positions")]
     public Transform[] playerSpawnPositions;
+    public Transform[] bossSpawnPositions;
 
     [Header("TutorialBoss")]
     public int currentBoss = 0;
@@ -85,6 +86,7 @@ public class BossManager : MonoBehaviour
                 if(player.GetComponent<PlayerHp>().lifeTime < 15.0f)
                 {
                     player.transform.position = playerSpawnPositions[1].position;
+                    boss.transform.position = bossSpawnPositions[1].position;
                 }
 
                 boss.AddComponent<StartHighSchoolBoss>();
