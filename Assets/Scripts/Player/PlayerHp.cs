@@ -72,24 +72,6 @@ public class PlayerHp : MonoBehaviour
             if(dieTimer > 5.0f)
             {
                 if (LoadPlayerData(Settings.archiveNum).difficulty == 2) File.Delete(Application.streamingAssetsPath + "/Archive" + Settings.archiveNum.ToString() + ".json");
-                else
-                {
-                    DataToStore data = new DataToStore();
-                    data.maxLevel = bossManager.currentBoss;
-                    data.maxHp = 3;
-                    data.charge = 0;
-                    data.difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
-                    data.predetSettings = Settings.predetSettings;
-                    data.volume = Settings.volume;
-                    data.sensitivity = Settings.sensitivity;
-                    data.FOV = Settings.fov;
-                    data.tutorialMessages = Settings.tutorialMessages;
-                    data.subtitles = Settings.subtitles;
-                    data.subtitlesSize = Settings.subtitlesSize;
-                    data.healthBar = Settings.healthBar;
-                    data.VSync = Settings.VSync;
-                    SavePlayerData(data, Settings.archiveNum);
-                }
                 SceneManager.LoadScene(1);
             }
             else

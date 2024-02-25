@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -104,12 +105,12 @@ public class BossManager : MonoBehaviour
                     case 1:
                         if (boss.GetComponent<EnemyHP>().hp < 3)
                         {
+                            boss.GetComponent<TutorialBoss>().weakPoint.SetActive(false);
                             transfromTimer += Time.deltaTime;
                             if (transfromTimer > 3.0f)
                             {
                                 transfromTimer = 0.0f;
                                 boss.GetComponent<TutorialBoss>().phase++;
-                                boss.GetComponent<TutorialBoss>().weakPoint.SetActive(false);
                                 boss.GetComponent<TutorialBoss>().proximityArea.SetActive(false);
                                 boss.GetComponent<NavMeshAgent>().enabled = false;
                                 boss.GetComponent<TutorialBoss>().movementState = TutorialBoss.MovementState.startSpinning;
@@ -121,16 +122,67 @@ public class BossManager : MonoBehaviour
                             else
                             {
                                 boss.transform.localScale -= Vector3.one * Time.deltaTime / 4;
-
                             }
                         }
                         break;
                     case 2:
-                        if (boss.GetComponent<EnemyHP>().hp <= 0); //Kill&SwitchBoss boss.GetComponent<TutorialBoss>().phase++;
+                        if (boss.GetComponent<EnemyHP>().hp <= 0)
+                        {
+                            NextBoss();
+                            Destroy(boss.GetComponent<TutorialBoss>());
+                        }
                         break;
                 }
 
                 break;
         }
+
+    }
+
+    public void NextBoss()
+    {
+        currentBoss++;
+        DataToStore data = new DataToStore();
+        if (currentBoss >= LoadPlayerData(Settings.archiveNum).maxLevel) data.maxLevel = currentBoss;
+        else data.maxLevel = LoadPlayerData(Settings.archiveNum).maxLevel;
+        if (currentBoss >= LoadPlayerData(Settings.archiveNum).maxLevel) data.maxHp = player.GetComponent<PlayerHp>().playerHp;
+        else data.maxHp = LoadPlayerData(Settings.archiveNum).maxHp;
+        if (currentBoss >= LoadPlayerData(Settings.archiveNum).maxLevel) data.charge = player.GetComponent<PassiveAbility>().passiveCharge;
+        else data.charge = LoadPlayerData(Settings.archiveNum).charge;
+        data.difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
+        data.predetSettings = Settings.predetSettings;
+        data.volume = Settings.volume;
+        data.sensitivity = Settings.sensitivity;
+        data.FOV = Settings.fov;
+        data.tutorialMessages = Settings.tutorialMessages;
+        data.subtitles = Settings.subtitles;
+        data.subtitlesSize = Settings.subtitlesSize;
+        data.healthBar = Settings.healthBar;
+        data.VSync = Settings.VSync;
+        SavePlayerData(data, Settings.archiveNum);
+    }
+    public void SavePlayerData(DataToStore data, int num)
+    {
+        string json = JsonUtility.ToJson(data);
+        string archiveNum = "Archive" + num.ToString(); ;
+        File.WriteAllText(Application.streamingAssetsPath + "/" + archiveNum + ".json", json);
+        Debug.Log("Archive " + num.ToString() + " Created");
+        //Comença Partida
+    }
+    public DataToStore LoadPlayerData(int numArchive)
+    {
+        string path = Application.streamingAssetsPath + "/Archive" + numArchive.ToString() + ".json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            Debug.Log(json);
+            return JsonUtility.FromJson<DataToStore>(json);
+        }
+        else
+        {
+            Debug.LogWarning("No se encontraron datos de jugador guardados.");
+            return null;
+        }
     }
 }
+
