@@ -87,6 +87,7 @@ public class BossManager : MonoBehaviour
                 {
                     player.transform.position = playerSpawnPositions[1].position;
                     boss.transform.position = bossSpawnPositions[1].position;
+                    boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
                 }
 
                 boss.AddComponent<StartHighSchoolBoss>();
@@ -147,7 +148,8 @@ public class BossManager : MonoBehaviour
                             }
                             else
                             {
-                                boss.transform.localScale -= Vector3.one * Time.deltaTime / 4;
+                                if (boss.transform.localScale.x > 1.8f) boss.transform.localScale -= Vector3.one * Time.deltaTime / 4;
+                                else boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
                             }
                         }
                         break;
