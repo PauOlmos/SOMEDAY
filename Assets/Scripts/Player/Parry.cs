@@ -8,7 +8,7 @@ public class Parry : MonoBehaviour
 
     private float parryTimer;
     private float parryCooldown = 3.0f;
-    private float parryDuration = 0.75f;
+    private float parryDuration = 0.42f;
     private bool parryActive = true;
     
     PassiveAbility passiveAbility;
