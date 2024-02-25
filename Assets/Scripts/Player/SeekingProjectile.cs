@@ -23,6 +23,8 @@ public class SeekingProjectile : MonoBehaviour
     {
         if(target != null)
         {
+            Quaternion targetRotation = Quaternion.LookRotation(target.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000);
             if (canFail)
             {
                 seekTimer += Time.deltaTime;
