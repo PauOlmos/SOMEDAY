@@ -6,6 +6,7 @@ using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class BossManager : MonoBehaviour
@@ -42,6 +43,7 @@ public class BossManager : MonoBehaviour
 
     void Start()
     {
+        currentBoss = SceneManager.GetActiveScene().buildIndex;
         ActivateBoss(currentBoss);
     }
 
@@ -84,13 +86,13 @@ public class BossManager : MonoBehaviour
                     case 0:
                         if (boss.GetComponent<EnemyHP>().hp < 6)
                         {
+                            boss.GetComponent<EnemyHP>().canBeDamaged = false;
                             transfromTimer += Time.deltaTime;
                             if(transfromTimer > 3.0f)
                             {
                                 boss.GetComponent<TutorialBoss>().phase++;
                                 boss.GetComponent<TutorialBoss>().canAttack = false;
                                 boss.GetComponent<TutorialBoss>().canMove = true;
-                                boss.GetComponent<EnemyHP>().canBeDamaged = false;
                                 transfromTimer = 0.0f;
                                 boss.GetComponent<NavMeshAgent>().enabled = true;
 

@@ -89,7 +89,7 @@ public class MenuButton : MonoBehaviour
                     dataToStore.numArchive = 1;
                     Settings.archiveNum = 1;
                     LoadSettings(1);
-                    SceneManager.LoadScene(2);
+                    SceneManager.LoadScene(3);
                     //Anar al selector de nivells
 
                 }
@@ -109,7 +109,7 @@ public class MenuButton : MonoBehaviour
 
                     dataToStore.numArchive = 2;
                     LoadSettings(2);
-                    SceneManager.LoadScene(2); 
+                    SceneManager.LoadScene(3); 
 
                     //Anar al selector de nivells
 
@@ -129,7 +129,7 @@ public class MenuButton : MonoBehaviour
                     dataToStore.numArchive = 3;
                     Settings.archiveNum = 3;
                     LoadSettings(3);
-                    SceneManager.LoadScene(2);
+                    SceneManager.LoadScene(3);
                     //Anar al selector de nivells
                 }
                 break;
@@ -185,7 +185,7 @@ public class MenuButton : MonoBehaviour
                 break;
             case Action.mainmenu:
                 Time.timeScale = 1.0f;
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(2);
                 break;
             case Action.settingsPreferences:
 

@@ -14,7 +14,7 @@ public class PlayerAttack : MonoBehaviour
     public bool attacking = false;
     PlayerMovement pMov;
     Parry parry;
-
+    public GameObject tutorialBoss;
     public Transform attacPos;
     void Start()
     {
@@ -76,6 +76,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     Debug.Log("WeakPointHit");
                     other.gameObject.GetComponentInParent<EnemyHP>().DamageEnemy(1,true);
+                    tutorialBoss.GetComponent<TutorialBoss>().stunTimer += 2.0f;
                 }
                 else other.gameObject.GetComponent<EnemyHP>().DamageEnemy(1,false);
             }

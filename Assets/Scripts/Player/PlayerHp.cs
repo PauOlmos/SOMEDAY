@@ -72,7 +72,7 @@ public class PlayerHp : MonoBehaviour
             if(dieTimer > 5.0f)
             {
                 if (LoadPlayerData(Settings.archiveNum).difficulty == 2) File.Delete(Application.streamingAssetsPath + "/Archive" + Settings.archiveNum.ToString() + ".json");
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(2);//Main menu
             }
             else
             {
