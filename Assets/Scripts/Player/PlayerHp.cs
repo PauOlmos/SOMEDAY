@@ -30,10 +30,13 @@ public class PlayerHp : MonoBehaviour
     public Parry parry;
     public PassiveAbility pAbility;
 
+    public float lifeTime = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
-        playerHp = 3;
+        if (bossManager.currentBoss <= LoadPlayerData(Settings.archiveNum).maxLevel) playerHp = LoadPlayerData(Settings.archiveNum).maxHp;
+        else playerHp = 3;
         GameCamera = GameObject.Find("Game Camera");
         cameraBehaviour = GameCamera.GetComponent<CameraBehaviour>();
         passiveAbility = gameObject.GetComponent<PassiveAbility>();
@@ -42,6 +45,7 @@ public class PlayerHp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        lifeTime += Time.deltaTime;
         if(isInvencible)
         {
 
@@ -72,7 +76,7 @@ public class PlayerHp : MonoBehaviour
             if(dieTimer > 5.0f)
             {
                 if (LoadPlayerData(Settings.archiveNum).difficulty == 2) File.Delete(Application.streamingAssetsPath + "/Archive" + Settings.archiveNum.ToString() + ".json");
-                SceneManager.LoadScene(2);//Main menu
+                SceneManager.LoadScene(1);//Main menu
             }
             else
             {

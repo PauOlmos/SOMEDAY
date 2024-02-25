@@ -16,6 +16,7 @@ public static class Settings
     public static int subtitlesSize = 2;
     public static bool healthBar = false;
     public static bool VSync = true;
+    public static int actualBoss;
 }
 
 public class MenuManager : MonoBehaviour

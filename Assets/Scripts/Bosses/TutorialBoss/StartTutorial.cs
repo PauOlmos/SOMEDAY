@@ -38,53 +38,70 @@ public class StartTutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (klk)
+        if (Settings.actualBoss == 0)
         {
-            transform.position = initialPlayerPosition.position;
-            transform.rotation = initialPlayerPosition.rotation;
-        }
-        blackInitialTimer += Time.deltaTime;
-        if(blackInitialTimer > blackInitialDuration)
-        {
-            
-            blackTimer += Time.deltaTime;
-            if (blackTimer > blackDuration)
+            if (klk)
             {
-                klk = false;
-                Debug.Log("!!!!!");
-                gameObject.GetComponentInChildren<Rigidbody>().useGravity = true;
+                transform.position = initialPlayerPosition.position;
+                transform.rotation = initialPlayerPosition.rotation;
+            }
+            blackInitialTimer += Time.deltaTime;
+            if (blackInitialTimer > blackInitialDuration)
+            {
 
-                if (Physics.Raycast(transform.position, Vector3.down, 1.5f + 0.2f, Ground))
+                blackTimer += Time.deltaTime;
+                if (blackTimer > blackDuration)
                 {
-                    spawningBoss = true;
-                }
-                if (spawningBoss)
-                {
-                    Debug.Log("???????????");
-                    spawningBossTimer += Time.deltaTime;
-                    if (spawningBossTimer < spawningBossTime)
-                    {
-                        SpawnBoss();
-                    }
-                    else
-                    {
-                        BeginTutorial();
-                        //Destroy(black.gameObject);
-                        Destroy(gameObject.GetComponent<StartTutorial>());
-                    }
-                }
+                    klk = false;
+                    Debug.Log("!!!!!");
+                    gameObject.GetComponentInChildren<Rigidbody>().useGravity = true;
 
+                    if (Physics.Raycast(transform.position, Vector3.down, 1.5f + 0.2f, Ground))
+                    {
+                        spawningBoss = true;
+                    }
+                    if (spawningBoss)
+                    {
+                        Debug.Log("???????????");
+                        spawningBossTimer += Time.deltaTime;
+                        if (spawningBossTimer < spawningBossTime)
+                        {
+                            SpawnBoss();
+                        }
+                        else
+                        {
+                            BeginGame();
+                            //Destroy(black.gameObject);
+                            Destroy(gameObject.GetComponent<StartTutorial>());
+                        }
+                    }
+
+                }
+                else
+                {
+                    black.CrossFadeAlpha(0.0f, blackDuration, false);
+                }
+            }
+
+
+        }
+        else
+        {
+            blackTimer += Time.deltaTime;
+            if (blackTimer < blackDuration / 10)
+            {
+                black.CrossFadeAlpha(0.0f, blackDuration / 10, false);
             }
             else
             {
-                black.CrossFadeAlpha(0.0f, blackDuration, false);
+                BeginGame();
+                Destroy(gameObject.GetComponent<StartTutorial>());
+
             }
         }
-
-
     }
 
-    public void BeginTutorial()
+    public void BeginGame()
     {
         ActivateMovement();
         ActivateBoss();

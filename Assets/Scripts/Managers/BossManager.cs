@@ -13,6 +13,9 @@ public class BossManager : MonoBehaviour
 {
     // Start is called before the first frame update
 
+    public Transform[] playerSpawnPositions;
+
+    [Header("TutorialBoss")]
     public int currentBoss = 0;
 
     public int phase = 0;
@@ -41,9 +44,14 @@ public class BossManager : MonoBehaviour
     public GameObject Sword1;
     public GameObject Sword2;
 
+    [Header("HighSchool Boss")]
+
+    public GameObject TutorialWalls;
+
     void Start()
     {
-        currentBoss = SceneManager.GetActiveScene().buildIndex;
+        currentBoss = Settings.actualBoss;
+        Debug.Log(currentBoss);
         ActivateBoss(currentBoss);
     }
 
@@ -71,6 +79,20 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<TutorialBoss>().Sword1 = Sword1;
                 boss.GetComponent<TutorialBoss>().Sword2 = Sword2;
                 break;
+
+            case 1:
+
+                if(player.GetComponent<PlayerHp>().lifeTime < 15.0f)
+                {
+                    player.transform.position = playerSpawnPositions[1].position;
+                }
+
+                boss.AddComponent<StartHighSchoolBoss>();
+                boss.GetComponent<StartHighSchoolBoss>().TutorialWalls = TutorialWalls;
+
+
+                break;
+
                 default: break;
         }
     }
@@ -162,6 +184,7 @@ public class BossManager : MonoBehaviour
         data.healthBar = Settings.healthBar;
         data.VSync = Settings.VSync;
         SavePlayerData(data, Settings.archiveNum);
+        ActivateBoss(currentBoss);
     }
     public void SavePlayerData(DataToStore data, int num)
     {

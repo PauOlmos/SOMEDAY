@@ -57,7 +57,8 @@ public class SelectLevel : MonoBehaviour
         if (Input.GetButtonDown("Jump") && collidingWithLevel)
         {
             collidingWithLevel = true;
-            SceneManager.LoadScene(scene);
+            Settings.actualBoss = scene;
+            SceneManager.LoadScene(0);
         }
 
         if (justOnce == false)

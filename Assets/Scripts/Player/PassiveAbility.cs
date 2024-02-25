@@ -30,6 +30,7 @@ public class PassiveAbility : MonoBehaviour
     CameraBehaviour camBehaviour;
     public bool shootNow = false;
     public bool healNow = false;
+    public BossManager bossManager;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,8 @@ public class PassiveAbility : MonoBehaviour
         cam = GameObject.Find("Game Camera");
         camBehaviour = cam.GetComponent<CameraBehaviour>();
         necessaryCharge += LoadPlayerData(Settings.archiveNum).difficulty * 15;
+        if (bossManager.currentBoss <= LoadPlayerData(Settings.archiveNum).maxLevel) passiveCharge = LoadPlayerData(Settings.archiveNum).charge;
+        else passiveCharge = 0;
     }
 
     // Update is called once per frame
