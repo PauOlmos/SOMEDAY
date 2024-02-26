@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,6 +16,7 @@ public class BossManager : MonoBehaviour
     [Header("Positions")]
     public Transform[] playerSpawnPositions;
     public Transform[] bossSpawnPositions;
+    public NavMeshSurface floor;
 
     [Header("TutorialBoss")]
     public int currentBoss;
@@ -96,7 +98,9 @@ public class BossManager : MonoBehaviour
                     boss.transform.position = bossSpawnPositions[nBoss].position;
                     boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
                 }
-
+                Destroy(Sword1);
+                Destroy(Sword2);
+                Destroy(weakPoint);
                 boss.AddComponent<StartHighSchoolBoss>();
                 boss.GetComponent<StartHighSchoolBoss>().TutorialWalls = TutorialWalls;
                 boss.GetComponent<StartHighSchoolBoss>().wall1 = wall1;
@@ -104,6 +108,10 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().wall3 = wall3;
                 boss.GetComponent<StartHighSchoolBoss>().wall4 = wall4;
                 boss.GetComponent<StartHighSchoolBoss>().allTables = allTables;
+                boss.GetComponent<StartHighSchoolBoss>().player = player;
+                boss.GetComponent<StartHighSchoolBoss>().agent = agent;
+                boss.GetComponent<StartHighSchoolBoss>().proximityArea = proximityArea;
+                boss.GetComponent<StartHighSchoolBoss>().floor = floor;
 
 
                 break;

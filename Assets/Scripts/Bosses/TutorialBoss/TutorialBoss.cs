@@ -17,7 +17,6 @@ public class TutorialBoss : MonoBehaviour
 
     public bool canMove = true;
     public bool canAttack = false;
-    public bool canDamageOnContact = false;
 
     public float circlesAttackCooldown = 0.0f;
     //
@@ -119,7 +118,7 @@ public class TutorialBoss : MonoBehaviour
                 if (canMove && gameObject.GetComponent<EnemyHP>().stun == false)
                 {
                     agent.destination = player.transform.position;
-                    if (IsNear(3.0f))
+                    if (IsNear(2.5f))
                     {
                         agent.destination = gameObject.transform.position;
                         canAttack = true;
@@ -141,13 +140,20 @@ public class TutorialBoss : MonoBehaviour
                     {
                         case AttackType.proximity:
                             proximityAreaTimer += Time.deltaTime;
-                            if (proximityAreaTimer > 1.0f && proximityArea.activeInHierarchy == false)
+                            if (proximityAreaTimer > 0.9f && proximityArea.activeInHierarchy == false)
                             {
                                 proximityArea.SetActive(true);
+                                proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                                proximityArea.tag = "Parryable";
+                            }
+                            if (proximityAreaTimer > 1.2f && proximityArea.activeInHierarchy == true)
+                            {
+                                proximityArea.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
                                 proximityArea.tag = "Parryable";
                             }
                             if (proximityAreaTimer > 1.5f)
                             {
+                                proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
                                 proximityArea.SetActive(false);
                                 proximityArea.tag = "Parryable";
                             }

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class StartHighSchoolBoss : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    public GameObject player;
     public GameObject TutorialWalls;
 
     public float destroyWallsTimer = 0.0f;
@@ -18,6 +20,11 @@ public class StartHighSchoolBoss : MonoBehaviour
     public GameObject wall2;
     public GameObject wall3;
     public GameObject wall4;
+    public NavMeshAgent agent;
+    public GameObject proximityArea;
+    public NavMeshSurface floor;
+
+    public bool highSchoolCreationCompleted = false;
     void Start()
     {
         TutorialWalls.isStatic = false;
@@ -44,9 +51,19 @@ public class StartHighSchoolBoss : MonoBehaviour
             {
                 classRoomCreated = false;
                 allTables.transform.localPosition = new Vector3(allTables.transform.position.x, 0.0f, allTables.transform.position.z);
+                highSchoolCreationCompleted = true;
             }
-                
-            
+        }
+
+        if(highSchoolCreationCompleted == true)
+        {
+            gameObject.AddComponent<HighSchoolBoss>();
+            gameObject.GetComponent<HighSchoolBoss>().player = player;
+            gameObject.GetComponent<HighSchoolBoss>().agent = agent;
+            gameObject.GetComponent<HighSchoolBoss>().proximityArea = proximityArea;
+            gameObject.GetComponent<HighSchoolBoss>().floor = floor;
+            //floor.BuildNavMesh();
+            Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }
     }
 

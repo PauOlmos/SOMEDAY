@@ -23,8 +23,12 @@ public class EnemyHP : MonoBehaviour
     {
         if (canBeDamaged || weakPoint)
         {
-            hp -= damage;
-            canBeDamaged = false;
+            if (hp > 0)
+            {
+
+                hp -= damage;
+                canBeDamaged = false;
+            }
         }
     }
 }
