@@ -43,7 +43,7 @@ public class Parry : MonoBehaviour
         if(parryActive == false)
         { 
             parryTimer += Time.deltaTime;
-            shield.transform.localScale += Vector3.one * Time.deltaTime* 0.25f;
+            shield.transform.localScale += Vector3.one * Time.deltaTime* 0.55f;
             if(parryTimer > parryDuration)
             {
                 SetParry(false);

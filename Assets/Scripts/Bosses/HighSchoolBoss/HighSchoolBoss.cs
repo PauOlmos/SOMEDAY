@@ -28,7 +28,7 @@ public class HighSchoolBoss : MonoBehaviour
     public NavMeshSurface floor;
 
     public float stamina = 0.0f;
-    private float bossDistance = 15.5f;
+    private float bossDistance = 25.5f;
 
     public enum MovementState
     {
@@ -56,11 +56,16 @@ public class HighSchoolBoss : MonoBehaviour
 
                 if (canMove)
                 {
-                    if(stamina > 15.0f)
+                    gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
+                    if (stamina > 15.0f)
                     {
                         agent.updateRotation = true;
+                        Vector3 direccion = transform.position - player.transform.position;
+                        float distanciaActual = direccion.magnitude;
+                        Debug.Log("dISTANCIAaCTUAL = " + distanciaActual);
 
-                        agent.destination = player.transform.position;
+                        if (distanciaActual > 2.0f) agent.destination = player.transform.position;
+                        else agent.destination = gameObject.transform.position;
                     }
                     else
                     {
@@ -69,9 +74,9 @@ public class HighSchoolBoss : MonoBehaviour
                         Vector3 direccion = transform.position - player.transform.position;
                         float distanciaActual = direccion.magnitude;
                         Vector3 desplazamiento = direccion.normalized * (bossDistance - distanciaActual);
-
                         // Movemos el objeto en la dirección del desplazamiento
-                        agent.destination = desplazamiento;
+                        if (distanciaActual > 5.5f) agent.destination = desplazamiento;
+                        else agent.destination = gameObject.transform.position;
                     }
                 }
                 

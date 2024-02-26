@@ -46,6 +46,7 @@ public class StartHighSchoolBoss : MonoBehaviour
         }
         if (classRoomCreated == true)
         {
+
             if (allTables.transform.position.y < 0) allTables.transform.Translate(0.0f, Time.deltaTime * 4, 0.0f);
             else
             {
