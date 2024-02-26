@@ -57,7 +57,20 @@ public class PlayerMovement : MonoBehaviour
     {
 
         CheckCharging();
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, Ground);
+
+        if (Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, Ground)
+        || Physics.Raycast(new Vector3(transform.position.x + 0.35f, transform.position.y, transform.position.z), Vector3.down, playerHeight * 0.5f + 0.2f, Ground)
+        || Physics.Raycast(new Vector3(transform.position.x - 0.35f, transform.position.y, transform.position.z), Vector3.down, playerHeight * 0.5f + 0.2f, Ground)
+        || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.35f), Vector3.down, playerHeight * 0.5f + 0.2f, Ground)
+        || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.35f), Vector3.down, playerHeight * 0.5f + 0.2f, Ground))
+        {
+            grounded = true;
+
+        }
+        else
+        {
+            grounded = false;
+        }
 
         if (grounded)
         {

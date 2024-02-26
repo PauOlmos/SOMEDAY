@@ -17,7 +17,7 @@ public class BossManager : MonoBehaviour
     public Transform[] bossSpawnPositions;
 
     [Header("TutorialBoss")]
-    public int currentBoss = 0;
+    public int currentBoss;
 
     public int phase = 0;
 
@@ -48,6 +48,13 @@ public class BossManager : MonoBehaviour
     [Header("HighSchool Boss")]
 
     public GameObject TutorialWalls;
+
+    public GameObject wall1;
+    public GameObject wall2;
+    public GameObject wall3;
+    public GameObject wall4;
+
+    public GameObject allTables;
 
     void Start()
     {
@@ -85,13 +92,18 @@ public class BossManager : MonoBehaviour
 
                 if(player.GetComponent<PlayerHp>().lifeTime < 15.0f)
                 {
-                    player.transform.position = playerSpawnPositions[1].position;
-                    boss.transform.position = bossSpawnPositions[1].position;
+                    player.transform.position = playerSpawnPositions[nBoss].position;
+                    boss.transform.position = bossSpawnPositions[nBoss].position;
                     boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
                 }
 
                 boss.AddComponent<StartHighSchoolBoss>();
                 boss.GetComponent<StartHighSchoolBoss>().TutorialWalls = TutorialWalls;
+                boss.GetComponent<StartHighSchoolBoss>().wall1 = wall1;
+                boss.GetComponent<StartHighSchoolBoss>().wall2 = wall2;
+                boss.GetComponent<StartHighSchoolBoss>().wall3 = wall3;
+                boss.GetComponent<StartHighSchoolBoss>().wall4 = wall4;
+                boss.GetComponent<StartHighSchoolBoss>().allTables = allTables;
 
 
                 break;

@@ -9,11 +9,25 @@ public class StartHighSchoolBoss : MonoBehaviour
     public GameObject TutorialWalls;
 
     public float destroyWallsTimer = 0.0f;
-    public bool destroyedWalls;
+    public bool destroyedWalls = false;
+    public bool classRoomCreated = false;
+
+    public GameObject[] tables;
+    public GameObject allTables;
+    public GameObject wall1;
+    public GameObject wall2;
+    public GameObject wall3;
+    public GameObject wall4;
     void Start()
     {
         TutorialWalls.isStatic = false;
+        tables = GameObject.FindGameObjectsWithTag("Table");
+        wall1.SetActive(true);
+        wall2.SetActive(true);
+        wall3.SetActive(true);
+        wall4.SetActive(true);
     }
+
 
     // Update is called once per frame
     void Update()
@@ -21,14 +35,63 @@ public class StartHighSchoolBoss : MonoBehaviour
         if(destroyedWalls == false) destroyedWalls = DestroyWalls();
         else
         {
-
+            classRoomCreated = CreateClassRoom();
         }
+        if (classRoomCreated == true)
+        {
+            if (allTables.transform.position.y < 0) allTables.transform.Translate(0.0f, Time.deltaTime * 4, 0.0f);
+            else
+            {
+                classRoomCreated = false;
+                allTables.transform.localPosition = new Vector3(allTables.transform.position.x, 0.0f, allTables.transform.position.z);
+            }
+                
+            
+        }
+    }
+
+    public bool CreateClassRoom()
+    {
+        int wallsInPosition = 0;
+        if (wall1.transform.position.z > 21.3f) wall1.transform.Translate(Time.deltaTime * 4,0.0f,0.0f);
+        else
+        {
+            wallsInPosition++;
+            wall1.isStatic = true;
+
+            wall1.transform.localPosition = new Vector3(wall1.transform.position.x, wall1.transform.position.y, 21.3f);
+        }
+        if (wall2.transform.position.x > 12.0f) wall2.transform.Translate(-Time.deltaTime * 4, 0.0f, 0.0f);
+        else
+        {
+            wallsInPosition++;
+            wall2.transform.localPosition = new Vector3(12.0f, wall2.transform.position.y, wall2.transform.position.z);
+            wall2.isStatic = true;
+        }
+        if (wall3.transform.position.z < -21.3f) wall3.transform.Translate(-Time.deltaTime * 4,0.0f, 0.0f);
+        else
+        {
+            wallsInPosition++;
+            wall3.isStatic = true;
+
+            wall3.transform.localPosition = new Vector3(wall3.transform.position.x, wall3.transform.position.y, -21.3f);
+        }
+        if (wall4.transform.position.x < -12.0f) wall4.transform.Translate(Time.deltaTime * 4, 0.0f,0);
+        else
+        {
+            wallsInPosition++;
+            wall4.isStatic = true;
+            wall4.transform.localPosition = new Vector3(-12.0f, wall4.transform.position.y, wall4.transform.position.z);
+        }
+
+        if (wallsInPosition == 4) return true;
+        else return false;
     }
 
     public bool DestroyWalls()
     {
         destroyWallsTimer += Time.deltaTime;
-        if (destroyWallsTimer < 12.0f)
+        if (destroyWallsTimer < 4.0f)
         {
             TutorialWalls.transform.Translate(Vector3.down * Time.deltaTime * 3.0f);
             return false;
