@@ -37,6 +37,7 @@ public class MenuManager : MonoBehaviour
     public GameObject Size;
     public GameObject ChangeSettings;
     public GameObject SubtitlesSettings;
+    public GameObject Resume;
 
     public bool canMoveHorizontally = true;
     public bool canMoveVertically = true;
@@ -274,6 +275,7 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 0.0f;
         currentMenu = pauseMenu;
         currentMenu.SetActive(true);
+        currentSelected = Resume;
         backMenu = null;
     }
     public void ResumeGame()
@@ -281,6 +283,7 @@ public class MenuManager : MonoBehaviour
         paused = false;
         Time.timeScale = 1.0f;
         currentMenu.SetActive(false);
+        currentSelected = null;
         currentMenu = null;
         backMenu = null;
     }

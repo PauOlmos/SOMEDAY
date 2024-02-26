@@ -63,6 +63,7 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().agent = agent;
             gameObject.GetComponent<HighSchoolBoss>().proximityArea = proximityArea;
             gameObject.GetComponent<HighSchoolBoss>().floor = floor;
+            gameObject.GetComponent<HighSchoolBoss>().tables = tables;
             //floor.BuildNavMesh();
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }
