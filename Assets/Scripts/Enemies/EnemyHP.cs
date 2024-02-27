@@ -25,7 +25,13 @@ public class EnemyHP : MonoBehaviour
         {
             if (hp > 0)
             {
-
+                if(gameObject.GetComponent<HighSchoolBoss>() != null)
+                {
+                    if(gameObject.GetComponent<HighSchoolBoss>().phase == 0)
+                    {
+                        gameObject.GetComponent<HighSchoolBoss>().hitsToSuperAttack -= damage;
+                    }
+                }
                 hp -= damage;
                 canBeDamaged = false;
             }

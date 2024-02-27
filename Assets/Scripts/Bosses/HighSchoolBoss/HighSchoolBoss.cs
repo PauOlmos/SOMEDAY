@@ -56,13 +56,18 @@ public class HighSchoolBoss : MonoBehaviour
 
     public GameObject armariResetPos1;
     public GameObject armariResetPos2;
+
+    public GameObject bossShield;
+    public GameObject portalSpawnArea;
+
+    public GameObject portalPrefab;
     public enum MovementState
     {
         seeking,hiding,toTable,
     }
     public enum AttackType
     {
-        one,two,three,special,reset
+        one,two,three,special,reset,portals
     }
 
 
@@ -75,6 +80,9 @@ public class HighSchoolBoss : MonoBehaviour
     public bool inPairRotation = false;
     public bool allTablesReady = false;
     public bool armariRotation = false;
+
+    public int hitsToSuperAttack = 3;
+    public int portalsGenerated = 0;
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -121,6 +129,8 @@ public class HighSchoolBoss : MonoBehaviour
                     switch (movState)
                     {
                         case MovementState.hiding:
+                            agent.speed = 3.5f;
+
                             agent.updateRotation = false;
                             gameObject.transform.LookAt(player.transform.position);
                             Vector3 direccion = transform.position - player.transform.position;
@@ -131,6 +141,8 @@ public class HighSchoolBoss : MonoBehaviour
                             else agent.destination = gameObject.transform.position;
                             break;
                         case MovementState.seeking:
+                            agent.speed = 3.5f;
+
                             agent.updateRotation = true;
                             Vector3 direction = transform.position - player.transform.position;
                             float distanceActual = direction.magnitude;
@@ -143,6 +155,7 @@ public class HighSchoolBoss : MonoBehaviour
                             gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
                             attackSelected = true;
                             agent.destination = teacherTable.transform.position;
+                            agent.speed = 20.0f;
                             if (Vector3.Distance(gameObject.transform.position,teacherTable.transform.position)<1.0f)
                             {
                                 canAttack = true;
@@ -220,6 +233,20 @@ public class HighSchoolBoss : MonoBehaviour
                                         break;
                                 }
                                 break;
+                            case AttackType.portals:
+
+                                agent.destination = gameObject.transform.position;
+
+                                gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
+
+                                bossShield.SetActive(true);
+
+                                if (bossShield.transform.localScale.x > 2.0f) bossShield.transform.localScale = Vector3.one * 2.0f;
+                                else bossShield.transform.localScale += Vector3.one * Time.deltaTime;
+
+                                if(portalsGenerated == 0) GenerarPosiciones(5, portalSpawnArea.transform);
+
+                                break;
                         }
                     }
                 }
@@ -252,6 +279,23 @@ public class HighSchoolBoss : MonoBehaviour
                 break;
         }
 
+    }
+    void GenerarPosiciones(int numPositions, Transform area)
+    {
+        for (int i = 0; i < numPositions; i++)
+        {
+            // Generar posiciones aleatorias dentro del volumen
+            Vector3 posicion = new Vector3(Random.Range(-area.transform.localScale.x / 2, area.transform.localScale.x / 2),
+                                           Random.Range(-area.transform.localScale.y / 2, area.transform.localScale.y / 2),
+                                           Random.Range(-area.transform.localScale.z / 2, area.transform.localScale.z / 2));
+
+            // Ajustar la posición al espacio del volumen
+            posicion += area.transform.position;
+
+            GameObject portal = Instantiate(portalPrefab, posicion, Quaternion.identity);
+            portal.GetComponent<Portal>().player = player.transform;
+        }
+        portalsGenerated++;
     }
 
     private void ResetSpecialAttackVariables()
@@ -429,14 +473,14 @@ public class HighSchoolBoss : MonoBehaviour
 
             if (tablesOnPosition == false)
             {
-                tables[i].transform.Translate(direction * Time.deltaTime * 2);
+                tables[i].transform.Translate(direction * Time.deltaTime * 4);
             }
 
             if (tables[i].GetComponent<ParInpar>().par == true)
             {
                 if (tables[i].transform.eulerAngles.z < 90.0f)
                 {
-                    tables[i].transform.Rotate(0, 0, Time.deltaTime * 20f);
+                    tables[i].transform.Rotate(0, 0, Time.deltaTime * 30f);
                 }
                 else
                 {
@@ -446,7 +490,7 @@ public class HighSchoolBoss : MonoBehaviour
             }
             else
             {
-                if (inPairRotation == false) tables[i].transform.Rotate(0, 0, -Time.deltaTime * 20f);
+                if (inPairRotation == false) tables[i].transform.Rotate(0, 0, -Time.deltaTime * 30f);
                 else
                 {
                     tables[i].transform.Rotate(0, 0, 270 - tables[i].transform.eulerAngles.z);
@@ -662,6 +706,13 @@ public class HighSchoolBoss : MonoBehaviour
                 }
 
                 break;
+        }
+        if(hitsToSuperAttack <= 0)
+        {
+            hitsToSuperAttack += 3;
+            attackType = AttackType.portals;
+            canMove = false;
+            canAttack = true;
         }
         attackSelected = true;
     }

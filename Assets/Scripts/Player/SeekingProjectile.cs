@@ -30,6 +30,7 @@ public class SeekingProjectile : MonoBehaviour
                 seekTimer += Time.deltaTime;
                 if(seekTimer < seekingTime) 
                 {
+                    gameObject.transform.LookAt(target);
                     Seek();
                 }
                 else
@@ -39,6 +40,7 @@ public class SeekingProjectile : MonoBehaviour
             }
             else
             {
+                gameObject.transform.LookAt(gameObject.transform.forward);
                 Seek();
             }
         }
@@ -59,11 +61,11 @@ public class SeekingProjectile : MonoBehaviour
         {
             if (shotByPlayer)
             {
-                other.gameObject.GetComponent<EnemyHP>().DamageEnemy(2,true);
+                other.gameObject.GetComponent<EnemyHP>().DamageEnemy(2, true);
                 Destroy(gameObject);
             }
         }
-        else if(other.gameObject.tag == "Player")
+        else if (other.gameObject.tag == "Player")
         {
             if (!shotByPlayer)
             {
@@ -71,5 +73,6 @@ public class SeekingProjectile : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        else if (other.gameObject.layer == 6 || other.gameObject.layer == 3) Destroy(gameObject);
     }
 }

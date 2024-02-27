@@ -69,6 +69,12 @@ public class BossManager : MonoBehaviour
 
     public GameObject armariResetPos1;
     public GameObject armariResetPos2;
+
+
+    public GameObject bossShield;
+    public GameObject portalSpawnArea;
+
+    public GameObject portalPrefab;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -132,6 +138,9 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().armariPos2 = armariPos2;
                 boss.GetComponent<StartHighSchoolBoss>().armariResetPos1 = armariResetPos1;
                 boss.GetComponent<StartHighSchoolBoss>().armariResetPos2 = armariResetPos2;
+                boss.GetComponent<StartHighSchoolBoss>().portalSpawnArea = portalSpawnArea;
+                boss.GetComponent<StartHighSchoolBoss>().portalPrefab = portalPrefab;
+                boss.GetComponent<StartHighSchoolBoss>().bossShield = bossShield;
 
 
                 break;

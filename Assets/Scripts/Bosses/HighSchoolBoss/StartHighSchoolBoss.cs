@@ -35,6 +35,12 @@ public class StartHighSchoolBoss : MonoBehaviour
     public GameObject[] tableAttackPositions;
     public GameObject[] tableRestPositions;
     public bool highSchoolCreationCompleted = false;
+
+
+    public GameObject bossShield;
+    public GameObject portalSpawnArea;
+
+    public GameObject portalPrefab;
     void Start()
     {
         TutorialWalls.isStatic = false;
@@ -73,6 +79,7 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().agent = agent;
             gameObject.GetComponent<HighSchoolBoss>().proximityArea = proximityArea;
             gameObject.GetComponent<HighSchoolBoss>().floor = floor;
+
             gameObject.GetComponent<HighSchoolBoss>().tables = tables;
             gameObject.GetComponent<HighSchoolBoss>().teacherTable = teacherTable;
             gameObject.GetComponent<HighSchoolBoss>().tableAttackPositions = tableAttackPositions;
@@ -84,6 +91,10 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().armariPos2 = armariPos2;
             gameObject.GetComponent<HighSchoolBoss>().armariResetPos1 = armariResetPos1;
             gameObject.GetComponent<HighSchoolBoss>().armariResetPos2 = armariResetPos2;
+
+            gameObject.GetComponent<HighSchoolBoss>().portalSpawnArea = portalSpawnArea;
+            gameObject.GetComponent<HighSchoolBoss>().portalPrefab = portalPrefab;
+            gameObject.GetComponent<HighSchoolBoss>().bossShield = bossShield;
             //floor.BuildNavMesh();
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }
