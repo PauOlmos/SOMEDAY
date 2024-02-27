@@ -66,6 +66,9 @@ public class BossManager : MonoBehaviour
 
     public GameObject armariPos1;
     public GameObject armariPos2;
+
+    public GameObject armariResetPos1;
+    public GameObject armariResetPos2;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -127,6 +130,8 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().armari2 = armari2;
                 boss.GetComponent<StartHighSchoolBoss>().armariPos1 = armariPos1;
                 boss.GetComponent<StartHighSchoolBoss>().armariPos2 = armariPos2;
+                boss.GetComponent<StartHighSchoolBoss>().armariResetPos1 = armariResetPos1;
+                boss.GetComponent<StartHighSchoolBoss>().armariResetPos2 = armariResetPos2;
 
 
                 break;

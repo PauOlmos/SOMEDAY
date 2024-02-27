@@ -36,7 +36,7 @@ public class HighSchoolBoss : MonoBehaviour
     public bool specialAttacking = false;
 
     public bool attackSelected = false;
-    public float attackCooldown = 3.0f;
+    public float attackCooldown = 3.5f;
     public float attackCooldownTimer = 0.0f;
 
     public bool firstDone = false;
@@ -53,6 +53,9 @@ public class HighSchoolBoss : MonoBehaviour
 
     public GameObject armariPos1;
     public GameObject armariPos2;
+
+    public GameObject armariResetPos1;
+    public GameObject armariResetPos2;
     public enum MovementState
     {
         seeking,hiding,toTable,
@@ -79,7 +82,8 @@ public class HighSchoolBoss : MonoBehaviour
         gameObject.GetComponent<EnemyHP>().hp = 20;
         agent.enabled = true;
         agent.destination = gameObject.transform.position;
-
+        armariResetPos1.transform.position = armari1.transform.position;
+        armariResetPos2.transform.position = armari2.transform.position;
     }
 
     // Update is called once per frame
@@ -136,6 +140,7 @@ public class HighSchoolBoss : MonoBehaviour
                             else agent.destination = gameObject.transform.position;
                             break;
                         case MovementState.toTable:
+                            gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
                             attackSelected = true;
                             agent.destination = teacherTable.transform.position;
                             if (Vector3.Distance(gameObject.transform.position,teacherTable.transform.position)<1.0f)
@@ -202,8 +207,16 @@ public class HighSchoolBoss : MonoBehaviour
 
                                         break;
                                     case AttackType.reset:
-
+                                        int numReset = 0;
+                                        numReset += ResetTablesPositions();
+                                        numReset += ResetTablesRotations();
+                                        numReset += ResetArmarisPositions();
+                                        numReset += ResetArmarisRotations();
                                             
+                                        if(numReset == 4)
+                                        {
+                                            ResetSpecialAttackVariables();
+                                        }
                                         break;
                                 }
                                 break;
@@ -241,6 +254,80 @@ public class HighSchoolBoss : MonoBehaviour
 
     }
 
+    private void ResetSpecialAttackVariables()
+    {
+        specialAttackPhase = AttackType.one;
+        tablesOnPosition = false;
+        inPairRotation = false;
+        attackSelected = false;
+        specialAttacking = false;
+        specialAbility = 0.0f;
+        agent.destination = player.transform.position;
+        movState = MovementState.seeking;
+        attackCooldownTimer = 0.0f;
+        gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
+        canMove = true;
+        canAttack = false;
+        firstDone = false;
+        secondDone = false;
+    }
+
+    private int ResetArmarisRotations()
+    {
+        armari1.transform.Rotate(-armari1.transform.rotation.eulerAngles);
+        armari2.transform.Rotate(-armari2.transform.rotation.eulerAngles);
+        return 1;
+
+    }
+
+    private int ResetArmarisPositions()
+    {
+        armari1.transform.position = armariResetPos1.transform.position;
+        armari2.transform.position = armariResetPos2.transform.position;
+
+        if(armari1.GetComponent<Rigidbody>() != null)
+        {
+            Destroy(armari1.GetComponent<Rigidbody>());
+            armari1.tag = "Untagged";
+            armari1.layer = 6;
+        }
+        if(armari2.GetComponent<Rigidbody>() != null)
+        {
+            Destroy(armari2.GetComponent<Rigidbody>());
+            armari2.tag = "Untagged";
+            armari2.layer = 6;
+        }
+
+        return 1;
+    }
+
+    private int ResetTablesRotations()
+    {
+        for (int i = 0; i < tables.Length; i++)
+        {
+            tables[i].transform.Rotate(-tables[i].transform.rotation.eulerAngles);
+
+        }
+        return 1;
+
+    }
+
+    private int ResetTablesPositions()
+    {
+        for (int i = 0; i < tables.Length; i++)
+        {
+
+            if(tables[i].GetComponent<Rigidbody>() != null)
+            {
+                Destroy(tables[i].GetComponent<Rigidbody>());
+                tables[i].tag = "Table";
+                tables[i].layer = 6;
+
+            }
+            tables[i].transform.position = tableRestPositions[i].transform.position;
+        }
+        return 1;
+    }
     private void PushArmarios()
     {
         if(armari1.GetComponent<Rigidbody>() == null)

@@ -28,6 +28,8 @@ public class StartHighSchoolBoss : MonoBehaviour
     public GameObject armari1;
     public GameObject armari2;
 
+    public GameObject armariResetPos1;
+    public GameObject armariResetPos2;
     public GameObject armariPos1;
     public GameObject armariPos2;
     public GameObject[] tableAttackPositions;
@@ -80,6 +82,8 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().armari2 = armari2;
             gameObject.GetComponent<HighSchoolBoss>().armariPos1 = armariPos1;
             gameObject.GetComponent<HighSchoolBoss>().armariPos2 = armariPos2;
+            gameObject.GetComponent<HighSchoolBoss>().armariResetPos1 = armariResetPos1;
+            gameObject.GetComponent<HighSchoolBoss>().armariResetPos2 = armariResetPos2;
             //floor.BuildNavMesh();
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }
