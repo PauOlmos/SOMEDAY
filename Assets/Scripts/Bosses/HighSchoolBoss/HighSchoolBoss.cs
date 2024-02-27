@@ -30,7 +30,10 @@ public class HighSchoolBoss : MonoBehaviour
     public NavMeshSurface floor;
 
     public float stamina = 0.0f;
+    public float specialAbility = 0.0f;
     private float bossDistance = 25.5f;
+
+    public bool specialAttacking = false;
 
     public bool attackSelected = false;
     public float attackCooldown = 3.0f;
@@ -40,18 +43,24 @@ public class HighSchoolBoss : MonoBehaviour
     public bool secondDone = false;
 
     public GameObject[] tables;
+    public GameObject teacherTable;
+
+    public GameObject[] tableAttackPositions;
+    public GameObject[] tableRestPositions;
     public enum MovementState
     {
-        seeking,hiding
+        seeking,hiding,toTable,
     }
     public enum AttackType
     {
-        one,two,three,
+        one,two,three,special
     }
 
     MovementState movState = MovementState.hiding;
     AttackType attackType = AttackType.one;
     private float stunTimer;
+
+    public bool tablesOnPosition = false;
 
     void Start()
     {
@@ -67,6 +76,7 @@ public class HighSchoolBoss : MonoBehaviour
     void Update()
     {
         stamina += Time.deltaTime;
+        specialAbility += Time.deltaTime;
         switch (phase)
         {
             case 0:
@@ -74,17 +84,26 @@ public class HighSchoolBoss : MonoBehaviour
                 if (canMove && gameObject.GetComponent<EnemyHP>().stun == false)
                 {
                     CollideTables();
-
+                    if(specialAbility > 60.0f)
+                    {
+                        specialAbility = 0.0f;
+                        specialAttacking = true;
+                        movState = MovementState.toTable;
+                    }
                     attackCooldownTimer += Time.deltaTime;
                     gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
-                    if (stamina > 15.0f)
+                    if (specialAttacking == false)
                     {
-                        movState = MovementState.seeking;
+                        if (stamina > 15.0f)
+                        {
+                            movState = MovementState.seeking;
+                        }
+                        else
+                        {
+                            movState = MovementState.hiding;
+                        }
                     }
-                    else
-                    {
-                        movState = MovementState.hiding;
-                    }
+                    
                     switch (movState)
                     {
                         case MovementState.hiding:
@@ -106,10 +125,21 @@ public class HighSchoolBoss : MonoBehaviour
                             if (distanceActual > 2.0f) agent.destination = player.transform.position;
                             else agent.destination = gameObject.transform.position;
                             break;
+                        case MovementState.toTable:
+                            attackSelected = true;
+                            agent.destination = teacherTable.transform.position;
+                            if (Vector3.Distance(gameObject.transform.position,teacherTable.transform.position)<1.0f)
+                            {
+                                canAttack = true;
+                                attackType = AttackType.special;
+                                canMove = false;
+                                specialAttacking = true;
+                            }
+                            break;
                     }
                     
 
-                    if (IsNear(2.0f) && attackCooldownTimer > attackCooldown)
+                    if (IsNear(2.0f) && attackCooldownTimer > attackCooldown && specialAttacking == false)
                     {
                         canAttack = true;
                         firstDone = false;
@@ -142,11 +172,54 @@ public class HighSchoolBoss : MonoBehaviour
                                 IgnoreTables();
                                 AttackThreeTimes();
                                 break;
+                            case AttackType.special:
+                                
+                                for(int i = 0; i < tables.Length; i++)
+                                {
+                                    Vector3 direction = tableAttackPositions[i].transform.position - tables[i].transform.position;
+
+                                    if (tablesOnPosition == false)
+                                    {
+                                        tables[i].transform.Translate(direction * Time.deltaTime);
+                                    }
+                                    
+                                    if (tables[i].GetComponent<ParInpar>().par == true)
+                                    {
+                                        if (tables[i].transform.eulerAngles.z < 90.0f)
+                                        {
+                                            tables[i].transform.Rotate(0, 0, Time.deltaTime * 10);
+                                        }
+                                        else
+                                        {
+                                            tables[i].transform.Rotate(0, 0, -(tables[i].transform.eulerAngles.z - 90));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        float klk = -90.0f;
+                                        Debug.Log("Table Rotation" + tables[i].transform.eulerAngles.z + ">" + klk + " = " + (tables[i].transform.eulerAngles.z > klk));
+                                        if (tables[i].transform.eulerAngles.z-360 > klk)
+                                        {
+                                            tables[i].transform.Rotate(0, 0, -Time.deltaTime * 10);
+                                        }
+                                        else
+                                        {
+                                            Debug.Log("Set to -90");
+                                            tables[i].transform.Rotate(0, 0, -((tables[i].transform.eulerAngles.z - 360) + 90));
+                                        }
+                                    }
+                                    if ((direction).magnitude < 0.1f)
+                                    {
+                                        tablesOnPosition = true;
+                                        Debug.Log("JoinTables");
+                                    }
+                                }
+                                break;
                         }
                     }
                 }
 
-                if (gameObject.GetComponent<EnemyHP>().stun == true)
+                if (gameObject.GetComponent<EnemyHP>().stun == true && specialAttacking == false)
                 {
                     stunTimer += Time.deltaTime;
                     if (stunTimer > 3.0f)
@@ -176,6 +249,11 @@ public class HighSchoolBoss : MonoBehaviour
 
     }
 
+    public void MoveTables()
+    {
+
+    }
+
     public void IgnoreTables()
     {
         foreach (GameObject table in tables)
@@ -190,14 +268,13 @@ public class HighSchoolBoss : MonoBehaviour
         foreach (GameObject table in tables)
         {
 
-            Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), table.GetComponent<Collider>(),false);
+            Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), table.GetComponent<BoxCollider>(),false);
             
         }
     }
     public bool AttackThreeTimes()
     {
         proximityAreaTimer += Time.deltaTime;
-        //gameObject.transform.LookAt(player.transform.position);
 
         if (proximityAreaTimer > 0.2f && proximityArea.activeInHierarchy == false && firstDone == false)
         {
@@ -324,7 +401,6 @@ public class HighSchoolBoss : MonoBehaviour
         canMove = false;
         return false;
     }
-
     public bool AttackOnce()
     {
         proximityAreaTimer += Time.deltaTime;
@@ -359,7 +435,6 @@ public class HighSchoolBoss : MonoBehaviour
 
         return false;
     }
-
     private void SelectAttack(int phase)
     {
         switch (phase)
@@ -378,7 +453,6 @@ public class HighSchoolBoss : MonoBehaviour
                 {
                     attackType = AttackType.three;
                 }
-                attackType = AttackType.three;
 
                 break;
         }

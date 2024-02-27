@@ -57,7 +57,9 @@ public class BossManager : MonoBehaviour
     public GameObject wall4;
 
     public GameObject allTables;
-
+    public GameObject teacherTable;
+    public GameObject[] tableAttackPositions;
+    public GameObject[] tableRestPositions;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -112,6 +114,9 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().agent = agent;
                 boss.GetComponent<StartHighSchoolBoss>().proximityArea = proximityArea;
                 boss.GetComponent<StartHighSchoolBoss>().floor = floor;
+                boss.GetComponent<StartHighSchoolBoss>().teacherTable = teacherTable;
+                boss.GetComponent<StartHighSchoolBoss>().tableAttackPositions = tableAttackPositions;
+                boss.GetComponent<StartHighSchoolBoss>().tableRestPositions = tableRestPositions;
 
 
                 break;

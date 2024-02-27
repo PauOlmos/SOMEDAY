@@ -13,6 +13,7 @@ public class StartHighSchoolBoss : MonoBehaviour
     public float destroyWallsTimer = 0.0f;
     public bool destroyedWalls = false;
     public bool classRoomCreated = false;
+    public GameObject teacherTable;
 
     public GameObject[] tables;
     public GameObject allTables;
@@ -24,6 +25,8 @@ public class StartHighSchoolBoss : MonoBehaviour
     public GameObject proximityArea;
     public NavMeshSurface floor;
 
+    public GameObject[] tableAttackPositions;
+    public GameObject[] tableRestPositions;
     public bool highSchoolCreationCompleted = false;
     void Start()
     {
@@ -64,6 +67,9 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().proximityArea = proximityArea;
             gameObject.GetComponent<HighSchoolBoss>().floor = floor;
             gameObject.GetComponent<HighSchoolBoss>().tables = tables;
+            gameObject.GetComponent<HighSchoolBoss>().teacherTable = teacherTable;
+            gameObject.GetComponent<HighSchoolBoss>().tableAttackPositions = tableAttackPositions;
+            gameObject.GetComponent<HighSchoolBoss>().tableRestPositions = tableRestPositions;
             //floor.BuildNavMesh();
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }
