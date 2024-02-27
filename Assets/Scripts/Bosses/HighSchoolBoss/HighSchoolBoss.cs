@@ -82,7 +82,13 @@ public class HighSchoolBoss : MonoBehaviour
     public bool armariRotation = false;
 
     public int hitsToSuperAttack = 3;
-    public int portalsGenerated = 0;
+    public float superAttackTimer = 0.0f;
+    public bool portalWave1 = false;
+    public bool portalWave2 = false;
+    public bool portalWave3 = false;
+    public bool portalWave4 = false;
+
+
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -234,7 +240,7 @@ public class HighSchoolBoss : MonoBehaviour
                                 }
                                 break;
                             case AttackType.portals:
-
+                                superAttackTimer += Time.deltaTime;
                                 agent.destination = gameObject.transform.position;
 
                                 gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
@@ -244,8 +250,14 @@ public class HighSchoolBoss : MonoBehaviour
                                 if (bossShield.transform.localScale.x > 2.0f) bossShield.transform.localScale = Vector3.one * 2.0f;
                                 else bossShield.transform.localScale += Vector3.one * Time.deltaTime;
 
-                                if(portalsGenerated == 0) GenerarPosiciones(5, portalSpawnArea.transform);
-
+                                if(portalWave1 == false) GenerarPosiciones(3, portalSpawnArea.transform, 1);
+                                if(portalWave2 == false && superAttackTimer > 1.5f) GenerarPosiciones(5, portalSpawnArea.transform, 2);
+                                if(portalWave3 == false && superAttackTimer > 3.0f) GenerarPosiciones(15, portalSpawnArea.transform, 3);
+                                if(portalWave4 == false && superAttackTimer > 4.5f) GenerarPosiciones(15, portalSpawnArea.transform, 4);
+                                if(superAttackTimer > 6.5f)
+                                {
+                                    ResetSuperAttackVariables();
+                                }
                                 break;
                         }
                     }
@@ -280,7 +292,27 @@ public class HighSchoolBoss : MonoBehaviour
         }
 
     }
-    void GenerarPosiciones(int numPositions, Transform area)
+
+    private void ResetSuperAttackVariables()
+    {
+        portalWave1 = false;
+        portalWave2 = false;
+        portalWave3 = false;
+        portalWave4 = false;
+        attackType = AttackType.one;
+        canMove = true;
+        attackSelected = false;
+        canAttack = false;
+        superAttackTimer = 0.0f;
+        agent.destination = gameObject.transform.position;
+        movState = MovementState.hiding;
+        bossShield.SetActive(false);
+        bossShield.transform.localScale = Vector3.zero;
+        gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
+
+    }
+
+    void GenerarPosiciones(int numPositions, Transform area, int portalWave)
     {
         for (int i = 0; i < numPositions; i++)
         {
@@ -294,8 +326,24 @@ public class HighSchoolBoss : MonoBehaviour
 
             GameObject portal = Instantiate(portalPrefab, posicion, Quaternion.identity);
             portal.GetComponent<Portal>().player = player.transform;
+            portal.GetComponent<Portal>().projectileType = portalWave-1;
+
         }
-        portalsGenerated++;
+        switch (portalWave)
+        {
+            case 1:
+                portalWave1 = true;
+                    break;
+            case 2:
+                portalWave2 = true;
+                    break;
+            case 3:
+                portalWave3 = true;
+                    break;
+            case 4:
+                portalWave4 = true;
+                    break;
+        }
     }
 
     private void ResetSpecialAttackVariables()

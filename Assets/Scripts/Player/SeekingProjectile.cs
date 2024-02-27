@@ -73,6 +73,10 @@ public class SeekingProjectile : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else if (other.gameObject.layer == 6 || other.gameObject.layer == 3) Destroy(gameObject);
+        else if (other.gameObject.layer == 6 || other.gameObject.layer == 3)
+        {
+            if(!shotByPlayer) Destroy(gameObject);
+            
+        }
     }
 }

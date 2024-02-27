@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
-    public int projectileType;
+    public int projectileType = 3;
 
     public GameObject pencil;
     public GameObject paperPlane;
@@ -15,7 +15,6 @@ public class Portal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        projectileType = Random.Range(0, 3);
         Debug.Log("Random Projectile is " + projectileType);
     }
 
@@ -26,45 +25,16 @@ public class Portal : MonoBehaviour
         {
             gameObject.transform.localScale = Vector3.one;
             createdProjectile = true;
-
-            switch (projectileType)
+            if (projectileType != 3)
             {
-                case 0:
-                    GameObject proj1 = Instantiate(pencil, gameObject.transform.position, Quaternion.identity);
-                    proj1.AddComponent<SeekingProjectile>();
-                    proj1.GetComponent<SeekingProjectile>().canFail = true;
-                    proj1.GetComponent<SeekingProjectile>().shotByPlayer = false;
-                    proj1.GetComponent<SeekingProjectile>().seekingTime = 0.01f;
-                    proj1.GetComponent<SeekingProjectile>().target = player;
-                    proj1.GetComponent<SeekingProjectile>().speed = 12.5f;
-                    proj1.transform.LookAt(player);
-                    proj1.tag = "BasicProjectile";
-                    proj1.layer = 7;
-                    proj1.AddComponent<DieByTime>();
-                    break;
-                case 1:
-                    GameObject proj2 = Instantiate(paperPlane, gameObject.transform.position, Quaternion.identity);
-                    proj2.AddComponent<SeekingProjectile>();
-                    proj2.GetComponent<SeekingProjectile>().canFail = true;
-                    proj2.GetComponent<SeekingProjectile>().shotByPlayer = false;
-                    proj2.GetComponent<SeekingProjectile>().seekingTime = 4.0f;
-                    proj2.GetComponent<SeekingProjectile>().target = player;
-                    proj2.GetComponent<SeekingProjectile>().speed = 7.0f;
-                    proj2.transform.LookAt(player);
-                    proj2.tag = "BasicProjectile";
-                    proj2.layer = 7;
-                    proj2.AddComponent<DieByTime>();
-
-                    break;
-                case 2:
-                    GameObject proj3 = Instantiate(schoolBag, gameObject.transform.position, Quaternion.identity);
-                    proj3.tag = "BasicProjectile";
-                    proj3.layer = 7;
-                    proj3.AddComponent<DieByTime>();
-                    proj3.AddComponent<SchoolBag>();
-
-                    break;
+                CreateProjectile();
             }
+            else
+            {
+                projectileType = Random.Range(0, 3);
+                CreateProjectile();
+            }
+            
 
         }
         else if(createdProjectile == false) gameObject.transform.localScale += Vector3.one * Time.deltaTime;
@@ -74,8 +44,47 @@ public class Portal : MonoBehaviour
             if (gameObject.transform.localScale.x > 0.0f) gameObject.transform.localScale -= Vector3.one * Time.deltaTime;
             else Destroy(gameObject);
         }
+    }
 
+    public void CreateProjectile()
+    {
+        switch (projectileType)
+        {
+            case 0:
+                GameObject proj1 = Instantiate(pencil, gameObject.transform.position, Quaternion.identity);
+                proj1.AddComponent<SeekingProjectile>();
+                proj1.GetComponent<SeekingProjectile>().canFail = true;
+                proj1.GetComponent<SeekingProjectile>().shotByPlayer = false;
+                proj1.GetComponent<SeekingProjectile>().seekingTime = 0.01f;
+                proj1.GetComponent<SeekingProjectile>().target = player;
+                proj1.GetComponent<SeekingProjectile>().speed = 12.5f;
+                proj1.transform.LookAt(player);
+                proj1.tag = "BasicProjectile";
+                proj1.layer = 7;
+                proj1.AddComponent<DieByTime>();
+                break;
+            case 1:
+                GameObject proj2 = Instantiate(paperPlane, gameObject.transform.position, Quaternion.identity);
+                proj2.AddComponent<SeekingProjectile>();
+                proj2.GetComponent<SeekingProjectile>().canFail = true;
+                proj2.GetComponent<SeekingProjectile>().shotByPlayer = false;
+                proj2.GetComponent<SeekingProjectile>().seekingTime = 4.0f;
+                proj2.GetComponent<SeekingProjectile>().target = player;
+                proj2.GetComponent<SeekingProjectile>().speed = 7.0f;
+                proj2.transform.LookAt(player);
+                proj2.tag = "BasicProjectile";
+                proj2.layer = 7;
+                proj2.AddComponent<DieByTime>();
 
+                break;
+            case 2:
+                GameObject proj3 = Instantiate(schoolBag, gameObject.transform.position, Quaternion.identity);
+                proj3.tag = "BasicProjectile";
+                proj3.layer = 7;
+                proj3.AddComponent<DieByTime>();
+                proj3.AddComponent<SchoolBag>();
 
+                break;
+        }
     }
 }
