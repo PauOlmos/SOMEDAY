@@ -359,15 +359,15 @@ public class HighSchoolBoss : MonoBehaviour
     {
         Vector3 direction1 = armariPos1.transform.position - armari1.transform.position;
         Vector3 direction2 = armariPos2.transform.position - armari2.transform.position;
-        armari1.transform.Translate(direction1 * Time.deltaTime);
-        armari2.transform.Translate(direction2 * Time.deltaTime);
+        armari1.transform.Translate(direction1 * Time.deltaTime * 5.0f);
+        armari2.transform.Translate(direction2 * Time.deltaTime * 5.0f);
 
         
         if ((direction1).magnitude < 0.1f && (direction1).magnitude < 0.1f)
         {
             if (armari1.transform.eulerAngles.z < 90)
             {
-                armari1.transform.Rotate(0, 0, Time.deltaTime * 20);
+                armari1.transform.Rotate(0, 0, Time.deltaTime * 60);
             }
             else
             {
@@ -376,7 +376,7 @@ public class HighSchoolBoss : MonoBehaviour
             }
             if (armariRotation == false)
             {
-                armari2.transform.Rotate(0, 0, -Time.deltaTime * 20);
+                armari2.transform.Rotate(0, 0, -Time.deltaTime * 60);
             }
             else
             {
@@ -401,7 +401,7 @@ public class HighSchoolBoss : MonoBehaviour
                 tables[i].layer = 7;
             }
             tables[i].tag = "NonParryable";
-            tables[i].transform.Translate(Vector3.up * Time.deltaTime * 5.0f);
+            tables[i].transform.Translate(Vector3.up * Time.deltaTime * 10.0f);
 
             if(tables[i].GetComponent<ParInpar>().par == false)
             {
@@ -429,14 +429,14 @@ public class HighSchoolBoss : MonoBehaviour
 
             if (tablesOnPosition == false)
             {
-                tables[i].transform.Translate(direction * Time.deltaTime);
+                tables[i].transform.Translate(direction * Time.deltaTime * 2);
             }
 
             if (tables[i].GetComponent<ParInpar>().par == true)
             {
                 if (tables[i].transform.eulerAngles.z < 90.0f)
                 {
-                    tables[i].transform.Rotate(0, 0, Time.deltaTime * 15f);
+                    tables[i].transform.Rotate(0, 0, Time.deltaTime * 20f);
                 }
                 else
                 {
@@ -446,7 +446,7 @@ public class HighSchoolBoss : MonoBehaviour
             }
             else
             {
-                if (inPairRotation == false) tables[i].transform.Rotate(0, 0, -Time.deltaTime * 15f);
+                if (inPairRotation == false) tables[i].transform.Rotate(0, 0, -Time.deltaTime * 20f);
                 else
                 {
                     tables[i].transform.Rotate(0, 0, 270 - tables[i].transform.eulerAngles.z);
