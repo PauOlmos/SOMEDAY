@@ -96,9 +96,14 @@ public class StartHighSchoolBoss : MonoBehaviour
 
             wall1.transform.localPosition = new Vector3(wall1.transform.position.x, wall1.transform.position.y, 21.3f);
         }
-        if (wall2.transform.position.x > 12.0f) wall2.transform.Translate(-Time.deltaTime * 4, 0.0f, 0.0f);
+        if (wall2.transform.position.x > 12.0f)
+        {
+            wall2.transform.Translate(-Time.deltaTime * 4, 0.0f, 0.0f);
+            armari1.transform.Translate(-Time.deltaTime * 4, 0.0f, 0.0f);
+        }
         else
         {
+            armari1.transform.localPosition = new Vector3(11.120f, armari1.transform.position.y, armari1.transform.position.z);
             wallsInPosition++;
             wall2.transform.localPosition = new Vector3(12.0f, wall2.transform.position.y, wall2.transform.position.z);
             wall2.isStatic = true;
@@ -111,12 +116,18 @@ public class StartHighSchoolBoss : MonoBehaviour
 
             wall3.transform.localPosition = new Vector3(wall3.transform.position.x, wall3.transform.position.y, -21.3f);
         }
-        if (wall4.transform.position.x < -12.0f) wall4.transform.Translate(Time.deltaTime * 4, 0.0f,0);
+        if (wall4.transform.position.x < -12.0f)
+        {
+            wall4.transform.Translate(Time.deltaTime * 4, 0.0f, 0);
+            armari2.transform.Translate(Time.deltaTime * 4, 0.0f, 0);
+        }
         else
         {
+
             wallsInPosition++;
             wall4.isStatic = true;
             wall4.transform.localPosition = new Vector3(-12.0f, wall4.transform.position.y, wall4.transform.position.z);
+            armari2.transform.localPosition = new Vector3(-11.120f, armari2.transform.position.y, armari2.transform.position.z);
         }
 
         if (wallsInPosition == 4) return true;
