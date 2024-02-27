@@ -60,6 +60,12 @@ public class BossManager : MonoBehaviour
     public GameObject teacherTable;
     public GameObject[] tableAttackPositions;
     public GameObject[] tableRestPositions;
+
+    public GameObject armari1;
+    public GameObject armari2;
+
+    public GameObject armariPos1;
+    public GameObject armariPos2;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -117,6 +123,10 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().teacherTable = teacherTable;
                 boss.GetComponent<StartHighSchoolBoss>().tableAttackPositions = tableAttackPositions;
                 boss.GetComponent<StartHighSchoolBoss>().tableRestPositions = tableRestPositions;
+                boss.GetComponent<StartHighSchoolBoss>().armari1 = armari1;
+                boss.GetComponent<StartHighSchoolBoss>().armari2 = armari2;
+                boss.GetComponent<StartHighSchoolBoss>().armariPos1 = armariPos1;
+                boss.GetComponent<StartHighSchoolBoss>().armariPos2 = armariPos2;
 
 
                 break;

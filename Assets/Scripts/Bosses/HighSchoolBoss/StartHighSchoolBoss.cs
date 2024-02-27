@@ -25,6 +25,11 @@ public class StartHighSchoolBoss : MonoBehaviour
     public GameObject proximityArea;
     public NavMeshSurface floor;
 
+    public GameObject armari1;
+    public GameObject armari2;
+
+    public GameObject armariPos1;
+    public GameObject armariPos2;
     public GameObject[] tableAttackPositions;
     public GameObject[] tableRestPositions;
     public bool highSchoolCreationCompleted = false;
@@ -70,6 +75,11 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().teacherTable = teacherTable;
             gameObject.GetComponent<HighSchoolBoss>().tableAttackPositions = tableAttackPositions;
             gameObject.GetComponent<HighSchoolBoss>().tableRestPositions = tableRestPositions;
+
+            gameObject.GetComponent<HighSchoolBoss>().armari1 = armari1;
+            gameObject.GetComponent<HighSchoolBoss>().armari2 = armari2;
+            gameObject.GetComponent<HighSchoolBoss>().armariPos1 = armariPos1;
+            gameObject.GetComponent<HighSchoolBoss>().armariPos2 = armariPos2;
             //floor.BuildNavMesh();
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }

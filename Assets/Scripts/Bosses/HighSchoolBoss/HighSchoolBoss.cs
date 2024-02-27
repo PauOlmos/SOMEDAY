@@ -47,6 +47,12 @@ public class HighSchoolBoss : MonoBehaviour
 
     public GameObject[] tableAttackPositions;
     public GameObject[] tableRestPositions;
+
+    public GameObject armari1;
+    public GameObject armari2;
+
+    public GameObject armariPos1;
+    public GameObject armariPos2;
     public enum MovementState
     {
         seeking,hiding,toTable,
@@ -56,14 +62,16 @@ public class HighSchoolBoss : MonoBehaviour
         one,two,three,special
     }
 
+
     MovementState movState = MovementState.hiding;
     AttackType attackType = AttackType.one;
+    AttackType specialAttackPhase = AttackType.one;
     private float stunTimer;
 
     public bool tablesOnPosition = false;
     public bool inPairRotation = false;
     public bool allTablesReady = false;
-
+    public bool armariRotation = false;
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -175,52 +183,24 @@ public class HighSchoolBoss : MonoBehaviour
                                 AttackThreeTimes();
                                 break;
                             case AttackType.special:
-                                if(allTablesReady == false)
+                                switch (specialAttackPhase)
                                 {
-                                    for (int i = 0; i < tables.Length; i++)
-                                    {
-                                        Vector3 direction = tableAttackPositions[i].transform.position - tables[i].transform.position;
+                                    case AttackType.one:
+                                        MoveTables();
 
-                                        if (tablesOnPosition == false)
-                                        {
-                                            tables[i].transform.Translate(direction * Time.deltaTime);
-                                        }
+                                        break;
+                                    case AttackType.two:
+                                        PushTables();
 
-                                        if (tables[i].GetComponent<ParInpar>().par == true)
-                                        {
-                                            if (tables[i].transform.eulerAngles.z < 90.0f)
-                                            {
-                                                tables[i].transform.Rotate(0, 0, Time.deltaTime * 10);
-                                            }
-                                            else
-                                            {
-                                                inPairRotation = true;
-                                                tables[i].transform.Rotate(0, 0, -(tables[i].transform.eulerAngles.z - 90));
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (inPairRotation == false) tables[i].transform.Rotate(0, 0, -Time.deltaTime * 10);
-                                            else
-                                            {
-                                                tables[i].transform.Rotate(0, 0, 270 - tables[i].transform.eulerAngles.z);
-                                                allTablesReady = true;
-                                            }
-                                        }
-                                        if ((direction).magnitude < 0.1f)
-                                        {
-                                            tablesOnPosition = true;
-                                            Debug.Log("JoinTables");
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    for (int i = 0; i < tables.Length; i++)
-                                    {
-                                        tables[i].tag = "NonParryable";
-                                        tables[i].transform.Translate(Vector3.up * Time.deltaTime);
-                                    }
+                                        break;
+                                    case AttackType.three:
+                                        MoveArmarios();
+
+                                        break;
+                                    case AttackType.special:
+                                        PushArmarios();
+
+                                        break;
                                 }
                                 break;
                         }
@@ -257,9 +237,119 @@ public class HighSchoolBoss : MonoBehaviour
 
     }
 
+    private void PushArmarios()
+    {
+        if(armari1.GetComponent<Rigidbody>() == null)
+        {
+            armari1.AddComponent<Rigidbody>();
+            armari1.GetComponent<Rigidbody>().useGravity = true;
+        }
+        if(armari2.GetComponent<Rigidbody>() == null)
+        {
+            armari2.AddComponent<Rigidbody>();
+            armari2.GetComponent<Rigidbody>().useGravity = true;
+        }
+    }
+
+    private void MoveArmarios()
+    {
+        Vector3 direction1 = armariPos1.transform.position - armari1.transform.position;
+        Vector3 direction2 = armariPos2.transform.position - armari2.transform.position;
+        armari1.transform.Translate(direction1 * Time.deltaTime);
+        armari2.transform.Translate(direction2 * Time.deltaTime);
+
+        /*if(armari1.transform.eulerAngles.z < 90)
+        {
+            armari1.transform.Rotate(0, 0, Time.deltaTime * 10);
+        }
+        else
+        {
+            armari1.transform.Rotate(0,0,-(armari1.transform.eulerAngles.z - 90));
+            armariRotation = true;
+        }
+        if(armariRotation == false)
+        {
+            armari2.transform.Rotate(0, 0, -Time.deltaTime * 10);
+        }
+        else
+        {
+            armari2.transform.Rotate(0, 0, 270 - armari2.transform.eulerAngles.z);
+        }*/
+        if ((direction1).magnitude < 0.1f && (direction1).magnitude < 0.1f)
+        {
+            specialAttackPhase = AttackType.special;
+        }
+
+    }
+
+    private void PushTables()
+    {
+        for (int i = 0; i < tables.Length; i++)
+        {
+            if (tables[i].GetComponent<Rigidbody>() == null)
+            {
+                tables[i].AddComponent<Rigidbody>();
+                tables[i].GetComponent<Rigidbody>().useGravity = false;
+            }
+            tables[i].tag = "NonParryable";
+            tables[i].transform.Translate(Vector3.up * Time.deltaTime);
+
+            if(tables[i].GetComponent<ParInpar>().par == false)
+            {
+                if(tables[i].transform.position.x > 10.5)
+                {
+                    specialAttackPhase = AttackType.three;
+                }
+            }
+            else
+            {
+                if (tables[i].transform.position.x < -10.5)
+                {
+                    specialAttackPhase = AttackType.three;
+                }
+            }
+
+        }
+    }
+
     public void MoveTables()
     {
+        for (int i = 0; i < tables.Length; i++)
+        {
+            Vector3 direction = tableAttackPositions[i].transform.position - tables[i].transform.position;
 
+            if (tablesOnPosition == false)
+            {
+                tables[i].transform.Translate(direction * Time.deltaTime);
+            }
+
+            if (tables[i].GetComponent<ParInpar>().par == true)
+            {
+                if (tables[i].transform.eulerAngles.z < 90.0f)
+                {
+                    tables[i].transform.Rotate(0, 0, Time.deltaTime * 10);
+                }
+                else
+                {
+                    inPairRotation = true;
+                    tables[i].transform.Rotate(0, 0, -(tables[i].transform.eulerAngles.z - 90));
+                }
+            }
+            else
+            {
+                if (inPairRotation == false) tables[i].transform.Rotate(0, 0, -Time.deltaTime * 10);
+                else
+                {
+                    tables[i].transform.Rotate(0, 0, 270 - tables[i].transform.eulerAngles.z);
+                    specialAttackPhase = AttackType.two;
+                }
+            }
+            if ((direction).magnitude < 0.1f)
+            {
+                tablesOnPosition = true;
+                Debug.Log("JoinTables");
+            }
+        }
     }
 
     public void IgnoreTables()
