@@ -41,6 +41,16 @@ public class StartHighSchoolBoss : MonoBehaviour
     public GameObject portalSpawnArea;
 
     public GameObject portalPrefab;
+
+
+    public GameObject corridorPos;
+    public GameObject door1;
+    public GameObject door2;
+
+
+    public GameObject doorPos1;
+    public GameObject doorPos2;
+    public GameObject checkPlayerOnCorridor;
     void Start()
     {
         TutorialWalls.isStatic = false;
@@ -95,6 +105,16 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().portalSpawnArea = portalSpawnArea;
             gameObject.GetComponent<HighSchoolBoss>().portalPrefab = portalPrefab;
             gameObject.GetComponent<HighSchoolBoss>().bossShield = bossShield;
+
+
+            gameObject.GetComponent<HighSchoolBoss>().corridorPos = corridorPos;
+            gameObject.GetComponent<HighSchoolBoss>().door1 = door1;
+            gameObject.GetComponent<HighSchoolBoss>().door2 = door2;
+            gameObject.GetComponent<HighSchoolBoss>().checkPlayerOnCorridor = checkPlayerOnCorridor;
+            gameObject.GetComponent<HighSchoolBoss>().wall4 = wall4;
+
+            gameObject.GetComponent<HighSchoolBoss>().doorPos1 = doorPos1;
+            gameObject.GetComponent<HighSchoolBoss>().doorPos2 = doorPos2;
             //floor.BuildNavMesh();
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }

@@ -75,6 +75,15 @@ public class BossManager : MonoBehaviour
     public GameObject portalSpawnArea;
 
     public GameObject portalPrefab;
+
+
+    public GameObject corridorPos;
+    public GameObject door1;
+    public GameObject door2;
+
+    public GameObject doorPos1;
+    public GameObject doorPos2;
+    public GameObject checkPlayerOnCorridor;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -141,6 +150,12 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().portalSpawnArea = portalSpawnArea;
                 boss.GetComponent<StartHighSchoolBoss>().portalPrefab = portalPrefab;
                 boss.GetComponent<StartHighSchoolBoss>().bossShield = bossShield;
+                boss.GetComponent<StartHighSchoolBoss>().corridorPos = corridorPos;
+                boss.GetComponent<StartHighSchoolBoss>().door1 = door1;
+                boss.GetComponent<StartHighSchoolBoss>().door2 = door2;
+                boss.GetComponent<StartHighSchoolBoss>().checkPlayerOnCorridor = checkPlayerOnCorridor;
+                boss.GetComponent<StartHighSchoolBoss>().doorPos1 = doorPos1;
+                boss.GetComponent<StartHighSchoolBoss>().doorPos2 = doorPos2;
 
 
                 break;
@@ -211,6 +226,25 @@ public class BossManager : MonoBehaviour
                         break;
                 }
 
+                break;
+            case 1:
+                if (boss.GetComponent<HighSchoolBoss>() != null)
+                {
+                    switch (boss.GetComponent<HighSchoolBoss>().phase)
+                    {
+                        case 0:
+                            if (boss.GetComponent<EnemyHP>().hp < 80)
+                            {
+                                boss.GetComponent<EnemyHP>().canBeDamaged = false;
+                                boss.GetComponent<HighSchoolBoss>().phase++;
+                            }
+                            break;
+                        case 1:
+
+                            break;
+                    }
+                    break;
+                }
                 break;
         }
 

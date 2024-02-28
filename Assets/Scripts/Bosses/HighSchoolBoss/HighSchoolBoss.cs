@@ -88,12 +88,24 @@ public class HighSchoolBoss : MonoBehaviour
     public bool portalWave3 = false;
     public bool portalWave4 = false;
 
+    public bool transitionToCorridor = false;
+    public bool openDoors = false;
 
+    public GameObject corridorPos;
+    public GameObject wall4;
+    public GameObject door1;
+    public GameObject door2;
+    public GameObject doorPos1;
+    public GameObject doorPos2;
+    public GameObject checkPlayerOnCorridor;
+
+    public bool teleportBoss = false;
+    public float doorTimer = 0.0f;
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
         phase = 0;
-        gameObject.GetComponent<EnemyHP>().hp = 20;
+        gameObject.GetComponent<EnemyHP>().hp = 100;
         agent.enabled = true;
         agent.destination = gameObject.transform.position;
         armariResetPos1.transform.position = armari1.transform.position;
@@ -284,12 +296,75 @@ public class HighSchoolBoss : MonoBehaviour
 
             case 1:
 
+                if(transitionToCorridor == false)
+                {
+                    EveryoneToCorrdor();
+                }
+                else
+                {
+                    //Logica de la fase
+                }
+
                 break;
 
             case 2:
 
                 break;
         }
+
+    }
+
+    private void EveryoneToCorrdor()
+    {
+        agent.enabled = false;
+        Vector3 direction = corridorPos.transform.position - gameObject.transform.position;
+        gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
+        canMove = false;
+        canAttack = false;
+        if(teleportBoss == false)
+        {
+            gameObject.transform.localScale -= Vector3.one * Time.deltaTime;
+            if(gameObject.transform.localScale.x <= 0)
+            {
+                teleportBoss = true;
+                gameObject.transform.position = corridorPos.transform.position;
+                gameObject.transform.localScale = Vector3.one * 3;
+            }
+        }
+        else gameObject.transform.position = corridorPos.transform.position;
+        if (wall4.transform.position.x < 11.5f)
+        {
+            wall4.transform.Translate(Time.deltaTime * 2.0f, 0, 0);
+        }
+        wall4.tag = "NonParryable";
+        wall4.layer = 7;
+        Debug.Log(direction.magnitude);
+        if (direction.magnitude < 0.1f && openDoors == false)
+        {
+            doorTimer += Time.deltaTime;
+            if(doorTimer < 4.0f)
+            {
+                if (door1.transform.eulerAngles.y - 360 <= 90.0f)
+                {
+                    door1.transform.RotateAround(doorPos1.transform.position, Vector3.up, Time.deltaTime * 30.0f);
+                }
+                if (door2.transform.eulerAngles.y - 360 <= 90.0f)
+                {
+                    door2.transform.RotateAround(doorPos2.transform.position, Vector3.up, Time.deltaTime * 30.0f);
+                }
+            }
+            
+            
+        }
+        //Abrir puertas i checkear si el player esta en el pasillo
+        //Cerrar Puertas
+        if (player.transform.position.x > 13.0f && wall4.transform.position.x >= 11.5f)
+        {
+            wall4.tag = "Untagged";
+            wall4.layer = 4;
+            transitionToCorridor = true;
+        }
+         
 
     }
 
