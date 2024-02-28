@@ -61,6 +61,7 @@ public class HighSchoolBoss : MonoBehaviour
     public GameObject portalSpawnArea;
 
     public GameObject portalPrefab;
+    public bool touchingGround = false;
     public enum MovementState
     {
         seeking,hiding,toTable,
@@ -101,6 +102,8 @@ public class HighSchoolBoss : MonoBehaviour
 
     public bool teleportBoss = false;
     public float doorTimer = 0.0f;
+    public float floorMultiplier = 1.0f;
+    public float corridorAttackCooldownTimer = 0.0f;
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -302,7 +305,21 @@ public class HighSchoolBoss : MonoBehaviour
                 }
                 else
                 {
-                    //Logica de la fase
+                    if(touchingGround == true)
+                    {
+                        player.GetComponent<Rigidbody>().velocity -= new Vector3(0, 0, floorMultiplier * Time.deltaTime);
+                    }
+                    if (canAttack)
+                    {
+
+                    }else if(attackType == AttackType.reset)
+                    {
+                        corridorAttackCooldownTimer += Time.deltaTime;
+                        if(corridorAttackCooldownTimer > 4.0f)
+                        {
+                            SelectCorridorAttack();
+                        }
+                    }
                 }
 
                 break;
@@ -338,7 +355,6 @@ public class HighSchoolBoss : MonoBehaviour
         }
         wall4.tag = "NonParryable";
         wall4.layer = 7;
-        Debug.Log(direction.magnitude);
         if (direction.magnitude < 0.1f && openDoors == false)
         {
             doorTimer += Time.deltaTime;
@@ -361,8 +377,9 @@ public class HighSchoolBoss : MonoBehaviour
         if (player.transform.position.x > 13.0f && wall4.transform.position.x >= 11.5f)
         {
             wall4.tag = "Untagged";
-            wall4.layer = 4;
+            wall4.layer = 3;
             transitionToCorridor = true;
+            attackType = AttackType.reset;
         }
          
 
