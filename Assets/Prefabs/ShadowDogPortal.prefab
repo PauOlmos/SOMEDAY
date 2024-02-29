@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6039619301760712826}
   m_Layer: 0
   m_Name: ShadowDogPortal
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

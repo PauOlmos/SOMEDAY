@@ -477,7 +477,15 @@ public class HighSchoolBoss : MonoBehaviour
                         {
                             Destroy(enemy);
                         }
+                        GameObject[] portals = GameObject.FindGameObjectsWithTag("Portal");
 
+                        foreach (GameObject portal in portals)
+
+                        {
+
+                            Destroy(portal);
+
+                        }
                         // Encuentra y elimina todos los objetos con el tag "BasicProjectile"
                         GameObject[] projectiles = GameObject.FindGameObjectsWithTag("BasicProjectile");
                         foreach (GameObject projectile in projectiles)
