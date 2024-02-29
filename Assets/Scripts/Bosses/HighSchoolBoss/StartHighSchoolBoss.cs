@@ -76,7 +76,13 @@ public class StartHighSchoolBoss : MonoBehaviour
 
     public GameObject shadowDogPortalPrefab;
     public GameObject corridorFloor;
+    public GameObject scenarioFloor;
 
+    public GameObject lightTarget1;
+    public GameObject lightTarget2;
+
+    public GameObject foco1;
+    public GameObject foco2;
     void Start()
     {
         TutorialWalls.isStatic = false;
@@ -166,7 +172,14 @@ public class StartHighSchoolBoss : MonoBehaviour
 
             gameObject.GetComponent<HighSchoolBoss>().shadowDogPortalPrefab = shadowDogPortalPrefab;
             gameObject.GetComponent<HighSchoolBoss>().corridorFloor = corridorFloor;
-            //floor.BuildNavMesh();
+            gameObject.GetComponent<HighSchoolBoss>().scenarioFloor = scenarioFloor;
+
+            gameObject.GetComponent<HighSchoolBoss>().lightTarget1 = lightTarget1;
+            gameObject.GetComponent<HighSchoolBoss>().lightTarget2 = lightTarget2;
+
+            gameObject.GetComponent<HighSchoolBoss>().foco1 = foco1;
+            gameObject.GetComponent<HighSchoolBoss>().foco2 = foco2;
+
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }
     }

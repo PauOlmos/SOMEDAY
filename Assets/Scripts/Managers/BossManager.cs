@@ -109,6 +109,13 @@ public class BossManager : MonoBehaviour
 
     public GameObject shadowDogPortalPrefab;
     public GameObject corridorFloor;
+    public GameObject scenarioFloor;
+
+    public GameObject lightTarget1;
+    public GameObject lightTarget2;
+
+    public GameObject foco1;
+    public GameObject foco2;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -203,6 +210,13 @@ public class BossManager : MonoBehaviour
 
                 boss.GetComponent<StartHighSchoolBoss>().shadowDogPortalPrefab = shadowDogPortalPrefab;
                 boss.GetComponent<StartHighSchoolBoss>().corridorFloor = corridorFloor;
+                boss.GetComponent<StartHighSchoolBoss>().scenarioFloor = scenarioFloor;
+
+                boss.GetComponent<StartHighSchoolBoss>().lightTarget1 = lightTarget1;
+                boss.GetComponent<StartHighSchoolBoss>().lightTarget2 = lightTarget2;
+
+                boss.GetComponent<StartHighSchoolBoss>().foco1 = foco1;
+                boss.GetComponent<StartHighSchoolBoss>().foco2 = foco2;
 
 
                 break;

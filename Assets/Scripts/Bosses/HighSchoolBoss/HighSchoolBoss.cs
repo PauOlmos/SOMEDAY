@@ -134,7 +134,15 @@ public class HighSchoolBoss : MonoBehaviour
     public bool destroyCorridor = false;
 
     public bool transitionToScenario = false;
+    public float transitionToScenarioTimer = 0.0f;
     public GameObject corridorFloor;
+    public GameObject scenarioFloor;
+
+    public GameObject lightTarget1;
+    public GameObject lightTarget2;
+
+    public GameObject foco1;
+    public GameObject foco2;
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -224,7 +232,6 @@ public class HighSchoolBoss : MonoBehaviour
                         canAttack = true;
                         firstDone = false;
                         secondDone = false;
-
                     }
 
                 }
@@ -455,7 +462,7 @@ public class HighSchoolBoss : MonoBehaviour
 
             case 2:
 
-                if(transitionToScenario == false)
+                if (transitionToScenario == false)
                 {
                     if (destroyCorridor == false)
                     {
@@ -494,26 +501,59 @@ public class HighSchoolBoss : MonoBehaviour
                     else
                     {
 
-                        if (hand1.transform.eulerAngles.z - 360 <= 90.0)
-                        {
-                            hand1.transform.RotateAround(handPos1.transform.position, Vector3.forward, -Time.deltaTime * 90.0f);
-                        }
-                        if (hand2.transform.eulerAngles.z - 360 <= 90.0f)
-                        {
-                            hand2.transform.RotateAround(handPos2.transform.position, Vector3.forward, Time.deltaTime * 90.0f);
-                        }
-                        if (hand3.transform.eulerAngles.z - 360 <= 90.0f)
-                        {
-                            hand3.transform.RotateAround(handPos3.transform.position, Vector3.forward, Time.deltaTime * 90.0f);
-                        }
+
                         if (hand1.transform.eulerAngles.z < 271 && hand1.transform.eulerAngles.z > 269)
                         {
                             Destroy(corridorFloor);
-                            if(touchingGround == true)
+                            if (touchingGround == true)
                             {
+                                touchingGround = false;
                                 player.GetComponent<PlayerHp>().TakeDamage();
+                                Debug.Log("HighSchoolBoss KLK");
                             }
-                            transitionToScenario = true;
+                            transitionToScenarioTimer += Time.deltaTime;
+                            if (transitionToScenarioTimer > 7.0f)
+                            {
+                                canMove = true;
+                                transitionToScenario = true;
+                                attackCooldownTimer = 0.0f;
+                                specialAttacking = false;
+                                stamina = 0.0f;
+                                movState = MovementState.seeking;
+                                firstDone = false;
+                                secondDone = false;
+                                canAttack = false;
+                                attackSelected = false;
+                                proximityAreaTimer = 0.0f;
+                                scenarioFloor.GetComponent<NavMeshSurface>().BuildNavMesh();
+                                lightTarget1.SetActive(true);
+                                lightTarget2.SetActive(true);
+                                foco1.SetActive(true);
+                                foco2.SetActive(true);
+                                agent.enabled = true;
+                                superAttackTimer = 0.0f;
+                                Destroy(hand1);
+                                Destroy(hand2);
+                                Destroy(hand3);
+                                Destroy(handPos1);
+                                Destroy(handPos2);
+                                Destroy(handPos3);
+                            }
+                        }
+                        else
+                        {
+                            if (hand1.transform.eulerAngles.z - 360 <= 90.0)
+                            {
+                                hand1.transform.RotateAround(handPos1.transform.position, Vector3.forward, -Time.deltaTime * 90.0f);
+                            }
+                            if (hand2.transform.eulerAngles.z - 360 <= 90.0f)
+                            {
+                                hand2.transform.RotateAround(handPos2.transform.position, Vector3.forward, Time.deltaTime * 90.0f);
+                            }
+                            if (hand3.transform.eulerAngles.z - 360 <= 90.0f)
+                            {
+                                hand3.transform.RotateAround(handPos3.transform.position, Vector3.forward, Time.deltaTime * 90.0f);
+                            }
                         }
 
                     }
@@ -522,7 +562,86 @@ public class HighSchoolBoss : MonoBehaviour
                 }
                 else
                 {
-                    //Logica del joc
+                    foco1.transform.LookAt(lightTarget1.transform.position);
+                    foco2.transform.LookAt(lightTarget2.transform.position);
+                    
+                    if (canMove && gameObject.GetComponent<EnemyHP>().stun == false)
+                    {
+                        attackCooldownTimer += Time.deltaTime;
+                        gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
+                        if (specialAttacking == false)
+                        {
+                            
+                             movState = MovementState.seeking;
+                            
+                        }
+
+                        switch (movState)
+                        {
+                            case MovementState.seeking:
+                                agent.speed = 3.5f;
+
+                                agent.updateRotation = true;
+                                Vector3 direction = transform.position - player.transform.position;
+                                float distanceActual = direction.magnitude;
+
+                                if (distanceActual > 5.0f) agent.destination = player.transform.position;
+                                else agent.destination = gameObject.transform.position;
+                                break;
+                            default: break;
+                        }
+
+
+                        if (IsNear(5.0f) && attackCooldownTimer > attackCooldown && specialAttacking == false)
+                        {
+                            canAttack = true;
+                            firstDone = false;
+                            secondDone = false;
+
+                        }
+
+                    }
+                    if (canAttack && gameObject.GetComponent<EnemyHP>().stun == false)
+                    {
+                        if (attackSelected == false)
+                        {
+                            SelectAttack(0);
+                        }
+                        else
+                        {
+                            switch (attackType)
+                            {
+                                case AttackType.one:
+                                    AttackOnce();
+
+                                    break;
+                                case AttackType.two:
+                                    AttackTwice();
+
+                                    break;
+                                case AttackType.three:
+                                    AttackThreeTimes();
+                                    break;
+                            }
+                        }
+                    } //Logica del joc
+                    if (gameObject.GetComponent<EnemyHP>().stun == true && specialAttacking == false)
+                    {
+                        stunTimer += Time.deltaTime;
+                        if (stunTimer > 3.0f)
+                        {
+                            stunTimer = 0.0f;
+                            gameObject.GetComponent<EnemyHP>().stun = false;
+                            canMove = true;
+                        }
+                        else
+                        {
+                            attackSelected = false;
+                            proximityAreaTimer = 0.0f;
+                            canAttack = false;
+                            canMove = false;
+                        }
+                    }
                 }
 
                 break;
@@ -1091,7 +1210,7 @@ public class HighSchoolBoss : MonoBehaviour
 
                 break;
         }
-        if(hitsToSuperAttack <= 0)
+        if(hitsToSuperAttack <= 0 && phase == 0)
         {
             hitsToSuperAttack += 3;
             attackType = AttackType.portals;

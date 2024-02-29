@@ -92,7 +92,12 @@ public class PlayerHp : MonoBehaviour
         if (collision.gameObject.layer == 7)//7 = Attack
         {
             Debug.Log("Hit");
-            if (!isInvencible && collision.gameObject.tag != "ParriedAttack") TakeDamage();
+            if (!isInvencible && collision.gameObject.tag != "ParriedAttack")
+            {
+                Debug.Log("Damaged from " + collision.gameObject.name);
+
+                TakeDamage();
+            }
             if (collision.gameObject.tag == "BasicProjectile") Destroy(collision.gameObject);
             if (collision.gameObject.name == "HandDamage")
             {
@@ -110,7 +115,12 @@ public class PlayerHp : MonoBehaviour
         if (other.gameObject.layer == 7)//7 = Attack
         {
             Debug.Log("Hit");
-            if (!isInvencible && other.gameObject.tag != "ParriedAttack") TakeDamage();
+            if (!isInvencible && other.gameObject.tag != "ParriedAttack")
+            {
+                Debug.Log("Damaged from " + other.gameObject.name);
+
+                TakeDamage();
+            }
             if (other.gameObject.tag == "BasicProjectile") Destroy(other.gameObject);
             if (other.gameObject.name == "HandDamage")
             {
@@ -125,7 +135,6 @@ public class PlayerHp : MonoBehaviour
 
     public void TakeDamage()
     {
-        Debug.Log("Damaged");
         passiveAbility.canCharge = false;
         passiveAbility.canChargeTimer = 0.0f;
         playerHp--;
