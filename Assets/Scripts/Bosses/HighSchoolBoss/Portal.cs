@@ -75,7 +75,7 @@ public class Portal : MonoBehaviour
                 proj2.tag = "BasicProjectile";
                 proj2.layer = 7;
                 proj2.AddComponent<DieByTime>();
-
+                proj2.GetComponent<DieByTime>().deathTime = 10.0f;
                 break;
             case 2:
                 GameObject proj3 = Instantiate(schoolBag, gameObject.transform.position, Quaternion.identity);

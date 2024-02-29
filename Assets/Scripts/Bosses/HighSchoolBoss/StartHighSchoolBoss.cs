@@ -177,6 +177,9 @@ public class StartHighSchoolBoss : MonoBehaviour
             handPos1.transform.Translate(-Time.deltaTime * 4.0f, 0, 0);
             handPos2.transform.Translate(-Time.deltaTime * 4.0f, 0, 0);
             handPos3.transform.Translate(-Time.deltaTime * 4.0f, 0, 0);
+            weakPoint1.transform.Translate(-Time.deltaTime * 4.0f, 0, 0);
+            weakPoint2.transform.Translate(-Time.deltaTime * 4.0f, 0, 0);
+            weakPoint3.transform.Translate(-Time.deltaTime * 4.0f, 0, 0);
         }
         else
         {

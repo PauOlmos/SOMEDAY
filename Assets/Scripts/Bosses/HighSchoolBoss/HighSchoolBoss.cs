@@ -367,20 +367,49 @@ public class HighSchoolBoss : MonoBehaviour
                                 if (hand1.transform.eulerAngles.z - 360 <= 90.0f && rotatingHands == false)
                                 {
                                     hand1.transform.RotateAround(handPos1.transform.position, Vector3.forward, -Time.deltaTime * 30.0f);
+                                    weakPoint1.transform.RotateAround(handPos1.transform.position, Vector3.forward, -Time.deltaTime * 30.0f);
                                 }
                                 if (hand2.transform.eulerAngles.z - 360 <= 90.0f && rotatingHands == false)
                                 {
                                     hand2.transform.RotateAround(handPos2.transform.position, Vector3.forward, Time.deltaTime * 30.0f);
+                                    weakPoint2.transform.RotateAround(handPos2.transform.position, Vector3.forward, Time.deltaTime * 30.0f);
                                 }
                                 if (hand3.transform.eulerAngles.z - 360 <= 90.0f && rotatingHands == false)
                                 {
                                     hand3.transform.RotateAround(handPos3.transform.position, Vector3.forward, Time.deltaTime * 30.0f);
+                                    weakPoint3.transform.RotateAround(handPos3.transform.position, Vector3.forward, Time.deltaTime * 30.0f);
                                 }
 
                                 if(hand1.transform.eulerAngles.z < 271 && hand1.transform.eulerAngles.z > 269)
                                 {
                                     rotatingHands = true;
                                     if (handDamage1.GetComponent<Rigidbody>() != null) Destroy(handDamage2.GetComponent<Rigidbody>());
+                                }
+
+                                if(rotatingHands == true)
+                                {
+                                    corridorAttackCooldownTimer += Time.deltaTime;
+                                    if (corridorAttackCooldownTimer > 6.0f)
+                                    {
+
+                                        hand1.transform.RotateAround(handPos1.transform.position, Vector3.forward, Time.deltaTime * 60.0f);
+                                        weakPoint1.transform.RotateAround(handPos1.transform.position, Vector3.forward, Time.deltaTime * 60.0f);
+
+
+                                        hand2.transform.RotateAround(handPos2.transform.position, Vector3.forward, -Time.deltaTime * 60.0f);
+                                        weakPoint2.transform.RotateAround(handPos2.transform.position, Vector3.forward, -Time.deltaTime * 60.0f);
+
+
+                                        hand3.transform.RotateAround(handPos3.transform.position, Vector3.forward, -Time.deltaTime * 60.0f);
+                                        weakPoint3.transform.RotateAround(handPos3.transform.position, Vector3.forward, -Time.deltaTime * 60.0f);
+
+                                        if(hand1.transform.eulerAngles.z < 359 && hand1.transform.eulerAngles.z > 358)
+                                        {
+                                            canAttack = false;
+                                            attackType = AttackType.reset;
+                                            corridorAttackCooldownTimer = 0.0f;
+                                        }
+                                    }
                                 }
 
                                 //Braços
@@ -444,8 +473,6 @@ public class HighSchoolBoss : MonoBehaviour
                 rotatingHands = false;
                 break;
         }
-        attackType = AttackType.two;
-
         corridorAttackCooldownTimer = 0.0f;
         canAttack = true;
     }
