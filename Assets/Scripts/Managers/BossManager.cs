@@ -108,6 +108,7 @@ public class BossManager : MonoBehaviour
     public GameObject shadowDogPortalPos3;
 
     public GameObject shadowDogPortalPrefab;
+    public GameObject corridorFloor;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -201,6 +202,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().shadowDogPortalPos3 = shadowDogPortalPos3;
 
                 boss.GetComponent<StartHighSchoolBoss>().shadowDogPortalPrefab = shadowDogPortalPrefab;
+                boss.GetComponent<StartHighSchoolBoss>().corridorFloor = corridorFloor;
 
 
                 break;
@@ -278,14 +280,18 @@ public class BossManager : MonoBehaviour
                     switch (boss.GetComponent<HighSchoolBoss>().phase)
                     {
                         case 0:
-                            if (boss.GetComponent<EnemyHP>().hp < 80)
+                            if (boss.GetComponent<EnemyHP>().hp < 85)
                             {
                                 boss.GetComponent<EnemyHP>().canBeDamaged = false;
                                 boss.GetComponent<HighSchoolBoss>().phase++;
                             }
                             break;
                         case 1:
-
+                            if (boss.GetComponent<EnemyHP>().hp < 70)
+                            {
+                                boss.GetComponent<EnemyHP>().canBeDamaged = true;
+                                boss.GetComponent<HighSchoolBoss>().phase++;
+                            }
                             break;
                     }
                     break;

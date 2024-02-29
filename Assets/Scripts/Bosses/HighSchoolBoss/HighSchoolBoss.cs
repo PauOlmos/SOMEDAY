@@ -72,9 +72,9 @@ public class HighSchoolBoss : MonoBehaviour
     }
 
 
-    MovementState movState = MovementState.hiding;
-    AttackType attackType = AttackType.one;
-    AttackType specialAttackPhase = AttackType.one;
+    public MovementState movState = MovementState.hiding;
+    public AttackType attackType = AttackType.one;
+    public AttackType specialAttackPhase = AttackType.one;
     private float stunTimer;
 
     public bool tablesOnPosition = false;
@@ -131,6 +131,10 @@ public class HighSchoolBoss : MonoBehaviour
     public bool rotatingHands = false;
 
     public float corridorSpecialAttackTimer = 0.0f;
+    public bool destroyCorridor = false;
+
+    public bool transitionToScenario = false;
+    public GameObject corridorFloor;
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -451,6 +455,76 @@ public class HighSchoolBoss : MonoBehaviour
 
             case 2:
 
+                if(transitionToScenario == false)
+                {
+                    if (destroyCorridor == false)
+                    {
+                        Destroy(handDamage1);
+                        Destroy(weakPoint1);
+                        Destroy(handDamage2);
+                        Destroy(weakPoint2);
+                        Destroy(handDamage3);
+                        Destroy(weakPoint3);
+                        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                        foreach (GameObject enemy in enemies)
+                        {
+                            Destroy(enemy);
+                        }
+
+                        // Encuentra y elimina todos los objetos con el tag "BasicProjectile"
+                        GameObject[] projectiles = GameObject.FindGameObjectsWithTag("BasicProjectile");
+                        foreach (GameObject projectile in projectiles)
+                        {
+                            Destroy(projectile);
+                        }
+
+                        hand1.transform.RotateAround(handPos1.transform.position, Vector3.forward, Time.deltaTime * 60.0f);
+
+
+                        hand2.transform.RotateAround(handPos2.transform.position, Vector3.forward, -Time.deltaTime * 60.0f);
+
+
+                        hand3.transform.RotateAround(handPos3.transform.position, Vector3.forward, -Time.deltaTime * 60.0f);
+
+                        if (hand1.transform.eulerAngles.z < 359 && hand1.transform.eulerAngles.z > 358)
+                        {
+                            destroyCorridor = true;
+                        }
+                    }
+                    else
+                    {
+
+                        if (hand1.transform.eulerAngles.z - 360 <= 90.0)
+                        {
+                            hand1.transform.RotateAround(handPos1.transform.position, Vector3.forward, -Time.deltaTime * 90.0f);
+                        }
+                        if (hand2.transform.eulerAngles.z - 360 <= 90.0f)
+                        {
+                            hand2.transform.RotateAround(handPos2.transform.position, Vector3.forward, Time.deltaTime * 90.0f);
+                        }
+                        if (hand3.transform.eulerAngles.z - 360 <= 90.0f)
+                        {
+                            hand3.transform.RotateAround(handPos3.transform.position, Vector3.forward, Time.deltaTime * 90.0f);
+                        }
+                        if (hand1.transform.eulerAngles.z < 271 && hand1.transform.eulerAngles.z > 269)
+                        {
+                            Destroy(corridorFloor);
+                            if(touchingGround == true)
+                            {
+                                player.GetComponent<PlayerHp>().TakeDamage();
+                            }
+                            transitionToScenario = true;
+                        }
+
+                    }
+
+
+                }
+                else
+                {
+                    //Logica del joc
+                }
+
                 break;
         }
 
@@ -546,6 +620,7 @@ public class HighSchoolBoss : MonoBehaviour
             wall4.layer = 3;
             transitionToCorridor = true;
             attackType = AttackType.reset;
+            corridorFloor.GetComponent<NavMeshSurface>().BuildNavMesh();
             Destroy(floor);
         }
          
@@ -608,6 +683,8 @@ public class HighSchoolBoss : MonoBehaviour
     private void ResetSpecialAttackVariables()
     {
         specialAttackPhase = AttackType.one;
+        attackType = AttackType.one;
+
         tablesOnPosition = false;
         inPairRotation = false;
         attackSelected = false;
