@@ -6,10 +6,10 @@ public class DieByTime : MonoBehaviour
 {
     // Start is called before the first frame update
     float timer;
-    float deathTime = 5.0f;
+    public float deathTime = 0.0f;
     void Start()
     {
-        
+        if (deathTime == 0.0f) deathTime = 5.0f;
     }
 
     // Update is called once per frame

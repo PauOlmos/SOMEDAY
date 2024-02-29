@@ -98,12 +98,33 @@ public class HighSchoolBoss : MonoBehaviour
     public GameObject door2;
     public GameObject doorPos1;
     public GameObject doorPos2;
-    public GameObject checkPlayerOnCorridor;
-
+    public GameObject projectileSource;
+    public GameObject projectilePrefab;
     public bool teleportBoss = false;
     public float doorTimer = 0.0f;
-    public float floorMultiplier = 1.0f;
+    public float floorMultiplier = 19.0f;
     public float corridorAttackCooldownTimer = 0.0f;
+
+    public float projectileAttackTimer = 0.0f;
+    public int numProjectilesShot = 0;
+
+
+    public GameObject hand1;
+    public GameObject hand2;
+    public GameObject hand3;
+    public GameObject handDamage1;
+    public GameObject handDamage2;
+    public GameObject handDamage3;
+    public GameObject handPos1;
+    public GameObject handPos2;
+    public GameObject handPos3;
+
+    public GameObject weakPoint1;
+    public GameObject weakPoint2;
+    public GameObject weakPoint3;
+
+    public bool rotatingHands = false;
+
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -311,8 +332,63 @@ public class HighSchoolBoss : MonoBehaviour
                     }
                     if (canAttack)
                     {
+                        switch (attackType)
+                        {
+                            case AttackType.one:
+                                projectileAttackTimer += Time.deltaTime;
 
-                    }else if(attackType == AttackType.reset)
+                                if(projectileAttackTimer > 0.25f)
+                                {
+                                    GameObject projectile = Instantiate(projectilePrefab, projectileSource.transform.position, Quaternion.identity);
+                                    projectile.AddComponent<SeekingProjectile>();
+                                    projectile.GetComponent<SeekingProjectile>().canFail = true;
+                                    projectile.GetComponent<SeekingProjectile>().shotByPlayer = false;
+                                    projectile.GetComponent<SeekingProjectile>().seekingTime = 0.01f;
+                                    projectile.GetComponent<SeekingProjectile>().target = player.transform;
+                                    projectile.GetComponent<SeekingProjectile>().speed = 25.0f;
+                                    projectile.tag = "BasicProjectile";
+                                    projectile.layer = 7;
+                                    projectile.AddComponent<DieByTime>();
+                                    projectile.GetComponent<DieByTime>().deathTime = 10.0f;
+                                    numProjectilesShot++;
+                                    projectileAttackTimer = 0.0f;
+                                }
+
+                                if (numProjectilesShot > 4)
+                                {
+                                    canAttack = false;
+                                    attackType = AttackType.reset;
+                                }
+                                //Dispara
+
+                                break;
+                            case AttackType.two:
+
+                                if (hand1.transform.eulerAngles.z - 360 <= 90.0f && rotatingHands == false)
+                                {
+                                    hand1.transform.RotateAround(handPos1.transform.position, Vector3.forward, -Time.deltaTime * 30.0f);
+                                }
+                                if (hand2.transform.eulerAngles.z - 360 <= 90.0f && rotatingHands == false)
+                                {
+                                    hand2.transform.RotateAround(handPos2.transform.position, Vector3.forward, Time.deltaTime * 30.0f);
+                                }
+                                if (hand3.transform.eulerAngles.z - 360 <= 90.0f && rotatingHands == false)
+                                {
+                                    hand3.transform.RotateAround(handPos3.transform.position, Vector3.forward, Time.deltaTime * 30.0f);
+                                }
+
+                                if(hand1.transform.eulerAngles.z < 271 && hand1.transform.eulerAngles.z > 269)
+                                {
+                                    rotatingHands = true;
+                                    if (handDamage1.GetComponent<Rigidbody>() != null) Destroy(handDamage2.GetComponent<Rigidbody>());
+                                }
+
+                                //Braços
+
+                                break;
+                        }
+                    }
+                    else if(attackType == AttackType.reset)
                     {
                         corridorAttackCooldownTimer += Time.deltaTime;
                         if(corridorAttackCooldownTimer > 4.0f)
@@ -329,6 +405,49 @@ public class HighSchoolBoss : MonoBehaviour
                 break;
         }
 
+    }
+
+    private void SelectCorridorAttack()
+    {
+        int attack = Random.Range(0, 2);
+        switch (attack)
+        {
+            case 0:
+                attackType = AttackType.one;
+                numProjectilesShot = 0;
+                break;
+            case 1:
+                attackType = AttackType.two;
+                handDamage1.AddComponent<Rigidbody>();
+                handDamage1.GetComponent<Rigidbody>().useGravity = false;
+
+                handDamage2.AddComponent<Rigidbody>();
+                handDamage2.GetComponent<Rigidbody>().useGravity = false;
+
+                handDamage3.AddComponent<Rigidbody>();
+                handDamage3.GetComponent<Rigidbody>().useGravity = false;
+
+                weakPoint1.SetActive(true);
+
+                if(weakPoint1.GetComponent<Rigidbody>() == null) weakPoint1.AddComponent<Rigidbody>();
+                weakPoint1.GetComponent<Rigidbody>().useGravity = false;
+
+                weakPoint2.SetActive(true);
+
+                if (weakPoint2.GetComponent<Rigidbody>() == null) weakPoint2.AddComponent<Rigidbody>();
+                weakPoint2.GetComponent<Rigidbody>().useGravity = false;
+
+                weakPoint3.SetActive(true);
+
+                if (weakPoint3.GetComponent<Rigidbody>() == null) weakPoint3.AddComponent<Rigidbody>();
+                weakPoint3.GetComponent<Rigidbody>().useGravity = false;
+                rotatingHands = false;
+                break;
+        }
+        attackType = AttackType.two;
+
+        corridorAttackCooldownTimer = 0.0f;
+        canAttack = true;
     }
 
     private void EveryoneToCorrdor()

@@ -89,11 +89,19 @@ public class PlayerHp : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == 7)//7 = Attack
+        if (collision.gameObject.layer == 7)//7 = Attack
         {
             Debug.Log("Hit");
-            if(!isInvencible && collision.gameObject.tag != "ParriedAttack") TakeDamage();
-            if(collision.gameObject.tag == "BasicProjectile") Destroy(collision.gameObject);
+            if (!isInvencible && collision.gameObject.tag != "ParriedAttack") TakeDamage();
+            if (collision.gameObject.tag == "BasicProjectile") Destroy(collision.gameObject);
+            if (collision.gameObject.name == "HandDamage")
+            {
+                gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * 150, ForceMode.Impulse);
+            }
+            if (collision.gameObject.name == "HandDamage2")
+            {
+                gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(-1, 0, 0) * 150, ForceMode.Impulse);
+            }
         }
     }
 
@@ -104,6 +112,14 @@ public class PlayerHp : MonoBehaviour
             Debug.Log("Hit");
             if (!isInvencible && other.gameObject.tag != "ParriedAttack") TakeDamage();
             if (other.gameObject.tag == "BasicProjectile") Destroy(other.gameObject);
+            if (other.gameObject.name == "HandDamage")
+            {
+                gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * 150, ForceMode.Impulse);
+            }
+            if (other.gameObject.name == "HandDamage2")
+            {
+                gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(-1, 0, 0) * 150, ForceMode.Impulse);
+            }
         }
     }
 

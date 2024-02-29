@@ -84,6 +84,24 @@ public class BossManager : MonoBehaviour
     public GameObject doorPos1;
     public GameObject doorPos2;
     public GameObject checkPlayerOnCorridor;
+
+    public GameObject projectileSource;
+    public GameObject projectilePrefab;
+
+    public GameObject hand1;
+    public GameObject hand2;
+    public GameObject hand3;
+    public GameObject handPos1;
+    public GameObject handPos2;
+    public GameObject handPos3;
+
+    public GameObject handDamage1;
+    public GameObject handDamage2;
+    public GameObject handDamage3;
+
+    public GameObject weakPoint1;
+    public GameObject weakPoint2;
+    public GameObject weakPoint3;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -153,9 +171,24 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().corridorPos = corridorPos;
                 boss.GetComponent<StartHighSchoolBoss>().door1 = door1;
                 boss.GetComponent<StartHighSchoolBoss>().door2 = door2;
-                boss.GetComponent<StartHighSchoolBoss>().checkPlayerOnCorridor = checkPlayerOnCorridor;
                 boss.GetComponent<StartHighSchoolBoss>().doorPos1 = doorPos1;
                 boss.GetComponent<StartHighSchoolBoss>().doorPos2 = doorPos2;
+                boss.GetComponent<StartHighSchoolBoss>().projectileSource = projectileSource;
+                boss.GetComponent<StartHighSchoolBoss>().projectilePrefab = projectilePrefab;
+                boss.GetComponent<StartHighSchoolBoss>().hand1 = hand1;
+                boss.GetComponent<StartHighSchoolBoss>().hand2 = hand2;
+                boss.GetComponent<StartHighSchoolBoss>().hand3 = hand3;
+                boss.GetComponent<StartHighSchoolBoss>().handPos1 = handPos1;
+                boss.GetComponent<StartHighSchoolBoss>().handPos2 = handPos2;
+                boss.GetComponent<StartHighSchoolBoss>().handPos3 = handPos3;
+
+                boss.GetComponent<StartHighSchoolBoss>().handDamage1 = handDamage1;
+                boss.GetComponent<StartHighSchoolBoss>().handDamage2 = handDamage2;
+                boss.GetComponent<StartHighSchoolBoss>().handDamage3 = handDamage3;
+
+                boss.GetComponent<StartHighSchoolBoss>().weakPoint1 = weakPoint1;
+                boss.GetComponent<StartHighSchoolBoss>().weakPoint2 = weakPoint2;
+                boss.GetComponent<StartHighSchoolBoss>().weakPoint3 = weakPoint3;
 
 
                 break;

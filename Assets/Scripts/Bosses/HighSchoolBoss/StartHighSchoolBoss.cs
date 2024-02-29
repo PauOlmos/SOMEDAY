@@ -50,7 +50,24 @@ public class StartHighSchoolBoss : MonoBehaviour
 
     public GameObject doorPos1;
     public GameObject doorPos2;
-    public GameObject checkPlayerOnCorridor;
+    public GameObject projectileSource;
+    public GameObject projectilePrefab;
+
+
+    public GameObject hand1;
+    public GameObject hand2;
+    public GameObject hand3;
+    public GameObject handPos1;
+    public GameObject handPos2;
+    public GameObject handPos3;
+
+    public GameObject handDamage1;
+    public GameObject handDamage2;
+    public GameObject handDamage3;
+
+    public GameObject weakPoint1;
+    public GameObject weakPoint2;
+    public GameObject weakPoint3;
     void Start()
     {
         TutorialWalls.isStatic = false;
@@ -110,11 +127,29 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().corridorPos = corridorPos;
             gameObject.GetComponent<HighSchoolBoss>().door1 = door1;
             gameObject.GetComponent<HighSchoolBoss>().door2 = door2;
-            gameObject.GetComponent<HighSchoolBoss>().checkPlayerOnCorridor = checkPlayerOnCorridor;
             gameObject.GetComponent<HighSchoolBoss>().wall4 = wall4;
 
             gameObject.GetComponent<HighSchoolBoss>().doorPos1 = doorPos1;
             gameObject.GetComponent<HighSchoolBoss>().doorPos2 = doorPos2;
+            gameObject.GetComponent<HighSchoolBoss>().projectileSource = projectileSource;
+            gameObject.GetComponent<HighSchoolBoss>().projectilePrefab = projectilePrefab;
+
+
+            gameObject.GetComponent<HighSchoolBoss>().hand1 = hand1;
+            gameObject.GetComponent<HighSchoolBoss>().hand2 = hand2;
+            gameObject.GetComponent<HighSchoolBoss>().hand3 = hand3;
+            gameObject.GetComponent<HighSchoolBoss>().handPos1 = handPos1;
+            gameObject.GetComponent<HighSchoolBoss>().handPos2 = handPos2;
+            gameObject.GetComponent<HighSchoolBoss>().handPos3 = handPos3;
+
+
+            gameObject.GetComponent<HighSchoolBoss>().handDamage1 = handDamage1;
+            gameObject.GetComponent<HighSchoolBoss>().handDamage2 = handDamage2;
+            gameObject.GetComponent<HighSchoolBoss>().handDamage3 = handDamage3;
+
+            gameObject.GetComponent<HighSchoolBoss>().weakPoint1 = weakPoint1;
+            gameObject.GetComponent<HighSchoolBoss>().weakPoint2 = weakPoint2;
+            gameObject.GetComponent<HighSchoolBoss>().weakPoint3 = weakPoint3;
             //floor.BuildNavMesh();
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }
@@ -135,6 +170,13 @@ public class StartHighSchoolBoss : MonoBehaviour
         {
             wall2.transform.Translate(-Time.deltaTime * 4, 0.0f, 0.0f);
             armari1.transform.Translate(-Time.deltaTime * 4, 0.0f, 0.0f);
+
+            hand1.transform.Translate(-Time.deltaTime * 4.0f, 0, 0);
+            hand2.transform.Translate(-Time.deltaTime * 4.0f, 0, 0);
+            hand3.transform.Translate(-Time.deltaTime * 4.0f, 0, 0);
+            handPos1.transform.Translate(-Time.deltaTime * 4.0f, 0, 0);
+            handPos2.transform.Translate(-Time.deltaTime * 4.0f, 0, 0);
+            handPos3.transform.Translate(-Time.deltaTime * 4.0f, 0, 0);
         }
         else
         {
