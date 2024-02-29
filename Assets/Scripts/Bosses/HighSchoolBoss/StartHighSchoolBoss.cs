@@ -23,7 +23,7 @@ public class StartHighSchoolBoss : MonoBehaviour
     public GameObject wall4;
     public NavMeshAgent agent;
     public GameObject proximityArea;
-    public NavMeshSurface floor;
+    public GameObject floor;
 
     public GameObject armari1;
     public GameObject armari2;
@@ -68,6 +68,13 @@ public class StartHighSchoolBoss : MonoBehaviour
     public GameObject weakPoint1;
     public GameObject weakPoint2;
     public GameObject weakPoint3;
+
+
+    public GameObject shadowDogPortalPos1;
+    public GameObject shadowDogPortalPos2;
+    public GameObject shadowDogPortalPos3;
+
+    public GameObject shadowDogPortalPrefab;
     void Start()
     {
         TutorialWalls.isStatic = false;
@@ -150,6 +157,12 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().weakPoint1 = weakPoint1;
             gameObject.GetComponent<HighSchoolBoss>().weakPoint2 = weakPoint2;
             gameObject.GetComponent<HighSchoolBoss>().weakPoint3 = weakPoint3;
+
+            gameObject.GetComponent<HighSchoolBoss>().shadowDogPortalPos1 = shadowDogPortalPos1;
+            gameObject.GetComponent<HighSchoolBoss>().shadowDogPortalPos2 = shadowDogPortalPos2;
+            gameObject.GetComponent<HighSchoolBoss>().shadowDogPortalPos3 = shadowDogPortalPos3;
+
+            gameObject.GetComponent<HighSchoolBoss>().shadowDogPortalPrefab = shadowDogPortalPrefab;
             //floor.BuildNavMesh();
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }

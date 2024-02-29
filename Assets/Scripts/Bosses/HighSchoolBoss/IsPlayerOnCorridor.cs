@@ -5,6 +5,7 @@ using UnityEngine;
 public class IsPlayerOnCorridor : MonoBehaviour
 {
     public GameObject boss;
+    public PlayerAttack pAttack;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,8 @@ public class IsPlayerOnCorridor : MonoBehaviour
         if(other.gameObject.name == "Player")
         {
             Debug.Log("KLK");
-            boss.GetComponent<HighSchoolBoss>().touchingGround = true;
+            if(pAttack.attacking == false) boss.GetComponent<HighSchoolBoss>().touchingGround = true;
+            else boss.GetComponent<HighSchoolBoss>().touchingGround = false;
         }
     }
     private void OnCollisionExit(Collision other)

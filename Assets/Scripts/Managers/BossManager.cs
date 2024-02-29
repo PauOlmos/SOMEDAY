@@ -16,7 +16,7 @@ public class BossManager : MonoBehaviour
     [Header("Positions")]
     public Transform[] playerSpawnPositions;
     public Transform[] bossSpawnPositions;
-    public NavMeshSurface floor;
+    public GameObject floor;
 
     [Header("TutorialBoss")]
     public int currentBoss;
@@ -102,6 +102,12 @@ public class BossManager : MonoBehaviour
     public GameObject weakPoint1;
     public GameObject weakPoint2;
     public GameObject weakPoint3;
+
+    public GameObject shadowDogPortalPos1;
+    public GameObject shadowDogPortalPos2;
+    public GameObject shadowDogPortalPos3;
+
+    public GameObject shadowDogPortalPrefab;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -189,6 +195,12 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().weakPoint1 = weakPoint1;
                 boss.GetComponent<StartHighSchoolBoss>().weakPoint2 = weakPoint2;
                 boss.GetComponent<StartHighSchoolBoss>().weakPoint3 = weakPoint3;
+
+                boss.GetComponent<StartHighSchoolBoss>().shadowDogPortalPos1 = shadowDogPortalPos1;
+                boss.GetComponent<StartHighSchoolBoss>().shadowDogPortalPos2 = shadowDogPortalPos2;
+                boss.GetComponent<StartHighSchoolBoss>().shadowDogPortalPos3 = shadowDogPortalPos3;
+
+                boss.GetComponent<StartHighSchoolBoss>().shadowDogPortalPrefab = shadowDogPortalPrefab;
 
 
                 break;

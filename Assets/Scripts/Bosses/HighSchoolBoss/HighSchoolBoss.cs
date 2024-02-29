@@ -27,7 +27,7 @@ public class HighSchoolBoss : MonoBehaviour
     public NavMeshAgent agent;
     public GameObject proximityArea;
 
-    public NavMeshSurface floor;
+    public GameObject floor;
 
     public float stamina = 0.0f;
     public float specialAbility = 0.0f;
@@ -123,8 +123,14 @@ public class HighSchoolBoss : MonoBehaviour
     public GameObject weakPoint2;
     public GameObject weakPoint3;
 
+    public GameObject shadowDogPortalPos1;
+    public GameObject shadowDogPortalPos2;
+    public GameObject shadowDogPortalPos3;
+
+    public GameObject shadowDogPortalPrefab;
     public bool rotatingHands = false;
 
+    public float corridorSpecialAttackTimer = 0.0f;
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -326,7 +332,21 @@ public class HighSchoolBoss : MonoBehaviour
                 }
                 else
                 {
-                    if(touchingGround == true)
+                    corridorSpecialAttackTimer += Time.deltaTime;
+
+                    if(corridorSpecialAttackTimer > 20.0f)
+                    {
+                        GameObject portal1 = Instantiate(shadowDogPortalPrefab, shadowDogPortalPos1.transform.position, Quaternion.identity);
+                        portal1.GetComponent<ShadowDogPortal>().player = player;
+                        GameObject portal2 = Instantiate(shadowDogPortalPrefab, shadowDogPortalPos2.transform.position, Quaternion.identity);
+                        portal2.GetComponent<ShadowDogPortal>().player = player;
+                        GameObject portal3 = Instantiate(shadowDogPortalPrefab, shadowDogPortalPos3.transform.position, Quaternion.identity);
+                        portal3.GetComponent<ShadowDogPortal>().player = player;
+
+                        corridorSpecialAttackTimer = 0.0f;
+                    }
+
+                    if (touchingGround == true)
                     {
                         player.GetComponent<Rigidbody>().velocity -= new Vector3(0, 0, floorMultiplier * Time.deltaTime);
                     }
@@ -526,6 +546,7 @@ public class HighSchoolBoss : MonoBehaviour
             wall4.layer = 3;
             transitionToCorridor = true;
             attackType = AttackType.reset;
+            Destroy(floor);
         }
          
 

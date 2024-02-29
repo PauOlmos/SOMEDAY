@@ -16,7 +16,10 @@ public class EnemyHP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(gameObject.tag == "Enemy" && hp <= 0)
+        {
+            Destroy(gameObject);
+        } 
     }
 
     public void DamageEnemy(int damage, bool weakPoint)
