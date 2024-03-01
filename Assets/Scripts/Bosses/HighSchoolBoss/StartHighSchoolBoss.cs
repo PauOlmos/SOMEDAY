@@ -85,6 +85,7 @@ public class StartHighSchoolBoss : MonoBehaviour
     public GameObject foco2;
 
     public GameObject[] monolithWeakPoints;
+    public GameObject projectileBossSource;
 
     void Start()
     {
@@ -183,6 +184,7 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().foco1 = foco1;
             gameObject.GetComponent<HighSchoolBoss>().foco2 = foco2;
             gameObject.GetComponent<HighSchoolBoss>().monolithWeakPoints = monolithWeakPoints;
+            gameObject.GetComponent<HighSchoolBoss>().projectileBossSource = projectileBossSource;
 
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }

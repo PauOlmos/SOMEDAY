@@ -117,6 +117,7 @@ public class BossManager : MonoBehaviour
     public GameObject foco1;
     public GameObject foco2;
 
+    public GameObject projectileBossSource;
     public GameObject[] monolithWeakPoints;
 
     void Start()
@@ -221,10 +222,20 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().foco1 = foco1;
                 boss.GetComponent<StartHighSchoolBoss>().foco2 = foco2;
                 boss.GetComponent<StartHighSchoolBoss>().monolithWeakPoints = monolithWeakPoints;
+                boss.GetComponent<StartHighSchoolBoss>().projectileBossSource = projectileBossSource;
 
 
                 break;
+            case 2:
 
+                if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
+                {
+                    player.transform.position = playerSpawnPositions[nBoss].position;
+                    boss.transform.position = bossSpawnPositions[nBoss].position;
+                    boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+                }
+
+                break;
                 default: break;
         }
     }
@@ -309,6 +320,13 @@ public class BossManager : MonoBehaviour
                             {
                                 boss.GetComponent<EnemyHP>().canBeDamaged = true;
                                 boss.GetComponent<HighSchoolBoss>().phase++;
+                            }
+                            break;
+                        case 2:
+                            if(boss.GetComponent<HighSchoolBoss>().dead == true)
+                            {
+                                NextBoss();
+                                Destroy(boss.GetComponent<HighSchoolBoss>());
                             }
                             break;
                     }

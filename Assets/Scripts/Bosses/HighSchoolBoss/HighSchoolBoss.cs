@@ -144,9 +144,13 @@ public class HighSchoolBoss : MonoBehaviour
     public GameObject foco1;
     public GameObject foco2;
 
+    public GameObject projectileBossSource;
     public GameObject[] monolithWeakPoints;
     public int monolithsDestroyed = 0;
     public bool allMonolithsDestroyed = false;
+    public int numShots = 0;
+    public int hpToKill = 100;
+    public bool dead = false;
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -548,6 +552,8 @@ public class HighSchoolBoss : MonoBehaviour
                                 foco2.SetActive(true);
                                 agent.enabled = true;
                                 superAttackTimer = 0.0f;
+                                numProjectilesShot = 0;
+                                projectileAttackTimer = 0.0f;
                                 Destroy(hand1);
                                 Destroy(hand2);
                                 Destroy(hand3);
@@ -578,15 +584,33 @@ public class HighSchoolBoss : MonoBehaviour
                 }
                 else
                 {//Logica del joc
-                    
+                    stamina += Time.deltaTime;
+                    superAttackTimer += Time.deltaTime;
+                    if(superAttackTimer > 20.0f)
+                    {
+                        attackSelected = true;
+                        attackType = AttackType.special;
+                        canAttack = true;
+                        canMove = false;
+                        specialAttacking = true;
+                        superAttackTimer = 0.0f;
+                    }
                     foco1.transform.LookAt(lightTarget1.transform.position);
                     foco2.transform.LookAt(lightTarget2.transform.position);
                     monolithsDestroyed = 0;
-                    for(int i = 0; i < monolithWeakPoints.Length; i++)
+                    if(allMonolithsDestroyed == false)
                     {
-                        if (monolithWeakPoints[i].activeInHierarchy == false) monolithsDestroyed++;
-                        if (monolithsDestroyed == monolithWeakPoints.Length) allMonolithsDestroyed = true;
+                        for (int i = 0; i < monolithWeakPoints.Length; i++)
+                        {
+                            if (monolithWeakPoints[i].activeInHierarchy == false) monolithsDestroyed++;
+                            if (monolithsDestroyed == monolithWeakPoints.Length)
+                            {
+                                allMonolithsDestroyed = true;
+                                hpToKill = gameObject.GetComponent<EnemyHP>().hp;
+                            }
+                        }
                     }
+                    
                     if(allMonolithsDestroyed == false)
                     {
                         bossShield.SetActive(true);
@@ -597,8 +621,10 @@ public class HighSchoolBoss : MonoBehaviour
                     {
                         bossShield.SetActive(false);
                         gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
+                        if (gameObject.GetComponent<EnemyHP>().hp < hpToKill) dead = true;
+
                     }
-                    if (canMove && gameObject.GetComponent<EnemyHP>().stun == false)
+                    if (canMove == true && gameObject.GetComponent<EnemyHP>().stun == false)
                     {
                         attackCooldownTimer += Time.deltaTime;
                         if (allMonolithsDestroyed == true) gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
@@ -654,6 +680,40 @@ public class HighSchoolBoss : MonoBehaviour
                                     break;
                                 case AttackType.three:
                                     AttackThreeTimes();
+                                    break;
+                                case AttackType.special:
+
+                                    projectileAttackTimer += Time.deltaTime;
+
+                                    if (projectileAttackTimer > 0.25f)
+                                    {
+                                        GameObject projectile = Instantiate(projectilePrefab, projectileBossSource.transform.position, Quaternion.identity);
+                                        projectile.AddComponent<SeekingProjectile>();
+                                        projectile.GetComponent<SeekingProjectile>().canFail = true;
+                                        projectile.GetComponent<SeekingProjectile>().shotByPlayer = false;
+                                        projectile.GetComponent<SeekingProjectile>().seekingTime = 0.31f;
+                                        projectile.GetComponent<SeekingProjectile>().target = player.transform;
+                                        projectile.GetComponent<SeekingProjectile>().speed = 35.0f;
+                                        projectile.tag = "BasicProjectile";
+                                        projectile.layer = 7;
+                                        projectile.AddComponent<DieByTime>();
+                                        projectile.GetComponent<DieByTime>().deathTime = 30.0f;
+                                        projectile.transform.localScale = Vector3.one + Vector3.one * numShots * 0.25f;
+                                        numProjectilesShot++;
+                                        projectileAttackTimer = 0.0f;
+                                    }
+
+                                    if (numProjectilesShot > 8)
+                                    {
+                                        numProjectilesShot = 0;
+                                        attackSelected = false;
+                                        canAttack = false;
+                                        attackType = AttackType.one;
+                                        canMove = true;
+                                        numShots++;
+                                        specialAttacking = false;
+                                    }
+
                                     break;
                             }
                         }
@@ -1254,7 +1314,6 @@ public class HighSchoolBoss : MonoBehaviour
         }
         attackSelected = true;
     }
-
     public bool IsNear(float distanceToAttack)
     {
         if (Vector3.Distance(player.transform.position, proximityArea.transform.position) < distanceToAttack) { return true; }
