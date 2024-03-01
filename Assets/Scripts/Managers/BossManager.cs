@@ -116,6 +116,9 @@ public class BossManager : MonoBehaviour
 
     public GameObject foco1;
     public GameObject foco2;
+
+    public GameObject[] monolithWeakPoints;
+
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -217,6 +220,7 @@ public class BossManager : MonoBehaviour
 
                 boss.GetComponent<StartHighSchoolBoss>().foco1 = foco1;
                 boss.GetComponent<StartHighSchoolBoss>().foco2 = foco2;
+                boss.GetComponent<StartHighSchoolBoss>().monolithWeakPoints = monolithWeakPoints;
 
 
                 break;

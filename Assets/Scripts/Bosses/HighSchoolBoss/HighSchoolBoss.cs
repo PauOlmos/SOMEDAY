@@ -143,6 +143,10 @@ public class HighSchoolBoss : MonoBehaviour
 
     public GameObject foco1;
     public GameObject foco2;
+
+    public GameObject[] monolithWeakPoints;
+    public int monolithsDestroyed = 0;
+    public bool allMonolithsDestroyed = false;
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -212,6 +216,10 @@ public class HighSchoolBoss : MonoBehaviour
                             else agent.destination = gameObject.transform.position;
                             break;
                         case MovementState.toTable:
+                            bossShield.SetActive(true);
+
+                            if (bossShield.transform.localScale.x > 2.0f) bossShield.transform.localScale = Vector3.one * 2.0f;
+                            else bossShield.transform.localScale += Vector3.one * Time.deltaTime;
                             gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
                             attackSelected = true;
                             agent.destination = teacherTable.transform.position;
@@ -569,14 +577,31 @@ public class HighSchoolBoss : MonoBehaviour
 
                 }
                 else
-                {
+                {//Logica del joc
+                    
                     foco1.transform.LookAt(lightTarget1.transform.position);
                     foco2.transform.LookAt(lightTarget2.transform.position);
-                    
+                    monolithsDestroyed = 0;
+                    for(int i = 0; i < monolithWeakPoints.Length; i++)
+                    {
+                        if (monolithWeakPoints[i].activeInHierarchy == false) monolithsDestroyed++;
+                        if (monolithsDestroyed == monolithWeakPoints.Length) allMonolithsDestroyed = true;
+                    }
+                    if(allMonolithsDestroyed == false)
+                    {
+                        bossShield.SetActive(true);
+                        if (bossShield.transform.localScale.x > 2.0f) bossShield.transform.localScale = Vector3.one * 2.0f;
+                        else bossShield.transform.localScale += Vector3.one * Time.deltaTime;
+                    }
+                    else
+                    {
+                        bossShield.SetActive(false);
+                        gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
+                    }
                     if (canMove && gameObject.GetComponent<EnemyHP>().stun == false)
                     {
                         attackCooldownTimer += Time.deltaTime;
-                        gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
+                        if (allMonolithsDestroyed == true) gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
                         if (specialAttacking == false)
                         {
                             
@@ -700,6 +725,8 @@ public class HighSchoolBoss : MonoBehaviour
 
     private void EveryoneToCorrdor()
     {
+        bossShield.SetActive(false);
+        bossShield.transform.localScale = Vector3.zero;
         agent.enabled = false;
         Vector3 direction = corridorPos.transform.position - gameObject.transform.position;
         gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
@@ -811,7 +838,7 @@ public class HighSchoolBoss : MonoBehaviour
     {
         specialAttackPhase = AttackType.one;
         attackType = AttackType.one;
-
+        bossShield.SetActive(false);
         tablesOnPosition = false;
         inPairRotation = false;
         attackSelected = false;

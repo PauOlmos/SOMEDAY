@@ -83,6 +83,9 @@ public class StartHighSchoolBoss : MonoBehaviour
 
     public GameObject foco1;
     public GameObject foco2;
+
+    public GameObject[] monolithWeakPoints;
+
     void Start()
     {
         TutorialWalls.isStatic = false;
@@ -179,6 +182,7 @@ public class StartHighSchoolBoss : MonoBehaviour
 
             gameObject.GetComponent<HighSchoolBoss>().foco1 = foco1;
             gameObject.GetComponent<HighSchoolBoss>().foco2 = foco2;
+            gameObject.GetComponent<HighSchoolBoss>().monolithWeakPoints = monolithWeakPoints;
 
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }
