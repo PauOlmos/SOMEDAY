@@ -157,23 +157,26 @@ public class MenuButton : MonoBehaviour
                 SceneManager.LoadScene(0);
                 break;
             case Action.options:
-                ChangeMenu(pauseMenu, optionsMenu, MenuManager.Menus.pause, "Predetermined");
-                if (Settings.predetSettings == true)
+                if (Time.timeScale == 0.0f)
                 {
-                    menuManager.ChangeSettings.SetActive(false);
-                }
-                else
-                {
-                    menuManager.ChangeSettings.SetActive(true);
-                    if(Settings.subtitles == true)
+                    ChangeMenu(pauseMenu, optionsMenu, MenuManager.Menus.pause, "Predetermined");
+                    if (Settings.predetSettings == true)
                     {
-                        menuManager.SubtitlesSettings.SetActive(true);
+                        menuManager.ChangeSettings.SetActive(false);
                     }
                     else
                     {
-                        menuManager.SubtitlesSettings.SetActive(false);
+                        menuManager.ChangeSettings.SetActive(true);
+                        if (Settings.subtitles == true)
+                        {
+                            menuManager.SubtitlesSettings.SetActive(true);
+                        }
+                        else
+                        {
+                            menuManager.SubtitlesSettings.SetActive(false);
+                        }
+
                     }
-                
                 }
                 break;
             case Action.resume:
@@ -184,8 +187,11 @@ public class MenuButton : MonoBehaviour
                 
                 break;
             case Action.mainmenu:
-                Time.timeScale = 1.0f;
-                SceneManager.LoadScene(1);
+                if(Time.timeScale == 0.0f)
+                {
+                    Time.timeScale = 1.0f;
+                    SceneManager.LoadScene(1);
+                }
                 break;
             case Action.settingsPreferences:
 

@@ -70,6 +70,7 @@ public class TutorialBoss : MonoBehaviour
         walls = GameObject.FindGameObjectsWithTag("Wall");
     }
 
+    int value = 3;
     // Update is called once per frame
     void Update()
     {
@@ -106,7 +107,10 @@ public class TutorialBoss : MonoBehaviour
 
                             break;
                         case AttackType.circles:
-                            int value = Random.Range(3, 6);
+                            if (circlesAttackCooldown == 0)
+                            {
+                                value = Random.Range(3, 7);
+                            }
                             canAttack = CirclesAttack(value);
 
                             break;
@@ -273,7 +277,7 @@ public class TutorialBoss : MonoBehaviour
         if(circlesAttackCooldown > 2.0f) turoialAnimations.animState = TutorialBossAnimations.AnimationsState.attack;
             if (circlesAttackCooldown >= 2.5f)
         {
-            int value = Random.Range(0, 4);
+            int value = Random.Range(0, 3);
             Debug.Log(value);
             switch (value)
             {
@@ -328,14 +332,12 @@ public class TutorialBoss : MonoBehaviour
     {
         if (Vector3.Distance(player.transform.position, gameObject.transform.position) < 10)
         {
-            Debug.Log("Near");
             Vector3 posicionSalto = RandomPositionInCircle(tutorialMap.transform.position, radius);
             JumpToPosition(posicionSalto, Vector3.Distance(posicionSalto, gameObject.transform.position), 0.5f);
             canMove = false;
         }
         else
         {
-            Debug.Log("Far" + Vector3.Distance(player.transform.position, gameObject.transform.position));
             JumpToPosition(player.transform.position, Vector3.Distance(player.transform.position, gameObject.transform.position), 0.5f);
             canMove = false;
         }
@@ -369,7 +371,6 @@ public class TutorialBoss : MonoBehaviour
 
         // Aplica la fuerza del salto en la dirección calculada
         gameObject.GetComponent<Rigidbody>().AddForce(fuerzaSalto, ForceMode.VelocityChange);
-        Debug.Log("JumpToPlayer");
     }
     private void OnCollisionExit(Collision collision)
     {
@@ -401,9 +402,6 @@ public class TutorialBoss : MonoBehaviour
                 Vector3 pos = new Vector3(walls[numWall].transform.position.x, 0.5f, walls[numWall].transform.position.z);
                 spinDirection = pos.normalized;
                 gameObject.transform.forward = spinDirection;
-                Debug.Log(numWall);
-                Debug.Log(pos);
-                Debug.Log(Vector3.Distance(pos, gameObject.transform.position));
             }
         }
         

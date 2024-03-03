@@ -193,6 +193,8 @@ public class StartHighSchoolBoss : MonoBehaviour
     public bool CreateClassRoom()
     {
         int wallsInPosition = 0;
+        agent.enabled = true;
+        agent.destination = teacherTable.transform.position;
         if (wall1.transform.position.z > 21.3f) wall1.transform.Translate(Time.deltaTime * 4,0.0f,0.0f);
         else
         {
