@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -17,7 +18,7 @@ public class StartTutorial : MonoBehaviour
     public bool spawningBoss = false;
     public float spawningBossTimer = 0.0f;
     public float spawningBossTime = 4.0f;
-
+    public GameObject floor;
     public float blackTimer = 0.0f;
     public float blackInitialTimer = 0.0f;
     public float blackDuration = 5.0f;
@@ -122,6 +123,7 @@ public class StartTutorial : MonoBehaviour
         Boss.GetComponent<Rigidbody>().useGravity = true;
         Boss.gameObject.GetComponent<Collider>().isTrigger = false;
         BossManager.enabled = true;
+        floor.GetComponent<NavMeshSurface>().BuildNavMesh();
     }
     public void ActivateCamera()
     {

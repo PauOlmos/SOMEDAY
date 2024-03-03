@@ -10,6 +10,7 @@ using Random = UnityEngine.Random;
 public class TutorialBoss : MonoBehaviour
 {
     // Start is called before the first frame update
+    public TutorialBossAnimations turoialAnimations;
 
     public GameObject player;
     public Transform tutorialMap;
@@ -51,6 +52,7 @@ public class TutorialBoss : MonoBehaviour
 
     public GameObject Sword1;
     public GameObject Sword2;
+    public GameObject floor;
     public enum MovementState
     {
         none, jump, startSpinning, spin, holdSpin
@@ -77,7 +79,7 @@ public class TutorialBoss : MonoBehaviour
                 gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
                 if (canMove)
                 {
-
+                    turoialAnimations.animState = TutorialBossAnimations.AnimationsState.idle;
                     switch (movementState)
                     {
                         case MovementState.none:
@@ -114,32 +116,31 @@ public class TutorialBoss : MonoBehaviour
                 break;
 
             case 1:
+                agent.destination = player.transform.position;
 
                 if (canMove && gameObject.GetComponent<EnemyHP>().stun == false)
                 {
-                    agent.destination = player.transform.position;
+                    proximityAreaTimer = 0.0F;
+                    turoialAnimations.animState = TutorialBossAnimations.AnimationsState.idle;
                     if (IsNear(2.5f))
                     {
-                        agent.destination = gameObject.transform.position;
+                        agent.speed = 0.0f;
                         canAttack = true;
                         canMove = false;
                         attackType = AttackType.proximity;
                         farTimer = 0;
-
-                        agent.speed = 3.5f;
                     }
-                    else
-                    {
-                        farTimer += Time.deltaTime;
-                        if (farTimer > 7.5f) agent.speed = 7;
-                    }
+                    else canAttack = false;
                 }
-                if (canAttack && gameObject.GetComponent<EnemyHP>().stun == false)
+                if (canAttack == true && gameObject.GetComponent<EnemyHP>().stun == false)
                 {
+                    turoialAnimations.animState = TutorialBossAnimations.AnimationsState.attack;
+
                     switch (attackType)
                     {
                         case AttackType.proximity:
                             proximityAreaTimer += Time.deltaTime;
+                            canMove = false;
                             if (proximityAreaTimer > 0.9f && proximityArea.activeInHierarchy == false)
                             {
                                 proximityArea.SetActive(true);
@@ -161,7 +162,13 @@ public class TutorialBoss : MonoBehaviour
                             {
                                 proximityAreaTimer = 0.0f;
                                 canAttack = false;
+                                turoialAnimations.hand1.transform.localEulerAngles = Vector3.zero;
+                                turoialAnimations.hand2.transform.localEulerAngles = Vector3.zero;
+                                turoialAnimations.hand2.transform.Rotate(180, 0, 0);
+                                //agent.destination = player.transform.position;
                                 canMove = true;
+
+                                agent.speed = 3.5f;
                             }
                             break;
 
@@ -171,11 +178,18 @@ public class TutorialBoss : MonoBehaviour
                 weakPoint.SetActive(gameObject.GetComponent<EnemyHP>().stun);
                 if (gameObject.GetComponent<EnemyHP>().stun == true)
                 {
+                    turoialAnimations.animState = TutorialBossAnimations.AnimationsState.stun;
+
                     stunTimer += Time.deltaTime;
                     if (stunTimer > 3.0f)
                     {
                         stunTimer = 0.0f;
                         gameObject.GetComponent<EnemyHP>().stun = false;
+                        turoialAnimations.animState = TutorialBossAnimations.AnimationsState.idle;
+
+                        turoialAnimations.hand1.transform.localEulerAngles = Vector3.zero;
+                        turoialAnimations.hand2.transform.localEulerAngles = Vector3.zero;
+                        turoialAnimations.hand2.transform.Rotate(180, 0, 0);
                         gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
                         canMove = true;
                     }
@@ -195,7 +209,7 @@ public class TutorialBoss : MonoBehaviour
                 {
                     case MovementState.startSpinning:
                         startSpinTimer += Time.deltaTime;
-                        gameObject.transform.Rotate(Vector3.up * startSpinTimer);
+                        gameObject.transform.Rotate(Vector3.up * startSpinTimer * Time.deltaTime * 300);
                         if (startSpinTimer > 3.0f)
                         {
                             movementState = MovementState.spin;
@@ -204,7 +218,7 @@ public class TutorialBoss : MonoBehaviour
                         }
                         break;
                     case MovementState.spin:
-                        gameObject.transform.Rotate(Vector3.up * startSpinTimer);
+                        gameObject.transform.Rotate(Vector3.up * startSpinTimer * Time.deltaTime * 300);
                         spinTimer += Time.deltaTime;
                         if(spinTimer > 10.0f)
                         {
@@ -220,7 +234,7 @@ public class TutorialBoss : MonoBehaviour
                         }
                         break;
                     case MovementState.holdSpin:
-                        gameObject.transform.Rotate(Vector3.up * 3.0f);
+                        gameObject.transform.Rotate(Vector3.up * 3.0f * Time.deltaTime * 300);
                         holdSpinTimer += Time.deltaTime;
                         if(holdSpinTimer > 5.0f)
                         {
@@ -256,7 +270,8 @@ public class TutorialBoss : MonoBehaviour
             canMove = true;
             return false;
         }
-        if (circlesAttackCooldown >= 2.5f)
+        if(circlesAttackCooldown > 2.0f) turoialAnimations.animState = TutorialBossAnimations.AnimationsState.attack;
+            if (circlesAttackCooldown >= 2.5f)
         {
             int value = Random.Range(0, 4);
             Debug.Log(value);
@@ -277,6 +292,8 @@ public class TutorialBoss : MonoBehaviour
             }
             circlesCount++;
             circlesAttackCooldown = 0.0f;
+            turoialAnimations.animState = TutorialBossAnimations.AnimationsState.idle;
+
         }
         return true;
     }

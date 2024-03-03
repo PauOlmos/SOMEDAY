@@ -18,6 +18,10 @@ public class BossManager : MonoBehaviour
     public Transform[] bossSpawnPositions;
     public GameObject floor;
 
+    [Header("Animations")]
+
+    public TutorialBossAnimations tutorialAnimations;
+
     [Header("TutorialBoss")]
     public int currentBoss;
 
@@ -150,11 +154,15 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<TutorialBoss>().weakPoint = weakPoint;
                 boss.GetComponent<TutorialBoss>().Sword1 = Sword1;
                 boss.GetComponent<TutorialBoss>().Sword2 = Sword2;
+                boss.GetComponent<TutorialBoss>().turoialAnimations = tutorialAnimations;
+                boss.GetComponent<TutorialBoss>().floor = floor;
+                tutorialAnimations.enabled = true;
                 break;
 
             case 1:
+                Destroy(tutorialAnimations);
 
-                if(player.GetComponent<PlayerHp>().lifeTime < 15.0f)
+                if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
                 {
                     player.transform.position = playerSpawnPositions[nBoss].position;
                     boss.transform.position = bossSpawnPositions[nBoss].position;
@@ -257,6 +265,7 @@ public class BossManager : MonoBehaviour
                             {
                                 boss.GetComponent<TutorialBoss>().phase++;
                                 boss.GetComponent<TutorialBoss>().canAttack = false;
+                                boss.GetComponent<TutorialBoss>().attackType = TutorialBoss.AttackType.proximity;
                                 boss.GetComponent<TutorialBoss>().canMove = true;
                                 transfromTimer = 0.0f;
                                 boss.GetComponent<NavMeshAgent>().enabled = true;
@@ -265,8 +274,14 @@ public class BossManager : MonoBehaviour
                             else
                             {
                                 boss.transform.localScale += Vector3.one * Time.deltaTime / 2;
+                                boss.GetComponent<TutorialBossAnimations>().hand1.transform.localScale += Vector3.one * Time.deltaTime / 2;
+                                boss.GetComponent<TutorialBossAnimations>().hand1.transform.position = boss.GetComponent<TutorialBossAnimations>().handPosition1.transform.position;
+                                boss.GetComponent<TutorialBossAnimations>().hand2.transform.localScale -= Vector3.one * Time.deltaTime / 2;
+                                boss.GetComponent<TutorialBossAnimations>().hand2.transform.position = boss.GetComponent<TutorialBossAnimations>().handPosition2.transform.position;
+
+
                             }
-                            
+
                         }
                         break;
                     case 1:
@@ -288,8 +303,24 @@ public class BossManager : MonoBehaviour
                             }
                             else
                             {
-                                if (boss.transform.localScale.x > 1.8f) boss.transform.localScale -= Vector3.one * Time.deltaTime / 4;
-                                else boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+                                if (boss.transform.localScale.x > 1.8f)
+                                {
+                                    boss.transform.localScale -= Vector3.one * Time.deltaTime / 4;
+                                    tutorialAnimations.sword1.transform.localScale += Vector3.one * Time.deltaTime * 2;
+                                    tutorialAnimations.sword1.SetActive(true);
+                                    tutorialAnimations.sword2.transform.localScale += Vector3.one * Time.deltaTime * 2;
+                                    tutorialAnimations.sword2.SetActive(true);
+                                    if (tutorialAnimations.hand1.transform.localScale.x > 0)
+                                    {
+                                        tutorialAnimations.hand1.transform.localScale -= Vector3.one * Time.deltaTime * 6;
+                                        tutorialAnimations.hand2.transform.localScale += Vector3.one * Time.deltaTime * 6;
+                                    }
+
+                                }
+                                else
+                                {
+                                    boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+                                }
                             }
                         }
                         break;
