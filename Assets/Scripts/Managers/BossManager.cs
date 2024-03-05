@@ -21,6 +21,9 @@ public class BossManager : MonoBehaviour
     [Header("Animations")]
 
     public TutorialBossAnimations tutorialAnimations;
+    public GameObject tutorialBossModel;
+    public HighSchoolBossAnimations highSchoolBossAnimations;
+    public GameObject highSchoolBossModel;
 
     [Header("TutorialBoss")]
     public int currentBoss;
@@ -143,6 +146,8 @@ public class BossManager : MonoBehaviour
         {
             case 0:
                 boss = GameObject.Find("Boss");
+                tutorialAnimations.enabled = true;
+                tutorialBossModel.SetActive(true);
                 boss.AddComponent<TutorialBoss>();
                 boss.GetComponent<TutorialBoss>().player = player;
                 boss.GetComponent<TutorialBoss>().tutorialMap = tutorialMap;
@@ -156,12 +161,15 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<TutorialBoss>().Sword2 = Sword2;
                 boss.GetComponent<TutorialBoss>().turoialAnimations = tutorialAnimations;
                 boss.GetComponent<TutorialBoss>().floor = floor;
+
                 tutorialAnimations.enabled = true;
                 break;
 
             case 1:
                 Destroy(tutorialAnimations);
-
+                Destroy(tutorialBossModel);
+                highSchoolBossAnimations.enabled = true;
+                highSchoolBossModel.SetActive(true);
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
                 {
                     player.transform.position = playerSpawnPositions[nBoss].position;

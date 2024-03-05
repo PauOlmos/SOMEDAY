@@ -126,7 +126,7 @@ public class TutorialBoss : MonoBehaviour
                 {
                     proximityAreaTimer = 0.0F;
                     turoialAnimations.animState = TutorialBossAnimations.AnimationsState.idle;
-                    if (IsNear(2.5f))
+                    if (IsNear(3.0f))
                     {
                         agent.speed = 0.0f;
                         canAttack = true;

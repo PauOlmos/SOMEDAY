@@ -68,13 +68,14 @@ public class HighSchoolBoss : MonoBehaviour
     }
     public enum AttackType
     {
-        one,two,three,special,reset,portals
+        one,two,three,special,reset,portals,shoot
     }
 
 
     public MovementState movState = MovementState.hiding;
     public AttackType attackType = AttackType.one;
     public AttackType specialAttackPhase = AttackType.one;
+    public AttackType MeleeAttackType = AttackType.reset;
     private float stunTimer;
 
     public bool tablesOnPosition = false;
@@ -151,6 +152,8 @@ public class HighSchoolBoss : MonoBehaviour
     public int numShots = 0;
     public int hpToKill = 100;
     public bool dead = false;
+
+    public bool damaged = false;
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -221,6 +224,7 @@ public class HighSchoolBoss : MonoBehaviour
                             break;
                         case MovementState.toTable:
                             bossShield.SetActive(true);
+                            gameObject.transform.LookAt(teacherTable.transform.position);
 
                             if (bossShield.transform.localScale.x > 2.0f) bossShield.transform.localScale = Vector3.one * 2.0f;
                             else bossShield.transform.localScale += Vector3.one * Time.deltaTime;
@@ -230,6 +234,7 @@ public class HighSchoolBoss : MonoBehaviour
                             agent.speed = 20.0f;
                             if (Vector3.Distance(gameObject.transform.position,teacherTable.transform.position)<1.0f)
                             {
+                                MeleeAttackType = AttackType.special;
                                 canAttack = true;
                                 attackType = AttackType.special;
                                 canMove = false;
@@ -305,6 +310,7 @@ public class HighSchoolBoss : MonoBehaviour
                                 }
                                 break;
                             case AttackType.portals:
+                                MeleeAttackType = AttackType.portals;
                                 superAttackTimer += Time.deltaTime;
                                 agent.destination = gameObject.transform.position;
 
@@ -333,6 +339,7 @@ public class HighSchoolBoss : MonoBehaviour
                     stunTimer += Time.deltaTime;
                     if (stunTimer > 3.0f)
                     {
+                        gameObject.GetComponent<HighSchoolBossAnimations>().attacking = false;
                         stunTimer = 0.0f;
                         gameObject.GetComponent<EnemyHP>().stun = false;
                         canMove = true;
@@ -355,6 +362,7 @@ public class HighSchoolBoss : MonoBehaviour
                 }
                 else
                 {
+                    gameObject.transform.LookAt(player.transform.position);
                     corridorSpecialAttackTimer += Time.deltaTime;
 
                     if(corridorSpecialAttackTimer > 20.0f)
@@ -379,7 +387,7 @@ public class HighSchoolBoss : MonoBehaviour
                         {
                             case AttackType.one:
                                 projectileAttackTimer += Time.deltaTime;
-
+                                MeleeAttackType = AttackType.shoot;
                                 if(projectileAttackTimer > 0.25f)
                                 {
                                     GameObject projectile = Instantiate(projectilePrefab, projectileSource.transform.position, Quaternion.identity);
@@ -400,6 +408,7 @@ public class HighSchoolBoss : MonoBehaviour
                                 if (numProjectilesShot > 4)
                                 {
                                     canAttack = false;
+                                    MeleeAttackType = AttackType.reset;
                                     attackType = AttackType.reset;
                                 }
                                 //Dispara
@@ -521,7 +530,6 @@ public class HighSchoolBoss : MonoBehaviour
                     else
                     {
 
-
                         if (hand1.transform.eulerAngles.z < 271 && hand1.transform.eulerAngles.z > 269)
                         {
                             Destroy(corridorFloor);
@@ -560,6 +568,7 @@ public class HighSchoolBoss : MonoBehaviour
                                 Destroy(handPos1);
                                 Destroy(handPos2);
                                 Destroy(handPos3);
+                                agent.angularSpeed = 100.0f;
                             }
                         }
                         else
@@ -664,7 +673,7 @@ public class HighSchoolBoss : MonoBehaviour
                     {
                         if (attackSelected == false)
                         {
-                            SelectAttack(0);
+                            SelectAttack(1);
                         }
                         else
                         {
@@ -682,7 +691,7 @@ public class HighSchoolBoss : MonoBehaviour
                                     AttackThreeTimes();
                                     break;
                                 case AttackType.special:
-
+                                    MeleeAttackType = AttackType.shoot;
                                     projectileAttackTimer += Time.deltaTime;
 
                                     if (projectileAttackTimer > 0.25f)
@@ -723,6 +732,7 @@ public class HighSchoolBoss : MonoBehaviour
                         stunTimer += Time.deltaTime;
                         if (stunTimer > 3.0f)
                         {
+                            gameObject.GetComponent<HighSchoolBossAnimations>().attacking = false;
                             stunTimer = 0.0f;
                             gameObject.GetComponent<EnemyHP>().stun = false;
                             canMove = true;
@@ -785,6 +795,7 @@ public class HighSchoolBoss : MonoBehaviour
 
     private void EveryoneToCorrdor()
     {
+        gameObject.transform.LookAt(player.transform.position);
         bossShield.SetActive(false);
         bossShield.transform.localScale = Vector3.zero;
         agent.enabled = false;
@@ -843,6 +854,7 @@ public class HighSchoolBoss : MonoBehaviour
 
     private void ResetSuperAttackVariables()
     {
+        MeleeAttackType = AttackType.reset;
         portalWave1 = false;
         portalWave2 = false;
         portalWave3 = false;
@@ -897,6 +909,7 @@ public class HighSchoolBoss : MonoBehaviour
     private void ResetSpecialAttackVariables()
     {
         specialAttackPhase = AttackType.one;
+        MeleeAttackType = AttackType.reset;
         attackType = AttackType.one;
         bossShield.SetActive(false);
         tablesOnPosition = false;
@@ -1124,8 +1137,8 @@ public class HighSchoolBoss : MonoBehaviour
     public bool AttackThreeTimes()
     {
         proximityAreaTimer += Time.deltaTime;
-
-        if (proximityAreaTimer > 0.2f && proximityArea.activeInHierarchy == false && firstDone == false)
+        if (MeleeAttackType == AttackType.reset) MeleeAttackType = AttackType.one;
+        if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == false && firstDone == false)
         {
             proximityArea.SetActive(true);
             proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
@@ -1134,7 +1147,7 @@ public class HighSchoolBoss : MonoBehaviour
 
             gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 40.0f, ForceMode.VelocityChange);
         }
-        if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == true && firstDone == false)
+        if (proximityAreaTimer > 0.8f && proximityArea.activeInHierarchy == true && firstDone == false)
         {
             proximityArea.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
             proximityArea.tag = "Parryable";
@@ -1144,7 +1157,8 @@ public class HighSchoolBoss : MonoBehaviour
             proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             proximityArea.SetActive(false);
             proximityArea.tag = "Parryable";
-            firstDone = true;
+            firstDone = true; 
+            MeleeAttackType = AttackType.two;
         }
         if (proximityAreaTimer > 1.5f && proximityArea.activeInHierarchy == false && secondDone == false)
         {
@@ -1155,17 +1169,19 @@ public class HighSchoolBoss : MonoBehaviour
 
             gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 30.0f, ForceMode.VelocityChange);
         }
-        if (proximityAreaTimer > 1.8f && proximityArea.activeInHierarchy == true && secondDone == false)
+        if (proximityAreaTimer > 1.9f && proximityArea.activeInHierarchy == true && secondDone == false)
         {
             proximityArea.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
             proximityArea.tag = "Parryable";
         }
-        if (proximityAreaTimer > 2.3f && secondDone == false)
+        if (proximityAreaTimer > 2.4f && secondDone == false)
         {
             agent.destination = gameObject.transform.position;
 
             proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             proximityArea.SetActive(false);
+            firstDone = true;
+            MeleeAttackType = AttackType.three;
             proximityArea.tag = "Parryable";
             secondDone = true;
         }
@@ -1184,6 +1200,7 @@ public class HighSchoolBoss : MonoBehaviour
             attackCooldownTimer = 0.0f;
             firstDone = false;
             secondDone = false;
+            MeleeAttackType = AttackType.reset;
             canMove = true;
             stamina = 0.0f;
             attackSelected = false;
@@ -1198,8 +1215,8 @@ public class HighSchoolBoss : MonoBehaviour
     {
         proximityAreaTimer += Time.deltaTime;
         //gameObject.transform.LookAt(player.transform.position);
-
-        if (proximityAreaTimer > 0.2f && proximityArea.activeInHierarchy == false && firstDone == false)
+        if(MeleeAttackType == AttackType.reset) MeleeAttackType = AttackType.one;
+            if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == false && firstDone == false)
         {
             proximityArea.SetActive(true);
             proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
@@ -1207,7 +1224,7 @@ public class HighSchoolBoss : MonoBehaviour
             agent.destination = player.transform.position;
             gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 40.0f, ForceMode.VelocityChange);
         }
-        if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == true && firstDone == false)
+        if (proximityAreaTimer > 0.8f && proximityArea.activeInHierarchy == true && firstDone == false)
         {
             proximityArea.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
             proximityArea.tag = "Parryable";
@@ -1218,6 +1235,7 @@ public class HighSchoolBoss : MonoBehaviour
             proximityArea.SetActive(false);
             proximityArea.tag = "Parryable";
             firstDone = true;
+            MeleeAttackType = AttackType.two;
         }
         if (proximityAreaTimer > 1.5f && proximityArea.activeInHierarchy == false)
         {
@@ -1227,12 +1245,12 @@ public class HighSchoolBoss : MonoBehaviour
             agent.destination = player.transform.position;
             gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 30.0f, ForceMode.VelocityChange);
         }
-        if (proximityAreaTimer > 1.8f && proximityArea.activeInHierarchy == true)
+        if (proximityAreaTimer > 1.9f && proximityArea.activeInHierarchy == true)
         {
             proximityArea.transform.localScale = new Vector3(2.2f, 2.2f, 2.2f);
             proximityArea.tag = "Parryable";
         }
-        if (proximityAreaTimer > 2.3f)
+        if (proximityAreaTimer > 2.4f)
         {
             proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             proximityArea.SetActive(false);
@@ -1242,6 +1260,7 @@ public class HighSchoolBoss : MonoBehaviour
             canMove = true;
             stamina = 0.0f;
             attackSelected = false;
+            MeleeAttackType = AttackType.reset;
             proximityAreaTimer = 0.0f;
             canAttack = false;
             return true;
@@ -1253,8 +1272,8 @@ public class HighSchoolBoss : MonoBehaviour
     public bool AttackOnce()
     {
         proximityAreaTimer += Time.deltaTime;
-
-        if (proximityAreaTimer > 0.2f && proximityArea.activeInHierarchy == false)
+        MeleeAttackType = AttackType.one;
+        if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == false)
         {
             proximityArea.SetActive(true);
             proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
@@ -1262,7 +1281,7 @@ public class HighSchoolBoss : MonoBehaviour
             agent.destination = gameObject.transform.forward * 2;
             gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 40.0f, ForceMode.VelocityChange);
         }
-        if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == true)
+        if (proximityAreaTimer > 0.8f && proximityArea.activeInHierarchy == true)
         {
             proximityArea.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
             proximityArea.tag = "Parryable";
@@ -1277,6 +1296,7 @@ public class HighSchoolBoss : MonoBehaviour
             stamina = 0.0f;
             attackSelected = false;
             proximityAreaTimer = 0.0f;
+            MeleeAttackType = AttackType.reset;
             canAttack = false;
             return true;
         }
@@ -1286,26 +1306,21 @@ public class HighSchoolBoss : MonoBehaviour
     }
     private void SelectAttack(int phase)
     {
-        switch (phase)
+
+        if (stamina < 15.0f)
         {
-            case 0:
-
-                if(stamina < 15.0f)
-                {
-                    attackType = AttackType.one;
-                }
-                else if(stamina < 20.0f)
-                {
-                    attackType = AttackType.two;
-                }
-                else
-                {
-                    attackType = AttackType.three;
-                }
-
-                break;
+            attackType = AttackType.one;
         }
-        if(hitsToSuperAttack <= 0 && phase == 0)
+        else if (stamina < 20.0f)
+        {
+            attackType = AttackType.two;
+        }
+        else
+        {
+            attackType = AttackType.three;
+        }
+
+        if (hitsToSuperAttack <= 0 && phase == 0)
         {
             hitsToSuperAttack += 3;
             attackType = AttackType.portals;

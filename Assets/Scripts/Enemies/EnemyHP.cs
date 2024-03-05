@@ -30,7 +30,8 @@ public class EnemyHP : MonoBehaviour
             {
                 if(gameObject.GetComponent<HighSchoolBoss>() != null)
                 {
-                    if(gameObject.GetComponent<HighSchoolBoss>().phase == 0)
+                    gameObject.GetComponent<HighSchoolBoss>().damaged = true;
+                    if (gameObject.GetComponent<HighSchoolBoss>().phase == 0)
                     {
                         gameObject.GetComponent<HighSchoolBoss>().hitsToSuperAttack -= damage;
                     }
