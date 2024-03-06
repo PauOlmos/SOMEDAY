@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Expand : MonoBehaviour
 {
+    public float expandMultiplier;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +14,7 @@ public class Expand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.localScale += Vector3.one * Time.deltaTime * 3000;
-        if (gameObject.transform.localScale.x > 8500.0f) Destroy(gameObject);
+        gameObject.transform.localScale += Vector3.one * Time.deltaTime * 3;
+        if (gameObject.transform.localScale.x > 8.5f) Destroy(gameObject);
     }
 }

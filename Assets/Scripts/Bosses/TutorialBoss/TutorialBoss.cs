@@ -70,7 +70,7 @@ public class TutorialBoss : MonoBehaviour
         walls = GameObject.FindGameObjectsWithTag("Wall");
     }
 
-    int value = 3;
+    int value = 0;
     // Update is called once per frame
     void Update()
     {
@@ -107,9 +107,11 @@ public class TutorialBoss : MonoBehaviour
 
                             break;
                         case AttackType.circles:
-                            if (circlesAttackCooldown == 0)
+                            if (circlesAttackCooldown == 0 && value == 0)
                             {
                                 value = Random.Range(3, 7);
+                                Debug.Log(value);
+
                             }
                             canAttack = CirclesAttack(value);
 
@@ -271,30 +273,41 @@ public class TutorialBoss : MonoBehaviour
             movementState = MovementState.none;
             circlesAttackCooldown = 0;
             canAttack = false;
+            value = 0;
             canMove = true;
             return false;
         }
-        if(circlesAttackCooldown > 2.0f) turoialAnimations.animState = TutorialBossAnimations.AnimationsState.attack;
-            if (circlesAttackCooldown >= 2.5f)
+        if (circlesAttackCooldown > 2.0f) turoialAnimations.animState = TutorialBossAnimations.AnimationsState.attack;
+        if (circlesAttackCooldown >= 2.75f)
         {
-            int value = Random.Range(0, 3);
-            Debug.Log(value);
-            switch (value)
+            int value2 = Random.Range(0, 3);
+            switch (value2)
             {
                 case 0:
-                    GameObject circle = Instantiate(circlesPrefabs[value], gameObject.transform.position, Quaternion.identity);
+                    GameObject circle = Instantiate(circlesPrefabs[value2], gameObject.transform.position, Quaternion.identity);
                     circle.transform.Rotate(new Vector3(-90, 0, 0));
+                    circle.transform.localScale = circle.transform.localScale / 100.0f;
                     break;
                 case 1:
 
-                    CreateCircles(10, 360, circlesPrefabs[value], 2, 10, true);
+                    CreateCircles(10, 360, circlesPrefabs[value2], 2, 10, true);
 
                     break;
                 case 2:
-                    CreateCircles(10, 360, circlesPrefabs[value], 2, 10, false);
+                    CreateCircles(10, 360, circlesPrefabs[value2], 2, 10, false);
                     break;
             }
             circlesCount++;
+            if (circlesCount == numCircles)
+            {
+                circlesCount = 0;
+                movementState = MovementState.none;
+                circlesAttackCooldown = 0;
+            value = 0;
+                canAttack = false;
+                canMove = true;
+                return false;
+            }
             circlesAttackCooldown = 0.0f;
             turoialAnimations.animState = TutorialBossAnimations.AnimationsState.idle;
 
@@ -311,7 +324,9 @@ public class TutorialBoss : MonoBehaviour
 
             // Instanciar el objeto en la posición calculada
             GameObject circle = Instantiate(circlePrefab, position, Quaternion.identity);
+
             Quaternion forwardRotation = Quaternion.LookRotation(position - transform.position, Vector3.up);
+
 
             // Aplicar la rotación al objeto
             circle.transform.rotation = forwardRotation;
@@ -321,10 +336,19 @@ public class TutorialBoss : MonoBehaviour
             {
                 if (discontinious)
                 {
-                    circle.transform.Translate(new Vector3(0, (4.0f - 0.15f), 0));
+
+                    circle.transform.rotation = forwardRotation;
+
+                    //circle.transform.Translate(new Vector3(0, (4.0f - 0.15f), 0));
                     rb.freezeRotation = true;
                 }
                 rb.AddForce(circle.transform.forward * force, ForceMode.Impulse);
+            }
+            if (!discontinious) circle.transform.localScale = circle.transform.localScale / 100.0f;
+            if (discontinious)
+            {
+                circle.transform.Rotate(0, -130, 0);
+                //circle.transform.localScale *= 4;
             }
         }
     }

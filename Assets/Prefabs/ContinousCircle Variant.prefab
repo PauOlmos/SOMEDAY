@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: ae826a43349ddd44595be21533bc28ec, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 9127879899912498164, guid: 15b78e5e896823d4aa2bf6ce767b6095, type: 3}
     - target: {fileID: 919132149155446097, guid: ae826a43349ddd44595be21533bc28ec, type: 3}
       propertyPath: m_Name
       value: ContinousCircle Variant
@@ -108,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546d1c69ec16bcd49913a3d8bab754d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  expandMultiplier: 0
 --- !u!64 &6608694632325154942
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -129,4 +134,4 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -7536622687930795020, guid: ae826a43349ddd44595be21533bc28ec, type: 3}
+  m_Mesh: {fileID: 9127879899912498164, guid: 15b78e5e896823d4aa2bf6ce767b6095, type: 3}
