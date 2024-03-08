@@ -33,7 +33,7 @@ public class SeekingProjectile : MonoBehaviour
                 {
                     gameObject.transform.LookAt(target);
                     Seek(target.position);
-                    posAux = target.transform.position;
+                    posAux = (target.transform.position - transform.position) * 1000.0f;
                 }
                 else
                 {
