@@ -13,6 +13,7 @@ public class SeekingProjectile : MonoBehaviour
     public float speed = 1.0f;
     public Vector3 direction;
     public bool shotByPlayer;
+    Vector3 posAux;
     void Start()
     {
         
@@ -31,27 +32,28 @@ public class SeekingProjectile : MonoBehaviour
                 if(seekTimer < seekingTime) 
                 {
                     gameObject.transform.LookAt(target);
-                    Seek();
+                    Seek(target.position);
+                    posAux = target.transform.position;
                 }
                 else
                 {
-                    transform.position += direction * speed * Time.deltaTime;
-                    transform.LookAt(direction);
+                    gameObject.transform.LookAt(posAux);
+                    Seek(posAux);
 
                 }
             }
             else
             {
                 gameObject.transform.LookAt(gameObject.transform.forward);
-                Seek();
+                Seek(target.position);
 
             }
         }
     }
 
-    void Seek()
+    void Seek(Vector3 target)
     {
-        direction = target.position - transform.position;
+        direction = target - transform.position;
         direction.Normalize();
         // Move towards the target
         transform.position += direction * speed * Time.deltaTime;

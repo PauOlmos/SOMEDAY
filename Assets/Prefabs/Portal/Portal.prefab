@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileType: 0
-  pencil: {fileID: 4772655582670842492, guid: ce8b9129db8d5a945b6ba64c0fa087d4, type: 3}
+  pencil: {fileID: 6034732809351538405, guid: ce8b9129db8d5a945b6ba64c0fa087d4, type: 3}
   paperPlane: {fileID: 2838428055490732122, guid: 9f7e75c310727894fa43603b0c35d327, type: 3}
   schoolBag: {fileID: 7375574833441580345, guid: 5079d5bbf40a9ff45959070d1d015c85, type: 3}
   createdProjectile: 0

@@ -3034,6 +3034,7 @@ MonoBehaviour:
   Size: {fileID: 0}
   ChangeSettings: {fileID: 0}
   SubtitlesSettings: {fileID: 0}
+  Resume: {fileID: 0}
   canMoveHorizontally: 1
   canMoveVertically: 1
   archive1Renamed: 0

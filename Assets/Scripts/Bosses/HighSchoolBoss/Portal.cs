@@ -55,7 +55,7 @@ public class Portal : MonoBehaviour
                 proj1.AddComponent<SeekingProjectile>();
                 proj1.GetComponent<SeekingProjectile>().canFail = true;
                 proj1.GetComponent<SeekingProjectile>().shotByPlayer = false;
-                proj1.GetComponent<SeekingProjectile>().seekingTime = 0.01f;
+                proj1.GetComponent<SeekingProjectile>().seekingTime = 0.1f;
                 proj1.GetComponent<SeekingProjectile>().target = player;
                 proj1.GetComponent<SeekingProjectile>().speed = 12.5f;
                 proj1.transform.LookAt(player);
