@@ -36,12 +36,15 @@ public class SeekingProjectile : MonoBehaviour
                 else
                 {
                     transform.position += direction * speed * Time.deltaTime;
+                    transform.LookAt(direction);
+
                 }
             }
             else
             {
                 gameObject.transform.LookAt(gameObject.transform.forward);
                 Seek();
+
             }
         }
     }
@@ -50,7 +53,6 @@ public class SeekingProjectile : MonoBehaviour
     {
         direction = target.position - transform.position;
         direction.Normalize();
-
         // Move towards the target
         transform.position += direction * speed * Time.deltaTime;
     }

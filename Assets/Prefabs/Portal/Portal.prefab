@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileType: 0
-  pencil: {fileID: 428339728076803191, guid: 1cb446343691ad2498d5bf405d544b00, type: 3}
-  paperPlane: {fileID: 7989468939347783052, guid: b823f63cb8fc34c43a6e94abe5fa2325, type: 3}
-  schoolBag: {fileID: 923810996409884411, guid: 3c6455814b179954eb7150bf39acebed, type: 3}
+  pencil: {fileID: 4772655582670842492, guid: ce8b9129db8d5a945b6ba64c0fa087d4, type: 3}
+  paperPlane: {fileID: 2838428055490732122, guid: 9f7e75c310727894fa43603b0c35d327, type: 3}
+  schoolBag: {fileID: 7375574833441580345, guid: 5079d5bbf40a9ff45959070d1d015c85, type: 3}
   createdProjectile: 0
   player: {fileID: 0}

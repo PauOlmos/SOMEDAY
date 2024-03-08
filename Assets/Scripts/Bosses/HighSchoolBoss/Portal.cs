@@ -71,6 +71,7 @@ public class Portal : MonoBehaviour
                 proj2.GetComponent<SeekingProjectile>().seekingTime = 4.0f;
                 proj2.GetComponent<SeekingProjectile>().target = player;
                 proj2.GetComponent<SeekingProjectile>().speed = 7.0f;
+                proj2.transform.Rotate(0, 180, 0);
                 proj2.transform.LookAt(player);
                 proj2.tag = "BasicProjectile";
                 proj2.layer = 7;
