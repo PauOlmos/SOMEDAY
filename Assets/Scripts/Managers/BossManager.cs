@@ -17,6 +17,7 @@ public class BossManager : MonoBehaviour
     public Transform[] playerSpawnPositions;
     public Transform[] bossSpawnPositions;
     public GameObject floor;
+    public GameObject[] lights; 
 
     [Header("Animations")]
 
@@ -145,6 +146,7 @@ public class BossManager : MonoBehaviour
         switch (nBoss)
         {
             case 0:
+                lights[nBoss].SetActive(true);
                 boss = GameObject.Find("Boss");
                 tutorialAnimations.enabled = true;
                 tutorialBossModel.SetActive(true);
@@ -170,12 +172,15 @@ public class BossManager : MonoBehaviour
                 Destroy(tutorialBossModel);
                 highSchoolBossAnimations.enabled = true;
                 highSchoolBossModel.SetActive(true);
+                lights[nBoss].SetActive(true);
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
                 {
                     player.transform.position = playerSpawnPositions[nBoss].position;
                     boss.transform.position = bossSpawnPositions[nBoss].position;
                     boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+
                 }
+                Destroy(lights[0]);
                 Destroy(Sword1);
                 Destroy(Sword2);
                 Destroy(weakPoint);
