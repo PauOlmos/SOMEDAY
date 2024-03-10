@@ -15,7 +15,7 @@ public class HighSchoolBossAnimations : MonoBehaviour
     public AnimationClip[] animations;
     public AnimationClip actualAnimation;
     public GameObject model;
-    private Animator animation;
+    public Animator animation;
     public HighSchoolBoss boss;
     public bool attacking = false;
     public float damagedTimer = 0.0f;
@@ -43,7 +43,7 @@ public class HighSchoolBossAnimations : MonoBehaviour
             }
             else
             {
-                if (gameObject.GetComponent<HighSchoolBoss>().damaged == true) //TakeDamage Animation Priority
+                if (gameObject.GetComponent<HighSchoolBoss>().damaged == true && attacking == false) //TakeDamage Animation Priority
                 {
                     if (actualAnimation != animations[9])
                     {
@@ -59,10 +59,8 @@ public class HighSchoolBossAnimations : MonoBehaviour
                 }
                 else
                 {
-
                     if (attacking == false) CheckMovement();
                     CheckAttacks();
-
                 }
             }
         }

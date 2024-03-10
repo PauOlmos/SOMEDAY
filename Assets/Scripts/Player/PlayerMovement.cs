@@ -78,10 +78,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rb.drag = groundDrag / 3.0f;
+            rb.drag = groundDrag / 1.5f;
         }
 
-        Inputs();
+        if(Time.timeScale != 0) Inputs();
         SpeedCap();
 
         switch (pStatus)

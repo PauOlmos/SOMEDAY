@@ -77,7 +77,7 @@ public class TutorialBoss : MonoBehaviour
         switch (phase)
         {
             case 0:
-                gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
+                if (gameObject.GetComponent<EnemyHP>().hp >= 6) gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
                 if (canMove)
                 {
                     turoialAnimations.animState = TutorialBossAnimations.AnimationsState.idle;

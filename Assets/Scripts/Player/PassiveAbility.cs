@@ -60,7 +60,7 @@ public class PassiveAbility : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("SwapAbilities"))
+        if (Input.GetButtonDown("SwapAbilities") && Time.timeScale != 0)
         {
             SwapAbilities();
         }

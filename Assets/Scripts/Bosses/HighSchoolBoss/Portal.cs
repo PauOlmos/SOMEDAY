@@ -84,7 +84,7 @@ public class Portal : MonoBehaviour
                 proj3.layer = 7;
                 proj3.AddComponent<DieByTime>();
                 proj3.AddComponent<SchoolBag>();
-
+                proj3.transform.Rotate(new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
                 break;
         }
     }

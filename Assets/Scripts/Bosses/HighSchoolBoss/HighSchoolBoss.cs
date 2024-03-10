@@ -343,6 +343,19 @@ public class HighSchoolBoss : MonoBehaviour
                         stunTimer = 0.0f;
                         gameObject.GetComponent<EnemyHP>().stun = false;
                         canMove = true;
+                        //Aqui
+                        proximityArea.tag = "Parryable";
+                        proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+
+                        proximityArea.SetActive(false);
+                        attackCooldownTimer = 3.0f;
+                        firstDone = false;
+                        secondDone = false;
+                        MeleeAttackType = AttackType.reset;
+                        canMove = true;
+                        stamina = 5.0f;
+                        attackSelected = false;
+                        proximityAreaTimer = 0.0f;
                     }
                     else
                     {
@@ -432,10 +445,14 @@ public class HighSchoolBoss : MonoBehaviour
                                     weakPoint3.transform.RotateAround(handPos3.transform.position, Vector3.forward, Time.deltaTime * 30.0f);
                                 }
 
-                                if(hand1.transform.eulerAngles.z < 271 && hand1.transform.eulerAngles.z > 269)
+                                if (hand1.transform.eulerAngles.z < 271 && hand1.transform.eulerAngles.z > 269)
                                 {
                                     rotatingHands = true;
-                                    if (handDamage1.GetComponent<Rigidbody>() != null) Destroy(handDamage2.GetComponent<Rigidbody>());
+                                    if (handDamage1.GetComponent<Rigidbody>() != null)
+                                    {
+                                        Debug.Log("PA QUE SIRVE ESTO");
+                                        Destroy(handDamage2.GetComponent<Rigidbody>());
+                                    }
                                 }
 
                                 if(rotatingHands == true)
@@ -445,18 +462,34 @@ public class HighSchoolBoss : MonoBehaviour
                                     {
 
                                         hand1.transform.RotateAround(handPos1.transform.position, Vector3.forward, Time.deltaTime * 60.0f);
+                                        hand1.GetComponent<BoxCollider>().isTrigger = true;
+                                        handDamage1.SetActive(false);
                                         weakPoint1.transform.RotateAround(handPos1.transform.position, Vector3.forward, Time.deltaTime * 60.0f);
 
 
                                         hand2.transform.RotateAround(handPos2.transform.position, Vector3.forward, -Time.deltaTime * 60.0f);
+                                        hand2.GetComponent<BoxCollider>().isTrigger = true;
+                                        handDamage2.SetActive(false);
+
                                         weakPoint2.transform.RotateAround(handPos2.transform.position, Vector3.forward, -Time.deltaTime * 60.0f);
 
 
                                         hand3.transform.RotateAround(handPos3.transform.position, Vector3.forward, -Time.deltaTime * 60.0f);
+                                        handDamage3.SetActive(false);
+
+                                        hand3.GetComponent<BoxCollider>().isTrigger = true;
                                         weakPoint3.transform.RotateAround(handPos3.transform.position, Vector3.forward, -Time.deltaTime * 60.0f);
 
                                         if(hand1.transform.eulerAngles.z < 359 && hand1.transform.eulerAngles.z > 358)
                                         {
+                                            handDamage1.SetActive(true);
+                                            handDamage2.SetActive(true);
+                                            handDamage3.SetActive(true);
+
+                                            hand1.GetComponent<BoxCollider>().isTrigger = false;
+                                            hand2.GetComponent<BoxCollider>().isTrigger = false;
+                                            hand3.GetComponent<BoxCollider>().isTrigger = false;
+
                                             canAttack = false;
                                             attackType = AttackType.reset;
                                             corridorAttackCooldownTimer = 0.0f;

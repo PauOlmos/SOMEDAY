@@ -32,125 +32,129 @@ public class PlayerAnimations : MonoBehaviour
     void Update()
     {
         CheckMovement();
-        switch (animState)
+        if (Time.timeScale != 0)
         {
-            case AnimationState.idle:
+            switch (animState)
+            {
+                case AnimationState.idle:
 
-                Debug.Log(animations[0].name);
-                animation.Play(animations[0].name);
+                    Debug.Log(animations[0].name);
+                    animation.Play(animations[0].name);
 
-                break;
-            case AnimationState.run:
+                    break;
+                case AnimationState.run:
 
-                Debug.Log(animations[1].name);
-                animation.Play(animations[1].name);
+                    Debug.Log(animations[1].name);
+                    animation.Play(animations[1].name);
 
-                break;
-            case AnimationState.attack:
+                    break;
+                case AnimationState.attack:
 
-                Debug.Log(animations[2].name);
-                animation.Play(animations[2].name);
+                    Debug.Log(animations[2].name);
+                    animation.Play(animations[2].name);
 
-                break;
-            case AnimationState.shootProj:
-                animationsTimer += Time.deltaTime;
+                    break;
+                case AnimationState.shootProj:
+                    animationsTimer += Time.deltaTime;
 
-                if (animationsTimer >= animations[3].length)
-                {
-                    animState = AnimationState.idle;
-                    animationsTimer = 0;
-                    sword.SetActive(true);
+                    if (animationsTimer >= animations[3].length)
+                    {
+                        animState = AnimationState.idle;
+                        animationsTimer = 0;
+                        sword.SetActive(true);
 
-                }
+                    }
 
-                Debug.Log(animations[3].name);
-                animation.Play(animations[3].name);
+                    Debug.Log(animations[3].name);
+                    animation.Play(animations[3].name);
 
-                break;
-            case AnimationState.jump:
-                animationsTimer += Time.deltaTime;
+                    break;
+                case AnimationState.jump:
+                    animationsTimer += Time.deltaTime;
 
-                if (animationsTimer >= animations[4].length / 2)
-                {
-                    animState = AnimationState.floating;
-                    animation.SetBool("JumpToFloat", true);
-                    animationsTimer = 0;
-                }
+                    if (animationsTimer >= animations[4].length / 2)
+                    {
+                        animState = AnimationState.floating;
+                        animation.SetBool("JumpToFloat", true);
+                        animationsTimer = 0;
+                    }
 
-                Debug.Log(animations[4].name);
-                animation.Play(animations[4].name);
+                    Debug.Log(animations[4].name);
+                    animation.Play(animations[4].name);
 
-                break;
-            case AnimationState.floating:
+                    break;
+                case AnimationState.floating:
 
-                Debug.Log(animations[5].name);
-                animation.Play(animations[5].name);
+                    Debug.Log(animations[5].name);
+                    animation.Play(animations[5].name);
 
-                break;
-            case AnimationState.dash:
+                    break;
+                case AnimationState.dash:
 
-                Debug.Log(animations[6].name);
-                animation.Play(animations[6].name);
+                    Debug.Log(animations[6].name);
+                    animation.Play(animations[6].name);
 
-                break;
-                
-            case AnimationState.takeDmg:
+                    break;
 
-                animationsTimer += Time.deltaTime;
+                case AnimationState.takeDmg:
 
-                if (animationsTimer >= animations[7].length)
-                {
-                    if(pMov.grounded == true) animState = AnimationState.idle;
-                    else animState = AnimationState.floating;
-                    animationsTimer = 0;
-                }
+                    animationsTimer += Time.deltaTime;
 
-                Debug.Log(animations[7].name);
-                animation.Play(animations[7].name);
+                    if (animationsTimer >= animations[7].length)
+                    {
+                        if (pMov.grounded == true) animState = AnimationState.idle;
+                        else animState = AnimationState.floating;
+                        animationsTimer = 0;
+                    }
 
-                break;
-            case AnimationState.die:
+                    Debug.Log(animations[7].name);
+                    animation.Play(animations[7].name);
 
-                Debug.Log(animations[8].name);
-                animation.Play(animations[8].name);
+                    break;
+                case AnimationState.die:
 
-                break;
+                    Debug.Log(animations[8].name);
+                    animation.Play(animations[8].name);
 
-            case AnimationState.restoreHp:
-                animationsTimer += Time.deltaTime;
+                    break;
 
-                if (animationsTimer >= animations[9].length)
-                {
-                    animState = AnimationState.idle;
-                    animationsTimer = 0;
-                    sword.SetActive(true);
+                case AnimationState.restoreHp:
+                    animationsTimer += Time.deltaTime;
 
-                }
+                    if (animationsTimer >= animations[9].length)
+                    {
+                        animState = AnimationState.idle;
+                        animationsTimer = 0;
+                        sword.SetActive(true);
 
-                Debug.Log(animations[9].name);
-                animation.Play(animations[9].name);
+                    }
 
-                break;
-            case AnimationState.parry:
-                animationsTimer += Time.deltaTime;
+                    Debug.Log(animations[9].name);
+                    animation.Play(animations[9].name);
 
-                if (animationsTimer >= animations[10].length)
-                {
-                    animState = AnimationState.idle;
-                    animationsTimer = 0;
-                }
+                    break;
+                case AnimationState.parry:
+                    animationsTimer += Time.deltaTime;
 
-                Debug.Log(animations[10].name);
-                animation.Play(animations[10].name);
+                    if (animationsTimer >= animations[10].length)
+                    {
+                        animState = AnimationState.idle;
+                        animationsTimer = 0;
+                    }
 
-                break;
+                    Debug.Log(animations[10].name);
+                    animation.Play(animations[10].name);
 
-            case AnimationState.chargePassive:
-                Debug.Log(animations[11].name);
-                animation.Play(animations[11].name);
+                    break;
 
-                break;
+                case AnimationState.chargePassive:
+                    Debug.Log(animations[11].name);
+                    animation.Play(animations[11].name);
+
+                    break;
+            }
         }
+        
 
     }
 

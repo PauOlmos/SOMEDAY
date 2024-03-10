@@ -185,7 +185,6 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().foco2 = foco2;
             gameObject.GetComponent<HighSchoolBoss>().monolithWeakPoints = monolithWeakPoints;
             gameObject.GetComponent<HighSchoolBoss>().projectileBossSource = projectileBossSource;
-
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }
     }
