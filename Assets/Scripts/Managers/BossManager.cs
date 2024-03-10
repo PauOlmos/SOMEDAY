@@ -175,9 +175,13 @@ public class BossManager : MonoBehaviour
                 lights[nBoss].SetActive(true);
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
                 {
+                    player.SetActive(false);
+                    boss.SetActive(false);
                     player.transform.position = playerSpawnPositions[nBoss].position;
                     boss.transform.position = bossSpawnPositions[nBoss].position;
                     boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+                    player.SetActive(true);
+                    boss.SetActive(true);
 
                 }
                 Destroy(lights[0]);
