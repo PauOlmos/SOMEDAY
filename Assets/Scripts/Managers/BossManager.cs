@@ -172,8 +172,8 @@ public class BossManager : MonoBehaviour
                 Destroy(tutorialBossModel);
                 highSchoolBossAnimations.enabled = true;
                 highSchoolBossAnimations.animation = highSchoolBossAnimations.model.GetComponent<Animator>();
-                highSchoolBossAnimations.animation.Play(highSchoolBossAnimations.animations[2].name);
-                highSchoolBossAnimations.actualAnimation = highSchoolBossAnimations.animations[2];
+                highSchoolBossAnimations.animation.Play(highSchoolBossAnimations.animations[1].name);
+                highSchoolBossAnimations.actualAnimation = highSchoolBossAnimations.animations[1];
                 highSchoolBossModel.SetActive(true);
                 lights[nBoss].SetActive(true);
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
