@@ -27,6 +27,19 @@ public class BossManager : MonoBehaviour
     public HighSchoolBossAnimations highSchoolBossAnimations;
     public GameObject highSchoolBossModel;
 
+    [Header("Audio")]
+
+    public AudioSource bossAudioSource;
+    public AudioSource bossDialogAudioSource;
+
+    public AudioClip[] tutorialBossAudios;
+    public AudioClip[] tutorialBossDialogAudios;
+    public string[] tutorialBossDialogs;
+
+    public AudioClip[] highSchoolBossAudios;
+
+    public SubtitleManager subtitleManagaer;
+
     [Header("TutorialBoss")]
     public int currentBoss;
 
@@ -165,6 +178,12 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<TutorialBoss>().Sword2 = Sword2;
                 boss.GetComponent<TutorialBoss>().turoialAnimations = tutorialAnimations;
                 boss.GetComponent<TutorialBoss>().floor = floor;
+                boss.GetComponent<TutorialBoss>().subtitleManagaer = subtitleManagaer;
+                boss.GetComponent<TutorialBoss>().bossAudioSource = bossAudioSource;
+                boss.GetComponent<TutorialBoss>().bossDialogAudioSource = bossDialogAudioSource;
+                boss.GetComponent<TutorialBoss>().tutorialBossAudios = tutorialBossAudios;
+                boss.GetComponent<TutorialBoss>().tutorialBossDialogs = tutorialBossDialogs;
+                boss.GetComponent<TutorialBoss>().tutorialBossDialogAudios = tutorialBossDialogAudios;
 
                 tutorialAnimations.enabled = true;
                 break;
@@ -255,6 +274,9 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().monolithWeakPoints = monolithWeakPoints;
                 boss.GetComponent<StartHighSchoolBoss>().projectileBossSource = projectileBossSource;
 
+                boss.GetComponent<StartHighSchoolBoss>().subtitleManagaer = subtitleManagaer;
+                boss.GetComponent<StartHighSchoolBoss>().bossAudioSource = bossAudioSource;
+                boss.GetComponent<StartHighSchoolBoss>().bossDialogAudioSource = bossDialogAudioSource;
 
                 break;
             case 2:

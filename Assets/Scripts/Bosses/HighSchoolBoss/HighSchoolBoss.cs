@@ -154,6 +154,11 @@ public class HighSchoolBoss : MonoBehaviour
     public bool dead = false;
 
     public bool damaged = false;
+
+    public SubtitleManager subtitleManagaer;
+    public AudioSource bossAudioSource;
+    public AudioSource bossDialogAudioSource;
+    public AudioClip[] highSchoolBossAudios;
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;

@@ -87,6 +87,11 @@ public class StartHighSchoolBoss : MonoBehaviour
     public GameObject[] monolithWeakPoints;
     public GameObject projectileBossSource;
 
+    public SubtitleManager subtitleManagaer;
+
+    public AudioSource bossAudioSource;
+    public AudioSource bossDialogAudioSource;
+    public AudioClip[] highSchoolBossAudios;
     void Start()
     {
         TutorialWalls.isStatic = false;

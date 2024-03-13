@@ -11,6 +11,12 @@ using Random = UnityEngine.Random;
 
 public class TutorialBoss : MonoBehaviour
 {
+    public AudioSource bossAudioSource;
+    public AudioSource bossDialogAudioSource;
+    public AudioClip[] tutorialBossAudios;
+    public AudioClip[] tutorialBossDialogAudios;
+    public string[] tutorialBossDialogs;
+    public SubtitleManager subtitleManagaer;
     // Start is called before the first frame update
     public TutorialBossAnimations turoialAnimations;
 
@@ -56,6 +62,8 @@ public class TutorialBoss : MonoBehaviour
     public GameObject Sword2;
     public GameObject floor;
     public float showTutorialMessagesTimer = 0.0f;
+    public float dialogTimer = 0.0f;
+    public int dialogNum = 0;
     public enum MovementState
     {
         none, jump, startSpinning, spin, holdSpin
@@ -78,6 +86,9 @@ public class TutorialBoss : MonoBehaviour
     void Update()
     {
         showTutorialMessagesTimer += Time.deltaTime;
+        dialogTimer += Time.deltaTime;
+
+        dialogTimer = Dialogs();
         switch (phase)
         {
             
@@ -263,6 +274,23 @@ public class TutorialBoss : MonoBehaviour
 
     }
 
+    public float Dialogs()
+    {
+        if (dialogTimer > 35.0f)
+        {
+            subtitleManagaer.subtitleText = tutorialBossDialogs[dialogNum];
+            subtitleManagaer.currentAudioClip = tutorialBossDialogAudios[dialogNum];
+            subtitleManagaer.canReproduceAudio = true;
+            dialogTimer = 0;
+            return dialogTimer;
+        }
+        else
+        {
+
+            dialogNum = Random.Range(0, tutorialBossDialogAudios.Length-1);
+            return dialogTimer;
+        }
+    }
     public bool IsNear(float distanceToAttack)
     {
         if (Vector3.Distance(player.transform.position, proximityArea.transform.position) < distanceToAttack) { return true; }
