@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class BossManager : MonoBehaviour
@@ -54,6 +55,7 @@ public class BossManager : MonoBehaviour
 
     public GameObject Sword1;
     public GameObject Sword2;
+    public GameObject TutorialMessages;
 
     [Header("HighSchool Boss")]
 
@@ -180,6 +182,7 @@ public class BossManager : MonoBehaviour
                 {
                     player.SetActive(false);
                     boss.SetActive(false);
+                    Destroy(TutorialMessages);
                     player.transform.position = playerSpawnPositions[nBoss].position;
                     boss.transform.position = bossSpawnPositions[nBoss].position;
                     boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);

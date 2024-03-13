@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class TutorialBoss : MonoBehaviour
@@ -53,6 +55,7 @@ public class TutorialBoss : MonoBehaviour
     public GameObject Sword1;
     public GameObject Sword2;
     public GameObject floor;
+    public float showTutorialMessagesTimer = 0.0f;
     public enum MovementState
     {
         none, jump, startSpinning, spin, holdSpin
@@ -74,8 +77,10 @@ public class TutorialBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        showTutorialMessagesTimer += Time.deltaTime;
         switch (phase)
         {
+            
             case 0:
                 if (gameObject.GetComponent<EnemyHP>().hp >= 6) gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
                 if (canMove)
