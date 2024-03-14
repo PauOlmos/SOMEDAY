@@ -110,6 +110,8 @@ public class TutorialBoss : MonoBehaviour
 
                             break;
                         case MovementState.jump:
+                            bossAudioSource.clip = (tutorialBossAudios[0]);
+                            if(bossAudioSource.isPlaying == false) bossAudioSource.Play();
                             JumpMovement();
                             break;
                         default: break;
