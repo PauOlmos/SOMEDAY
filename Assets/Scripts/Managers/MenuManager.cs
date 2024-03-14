@@ -52,6 +52,10 @@ public class MenuManager : MonoBehaviour
 
     public bool paused = false;
     public bool playing = false;
+
+    public AudioSource menuAudioSource;
+    public AudioClip selectButtonAudio;
+    public AudioClip pressButtonAudio;
     public enum Menus
     {
         main, options, archives, difficulty, pause,
@@ -81,6 +85,7 @@ public class MenuManager : MonoBehaviour
             canMoveHorizontally = false;
             if (currentSelected.GetComponent<MenuButton>().leftButton != null)
             {
+                menuAudioSource.PlayOneShot(selectButtonAudio);
                 currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
                 currentSelected = currentSelected.GetComponent<MenuButton>().leftButton;
                 currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
@@ -91,6 +96,7 @@ public class MenuManager : MonoBehaviour
             canMoveHorizontally = false;
             if (currentSelected.GetComponent<MenuButton>().rightButton != null)
             {
+                menuAudioSource.PlayOneShot(selectButtonAudio);
                 currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
                 currentSelected = currentSelected?.GetComponent<MenuButton>().rightButton;
                 currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
@@ -101,6 +107,8 @@ public class MenuManager : MonoBehaviour
             canMoveVertically = false;
             if (currentSelected.GetComponent<MenuButton>().upButton != null)
             {
+                menuAudioSource.PlayOneShot(selectButtonAudio);
+
                 currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
                 currentSelected = currentSelected?.GetComponent<MenuButton>().upButton;
                 currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
@@ -111,6 +119,8 @@ public class MenuManager : MonoBehaviour
             canMoveVertically = false;
             if (currentSelected.GetComponent<MenuButton>().downButton != null)
             {
+                menuAudioSource.PlayOneShot(selectButtonAudio);
+
                 currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
                 currentSelected = currentSelected?.GetComponent<MenuButton>().downButton;
                 currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
@@ -118,7 +128,12 @@ public class MenuManager : MonoBehaviour
         }
         if (Input.GetButtonUp("Jump"))
         {
-            if (currentSelected != null) currentSelected.GetComponent<MenuButton>().PressButton();
+            if (currentSelected != null)
+            {
+                currentSelected.GetComponent<MenuButton>().PressButton();
+                menuAudioSource.PlayOneShot(pressButtonAudio);
+
+            }
         }
         if (Input.GetButtonUp("Back"))
         {
