@@ -32,6 +32,9 @@ public class PassiveAbility : MonoBehaviour
     public bool healNow = false;
     public BossManager bossManager;
 
+    public AudioSource playerAudioSource;
+    public AudioClip swapAbilities;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -127,6 +130,9 @@ public class PassiveAbility : MonoBehaviour
 
     private void SwapAbilities()
     {
+        playerAudioSource.clip = (swapAbilities);
+        playerAudioSource.loop = false;
+        if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
         switch (passive)
         {
             case passiveType.shoot:

@@ -21,9 +21,10 @@ public class StartTutorial : MonoBehaviour
     public GameObject floor;
     public float blackTimer = 0.0f;
     public float blackInitialTimer = 0.0f;
-    public float blackDuration = 5.0f;
-    public float blackInitialDuration = 5.0f;
+    public float blackDuration = 13.0f;
+    public float blackInitialDuration = 13.0f;
     public Image black;
+    public AudioClip intro;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +35,9 @@ public class StartTutorial : MonoBehaviour
         BossManager.enabled = false;
         transform.position = initialPlayerPosition.position;
         transform.rotation = initialPlayerPosition.rotation;
+        BossManager.bossAudioSource.clip = intro;
+        BossManager.bossAudioSource.Play();
+        spawningBossTime = BossManager.audioTransitions[0].length + 0.5f;
     }
 
     // Update is called once per frame
@@ -46,13 +50,29 @@ public class StartTutorial : MonoBehaviour
                 transform.position = initialPlayerPosition.position;
                 transform.rotation = initialPlayerPosition.rotation;
             }
+            if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Back"))
+            {
+                if (blackInitialTimer > 1.35f)
+                {
+                    BossManager.bossAudioSource.Stop();
+                    blackInitialTimer = blackInitialDuration;
+                }
+                
+            }
             blackInitialTimer += Time.deltaTime;
             if (blackInitialTimer > blackInitialDuration)
             {
+                if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Back"))
+                {
+                    BossManager.bossAudioSource.Stop();
+                    blackTimer = blackDuration;
+                    black.CrossFadeAlpha(0.0f, 0.0f, true);
 
+                }
                 blackTimer += Time.deltaTime;
                 if (blackTimer > blackDuration)
                 {
+                    
                     klk = false;
                     Debug.Log("!!!!!");
                     gameObject.GetComponentInChildren<Rigidbody>().useGravity = true;
@@ -104,6 +124,7 @@ public class StartTutorial : MonoBehaviour
 
     public void BeginGame()
     {
+        BossManager.bossAudioSource.Stop();
         ActivateMovement();
         ActivateBoss();
         ActivateCamera();
@@ -111,6 +132,7 @@ public class StartTutorial : MonoBehaviour
     public void SpawnBoss()
     {
         Boss.gameObject.GetComponent<Rigidbody>().transform.Translate(Vector3.up * Time.deltaTime * 2.0f);
+        BossManager.bossAudioSource.PlayOneShot(BossManager.audioTransitions[0]);
     }
 
     public void ActivateMovement()

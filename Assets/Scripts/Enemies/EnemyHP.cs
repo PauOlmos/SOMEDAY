@@ -38,7 +38,18 @@ public class EnemyHP : MonoBehaviour
                 }
                 hp -= damage;
                 canBeDamaged = false;
+                DamageSound();
+                
             }
+        }
+    }
+
+    public void DamageSound()
+    {
+        if(gameObject.GetComponent<TutorialBoss>() != null)
+        {
+            gameObject.GetComponent<TutorialBoss>().bossAudioSource.clip = (gameObject.GetComponent<TutorialBoss>().tutorialBossAudios[2]);
+            if (gameObject.GetComponent<TutorialBoss>().bossAudioSource.isPlaying == false) gameObject.GetComponent<TutorialBoss>().bossAudioSource.Play();
         }
     }
 }

@@ -31,6 +31,9 @@ public class PlayerHp : MonoBehaviour
     public PassiveAbility pAbility;
 
     public float lifeTime = 0.0f;
+    public AudioSource playerAudioSource;
+    public AudioClip takeDamageAudio;
+    public AudioClip deathAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +77,7 @@ public class PlayerHp : MonoBehaviour
         if(dying == true)
         {
             dieTimer += Time.deltaTime;
-            if(dieTimer > 5.0f)
+            if(dieTimer > 10.0f)
             {
                 if (LoadPlayerData(Settings.archiveNum).difficulty == 2) File.Delete(Application.streamingAssetsPath + "/Archive" + Settings.archiveNum.ToString() + ".json");
                 SceneManager.LoadScene(1);//Main menu
@@ -135,27 +138,34 @@ public class PlayerHp : MonoBehaviour
 
     public void TakeDamage()
     {
-        passiveAbility.canCharge = false;
-        passiveAbility.canChargeTimer = 0.0f;
-        playerHp--;
-        isInvencible = true;
-        invencibilityTimer = 0;
-        gotDamaged = true;
-        if(playerHp <= 0)
+        if(dying == false)
         {
-            pAttack.enabled = false;
-            pMov.enabled = false;
-            cameraBehaviour.enabled = false;
-            parry.enabled = false;
-            pAbility.enabled = false;
-            dying = true;
-            pAnim.animState = PlayerAnimations.AnimationState.die;
+            passiveAbility.canCharge = false;
+            passiveAbility.canChargeTimer = 0.0f;
+            playerHp--;
+            isInvencible = true;
+            invencibilityTimer = 0;
+            gotDamaged = true;
+            if (playerHp <= 0)
+            {
+                playerAudioSource.PlayOneShot(deathAudio);
+                pAttack.enabled = false;
+                pMov.enabled = false;
+                cameraBehaviour.enabled = false;
+                parry.enabled = false;
+                pAbility.enabled = false;
+                dying = true;
+                bossManager.bossAudioSource.volume /= 2;
+                pAnim.animState = PlayerAnimations.AnimationState.die;
 
+            }
+            else
+            {
+                playerAudioSource.PlayOneShot(takeDamageAudio);
+                pAnim.animState = PlayerAnimations.AnimationState.takeDmg;
+            }
         }
-        else
-        {
-            pAnim.animState = PlayerAnimations.AnimationState.takeDmg;
-        }
+        
     }
     public DataToStore LoadPlayerData(int numArchive)
     {

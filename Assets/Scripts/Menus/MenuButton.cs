@@ -69,6 +69,7 @@ public class MenuButton : MonoBehaviour
         {
             case Action.start:
                 ChangeMenu(mainMenu, archivesMenu, MenuManager.Menus.archives, "Archive1");
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
 
                 break;
             case Action.exit:
@@ -83,9 +84,13 @@ public class MenuButton : MonoBehaviour
                     Debug.Log(creatingArchiveNum);
                     dataToStore.numArchive = 1;
                     ChangeMenu(archivesMenu, difficultyMenu, MenuManager.Menus.difficulty, "Hard");
+                    menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
+
                 }
                 else
                 {
+                    menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
+
                     dataToStore.numArchive = 1;
                     Settings.archiveNum = 1;
                     LoadSettings(1);
@@ -98,6 +103,8 @@ public class MenuButton : MonoBehaviour
             case Action.archive2:
                 if (!File.Exists(Application.streamingAssetsPath + "/Archive2.json"))
                 {
+                    menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
+
                     creatingArchiveNum = 2;
                     Debug.Log(creatingArchiveNum);
                     dataToStore.numArchive = 2;
@@ -106,6 +113,7 @@ public class MenuButton : MonoBehaviour
                 else
                 {
                     Settings.archiveNum = 2;
+                    menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
 
                     dataToStore.numArchive = 2;
                     LoadSettings(2);
@@ -118,6 +126,7 @@ public class MenuButton : MonoBehaviour
             case Action.archive3:
                 if (!File.Exists(Application.streamingAssetsPath + "/Archive3.json"))
                 {
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                     creatingArchiveNum = 3;
                     Debug.Log(creatingArchiveNum);
                     ChangeMenu(archivesMenu, difficultyMenu, MenuManager.Menus.difficulty, "Hard");
@@ -126,6 +135,7 @@ public class MenuButton : MonoBehaviour
                 }
                 else
                 {
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                     dataToStore.numArchive = 3;
                     Settings.archiveNum = 3;
                     LoadSettings(3);
@@ -134,6 +144,7 @@ public class MenuButton : MonoBehaviour
                 }
                 break;
             case Action.easy:
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                 dataToStore.difficulty = 0;
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
                 Settings.archiveNum = menuManager.whichArchiveIsBeingCreated;
@@ -141,6 +152,7 @@ public class MenuButton : MonoBehaviour
                 SceneManager.LoadScene(0);
                 break;
             case Action.hard:
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                 dataToStore.difficulty = 1;
                 Settings.archiveNum = menuManager.whichArchiveIsBeingCreated;
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
@@ -149,6 +161,7 @@ public class MenuButton : MonoBehaviour
                 SceneManager.LoadScene(0);
                 break;
             case Action.nightmare:
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                 dataToStore.difficulty = 2;
                 Settings.archiveNum = menuManager.whichArchiveIsBeingCreated;
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
@@ -159,6 +172,7 @@ public class MenuButton : MonoBehaviour
             case Action.options:
                 if (Time.timeScale == 0.0f)
                 {
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                     ChangeMenu(pauseMenu, optionsMenu, MenuManager.Menus.pause, "Predetermined");
                     if (Settings.predetSettings == true)
                     {
@@ -182,6 +196,7 @@ public class MenuButton : MonoBehaviour
             case Action.resume:
                 if (menuManager.paused)
                 {
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                     menuManager.ResumeGame();
                 }
                 
@@ -189,6 +204,7 @@ public class MenuButton : MonoBehaviour
             case Action.mainmenu:
                 if(Time.timeScale == 0.0f)
                 {
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                     Time.timeScale = 1.0f;
                     SceneManager.LoadScene(1);
                 }
@@ -197,6 +213,7 @@ public class MenuButton : MonoBehaviour
 
                 if(Settings.predetSettings == false)
                 {
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                     Settings.predetSettings = true;
                     downButton = null;
                     menuManager.ChangeSettings.SetActive(false);
@@ -209,11 +226,16 @@ public class MenuButton : MonoBehaviour
                     Settings.healthBar = false;
                     Settings.VSync = true;
                     menuManager.SubtitlesSettings.SetActive(true);
+                    dataToStore.charge = LoadPlayerData(Settings.archiveNum).charge;
+                    dataToStore.difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
+                    dataToStore.maxHp = LoadPlayerData(Settings.archiveNum).maxHp;
+                    dataToStore.maxLevel = LoadPlayerData(Settings.archiveNum).maxLevel;
                     SavePlayerData(dataToStore,Settings.archiveNum);
 
                 }
                 else
                 {
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                     menuManager.ChangeSettings.SetActive(true);
                     Settings.predetSettings = false;
                     downButton = menuManager.Volume;
@@ -223,11 +245,13 @@ public class MenuButton : MonoBehaviour
                 break;
             case Action.tutorial:
                 
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                 Settings.tutorialMessages = !Settings.tutorialMessages;
-                
+
                 break;
             case Action.subtitles:
                 
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                 Settings.subtitles = !Settings.subtitles;
                 menuManager.SubtitlesSettings.SetActive(Settings.subtitles);
 
@@ -243,22 +267,26 @@ public class MenuButton : MonoBehaviour
                 break;
             case Action.subtitlesSize1:
 
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                 Settings.subtitlesSize = 1;
 
                 break;
             case Action.subtitlesSize2:
 
                 Settings.subtitlesSize = 2;
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
 
                 break;
             case Action.subtitlesSize3:
 
                 Settings.subtitlesSize = 3;
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
 
                 break;
             case Action.healthBar:
                 
                 Settings.healthBar = !Settings.healthBar;
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
 
                 break;
             case Action.VSync:
@@ -266,7 +294,8 @@ public class MenuButton : MonoBehaviour
                 Settings.VSync = !Settings.VSync;
                 if (Settings.VSync) QualitySettings.vSyncCount = 1;
                 else QualitySettings.vSyncCount = 0;
-                
+                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
+
 
                 break;
             default: break;

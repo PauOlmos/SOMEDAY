@@ -40,6 +40,7 @@ public class BossManager : MonoBehaviour
 
     public SubtitleManager subtitleManagaer;
 
+    public AudioClip[] audioTransitions;
     [Header("TutorialBoss")]
     public int currentBoss;
 

@@ -163,6 +163,11 @@ public class TutorialBoss : MonoBehaviour
                     switch (attackType)
                     {
                         case AttackType.proximity:
+                            if(proximityAreaTimer < 0.5f)
+                            {
+                                bossAudioSource.clip = (tutorialBossAudios[4]);
+                                if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
+                            }
                             proximityAreaTimer += Time.deltaTime;
                             canMove = false;
                             if (proximityAreaTimer > 0.9f && proximityArea.activeInHierarchy == false)
@@ -228,10 +233,13 @@ public class TutorialBoss : MonoBehaviour
                 break;
 
             case 2:
-
+                
                 switch (movementState)
                 {
                     case MovementState.startSpinning:
+                        bossAudioSource.clip = (tutorialBossAudios[3]);
+                        bossAudioSource.loop = true;
+                        if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
                         startSpinTimer += Time.deltaTime;
                         gameObject.transform.Rotate(Vector3.up * startSpinTimer * Time.deltaTime * 300);
                         if (startSpinTimer > 3.0f)
@@ -242,6 +250,9 @@ public class TutorialBoss : MonoBehaviour
                         }
                         break;
                     case MovementState.spin:
+                        bossAudioSource.clip = (tutorialBossAudios[3]);
+                        bossAudioSource.loop = true;
+                        if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
                         gameObject.transform.Rotate(Vector3.up * startSpinTimer * Time.deltaTime * 300);
                         spinTimer += Time.deltaTime;
                         if(spinTimer > 10.0f)
@@ -258,6 +269,7 @@ public class TutorialBoss : MonoBehaviour
                         }
                         break;
                     case MovementState.holdSpin:
+                        bossAudioSource.loop = false;
                         gameObject.transform.Rotate(Vector3.up * 3.0f * Time.deltaTime * 300);
                         holdSpinTimer += Time.deltaTime;
                         if(holdSpinTimer > 5.0f)
@@ -312,9 +324,15 @@ public class TutorialBoss : MonoBehaviour
             canMove = true;
             return false;
         }
-        if (circlesAttackCooldown > 2.0f) turoialAnimations.animState = TutorialBossAnimations.AnimationsState.attack;
+        if (circlesAttackCooldown > 2.0f)
+        {
+            turoialAnimations.animState = TutorialBossAnimations.AnimationsState.attack;
+            bossAudioSource.clip = (tutorialBossAudios[1]);
+            if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
+        }
         if (circlesAttackCooldown >= 2.75f)
         {
+            
             int value2 = Random.Range(0, 3);
             switch (value2)
             {

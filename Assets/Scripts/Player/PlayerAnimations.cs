@@ -16,6 +16,10 @@ public class PlayerAnimations : MonoBehaviour
 
     public GameObject sword;
     public float animationsTimer = 0.0f;
+
+    public AudioSource playerAudioSource;
+    public AudioClip[] playerAudios;
+
     public enum AnimationState
     {
         idle,run,jump,dash,parry,attack,takeDmg,restoreHp,shootProj,chargePassive,die,floating
@@ -37,26 +41,32 @@ public class PlayerAnimations : MonoBehaviour
             switch (animState)
             {
                 case AnimationState.idle:
-
+                    playerAudioSource.Stop();
                     Debug.Log(animations[0].name);
                     animation.Play(animations[0].name);
 
                     break;
                 case AnimationState.run:
-
+                    playerAudioSource.clip = (playerAudios[0]);
+                    playerAudioSource.loop = true;
+                    if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
                     Debug.Log(animations[1].name);
                     animation.Play(animations[1].name);
 
                     break;
                 case AnimationState.attack:
-
+                    playerAudioSource.clip = (playerAudios[1]);
+                    playerAudioSource.loop = false;
+                    if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
                     Debug.Log(animations[2].name);
                     animation.Play(animations[2].name);
 
                     break;
                 case AnimationState.shootProj:
                     animationsTimer += Time.deltaTime;
-
+                    playerAudioSource.clip = (playerAudios[2]);
+                    playerAudioSource.loop = false;
+                    if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
                     if (animationsTimer >= animations[3].length)
                     {
                         animState = AnimationState.idle;
@@ -71,7 +81,9 @@ public class PlayerAnimations : MonoBehaviour
                     break;
                 case AnimationState.jump:
                     animationsTimer += Time.deltaTime;
-
+                    playerAudioSource.clip = (playerAudios[3]);
+                    playerAudioSource.loop = false;
+                    if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
                     if (animationsTimer >= animations[4].length / 2)
                     {
                         animState = AnimationState.floating;
@@ -90,7 +102,9 @@ public class PlayerAnimations : MonoBehaviour
 
                     break;
                 case AnimationState.dash:
-
+                    playerAudioSource.clip = (playerAudios[4]);
+                    playerAudioSource.loop = false;
+                    if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
                     Debug.Log(animations[6].name);
                     animation.Play(animations[6].name);
 
@@ -120,7 +134,9 @@ public class PlayerAnimations : MonoBehaviour
 
                 case AnimationState.restoreHp:
                     animationsTimer += Time.deltaTime;
-
+                    playerAudioSource.clip = (playerAudios[6]);
+                    playerAudioSource.loop = false;
+                    if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
                     if (animationsTimer >= animations[9].length)
                     {
                         animState = AnimationState.idle;
@@ -134,6 +150,9 @@ public class PlayerAnimations : MonoBehaviour
 
                     break;
                 case AnimationState.parry:
+                    playerAudioSource.clip = (playerAudios[7]);
+                    playerAudioSource.loop = false;
+                    if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
                     animationsTimer += Time.deltaTime;
 
                     if (animationsTimer >= animations[10].length)
@@ -148,6 +167,9 @@ public class PlayerAnimations : MonoBehaviour
                     break;
 
                 case AnimationState.chargePassive:
+                    playerAudioSource.clip = (playerAudios[8]);
+                    playerAudioSource.loop = true;
+                    if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
                     Debug.Log(animations[11].name);
                     animation.Play(animations[11].name);
 

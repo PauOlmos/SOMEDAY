@@ -56,6 +56,7 @@ public class MenuManager : MonoBehaviour
     public AudioSource menuAudioSource;
     public AudioClip selectButtonAudio;
     public AudioClip pressButtonAudio;
+    public AudioClip changeMenuAudio;
     public enum Menus
     {
         main, options, archives, difficulty, pause,
@@ -131,7 +132,6 @@ public class MenuManager : MonoBehaviour
             if (currentSelected != null)
             {
                 currentSelected.GetComponent<MenuButton>().PressButton();
-                menuAudioSource.PlayOneShot(pressButtonAudio);
 
             }
         }
@@ -141,7 +141,7 @@ public class MenuManager : MonoBehaviour
             {
                 backMenu.SetActive(true);
                 currentMenu.SetActive(false);
-
+                menuAudioSource.PlayOneShot(changeMenuAudio);
                 switch (switchFromMenu)
                 {
                     case Menus.options:
@@ -175,6 +175,10 @@ public class MenuManager : MonoBehaviour
                         currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
 
                         DataToStore data = LoadPlayerData(Settings.archiveNum);
+                        data.charge = LoadPlayerData(Settings.archiveNum).charge;
+                        data.difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
+                        data.maxHp = LoadPlayerData(Settings.archiveNum).maxHp;
+                        data.maxLevel = LoadPlayerData(Settings.archiveNum).maxLevel;
                         data.predetSettings = Settings.predetSettings;
                         data.volume = Settings.volume;
                         data.sensitivity = Settings.sensitivity;

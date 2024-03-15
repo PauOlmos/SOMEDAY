@@ -24,6 +24,9 @@ public class Parry : MonoBehaviour
     public Transform parryPos;
 
     public GameObject shield;
+
+    public AudioSource playerAudioSource;
+    public AudioClip successfulParry;
     void Start()
     {
         player = GameObject.Find("Player");
@@ -81,7 +84,8 @@ public class Parry : MonoBehaviour
         {
             if (other.gameObject.tag == "BasicProjectile") 
             {
-                Debug.Log(other.gameObject.name);
+                playerAudioSource.loop = false;
+                playerAudioSource.PlayOneShot(successfulParry);
                 passiveAbility.passiveCharge += 2.5f;
                 other.gameObject.transform.localScale = Vector3.zero;
                 Destroy(other.gameObject);
@@ -89,7 +93,9 @@ public class Parry : MonoBehaviour
             }
             if (other.gameObject.tag == "Parryable")
             {
-                Debug.Log(other.gameObject.name);
+
+                playerAudioSource.loop = false;
+                playerAudioSource.PlayOneShot(successfulParry);
 
                 passiveAbility.passiveCharge += 5.0f;
                 other.gameObject.tag = "ParriedAttack";
@@ -104,7 +110,8 @@ public class Parry : MonoBehaviour
             if (collision.gameObject.tag == "BasicProjectile")
             {
                 Debug.Log(collision.gameObject.name);
-
+                playerAudioSource.loop = false;
+                playerAudioSource.PlayOneShot(successfulParry);
                 passiveAbility.passiveCharge += 2.5f;
                 collision.gameObject.transform.Translate(Vector3.up * 10000.0f);
                 Destroy(collision.gameObject);
@@ -113,7 +120,8 @@ public class Parry : MonoBehaviour
             if (collision.gameObject.tag == "Parryable")
             {
                 Debug.Log(collision.gameObject.name);
-
+                playerAudioSource.loop = false;
+                playerAudioSource.PlayOneShot(successfulParry);
                 passiveAbility.passiveCharge += 5.0f;
                 collision.gameObject.tag = "ParriedAttack";
             }
