@@ -41,6 +41,8 @@ public class BossManager : MonoBehaviour
     public SubtitleManager subtitleManagaer;
 
     public AudioClip[] audioTransitions;
+
+    public GameObject tutorialMessagesManager;
     [Header("TutorialBoss")]
     public int currentBoss;
 
@@ -214,6 +216,7 @@ public class BossManager : MonoBehaviour
                 Destroy(Sword1);
                 Destroy(Sword2);
                 Destroy(weakPoint);
+                if (tutorialMessagesManager != null) Destroy(tutorialMessagesManager);
                 boss.AddComponent<StartHighSchoolBoss>();
                 boss.GetComponent<StartHighSchoolBoss>().TutorialWalls = TutorialWalls;
                 boss.GetComponent<StartHighSchoolBoss>().wall1 = wall1;

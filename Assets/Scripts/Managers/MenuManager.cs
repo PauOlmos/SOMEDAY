@@ -83,49 +83,110 @@ public class MenuManager : MonoBehaviour
         if (Input.GetAxis("VerticalArrows") == 0) canMoveVertically = true;
         if (Input.GetAxis("HorizontalArrows") < 0 && canMoveHorizontally)
         {
-            canMoveHorizontally = false;
-            if (currentSelected.GetComponent<MenuButton>().leftButton != null)
+            if (player == null)
             {
-                menuAudioSource.PlayOneShot(selectButtonAudio);
-                currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
-                currentSelected = currentSelected.GetComponent<MenuButton>().leftButton;
-                currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                canMoveHorizontally = false;
+                if (currentSelected.GetComponent<MenuButton>().leftButton != null)
+                {
+                    menuAudioSource.PlayOneShot(selectButtonAudio);
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
+                    currentSelected = currentSelected.GetComponent<MenuButton>().leftButton;
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                }
             }
+            else if(Time.timeScale == 0)
+            {
+                canMoveHorizontally = false;
+                if (currentSelected.GetComponent<MenuButton>().leftButton != null)
+                {
+                    menuAudioSource.PlayOneShot(selectButtonAudio);
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
+                    currentSelected = currentSelected.GetComponent<MenuButton>().leftButton;
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                }
+            }
+            
         }
         if (Input.GetAxis("HorizontalArrows") > 0 && canMoveHorizontally)
         {
-            canMoveHorizontally = false;
-            if (currentSelected.GetComponent<MenuButton>().rightButton != null)
+            if (player == null)
             {
-                menuAudioSource.PlayOneShot(selectButtonAudio);
-                currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
-                currentSelected = currentSelected?.GetComponent<MenuButton>().rightButton;
-                currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                canMoveHorizontally = false;
+                if (currentSelected.GetComponent<MenuButton>().rightButton != null)
+                {
+                    menuAudioSource.PlayOneShot(selectButtonAudio);
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
+                    currentSelected = currentSelected?.GetComponent<MenuButton>().rightButton;
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                }
             }
-        }
-        if (Input.GetAxis("VerticalArrows") > 0 && canMoveVertically )
-        {
-            canMoveVertically = false;
-            if (currentSelected.GetComponent<MenuButton>().upButton != null)
+            else if(Time.timeScale == 0)
             {
-                menuAudioSource.PlayOneShot(selectButtonAudio);
+                canMoveHorizontally = false;
+                if (currentSelected.GetComponent<MenuButton>().rightButton != null)
+                {
+                    menuAudioSource.PlayOneShot(selectButtonAudio);
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
+                    currentSelected = currentSelected?.GetComponent<MenuButton>().rightButton;
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                }
+            }
+            
+        }
+        if (Input.GetAxis("VerticalArrows") > 0 && canMoveVertically)
+        {
+            if (player == null)
+            {
+                canMoveVertically = false;
+                if (currentSelected.GetComponent<MenuButton>().upButton != null)
+                {
+                    menuAudioSource.PlayOneShot(selectButtonAudio);
 
-                currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
-                currentSelected = currentSelected?.GetComponent<MenuButton>().upButton;
-                currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
+                    currentSelected = currentSelected?.GetComponent<MenuButton>().upButton;
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                }
+            }
+            else if(Time.timeScale == 0)
+            {
+                canMoveVertically = false;
+                if (currentSelected.GetComponent<MenuButton>().upButton != null)
+                {
+                    menuAudioSource.PlayOneShot(selectButtonAudio);
+
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
+                    currentSelected = currentSelected?.GetComponent<MenuButton>().upButton;
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                }
             }
         }
         if (Input.GetAxis("VerticalArrows") < 0 && canMoveVertically)
         {
-            canMoveVertically = false;
-            if (currentSelected.GetComponent<MenuButton>().downButton != null)
+            if (player == null)
             {
-                menuAudioSource.PlayOneShot(selectButtonAudio);
+                canMoveVertically = false;
+                if (currentSelected.GetComponent<MenuButton>().downButton != null)
+                {
+                    menuAudioSource.PlayOneShot(selectButtonAudio);
 
-                currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
-                currentSelected = currentSelected?.GetComponent<MenuButton>().downButton;
-                currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
+                    currentSelected = currentSelected?.GetComponent<MenuButton>().downButton;
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                }
             }
+            else if(Time.timeScale == 0)
+            {
+                canMoveVertically = false;
+                if (currentSelected.GetComponent<MenuButton>().downButton != null)
+                {
+                    menuAudioSource.PlayOneShot(selectButtonAudio);
+
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 0.5f;
+                    currentSelected = currentSelected?.GetComponent<MenuButton>().downButton;
+                    currentSelected.GetComponentInChildren<TextMeshProUGUI>().alpha = 1.0f;
+                }
+            }
+            
         }
         if (Input.GetButtonUp("Jump"))
         {

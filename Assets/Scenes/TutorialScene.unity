@@ -4137,7 +4137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &114612348
 Transform:
   m_ObjectHideFlags: 0
@@ -6323,6 +6323,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00ccfb7ca44ef43438dcd9ddf7d66a1e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 185822071}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00ccfb7ca44ef43438dcd9ddf7d66a1e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 185822072}
   m_SourcePrefab: {fileID: 100100000, guid: 00ccfb7ca44ef43438dcd9ddf7d66a1e, type: 3}
 --- !u!4 &185822069 stripped
 Transform:
@@ -6356,6 +6359,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 00ccfb7ca44ef43438dcd9ddf7d66a1e, type: 3}
+--- !u!208 &185822072
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185822070}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.94600004, y: 1.6400001, z: 0.95600003}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.316, z: 0.010000001}
+  m_TimeToStationary: 0.5
 --- !u!1 &186470855
 GameObject:
   m_ObjectHideFlags: 0
@@ -15226,7 +15245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1916899210259106318, guid: c2380fc1ebc7843499340a953dd90028, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c2380fc1ebc7843499340a953dd90028, type: 3}
       propertyPath: m_Name
@@ -16785,6 +16804,7 @@ MonoBehaviour:
   subtitleManagaer: {fileID: 265395621}
   audioTransitions:
   - {fileID: 8300000, guid: 4346a6f24c0147942a6c673eec7bf188, type: 3}
+  tutorialMessagesManager: {fileID: 55423107}
   currentBoss: 0
   phase: 0
   bossAttack: 0
@@ -62455,6 +62475,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00ccfb7ca44ef43438dcd9ddf7d66a1e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1516564438}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00ccfb7ca44ef43438dcd9ddf7d66a1e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1516564439}
   m_SourcePrefab: {fileID: 100100000, guid: 00ccfb7ca44ef43438dcd9ddf7d66a1e, type: 3}
 --- !u!4 &1516564436 stripped
 Transform:
@@ -62488,6 +62511,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 00ccfb7ca44ef43438dcd9ddf7d66a1e, type: 3}
+--- !u!208 &1516564439
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516564437}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.94600004, y: 1.6400001, z: 0.95600003}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.316, z: 0.010000001}
+  m_TimeToStationary: 0.5
 --- !u!1 &1530118283
 GameObject:
   m_ObjectHideFlags: 0
@@ -75205,7 +75244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1786447037
 Transform:
   m_ObjectHideFlags: 0
@@ -75891,12 +75930,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
+  m_CollectObjects: 1
+  m_Size: {x: 21.42, y: 10, z: 52.89}
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 72
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -76326,6 +76365,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00ccfb7ca44ef43438dcd9ddf7d66a1e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1850002572}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00ccfb7ca44ef43438dcd9ddf7d66a1e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1850002573}
   m_SourcePrefab: {fileID: 100100000, guid: 00ccfb7ca44ef43438dcd9ddf7d66a1e, type: 3}
 --- !u!4 &1850002570 stripped
 Transform:
@@ -76359,6 +76401,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 00ccfb7ca44ef43438dcd9ddf7d66a1e, type: 3}
+--- !u!208 &1850002573
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850002571}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.94600004, y: 1.6400001, z: 0.95600003}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.316, z: 0.010000001}
+  m_TimeToStationary: 0.5
 --- !u!1 &1857717458
 GameObject:
   m_ObjectHideFlags: 0
@@ -78848,12 +78906,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_CollectObjects: 1
+  m_Size: {x: 66.35, y: 10.64, z: 94.64}
+  m_Center: {x: 0, y: 6.7, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 72
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -79287,8 +79345,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
+  m_CollectObjects: 1
+  m_Size: {x: 47.72, y: 12.61, z: 53.04}
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
@@ -85120,7 +85178,7 @@ Transform:
   m_LocalRotation: {x: -0.000000021855694, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.03635592, y: -0.054, z: 0.3}
   m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1324035955}
   m_RootOrder: 0
