@@ -21,10 +21,8 @@ public class IsPlayerOnCorridor : MonoBehaviour
     private void OnCollisionStay(Collision other)
     {
 
-        Debug.Log(other.gameObject.name); 
         if(other.gameObject.name == "Player")
         {
-            Debug.Log("KLK");
             if(pAttack.attacking == false) boss.GetComponent<HighSchoolBoss>().touchingGround = true;
             else boss.GetComponent<HighSchoolBoss>().touchingGround = false;
         }
@@ -33,7 +31,6 @@ public class IsPlayerOnCorridor : MonoBehaviour
     {
         if(other.gameObject.name == "Player")
         {
-            Debug.Log("DWWW");
             boss.GetComponent<HighSchoolBoss>().touchingGround = false;
         }
     }

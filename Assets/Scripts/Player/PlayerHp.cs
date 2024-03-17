@@ -80,7 +80,7 @@ public class PlayerHp : MonoBehaviour
             if(dieTimer > 10.0f)
             {
                 if (LoadPlayerData(Settings.archiveNum).difficulty == 2) File.Delete(Application.streamingAssetsPath + "/Archive" + Settings.archiveNum.ToString() + ".json");
-                SceneManager.LoadScene(1);//Main menu
+                SceneManager.LoadScene(0);//Main menu
             }
             else
             {
@@ -192,8 +192,4 @@ public class PlayerHp : MonoBehaviour
         //Comença Partida
     }
 
-    public void Die()
-    {
-
-    }
 }

@@ -94,7 +94,7 @@ public class MenuButton : MonoBehaviour
                     dataToStore.numArchive = 1;
                     Settings.archiveNum = 1;
                     LoadSettings(1);
-                    SceneManager.LoadScene(2);
+                    SceneManager.LoadScene(1);
                     //Anar al selector de nivells
 
                 }
@@ -117,7 +117,7 @@ public class MenuButton : MonoBehaviour
 
                     dataToStore.numArchive = 2;
                     LoadSettings(2);
-                    SceneManager.LoadScene(2); 
+                    SceneManager.LoadScene(1); 
 
                     //Anar al selector de nivells
 
@@ -139,7 +139,7 @@ public class MenuButton : MonoBehaviour
                     dataToStore.numArchive = 3;
                     Settings.archiveNum = 3;
                     LoadSettings(3);
-                    SceneManager.LoadScene(2);
+                    SceneManager.LoadScene(1);
                     //Anar al selector de nivells
                 }
                 break;
@@ -149,7 +149,7 @@ public class MenuButton : MonoBehaviour
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
                 Settings.archiveNum = menuManager.whichArchiveIsBeingCreated;
                 LoadSettings(menuManager.whichArchiveIsBeingCreated);
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(2);
                 break;
             case Action.hard:
                 menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
@@ -158,7 +158,7 @@ public class MenuButton : MonoBehaviour
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
                 LoadSettings(menuManager.whichArchiveIsBeingCreated);
 
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(2);
                 break;
             case Action.nightmare:
                 menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
@@ -167,7 +167,7 @@ public class MenuButton : MonoBehaviour
                 CreateArchive(menuManager.whichArchiveIsBeingCreated);
                 LoadSettings(menuManager.whichArchiveIsBeingCreated);
 
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(2);
                 break;
             case Action.options:
                 if (Time.timeScale == 0.0f)
@@ -206,7 +206,7 @@ public class MenuButton : MonoBehaviour
                 {
                 menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                     Time.timeScale = 1.0f;
-                    SceneManager.LoadScene(1);
+                    SceneManager.LoadScene(0);
                 }
                 break;
             case Action.settingsPreferences:

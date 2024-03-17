@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine;
-using UnityEditor.UI;
 
 public class SliderManager : MonoBehaviour
 {
@@ -26,8 +25,6 @@ public class SliderManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
 
         if (Input.GetAxis("HorizontalArrows") == 0) canMoveHorizontally = true;
         ChangeSettingsSlider();
