@@ -26,7 +26,7 @@ public class BossManager : MonoBehaviour
     public GameObject tutorialBossModel;
     public HighSchoolBossAnimations highSchoolBossAnimations;
     public GameObject highSchoolBossModel;
-
+    public GameObject dadBossModel;
     [Header("Audio")]
 
     public AudioSource bossAudioSource;
@@ -145,6 +145,11 @@ public class BossManager : MonoBehaviour
 
     public GameObject projectileBossSource;
     public GameObject[] monolithWeakPoints;
+
+    [Header("StartParentsBoss")]
+
+    public GameObject firstEnvironment;
+    public Transform previousEnvironmentPosition;
 
     void Start()
     {
@@ -284,13 +289,28 @@ public class BossManager : MonoBehaviour
 
                 break;
             case 2:
+                lights[nBoss].SetActive(true);
 
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
                 {
                     player.transform.position = playerSpawnPositions[nBoss].position;
                     boss.transform.position = bossSpawnPositions[nBoss].position;
                     boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+                    Debug.Log("Player: " + player.transform.position + "Position: " + playerSpawnPositions[nBoss].position);
                 }
+                Destroy(highSchoolBossAnimations);
+                Destroy(tutorialAnimations);
+                Destroy(tutorialBossModel);
+                Destroy(highSchoolBossModel);
+                dadBossModel.SetActive(true);
+                boss.AddComponent<StartParentsBoss>();
+                boss.GetComponent<StartParentsBoss>().previousEnvironment = firstEnvironment;
+                boss.GetComponent<StartParentsBoss>().previousEnvironmentPosition = previousEnvironmentPosition;
+                boss.GetComponent<StartParentsBoss>().player = player;
+                boss.GetComponent<StartParentsBoss>().playerSpawnPosition = playerSpawnPositions[2];
+                boss.GetComponent<StartParentsBoss>().bossSpawnPosition = bossSpawnPositions[2];
+
+                
 
                 break;
                 default: break;

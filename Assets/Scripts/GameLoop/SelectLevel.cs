@@ -58,7 +58,7 @@ public class SelectLevel : MonoBehaviour
         {
             collidingWithLevel = true;
             Settings.actualBoss = scene;
-            SceneManager.LoadScene(2);
+            if(Settings.actualBoss == scene) SceneManager.LoadScene(2);
         }
 
         if (justOnce == false)
