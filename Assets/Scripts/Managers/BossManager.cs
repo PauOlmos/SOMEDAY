@@ -150,7 +150,15 @@ public class BossManager : MonoBehaviour
 
     public GameObject firstEnvironment;
     public Transform previousEnvironmentPosition;
+    public GameObject parentsHouse;
+    public Transform dadPosition;
 
+    public GameObject houseDoor1;
+    public GameObject houseDoor2;
+    public Transform houseDoorPosition1;
+    public Transform houseDoorPosition2;
+
+    public GameObject isPlayerAtHome;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -309,6 +317,13 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().player = player;
                 boss.GetComponent<StartParentsBoss>().playerSpawnPosition = playerSpawnPositions[2];
                 boss.GetComponent<StartParentsBoss>().bossSpawnPosition = bossSpawnPositions[2];
+                boss.GetComponent<StartParentsBoss>().parentsHouse = parentsHouse;
+                boss.GetComponent<StartParentsBoss>().dadPosition = dadPosition;
+                boss.GetComponent<StartParentsBoss>().houseDoor1 = houseDoor1;
+                boss.GetComponent<StartParentsBoss>().houseDoor2 = houseDoor2;
+                boss.GetComponent<StartParentsBoss>().houseDoorPosition1 = houseDoorPosition1;
+                boss.GetComponent<StartParentsBoss>().houseDoorPosition2 = houseDoorPosition2;
+                boss.GetComponent<StartParentsBoss>().isPlayerAtHome = isPlayerAtHome;
 
                 
 
@@ -433,6 +448,7 @@ public class BossManager : MonoBehaviour
                     break;
                 }
                 break;
+            default:break;
         }
 
     }
