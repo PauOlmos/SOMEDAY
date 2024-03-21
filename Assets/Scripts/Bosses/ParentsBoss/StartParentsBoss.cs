@@ -38,9 +38,10 @@ public class StartParentsBoss : MonoBehaviour
     public Transform bulletHell2Direction;
     public Material returnableProjectileMaterial;
 
-
     public Transform[] bulletHell3Directions;
-
+    public GameObject shotgun;
+    public Transform[] rightShotgunPositions;
+    public Transform[] leftShotgunPositions;
     void Start()
     {
         player.GetComponent<Rigidbody>().useGravity = false;
@@ -149,9 +150,9 @@ public class StartParentsBoss : MonoBehaviour
                 gameObject.GetComponent<DadBoss>().bulletHell2Direction = bulletHell2Direction;
                 gameObject.GetComponent<DadBoss>().player = player;
                 gameObject.GetComponent<DadBoss>().bulletHell3Directions = bulletHell3Directions;
-
-
-
+                gameObject.GetComponent<DadBoss>().shotgun = shotgun;
+                gameObject.GetComponent<DadBoss>().rightShotgunPositions = rightShotgunPositions;
+                gameObject.GetComponent<DadBoss>().leftShotgunPositions = leftShotgunPositions;
 
                 //Mom
                 momBoss.AddComponent<MomBoss>();

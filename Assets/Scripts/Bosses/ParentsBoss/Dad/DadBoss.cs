@@ -19,6 +19,11 @@ public class DadBoss : MonoBehaviour
     public int bulletHell3Count = 0;
     public Vector3 originalBulletHell2DirectionPosition = Vector3.zero;
 
+    public GameObject shotgun;
+    public Transform[] rightShotgunPositions;
+    public Transform[] leftShotgunPositions;
+    public float shotgunTimer = 0.0f;
+
     public GameObject player;
     public enum AttackType
     {
@@ -29,6 +34,7 @@ public class DadBoss : MonoBehaviour
 
     public GameObject projectilePrefab;
     public Material returnableProjectileMaterial;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -148,6 +154,32 @@ public class DadBoss : MonoBehaviour
                             }
 
                             break;
+                        case AttackType.wallShotGuns:
+
+                            if(shotgunTimer == 0)
+                            {
+                                for(int i = 0; i < rightShotgunPositions.Length; i++)
+                                {
+                                    GameObject gun = Instantiate(shotgun, rightShotgunPositions[i].position, Quaternion.identity);
+                                    gun.GetComponent<Shotgun>().right = true;
+                                }
+                            }
+                            else if(shotgunTimer > 7.0f)
+                            {
+                                for (int i = 0; i < leftShotgunPositions.Length; i++)
+                                {
+                                    GameObject gun = Instantiate(shotgun, leftShotgunPositions[i].position, Quaternion.identity);
+                                    gun.GetComponent<Shotgun>().right = false;
+                                }
+                                shotgunTimer = 0;
+                                canAttack = false;
+                                break;
+                            }
+
+
+                            shotgunTimer += Time.deltaTime;
+
+                            break;
                     }
                 }
                 else
@@ -158,7 +190,6 @@ public class DadBoss : MonoBehaviour
                         attackCooldownTimer = 0;
                         canAttack = true;
                         int value = Random.Range(0, 4);
-                        value = 2;
                         switch (value)
                         {
                             case 0:attackType = AttackType.bullethell1; break;

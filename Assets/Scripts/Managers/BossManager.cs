@@ -170,6 +170,9 @@ public class BossManager : MonoBehaviour
 
     public Transform[] bulletHell3Directions;
 
+    public GameObject shotgun;
+    public Transform[] rightShotgunPositions;
+    public Transform[] leftShotgunPositions;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -345,6 +348,9 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().projectilePrefab = projectilePrefab;
                 boss.GetComponent<StartParentsBoss>().bulletHell2Direction = bulletHell2Direction;
                 boss.GetComponent<StartParentsBoss>().bulletHell3Directions = bulletHell3Directions;
+                boss.GetComponent<StartParentsBoss>().shotgun = shotgun;
+                boss.GetComponent<StartParentsBoss>().rightShotgunPositions = rightShotgunPositions;
+                boss.GetComponent<StartParentsBoss>().leftShotgunPositions = leftShotgunPositions;
 
                 break;
                 default: break;

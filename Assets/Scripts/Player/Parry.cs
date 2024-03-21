@@ -108,9 +108,12 @@ public class Parry : MonoBehaviour
                 other.gameObject.GetComponent<DieByTime>().deathTime = 20.0f;
                 other.gameObject.tag = "Untagged";
                 other.gameObject.layer = 0;
-                other.gameObject.AddComponent<Rigidbody>();
-                other.gameObject.GetComponent<Rigidbody>().useGravity = false;
-                other.gameObject.GetComponent<SphereCollider>().isTrigger = true;
+                if (other.gameObject.GetComponent<Rigidbody>() == null)
+                {
+                    other.gameObject.AddComponent<Rigidbody>();
+                    other.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                    other.gameObject.GetComponent<SphereCollider>().isTrigger = true;
+                }
             }
         }
     }
