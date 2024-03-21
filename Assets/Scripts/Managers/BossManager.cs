@@ -10,7 +10,7 @@ using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-
+ 
 public class BossManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -152,6 +152,7 @@ public class BossManager : MonoBehaviour
     public Transform previousEnvironmentPosition;
     public GameObject parentsHouse;
     public Transform dadPosition;
+    public Transform momPosition;
 
     public GameObject houseDoor1;
     public GameObject houseDoor2;
@@ -159,6 +160,16 @@ public class BossManager : MonoBehaviour
     public Transform houseDoorPosition2;
 
     public GameObject isPlayerAtHome;
+    public NavMeshSurface houseFloor;
+    public Transform houseCenter;
+
+    public Transform mainDadProjectileSource;
+    public Transform[] bulletHell1Directions;
+    public Transform bulletHell2Direction;
+    public Material returnableProjectileMaterial;
+
+    public Transform[] bulletHell3Directions;
+
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -319,13 +330,21 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().bossSpawnPosition = bossSpawnPositions[2];
                 boss.GetComponent<StartParentsBoss>().parentsHouse = parentsHouse;
                 boss.GetComponent<StartParentsBoss>().dadPosition = dadPosition;
+                boss.GetComponent<StartParentsBoss>().momPosition = momPosition;
                 boss.GetComponent<StartParentsBoss>().houseDoor1 = houseDoor1;
                 boss.GetComponent<StartParentsBoss>().houseDoor2 = houseDoor2;
                 boss.GetComponent<StartParentsBoss>().houseDoorPosition1 = houseDoorPosition1;
                 boss.GetComponent<StartParentsBoss>().houseDoorPosition2 = houseDoorPosition2;
                 boss.GetComponent<StartParentsBoss>().isPlayerAtHome = isPlayerAtHome;
-
-                
+                boss.GetComponent<StartParentsBoss>().momBoss = auxiliarBoss;
+                boss.GetComponent<StartParentsBoss>().floor = houseFloor;
+                boss.GetComponent<StartParentsBoss>().center = houseCenter;
+                boss.GetComponent<StartParentsBoss>().mainDadProjectileSource = mainDadProjectileSource;
+                boss.GetComponent<StartParentsBoss>().bulletHell1Directions = bulletHell1Directions;
+                boss.GetComponent<StartParentsBoss>().returnableProjectileMaterial = returnableProjectileMaterial;
+                boss.GetComponent<StartParentsBoss>().projectilePrefab = projectilePrefab;
+                boss.GetComponent<StartParentsBoss>().bulletHell2Direction = bulletHell2Direction;
+                boss.GetComponent<StartParentsBoss>().bulletHell3Directions = bulletHell3Directions;
 
                 break;
                 default: break;

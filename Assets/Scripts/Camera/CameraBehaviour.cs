@@ -61,6 +61,9 @@ public class CameraBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        numBosses = CountBosses();
+        allBosses = AllBosses();
+
         Vector3 viewDir = objective.position - new Vector3(transform.position.x, objective.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;
 

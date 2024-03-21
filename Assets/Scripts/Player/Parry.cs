@@ -100,6 +100,18 @@ public class Parry : MonoBehaviour
                 passiveAbility.passiveCharge += 5.0f;
                 other.gameObject.tag = "ParriedAttack";
             }
+            if(other.gameObject.tag == "ReturnableProjectile")
+            {
+                other.gameObject.GetComponent<SeekingProjectile>().shotByPlayer = true;
+                other.gameObject.GetComponent<SeekingProjectile>().canFail = false;
+                other.gameObject.GetComponent<SeekingProjectile>().target = GameObject.Find("Boss").transform;
+                other.gameObject.GetComponent<DieByTime>().deathTime = 20.0f;
+                other.gameObject.tag = "Untagged";
+                other.gameObject.layer = 0;
+                other.gameObject.AddComponent<Rigidbody>();
+                other.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                other.gameObject.GetComponent<SphereCollider>().isTrigger = true;
+            }
         }
     }
 
@@ -116,6 +128,7 @@ public class Parry : MonoBehaviour
                 collision.gameObject.transform.Translate(Vector3.up * 10000.0f);
                 Destroy(collision.gameObject);
                 Debug.Log(collision.gameObject.transform.position);
+
             }
             if (collision.gameObject.tag == "Parryable")
             {
@@ -124,6 +137,18 @@ public class Parry : MonoBehaviour
                 playerAudioSource.PlayOneShot(successfulParry);
                 passiveAbility.passiveCharge += 5.0f;
                 collision.gameObject.tag = "ParriedAttack";
+            }
+            if (collision.gameObject.tag == "ReturnableProjectile")
+            {
+                collision.gameObject.GetComponent<SeekingProjectile>().shotByPlayer = true;
+                collision.gameObject.GetComponent<SeekingProjectile>().canFail = false;
+                collision.gameObject.GetComponent<SeekingProjectile>().target = GameObject.Find("Boss").transform;
+                collision.gameObject.GetComponent<DieByTime>().deathTime = 20.0f;
+                collision.gameObject.layer = 0;
+                collision.gameObject.tag = "Untagged";
+                collision.gameObject.AddComponent<Rigidbody>();
+                collision.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                collision.gameObject.GetComponent<SphereCollider>().isTrigger = true;
             }
         }
     }
