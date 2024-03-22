@@ -176,6 +176,7 @@ public class BossManager : MonoBehaviour
 
     public GameObject circularArea;
     public GameObject coneArea;
+    public GameObject spikePrefab;
 
     void Start()
     {
@@ -357,6 +358,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().leftShotgunPositions = leftShotgunPositions;
                 boss.GetComponent<StartParentsBoss>().circularArea = circularArea;
                 boss.GetComponent<StartParentsBoss>().coneArea = coneArea;
+                boss.GetComponent<StartParentsBoss>().spikePrefab = spikePrefab;
 
                 break;
                 default: break;

@@ -23,7 +23,9 @@ public class MomBoss : MonoBehaviour
     public GameObject circularArea;
     public GameObject coneArea;
     public float delayTimer = 0.0f;
-
+    public int numberOfCircles = 5;
+    public float spikeRadius = 5.0f;
+    public GameObject spikePrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -110,6 +112,18 @@ public class MomBoss : MonoBehaviour
 
                             break;
                         case AttackType.spikes:
+
+                            delayTimer += Time.deltaTime;
+                            if(delayTimer < 3)
+                            {
+                                gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
+                            }
+                            else
+                            {
+                                delayTimer = 0.0f;
+                                canAttack = false;
+                            }
+
                             break;
                     }
                 }
@@ -124,7 +138,6 @@ public class MomBoss : MonoBehaviour
                             attackCooldownTimer = 0;
                             canAttack = true;
                             int value = Random.Range(0, 3);
-                            value = 1;
                             switch (value)
                             {
 
@@ -140,7 +153,18 @@ public class MomBoss : MonoBehaviour
                                     coneArea.SetActive(true);
 
                                     break;
-                                case 2: attackType = AttackType.spikes; break;
+                                case 2: 
+                                    attackType = AttackType.spikes;
+                                    for (int i = 0; i < numberOfCircles; i++)
+                                    {
+                                        // Calcular la posición alrededor del objeto principal
+                                        float angle = i * (360 / numberOfCircles);
+                                        Vector3 position = transform.position + Quaternion.Euler(0, angle, 0) * Vector3.forward * spikeRadius;
+
+                                        // Instanciar el objeto en la posición calculada
+                                        Instantiate(spikePrefab, position, Quaternion.identity);
+                                    }
+                                    break;
 
                             }
 

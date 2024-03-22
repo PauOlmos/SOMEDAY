@@ -19003,6 +19003,7 @@ MonoBehaviour:
   - {fileID: 1511563080}
   circularArea: {fileID: 1063372663}
   coneArea: {fileID: 2073491947}
+  spikePrefab: {fileID: 5217872959739253, guid: b75a0af236834b44e9f72bad1c2403da, type: 3}
 --- !u!4 &496854578
 Transform:
   m_ObjectHideFlags: 0
@@ -79570,7 +79571,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754425188}
-  m_LocalRotation: {x: 0.22652902, y: -0.000000029027598, z: 0.0000000067510917, w: 0.97400445}
+  m_LocalRotation: {x: 0.22652902, y: 0.000000029027598, z: -0.0000000067510917, w: 0.97400445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -87351,7 +87352,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2050648363}
-  m_LocalRotation: {x: 0.1810129, y: 0.000000016922144, z: -0.000000003114577, w: 0.98348075}
+  m_LocalRotation: {x: 0.1810129, y: 0.000000016922145, z: -0.0000000031145773, w: 0.98348075}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
