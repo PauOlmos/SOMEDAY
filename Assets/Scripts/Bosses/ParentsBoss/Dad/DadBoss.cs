@@ -35,6 +35,8 @@ public class DadBoss : MonoBehaviour
     public GameObject projectilePrefab;
     public Material returnableProjectileMaterial;
 
+    public float delayTimer = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,88 +57,19 @@ public class DadBoss : MonoBehaviour
                     switch (attackType)
                     {
                         case AttackType.bullethell1:
-                            if (bulletHell1Count < 10)
+                            delayTimer += Time.deltaTime;
+                            if(delayTimer >= 1.5f)
                             {
-                                if (bulletHellTimer >= 0.15f)
-                                {
-                                    for (int i = 0; i < bulletHell1Directions.Length; i++)
-                                    {
-                                        CreateProjectile(bulletHell1Directions[i], 15.0f);
-                                    }
-                                    bulletHellTimer = 0;
-                                    bulletHell1Count++;
-                                }
-                                else
-                                {
-                                    bulletHellTimer += Time.deltaTime;
-                                }
-                            }
-                            else
-                            {
-                                canAttack = false;
-                                bulletHell1Count = 0;
-                            }
-                            
-                            break;
-                        case AttackType.bullethell2:
-
-                            if (bulletHell2Timer < 10)
-                            {
-                                bulletHell2Timer += Time.deltaTime;
-                                if(bulletHell2Timer < 3 || (bulletHell2Timer > 6 && bulletHell2Timer < 9)) bulletHell2Direction.RotateAround(mainProjectileSource.transform.position, Vector3.up, -Time.deltaTime * 50.0f);
-                                else bulletHell2Direction.RotateAround(mainProjectileSource.transform.position, Vector3.up, Time.deltaTime * 50.0f);
-
-                                if (bulletHellTimer >= 0.15f)
-                                {
-                                    CreateProjectile(bulletHell2Direction,15.0f);
-                                    bulletHellTimer = 0.0f;
-
-                                }
-                                else
-                                {
-                                    bulletHellTimer += Time.deltaTime;
-                                }
-                            }
-                            else
-                            {
-                                bulletHell2Direction.transform.position = originalBulletHell2DirectionPosition;
-
-                                canAttack = false;
-                                bulletHell2Timer = 0;
-                            }
-
-                            break;
-                            
-                        case AttackType.bullethell3:
-
-                            if (bulletHell1Count < 1)
-                            {
-                                if (bulletHellTimer >= 0.15f)
-                                {
-                                    for (int i = 0; i < bulletHell1Directions.Length; i++)
-                                    {
-                                        CreateProjectile(bulletHell1Directions[i],15.0f);
-                                    }
-                                    bulletHellTimer = 0;
-                                    bulletHell1Count++;
-                                }
-                                else
-                                {
-                                    bulletHellTimer += Time.deltaTime;
-                                }
-                            }
-                            else
-                            {
-                                if (bulletHell3Count < 5)
+                                if (bulletHell1Count < 10)
                                 {
                                     if (bulletHellTimer >= 0.15f)
                                     {
-                                        for (int i = 0; i < bulletHell3Directions.Length; i++)
+                                        for (int i = 0; i < bulletHell1Directions.Length; i++)
                                         {
-                                            CreateProjectile(bulletHell3Directions[i], 22.5f);
+                                            CreateProjectile(bulletHell1Directions[i], 15.0f);
                                         }
                                         bulletHellTimer = 0;
-                                        bulletHell3Count++;
+                                        bulletHell1Count++;
                                     }
                                     else
                                     {
@@ -145,14 +78,114 @@ public class DadBoss : MonoBehaviour
                                 }
                                 else
                                 {
-                                    bulletHellTimer = 0;
                                     canAttack = false;
+                                    delayTimer = 0.0f;
+                                    mainProjectileSource.GetComponentInChildren<Renderer>().material.color = Color.green;
+                                    mainProjectileSource.gameObject.SetActive(false);
                                     bulletHell1Count = 0;
-                                    bulletHell3Count = 0;
                                 }
-                                
-                            }
 
+                            }
+                            else
+                            {
+                                Color auxColor = Color.Lerp(Color.green, Color.red, delayTimer / 1.5f);
+                                mainProjectileSource.GetComponentInChildren<Renderer>().material.color = auxColor;
+                            }
+                            break;
+                        case AttackType.bullethell2:
+                            delayTimer += Time.deltaTime;
+                            if (delayTimer >= 1.5f)
+                            {
+                                if (bulletHell2Timer < 10)
+                                {
+                                    bulletHell2Timer += Time.deltaTime;
+                                    if (bulletHell2Timer < 3 || (bulletHell2Timer > 6 && bulletHell2Timer < 9)) bulletHell2Direction.RotateAround(mainProjectileSource.transform.position, Vector3.up, -Time.deltaTime * 50.0f);
+                                    else bulletHell2Direction.RotateAround(mainProjectileSource.transform.position, Vector3.up, Time.deltaTime * 50.0f);
+
+                                    if (bulletHellTimer >= 0.15f)
+                                    {
+                                        CreateProjectile(bulletHell2Direction, 15.0f);
+                                        bulletHellTimer = 0.0f;
+
+                                    }
+                                    else
+                                    {
+                                        bulletHellTimer += Time.deltaTime;
+                                    }
+                                }
+                                else
+                                {
+                                    bulletHell2Direction.transform.position = originalBulletHell2DirectionPosition;
+                                    delayTimer = 0.0f;
+                                    mainProjectileSource.GetComponentInChildren<Renderer>().material.color = Color.green;
+                                    mainProjectileSource.gameObject.SetActive(false);
+                                    canAttack = false;
+                                    bulletHell2Timer = 0;
+                                }
+                            }
+                            else
+                            {
+                                Color auxColor = Color.Lerp(Color.green, Color.red, delayTimer / 1.5f);
+                                mainProjectileSource.GetComponentInChildren<Renderer>().material.color = auxColor;
+                            }
+                            break;
+                            
+                        case AttackType.bullethell3:
+                            delayTimer += Time.deltaTime;
+                            if (delayTimer >= 1.5f)
+                            {
+                                if (bulletHell1Count < 1)
+                                {
+                                    if (bulletHellTimer >= 0.15f)
+                                    {
+                                        for (int i = 0; i < bulletHell1Directions.Length; i++)
+                                        {
+                                            CreateProjectile(bulletHell1Directions[i], 15.0f);
+                                        }
+                                        bulletHellTimer = 0;
+                                        bulletHell1Count++;
+                                    }
+                                    else
+                                    {
+                                        bulletHellTimer += Time.deltaTime;
+                                    }
+                                }
+                                else
+                                {
+                                    if (bulletHell3Count < 5)
+                                    {
+                                        if (bulletHellTimer >= 0.15f)
+                                        {
+                                            for (int i = 0; i < bulletHell3Directions.Length; i++)
+                                            {
+                                                CreateProjectile(bulletHell3Directions[i], 22.5f);
+                                            }
+                                            bulletHellTimer = 0;
+                                            bulletHell3Count++;
+                                        }
+                                        else
+                                        {
+                                            bulletHellTimer += Time.deltaTime;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        bulletHellTimer = 0; 
+                                        delayTimer = 0.0f;
+                                        mainProjectileSource.GetComponentInChildren<Renderer>().material.color = Color.green;
+                                        mainProjectileSource.gameObject.SetActive(false);
+                                        canAttack = false;
+                                        bulletHell1Count = 0;
+                                        bulletHell3Count = 0;
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                Color auxColor = Color.Lerp(Color.green, Color.red, delayTimer / 1.5f);
+                                mainProjectileSource.GetComponentInChildren<Renderer>().material.color = auxColor;
+                            }
                             break;
                         case AttackType.wallShotGuns:
 
@@ -197,7 +230,7 @@ public class DadBoss : MonoBehaviour
                             case 2:attackType = AttackType.bullethell3; break;
                             case 3:attackType = AttackType.wallShotGuns; break;
                         }
-                        
+                        if (value != 3) mainProjectileSource.gameObject.SetActive(true);
                     }
                 }
 
