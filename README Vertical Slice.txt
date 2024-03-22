@@ -1,4 +1,4 @@
-﻿Joc dissenyat, programat i desenvolupat única i exclusivament per Pau Olmos Serrano com a part pràctica del Treball de “Fi de Grau” en el grau de “Disseny i Desenvolupament de Videojocs” al centre CITM. 
+﻿Joc dissenyat, programat i desenvolupat única i exclusivament per Pau Olmos Serrano com a part pràctica del "Treball de Fi de Grau" en el grau de “Disseny i Desenvolupament de Videojocs” al centre CITM. 
 
 
 Espero que gaudeixis d’aquest videojoc i puguis analitzar quins són els aspectes que més t’agraden i quins no sobre la programació, art i disseny dels bosses que estàs a punt de combatre ja que més tard hauràs de respondre un formulari donant la teva opinió. Si trobes algun bug també el pots anotar perquè quan l’expliquis et sigui el més fàcil possible recordar què ha passat i com has arribat a aquella situació.

@@ -276,7 +276,7 @@ public class MenuManager : MonoBehaviour
 
     void DeleteArchives()
     {
-        if (Input.GetButton("SwapAbilities") && player != null)
+        if (Input.GetButton("SwapAbilities") && player == null)
         {
             if (currentSelected.name == "Archive1")
             {
