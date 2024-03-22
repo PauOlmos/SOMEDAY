@@ -42,6 +42,9 @@ public class StartParentsBoss : MonoBehaviour
     public GameObject shotgun;
     public Transform[] rightShotgunPositions;
     public Transform[] leftShotgunPositions;
+    public GameObject circularArea;
+    public GameObject coneArea;
+
     void Start()
     {
         player.GetComponent<Rigidbody>().useGravity = false;
@@ -157,6 +160,11 @@ public class StartParentsBoss : MonoBehaviour
                 //Mom
                 momBoss.AddComponent<MomBoss>();
                 floor.BuildNavMesh();
+
+                momBoss.GetComponent<MomBoss>().player = player;
+                momBoss.GetComponent<MomBoss>().circularArea = circularArea;
+                momBoss.GetComponent<MomBoss>().coneArea = coneArea;
+
 
                 Destroy(gameObject.GetComponent<StartParentsBoss>());
             }

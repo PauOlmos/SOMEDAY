@@ -173,6 +173,10 @@ public class BossManager : MonoBehaviour
     public GameObject shotgun;
     public Transform[] rightShotgunPositions;
     public Transform[] leftShotgunPositions;
+
+    public GameObject circularArea;
+    public GameObject coneArea;
+
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -351,6 +355,8 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().shotgun = shotgun;
                 boss.GetComponent<StartParentsBoss>().rightShotgunPositions = rightShotgunPositions;
                 boss.GetComponent<StartParentsBoss>().leftShotgunPositions = leftShotgunPositions;
+                boss.GetComponent<StartParentsBoss>().circularArea = circularArea;
+                boss.GetComponent<StartParentsBoss>().coneArea = coneArea;
 
                 break;
                 default: break;

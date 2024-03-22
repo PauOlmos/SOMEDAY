@@ -135,6 +135,28 @@ public class PlayerHp : MonoBehaviour
             }
         }
     }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 7)//7 = Attack
+        {
+            Debug.Log("Hit");
+            if (!isInvencible && other.gameObject.tag != "ParriedAttack")
+            {
+                Debug.Log("Damaged from " + other.gameObject.name);
+
+                TakeDamage();
+            }
+            if (other.gameObject.tag == "BasicProjectile") Destroy(other.gameObject);
+            if (other.gameObject.name == "HandDamage")
+            {
+                gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(1, 0, 0) * 150, ForceMode.Impulse);
+            }
+            if (other.gameObject.name == "HandDamage2")
+            {
+                gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(-1, 0, 0) * 150, ForceMode.Impulse);
+            }
+        }
+    }
 
     public void TakeDamage()
     {
