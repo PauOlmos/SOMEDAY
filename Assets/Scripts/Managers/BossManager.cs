@@ -177,6 +177,8 @@ public class BossManager : MonoBehaviour
     public GameObject circularArea;
     public GameObject coneArea;
     public GameObject spikePrefab;
+    public GameObject spinner;
+    public Transform spinnerArea;
 
     void Start()
     {
@@ -359,6 +361,8 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().circularArea = circularArea;
                 boss.GetComponent<StartParentsBoss>().coneArea = coneArea;
                 boss.GetComponent<StartParentsBoss>().spikePrefab = spikePrefab;
+                boss.GetComponent<StartParentsBoss>().spinner = spinner;
+                boss.GetComponent<StartParentsBoss>().spinnerArea = spinnerArea;
 
                 break;
                 default: break;
@@ -480,6 +484,20 @@ public class BossManager : MonoBehaviour
                     }
                     break;
                 }
+                break;
+
+            case 2:
+
+                if (auxiliarBoss.GetComponent<EnemyHP>().hp <= 0 && boss.GetComponent<DadBoss>().phase == 0)
+                {
+                    auxiliarBoss.SetActive(false);
+                    auxiliarBoss.tag = "Untagged";
+                    boss.GetComponent<DadBoss>().phase++;
+                    boss.GetComponent<DadBoss>().maxNumAttacks = 7;
+                    boss.GetComponent<DadBoss>().attackCooldownTime = 4.0f;
+                    boss.GetComponent<DadBoss>().delayTime = 1.20f;
+                }
+
                 break;
             default:break;
         }

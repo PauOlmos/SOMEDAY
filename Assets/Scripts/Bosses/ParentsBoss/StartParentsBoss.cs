@@ -45,6 +45,8 @@ public class StartParentsBoss : MonoBehaviour
     public GameObject circularArea;
     public GameObject coneArea;
     public GameObject spikePrefab;
+    public GameObject spinner;
+    public Transform spinnerArea;
 
     void Start()
     {
@@ -157,6 +159,8 @@ public class StartParentsBoss : MonoBehaviour
                 gameObject.GetComponent<DadBoss>().shotgun = shotgun;
                 gameObject.GetComponent<DadBoss>().rightShotgunPositions = rightShotgunPositions;
                 gameObject.GetComponent<DadBoss>().leftShotgunPositions = leftShotgunPositions;
+                gameObject.GetComponent<DadBoss>().spinner = spinner;
+                gameObject.GetComponent<DadBoss>().spinnerArea = spinnerArea;
 
                 //Mom
                 momBoss.AddComponent<MomBoss>();

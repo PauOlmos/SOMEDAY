@@ -6,7 +6,7 @@ public class MomBoss : MonoBehaviour
 
     public GameObject player;
 
-    int phase = 0;
+    public int phase = 0;
 
     public bool canAttack = false;
 
@@ -18,14 +18,17 @@ public class MomBoss : MonoBehaviour
     public AttackType attackType;
 
     public float attackCooldownTimer = 0.0f;
-    public float attackCooldownTime = 5.0f;
+    public float attackCooldownTime = 2.0f;
 
     public GameObject circularArea;
     public GameObject coneArea;
     public float delayTimer = 0.0f;
+    public float delayTime = 2.5f;
     public int numberOfCircles = 5;
     public float spikeRadius = 5.0f;
     public GameObject spikePrefab;
+
+    public float movSpeed = 4.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +40,7 @@ public class MomBoss : MonoBehaviour
     void Update()
     {
         gameObject.GetComponent<NavMeshAgent>().destination = player.transform.position;
+        gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
 
         switch (phase)
         {
@@ -48,10 +52,10 @@ public class MomBoss : MonoBehaviour
                     {
                         case AttackType.circle:
                             delayTimer += Time.deltaTime;
-                            if (delayTimer > 2.5f)
+                            if (delayTimer > delayTime)
                             {
 
-                                if (delayTimer > 2.75f)
+                                if (delayTimer > (delayTime + delayTime/10))
                                 {
                                     circularArea.tag = "Untagged";
                                     circularArea.layer = 0;
@@ -68,7 +72,7 @@ public class MomBoss : MonoBehaviour
                             }
                             else
                             {
-                                if (delayTimer > 1.75f) gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
+                                if (delayTimer > (delayTime - delayTime / 20)) gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
                                 Color auxColor = Color.Lerp(Color.green, Color.red, delayTimer / 1.5f);
                                 auxColor.a = 0.3f;
                                 circularArea.GetComponentInChildren<Renderer>().material.color = auxColor;
@@ -78,10 +82,9 @@ public class MomBoss : MonoBehaviour
                         case AttackType.area:
 
                             delayTimer += Time.deltaTime;
-                            if (delayTimer > 2.5f)
+                            if (delayTimer > delayTime)
                             {
-
-                                if (delayTimer > 2.75f)
+                                if (delayTimer > (delayTime + delayTime / 10))
                                 {
                                     coneArea.tag = "Untagged";
                                     coneArea.layer = 0;
@@ -100,7 +103,7 @@ public class MomBoss : MonoBehaviour
                             }
                             else
                             {
-                                if (delayTimer > 1.75f)
+                                if (delayTimer > (delayTime - delayTime / 20))
                                 {
                                     gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
                                     gameObject.GetComponent<NavMeshAgent>().angularSpeed = 0.0f;
@@ -132,7 +135,7 @@ public class MomBoss : MonoBehaviour
                     attackCooldownTimer += Time.deltaTime;
                     if (attackCooldownTimer >= attackCooldownTime)
                     {
-                        gameObject.GetComponent<NavMeshAgent>().speed = 3.5f;
+                        gameObject.GetComponent<NavMeshAgent>().speed = movSpeed;
                         if (Vector3.Distance(gameObject.transform.position, player.transform.position) < 3.0f)
                         {
                             attackCooldownTimer = 0;
