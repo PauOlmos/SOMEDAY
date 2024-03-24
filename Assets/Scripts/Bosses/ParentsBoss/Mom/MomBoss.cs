@@ -33,7 +33,18 @@ public class MomBoss : MonoBehaviour
     public int maxNumAttacks = 3;
 
     public GameObject greatAttackArea;
+    public GameObject greatAttackArea1;
+    public GameObject greatAttackArea2;
 
+    public bool teleportingToPlayer = false;
+    public bool startTeleporting = false;
+
+    public enum TeleportingState
+    {
+        reduce, move, expand
+    }
+
+    public TeleportingState telState = TeleportingState.reduce;
     // Start is called before the first frame update
     void Start()
     {
@@ -139,10 +150,12 @@ public class MomBoss : MonoBehaviour
                     {
                         if (delayTimer > (delayTime * 4))
                         {
-                            greatAttackArea.tag = "Untagged";
-                            greatAttackArea.layer = 0;
-                            greatAttackArea.GetComponent<Renderer>().material.color = Color.green;
-                            greatAttackArea.GetComponentInChildren<Renderer>().material.color = Color.green;
+                            greatAttackArea1.tag = "Untagged";
+                            greatAttackArea2.tag = "Untagged";
+                            greatAttackArea1.layer = 0;
+                            greatAttackArea2.layer = 0;
+                            greatAttackArea1.GetComponent<Renderer>().material.color = Color.green;
+                            greatAttackArea2.GetComponent<Renderer>().material.color = Color.green;
                             greatAttackArea.SetActive(false);
                             delayTimer = 0.0f;
                             gameObject.GetComponent<NavMeshAgent>().angularSpeed = 120.0f;
@@ -150,9 +163,11 @@ public class MomBoss : MonoBehaviour
                         }
                         else
                         {
-                            greatAttackArea.layer = 7;
+                            greatAttackArea1.layer = 7;
+                            greatAttackArea2.layer = 7;
                             greatAttackArea.transform.RotateAround(gameObject.transform.position, Vector3.up, Time.deltaTime * 50);
-                            greatAttackArea.tag = "NonParryable";
+                            greatAttackArea1.tag = "NonParryable";
+                            greatAttackArea2.tag = "NonParryable";
                         }
                     }
                     else
@@ -164,8 +179,8 @@ public class MomBoss : MonoBehaviour
                         }
                         Color auxColor = Color.Lerp(Color.green, Color.red, delayTimer / 1.5f);
                         auxColor.a = 0.3f;
-                        greatAttackArea.GetComponentInChildren<Renderer>().material.color = auxColor;
-                        greatAttackArea.GetComponent<Renderer>().material.color = auxColor;
+                        greatAttackArea1.GetComponent<Renderer>().material.color = auxColor;
+                        greatAttackArea2.GetComponent<Renderer>().material.color = auxColor;
                     }
 
                     break;
@@ -177,8 +192,9 @@ public class MomBoss : MonoBehaviour
             if (attackCooldownTimer >= attackCooldownTime)
             {
                 gameObject.GetComponent<NavMeshAgent>().speed = movSpeed;
-                if (Vector3.Distance(gameObject.transform.position, player.transform.position) < 3.0f)
+                if (Vector3.Distance(gameObject.transform.position, player.transform.position) < 3.0f && teleportingToPlayer == false)
                 {
+                    startTeleporting = false;
                     attackCooldownTimer = 0;
                     canAttack = true;
                     int value = Random.Range(phase, maxNumAttacks);
@@ -220,7 +236,100 @@ public class MomBoss : MonoBehaviour
                     }
 
                 }
+                else if (phase == 1)
+                {
+                    if ((Vector3.Distance(gameObject.transform.position, player.transform.position) > 15.0f) || startTeleporting == true){
+                        startTeleporting = true;
+                        teleportingToPlayer = TeleportToPlayer();
+                    }
+                    
+                }
             }
         }
     }
+
+    bool TeleportToPlayer()
+    {
+
+        switch (telState)
+        {
+            case TeleportingState.reduce:
+
+                gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
+                if (gameObject.transform.localScale.x > 0) gameObject.transform.localScale -= Vector3.one * Time.deltaTime;
+
+                if(gameObject.transform.localScale.x <= 0)
+                {
+                    gameObject.transform.localScale = Vector3.zero;
+                    telState = TeleportingState.move;
+                }
+
+                break;
+            case TeleportingState.move:
+
+                gameObject.transform.position = GeneratePointWithoutCollision();
+                telState = TeleportingState.expand;
+
+                break;
+            case TeleportingState.expand:
+
+                if(gameObject.transform.localScale.x < 1.0f)
+                {
+                    gameObject.transform.localScale += Vector3.one * Time.deltaTime * 2;
+                }
+                else
+                {
+                    gameObject.transform.localScale = Vector3.one;
+                    telState = TeleportingState.reduce;
+                    return false;
+                }
+
+                break;
+        }
+
+        return true;
+    }
+
+    Vector3 GeneratePointWithoutCollision()
+    {
+        Vector3 center = player.transform.position;
+        float radius = player.GetComponentInChildren<BoxCollider>().bounds.size.magnitude;
+
+        Vector3 randomPoint = Vector3.zero;
+        bool pointFound = false;
+
+        while (!pointFound)
+        {
+            randomPoint = center + GetRandomPointInSphere(3.0f);
+            Collider[] colliders = Physics.OverlapSphere(randomPoint, radius);
+
+            bool collisionDetected = false;
+            foreach (Collider col in colliders)
+            {
+                if (col.tag == ("World"))
+                {
+                    collisionDetected = true;
+                    break;
+                }
+            }
+
+            if (!collisionDetected)
+            {
+                pointFound = true;
+            }
+        }
+        return randomPoint;
+    }
+
+    Vector3 GetRandomPointInSphere(float radius)
+    {
+        float angle = Random.value * Mathf.PI * 2;
+        float distance = Mathf.Sqrt(Random.value) * radius;
+
+        float x = Mathf.Cos(angle) * distance;
+        float y = Mathf.Sin(angle) * distance;
+
+        return new Vector3(x, 0, y);
+    }
+
 }

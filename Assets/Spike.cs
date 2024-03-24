@@ -7,7 +7,7 @@ public class Spike : MonoBehaviour
     public GameObject shadow;
     public float timer = 0.0f;
     public GameObject Prefab;
-    public int hp = 3;
+    public int hp = 2;
     public LayerMask nothing;
     // Start is called before the first frame update
     void Start()

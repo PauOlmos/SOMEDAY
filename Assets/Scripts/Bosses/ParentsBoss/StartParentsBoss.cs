@@ -49,6 +49,8 @@ public class StartParentsBoss : MonoBehaviour
     public Transform spinnerArea;
     public GameObject greatAttackArea;
 
+    public GameObject greatAttackArea1;
+    public GameObject greatAttackArea2;
     void Start()
     {
         player.GetComponent<Rigidbody>().useGravity = false;
@@ -172,6 +174,8 @@ public class StartParentsBoss : MonoBehaviour
                 momBoss.GetComponent<MomBoss>().coneArea = coneArea;
                 momBoss.GetComponent<MomBoss>().spikePrefab = spikePrefab;
                 momBoss.GetComponent<MomBoss>().greatAttackArea = greatAttackArea;
+                momBoss.GetComponent<MomBoss>().greatAttackArea1 = greatAttackArea1;
+                momBoss.GetComponent<MomBoss>().greatAttackArea2 = greatAttackArea2;
 
 
                 Destroy(gameObject.GetComponent<StartParentsBoss>());

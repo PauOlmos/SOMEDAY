@@ -181,6 +181,8 @@ public class BossManager : MonoBehaviour
     public Transform spinnerArea;
     public GameObject greatAttackArea;
 
+    public GameObject greatAttackArea1;
+    public GameObject greatAttackArea2;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -365,6 +367,8 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().spinner = spinner;
                 boss.GetComponent<StartParentsBoss>().spinnerArea = spinnerArea;
                 boss.GetComponent<StartParentsBoss>().greatAttackArea = greatAttackArea;
+                boss.GetComponent<StartParentsBoss>().greatAttackArea1 = greatAttackArea1;
+                boss.GetComponent<StartParentsBoss>().greatAttackArea2 = greatAttackArea2;
 
                 break;
                 default: break;
@@ -490,7 +494,27 @@ public class BossManager : MonoBehaviour
 
             case 2:
 
-                if (auxiliarBoss.GetComponent<EnemyHP>().hp <= 0 && boss.GetComponent<DadBoss>().phase == 0)
+                if(auxiliarBoss.GetComponent<EnemyHP>().hp <= 0 && boss.GetComponent<EnemyHP>().hp <= 0)
+                {
+                    if (auxiliarBoss.activeInHierarchy == true)
+                    {
+                        Destroy(auxiliarBoss.GetComponent<MomBoss>());
+                        Destroy(boss);
+                        boss = auxiliarBoss;
+                        
+                    }
+                    else {
+
+                        Destroy(boss.GetComponent<DadBoss>());
+                        Destroy(auxiliarBoss); 
+
+                    }
+                    boss.name = "Boss";
+                    NextBoss();
+                    break;
+                }
+
+                if (auxiliarBoss.GetComponent<EnemyHP>().hp <= 0 && boss.GetComponent<DadBoss>().phase == 0 && boss.activeInHierarchy == true)
                 {
                     auxiliarBoss.SetActive(false);
                     auxiliarBoss.tag = "Untagged";
@@ -498,8 +522,9 @@ public class BossManager : MonoBehaviour
                     boss.GetComponent<DadBoss>().maxNumAttacks = 7;
                     boss.GetComponent<DadBoss>().attackCooldownTime = 4.0f;
                     boss.GetComponent<DadBoss>().delayTime = 1.20f;
+                    mainDadProjectileSource.gameObject.SetActive(false);
                 }
-                if(boss.GetComponent<EnemyHP>().hp <= 0 && auxiliarBoss.GetComponent<MomBoss>().phase == 0)
+                if(boss.GetComponent<EnemyHP>().hp <= 0 && auxiliarBoss.GetComponent<MomBoss>().phase == 0 && auxiliarBoss.activeInHierarchy == true)
                 {
                     boss.SetActive(false);
                     boss.tag = "Untagged";
@@ -507,6 +532,7 @@ public class BossManager : MonoBehaviour
                     auxiliarBoss.GetComponent<MomBoss>().delayTime = 2.15f;
                     auxiliarBoss.GetComponent<MomBoss>().attackCooldownTime = 1.5f;
                     auxiliarBoss.GetComponent<MomBoss>().maxNumAttacks = 5;
+                    auxiliarBoss.GetComponent<MomBoss>().movSpeed = 5.5f;
                 }
 
                 break;
