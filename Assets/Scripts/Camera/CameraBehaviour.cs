@@ -19,7 +19,6 @@ public class CameraBehaviour : MonoBehaviour
     public static float sensitivity;
 
     public float righthorizontal;
-    public float rightvertical;
 
     public Transform lockPosition;
     private float shakeTimer = 0.0f;
@@ -42,6 +41,8 @@ public class CameraBehaviour : MonoBehaviour
     private GameObject[] allBosses;
     public int numBosses;
     int currentLockedBoss = 0;
+
+    public float rightJoystick;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,6 +64,7 @@ public class CameraBehaviour : MonoBehaviour
     {
         numBosses = CountBosses();
         allBosses = AllBosses();
+        sensitivity = Settings.sensitivity;
 
         Vector3 viewDir = objective.position - new Vector3(transform.position.x, objective.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;
@@ -70,11 +72,13 @@ public class CameraBehaviour : MonoBehaviour
         float horizontalInput = Input.GetAxis("LeftHorizontal");
         float verticalInput = Input.GetAxis("LeftVertical");
         righthorizontal = Input.GetAxis("L2");
-        rightvertical = Input.GetAxis("RightVertical");
+        rightJoystick = Input.GetAxis("RightVertical");
+        Debug.Log("RightJoystick" + rightJoystick);
+        if(Time.timeScale != 0 && rightJoystick > 0.15f) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick + sensitivity / 5.0f; 
+        if(Time.timeScale != 0 && rightJoystick < -0.15f) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick - sensitivity / 5.0f; 
 
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        sensitivity = Settings.sensitivity;
         gameObject.GetComponent<CinemachineFreeLook>().m_Lens.FieldOfView = Settings.fov;
 
         if (inputDir != Vector3.zero && pMov.pStatus != PlayerMovement.playerState.dashing)

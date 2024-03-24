@@ -16318,7 +16318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d510ed7c2cf5b844099606df51b79e99, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1327736814876679455, guid: d510ed7c2cf5b844099606df51b79e99, type: 3}
       propertyPath: m_LocalScale.x
@@ -33645,13 +33645,13 @@ MonoBehaviour:
   boss: {fileID: 1090940205}
   rotationSpeed: 7
   righthorizontal: 0
-  rightvertical: 0
   lockPosition: {fileID: 495231753}
   camState: 0
   bosslockDot: {fileID: 400717433}
   mainCamera: {fileID: 963194227}
   cameraShake: 0
   numBosses: 0
+  rightJoystick: 0
 --- !u!114 &636580146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77648,7 +77648,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1701287969}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.96, y: -2.42, z: 13.5}
+  m_LocalPosition: {x: -4.96, y: -7, z: 13.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -79662,7 +79662,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754425188}
-  m_LocalRotation: {x: 0.22652902, y: -0.000000029027598, z: 0.0000000067510917, w: 0.97400445}
+  m_LocalRotation: {x: 0.22652903, y: 9.2354973e-17, z: -8.3385636e-17, w: 0.97400445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -87443,7 +87443,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2050648363}
-  m_LocalRotation: {x: 0.1810129, y: 0.000000016922145, z: -0.0000000031145773, w: 0.98348075}
+  m_LocalRotation: {x: 0.1810129, y: 0.000000016922144, z: -0.000000003114577, w: 0.98348075}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
