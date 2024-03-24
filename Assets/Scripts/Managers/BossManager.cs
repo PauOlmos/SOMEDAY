@@ -179,6 +179,7 @@ public class BossManager : MonoBehaviour
     public GameObject spikePrefab;
     public GameObject spinner;
     public Transform spinnerArea;
+    public GameObject greatAttackArea;
 
     void Start()
     {
@@ -363,6 +364,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().spikePrefab = spikePrefab;
                 boss.GetComponent<StartParentsBoss>().spinner = spinner;
                 boss.GetComponent<StartParentsBoss>().spinnerArea = spinnerArea;
+                boss.GetComponent<StartParentsBoss>().greatAttackArea = greatAttackArea;
 
                 break;
                 default: break;
@@ -496,6 +498,15 @@ public class BossManager : MonoBehaviour
                     boss.GetComponent<DadBoss>().maxNumAttacks = 7;
                     boss.GetComponent<DadBoss>().attackCooldownTime = 4.0f;
                     boss.GetComponent<DadBoss>().delayTime = 1.20f;
+                }
+                if(boss.GetComponent<EnemyHP>().hp <= 0 && auxiliarBoss.GetComponent<MomBoss>().phase == 0)
+                {
+                    boss.SetActive(false);
+                    boss.tag = "Untagged";
+                    auxiliarBoss.GetComponent<MomBoss>().phase++;
+                    auxiliarBoss.GetComponent<MomBoss>().delayTime = 2.15f;
+                    auxiliarBoss.GetComponent<MomBoss>().attackCooldownTime = 1.5f;
+                    auxiliarBoss.GetComponent<MomBoss>().maxNumAttacks = 5;
                 }
 
                 break;
