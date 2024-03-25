@@ -50,7 +50,10 @@ public class MenuButton : MonoBehaviour
         settingsPreferences,tutorial,subtitles,subtitlesSize1,subtitlesSize2,subtitlesSize3,healthBar,VSync
     }
 
-    public Action action;   
+    public Action action;
+    private int[] difficultyBasedHP = { 10,5,3 };
+    private int difficulty;
+
     void Start()
     {
         menuManager = GameObject.Find("MenuManager").GetComponent<MenuManager>();
@@ -329,7 +332,7 @@ public class MenuButton : MonoBehaviour
     public void CreateArchive(int num)
     {
         dataToStore.numArchive = num;
-        dataToStore.maxHp = 3;
+        dataToStore.maxHp = difficultyBasedHP[dataToStore.difficulty];
         dataToStore.charge = 0.0f;
         dataToStore.maxLevel = 0;
         dataToStore.predetSettings = true;

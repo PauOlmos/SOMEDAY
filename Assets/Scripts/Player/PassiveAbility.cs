@@ -16,7 +16,7 @@ public class PassiveAbility : MonoBehaviour
 
     public bool isCharged = false;
 
-    public float necessaryCharge = 100.0f;
+    public float necessaryCharge;
     public enum passiveType
     {
         shoot,hp
@@ -35,13 +35,18 @@ public class PassiveAbility : MonoBehaviour
     public AudioSource playerAudioSource;
     public AudioClip swapAbilities;
 
+    public int[] difficultyBasedHP = { 10, 5, 3 };
+    public int[] difficultyBasedRestoredHp = { 5, 3, 1 };
+    public int[] difficultyBasedNecessaryCharge = { 45, 90, 120 };
+    public int difficulty;
     // Start is called before the first frame update
     void Start()
     {
+        difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
         playerHp = GetComponent<PlayerHp>();
         cam = GameObject.Find("Game Camera");
         camBehaviour = cam.GetComponent<CameraBehaviour>();
-        necessaryCharge += LoadPlayerData(Settings.archiveNum).difficulty * 15;
+        necessaryCharge = difficultyBasedNecessaryCharge[difficulty];
         if (bossManager.currentBoss < LoadPlayerData(Settings.archiveNum).maxLevel) passiveCharge = LoadPlayerData(Settings.archiveNum).charge;
         else passiveCharge = 0;
     }
@@ -95,25 +100,16 @@ public class PassiveAbility : MonoBehaviour
                                     shootNow = true;
                                     break;
                                 case passiveType.hp:
-                                    if(LoadPlayerData(Settings.archiveNum).difficulty == 2)
-                                    {
-                                        if (playerHp.playerHp < 3)
+                                    Debug.Log(difficulty);
+                                        if (playerHp.playerHp < difficultyBasedHP[difficulty] + 1)
                                         {
-                                            RestoreHp(1);
+                                            RestoreHp(difficultyBasedRestoredHp[difficulty]);
                                             isCharged = false;
                                             passiveCharge = 0;
                                             healNow = true;
                                             break;
                                         }
-                                    }
-                                    else if (playerHp.playerHp < 4)
-                                    {
-                                        RestoreHp(1);
-                                        isCharged = false;
-                                        passiveCharge = 0;
-                                        healNow = true;
-                                        break;
-                                    }
+
                                     break;
 
                             }
@@ -148,6 +144,7 @@ public class PassiveAbility : MonoBehaviour
     private void RestoreHp(int hp)
     {
         playerHp.playerHp += hp;
+        if (playerHp.playerHp > difficultyBasedHP[difficulty] + 1) playerHp.playerHp = difficultyBasedHP[difficulty] + 1;
     }
 
     public DataToStore LoadPlayerData(int numArchive)
