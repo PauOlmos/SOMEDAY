@@ -100,6 +100,14 @@ public class StartHighSchoolBoss : MonoBehaviour
         wall2.SetActive(true);
         wall3.SetActive(true);
         wall4.SetActive(true);
+        hand1.SetActive(true);
+        hand2.SetActive(true);
+        hand3.SetActive(true);
+        armari1.SetActive(true);
+        armari2.SetActive(true);
+        weakPoint1.SetActive(true);
+        weakPoint2.SetActive(true);
+        weakPoint3.SetActive(true);
     }
 
 

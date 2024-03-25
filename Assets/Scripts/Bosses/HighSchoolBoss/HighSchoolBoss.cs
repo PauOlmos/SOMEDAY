@@ -571,6 +571,7 @@ public class HighSchoolBoss : MonoBehaviour
                         if (hand1.transform.eulerAngles.z < 271 && hand1.transform.eulerAngles.z > 269)
                         {
                             Destroy(corridorFloor);
+                            gameObject.GetComponent<NavMeshAgent>().enabled = false;
                             if (touchingGround == true)
                             {
                                 touchingGround = false;
@@ -580,6 +581,7 @@ public class HighSchoolBoss : MonoBehaviour
                             transitionToScenarioTimer += Time.deltaTime;
                             if (transitionToScenarioTimer > 7.0f)
                             {
+                                gameObject.GetComponent<NavMeshAgent>().enabled = true;
                                 canMove = true;
                                 transitionToScenario = true;
                                 attackCooldownTimer = 0.0f;
@@ -968,7 +970,8 @@ public class HighSchoolBoss : MonoBehaviour
     private int ResetArmarisRotations()
     {
         armari1.transform.Rotate(-armari1.transform.rotation.eulerAngles);
-        armari2.transform.Rotate(-armari2.transform.rotation.eulerAngles);
+        armari2.transform.Rotate(-armari2.transform.rotation.eulerAngles); 
+        armariRotation = false;
         return 1;
 
     }
@@ -977,8 +980,9 @@ public class HighSchoolBoss : MonoBehaviour
     {
         armari1.transform.position = armariResetPos1.transform.position;
         armari2.transform.position = armariResetPos2.transform.position;
-
-        if(armari1.GetComponent<Rigidbody>() != null)
+        armari1.GetComponent<BoxCollider>().isTrigger = false;
+        armari2.GetComponent<BoxCollider>().isTrigger = false;
+        if (armari1.GetComponent<Rigidbody>() != null)
         {
             Destroy(armari1.GetComponent<Rigidbody>());
             armari1.tag = "Untagged";
@@ -1031,8 +1035,10 @@ public class HighSchoolBoss : MonoBehaviour
             armari1.GetComponent<Rigidbody>().freezeRotation = true;
             armari1.GetComponent<Rigidbody>().mass = 100.0f;
             armari1.layer = 7;
+            armari1.GetComponent<BoxCollider>().isTrigger = true;
         }
-        if(armari2.GetComponent<Rigidbody>() == null)
+        
+        if (armari2.GetComponent<Rigidbody>() == null)
         {
             armari2.tag = "NonParryable";
             armari2.AddComponent<Rigidbody>();
@@ -1040,9 +1046,10 @@ public class HighSchoolBoss : MonoBehaviour
             armari2.GetComponent<Rigidbody>().freezeRotation = true;
             armari2.GetComponent<Rigidbody>().mass = 100.0f;
             armari2.layer = 7;
+            armari2.GetComponent<BoxCollider>().isTrigger = true;
         }
 
-        if(armari1.transform.position.y < 0.51f || armari2.transform.position.y < 0.51f)
+        if (armari1.transform.position.y < 0.51f || armari2.transform.position.y < 0.51f)
         {
             specialAttackPhase = AttackType.reset;
         }
@@ -1058,7 +1065,7 @@ public class HighSchoolBoss : MonoBehaviour
         
         if ((direction1).magnitude < 0.1f && (direction1).magnitude < 0.1f)
         {
-            if (armari1.transform.eulerAngles.z < 90)
+            if (armari1.transform.eulerAngles.z <= 91 || armari1.transform.eulerAngles.z > 359)
             {
                 armari1.transform.Rotate(0, 0, Time.deltaTime * 60);
             }

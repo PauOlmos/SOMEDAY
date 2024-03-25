@@ -7,7 +7,7 @@ public class Parry : MonoBehaviour
     // Start is called before the first frame update
 
     private float parryTimer;
-    private float parryCooldown = 3.0f;
+    public float parryCooldown = 0.8f;
     private float parryDuration = 0.42f;
     private bool parryActive = true;
     

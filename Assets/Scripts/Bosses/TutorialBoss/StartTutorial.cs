@@ -38,6 +38,8 @@ public class StartTutorial : MonoBehaviour
         BossManager.bossAudioSource.clip = intro;
         BossManager.bossAudioSource.Play();
         spawningBossTime = BossManager.audioTransitions[0].length + 0.5f;
+        Camera.GetComponent<CinemachineFreeLook>().m_YAxis.m_MaxSpeed = 0;
+        Camera.GetComponent<CinemachineFreeLook>().m_XAxis.m_MaxSpeed = 0;
     }
 
     // Update is called once per frame
@@ -149,6 +151,9 @@ public class StartTutorial : MonoBehaviour
     }
     public void ActivateCamera()
     {
+        Camera.GetComponent<CinemachineFreeLook>().m_YAxis.m_MaxSpeed = 2;
+        Camera.GetComponent<CinemachineFreeLook>().m_XAxis.m_MaxSpeed = 300;
+        Camera.GetComponent<CameraBehaviour>().readyBoss = true;
         Camera.LookAt = gameObject.transform;
         Camera.Follow = gameObject.transform;
     }

@@ -37,7 +37,7 @@ public class PlayerHp : MonoBehaviour
 
     public int difficulty;
 
-    public int[] difficultyBasedHP = { 10,5,3};
+    public int[] difficultyBasedHPs = { 10, 5, 3 };
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +45,11 @@ public class PlayerHp : MonoBehaviour
         difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
         Debug.Log("CurrentBoss = " + Settings.actualBoss + ". MaxLevel = " + LoadPlayerData(Settings.archiveNum).maxLevel);
         if (Settings.actualBoss == LoadPlayerData(Settings.archiveNum).maxLevel) playerHp = LoadPlayerData(Settings.archiveNum).maxHp;
-        else playerHp = difficultyBasedHP[difficulty];
+        else
+        {
+            Debug.Log(difficultyBasedHPs[0]);
+            playerHp = difficultyBasedHPs[difficulty];
+        }
         GameCamera = GameObject.Find("Game Camera");
         cameraBehaviour = GameCamera.GetComponent<CameraBehaviour>();
         passiveAbility = gameObject.GetComponent<PassiveAbility>();

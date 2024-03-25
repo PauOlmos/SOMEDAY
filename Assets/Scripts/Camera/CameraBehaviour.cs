@@ -43,6 +43,8 @@ public class CameraBehaviour : MonoBehaviour
     int currentLockedBoss = 0;
 
     public float rightJoystick;
+
+    public bool readyBoss = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,8 +76,8 @@ public class CameraBehaviour : MonoBehaviour
         righthorizontal = Input.GetAxis("L2");
         rightJoystick = Input.GetAxis("RightVertical");
         Debug.Log("RightJoystick" + rightJoystick);
-        if(Time.timeScale != 0 && rightJoystick > 0.15f) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick + sensitivity / 5.0f; 
-        if(Time.timeScale != 0 && rightJoystick < -0.15f) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick - sensitivity / 5.0f; 
+        if(Time.timeScale != 0 && rightJoystick > 0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick + sensitivity / 5.0f; 
+        if(Time.timeScale != 0 && rightJoystick < -0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick - sensitivity / 5.0f; 
 
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
@@ -241,6 +243,14 @@ public class CameraBehaviour : MonoBehaviour
 
     public GameObject[] AllBosses()
     {
-        return GameObject.FindGameObjectsWithTag("Boss");
+        int numActiveBosses = 0;
+        GameObject[] baux = GameObject.FindGameObjectsWithTag("Boss");
+        GameObject[] b = new GameObject[2];
+        for(int i = 0; i < baux.Length; i++)
+        {
+            if (baux[i].activeInHierarchy == true) b[i] = baux[i];
+        }
+        return b;
+        
     }
 }

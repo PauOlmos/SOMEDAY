@@ -53,6 +53,7 @@ public class StartParentsBoss : MonoBehaviour
     public GameObject greatAttackArea2;
     void Start()
     {
+        
         player.GetComponent<Rigidbody>().useGravity = false;
         player.GetComponentInChildren<BoxCollider>().enabled = false;
         gameObject.GetComponent<Rigidbody>().useGravity = false;

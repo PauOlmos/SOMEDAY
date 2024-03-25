@@ -543,6 +543,7 @@ public class BossManager : MonoBehaviour
 
     public void NextBoss()
     {
+        bossAudioSource.loop = false;
         currentBoss++;
         DataToStore data = new DataToStore();
         if (currentBoss >= LoadPlayerData(Settings.archiveNum).maxLevel) data.maxLevel = currentBoss;
