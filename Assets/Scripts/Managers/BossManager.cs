@@ -146,7 +146,7 @@ public class BossManager : MonoBehaviour
     public GameObject projectileBossSource;
     public GameObject[] monolithWeakPoints;
 
-    [Header("StartParentsBoss")]
+    [Header("ParentsBoss")]
 
     public GameObject firstEnvironment;
     public Transform previousEnvironmentPosition;
@@ -183,6 +183,8 @@ public class BossManager : MonoBehaviour
 
     public GameObject greatAttackArea1;
     public GameObject greatAttackArea2;
+
+    public GameObject auxiliarLight;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -322,7 +324,7 @@ public class BossManager : MonoBehaviour
                 break;
             case 2:
                 lights[nBoss].SetActive(true);
-
+                auxiliarLight.SetActive(true);
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
                 {
                     player.transform.position = playerSpawnPositions[nBoss].position;

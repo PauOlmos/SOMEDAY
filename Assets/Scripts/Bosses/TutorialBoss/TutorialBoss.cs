@@ -290,7 +290,7 @@ public class TutorialBoss : MonoBehaviour
 
     public float Dialogs()
     {
-        if (dialogTimer > 35.0f)
+        if (dialogTimer > 15.0f)
         {
             subtitleManagaer.subtitleText = tutorialBossDialogs[dialogNum];
             subtitleManagaer.currentAudioClip = tutorialBossDialogAudios[dialogNum];

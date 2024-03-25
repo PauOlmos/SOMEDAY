@@ -6957,7 +6957,7 @@ Transform:
   - {fileID: 1063372664}
   - {fileID: 2073491948}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: -95.308, z: 0}
 --- !u!1 &181349935
 GameObject:
@@ -19307,6 +19307,7 @@ MonoBehaviour:
   greatAttackArea: {fileID: 475290007}
   greatAttackArea1: {fileID: 475290006}
   greatAttackArea2: {fileID: 475290005}
+  auxiliarLight: {fileID: 900258547}
 --- !u!4 &496854578
 Transform:
   m_ObjectHideFlags: 0
@@ -33151,7 +33152,7 @@ RectTransform:
   m_GameObject: {fileID: 599381240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1061, y: 1.1061, z: 1.1061}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1039048222}
@@ -33162,7 +33163,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1.7503, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &603125821
@@ -37141,7 +37142,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 104, y: 0}
+  m_AnchoredPosition: {x: 126, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &749613342
@@ -38544,7 +38545,7 @@ RectTransform:
   m_GameObject: {fileID: 804381864}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.54037, y: 0.54037, z: 0.54037}
+  m_LocalScale: {x: 0.91771036, y: 0.91771036, z: 0.91771036}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 599381241}
@@ -41281,7 +41282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &900258548
 Transform:
   m_ObjectHideFlags: 0
@@ -41290,12 +41291,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900258547}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 66.5, z: 135.5}
+  m_LocalPosition: {x: 23.099998, y: 88.5, z: 56.600002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1830601991}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &900258549
 Light:
@@ -44985,7 +44986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -144, y: 0}
+  m_AnchoredPosition: {x: -159, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1039048223
@@ -61751,6 +61752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da72c7000528b1b4c9ab529eda4bfda4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parryCooldown: 0.8
   parrying: 0
   attack:
     serializedVersion: 2
@@ -80345,7 +80347,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754425188}
-  m_LocalRotation: {x: 0.22652902, y: -0.000000029027598, z: 0.0000000067510917, w: 0.97400445}
+  m_LocalRotation: {x: 0.22652902, y: 0.000000029027598, z: -0.0000000067510917, w: 0.97400445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -82653,8 +82655,7 @@ Transform:
   m_LocalPosition: {x: -15.2, y: 5.2, z: -19.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 900258548}
+  m_Children: []
   m_Father: {fileID: 82065890}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -84502,7 +84503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 0.3882353}
+  m_Color: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 0.16862746}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

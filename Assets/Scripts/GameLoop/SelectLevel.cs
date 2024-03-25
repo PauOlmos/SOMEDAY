@@ -111,6 +111,21 @@ public class SelectLevel : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Level")
+        {
+
+            collidingWithLevel = true;
+            scene = other.gameObject.GetComponent<SceneToLoad>().sceneNum;
+
+        }
+        else
+        {
+            collidingWithLevel = false;
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Level")
