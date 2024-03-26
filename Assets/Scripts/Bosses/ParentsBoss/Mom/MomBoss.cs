@@ -18,7 +18,7 @@ public class MomBoss : MonoBehaviour
     public AttackType attackType;
 
     public float attackCooldownTimer = 0.0f;
-    public float attackCooldownTime = 2.0f;
+    public float[] attackCooldownTime = { 4.0f, 3.0f, 2.0f };
 
     public GameObject circularArea;
     public GameObject coneArea;
@@ -38,7 +38,10 @@ public class MomBoss : MonoBehaviour
 
     public bool teleportingToPlayer = false;
     public bool startTeleporting = false;
+    public int difficulty;
 
+    public float[] greatAreaRotationSpeed = { 30, 40, 50 };
+    public float[] expandIncrement = { 1, 1.5f, 2.0f };
     public enum TeleportingState
     {
         reduce, move, expand
@@ -165,7 +168,7 @@ public class MomBoss : MonoBehaviour
                         {
                             greatAttackArea1.layer = 7;
                             greatAttackArea2.layer = 7;
-                            greatAttackArea.transform.RotateAround(gameObject.transform.position, Vector3.up, Time.deltaTime * 50);
+                            greatAttackArea.transform.RotateAround(gameObject.transform.position, Vector3.up, Time.deltaTime * greatAreaRotationSpeed[difficulty]);
                             greatAttackArea1.tag = "NonParryable";
                             greatAttackArea2.tag = "NonParryable";
                         }
@@ -189,7 +192,7 @@ public class MomBoss : MonoBehaviour
         else
         {
             attackCooldownTimer += Time.deltaTime;
-            if (attackCooldownTimer >= attackCooldownTime)
+            if (attackCooldownTimer >= attackCooldownTime[difficulty])
             {
                 gameObject.GetComponent<NavMeshAgent>().speed = movSpeed;
                 if (Vector3.Distance(gameObject.transform.position, player.transform.position) < 3.0f && teleportingToPlayer == false)
@@ -275,7 +278,7 @@ public class MomBoss : MonoBehaviour
 
                 if(gameObject.transform.localScale.x < 1.0f)
                 {
-                    gameObject.transform.localScale += Vector3.one * Time.deltaTime * 2;
+                    gameObject.transform.localScale += Vector3.one * Time.deltaTime * expandIncrement[difficulty];
                 }
                 else
                 {

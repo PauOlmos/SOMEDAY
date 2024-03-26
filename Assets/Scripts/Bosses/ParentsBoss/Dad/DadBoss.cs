@@ -46,6 +46,13 @@ public class DadBoss : MonoBehaviour
     public GameObject spinner;
     public Transform spinnerArea;
     public bool passive = false;
+
+    public int difficulty;
+
+
+    public int[] returnableChance = { 8, 15, 20 };
+    public int[] numShotgunProjectiles = { 1, 3, 4 };
+    public float[] roombaDuration = { 4, 6, 7 };
     // Start is called before the first frame update
     void Start()
     {
@@ -204,6 +211,7 @@ public class DadBoss : MonoBehaviour
 
                     GameObject roomba = Instantiate(spinner, mainProjectileSource.transform.position, Quaternion.identity);
                     roomba.GetComponentInChildren<Spinner>().targetObject = spinnerArea;
+                    roomba.GetComponentInChildren<Spinner>().duration = roombaDuration[difficulty];
 
                     break;
             }
@@ -252,6 +260,7 @@ public class DadBoss : MonoBehaviour
             {
                 GameObject gun = Instantiate(shotgun, rightShotgunPositions[i].position, Quaternion.identity);
                 gun.GetComponent<Shotgun>().right = true;
+                gun.GetComponent<Shotgun>().maxShots = numShotgunProjectiles[difficulty];
             }
         }
         else if (shotgunTimer > 7.0f)
@@ -260,6 +269,8 @@ public class DadBoss : MonoBehaviour
             {
                 GameObject gun = Instantiate(shotgun, leftShotgunPositions[i].position, Quaternion.identity);
                 gun.GetComponent<Shotgun>().right = false;
+                gun.GetComponent<Shotgun>().maxShots = numShotgunProjectiles[difficulty];
+
             }
             shotgunTimer = 0;
             if(phase == 0)canAttack = false;
@@ -279,7 +290,7 @@ public class DadBoss : MonoBehaviour
         projectile.GetComponent<SeekingProjectile>().seekingTime = 0.1f;
         projectile.GetComponent<SeekingProjectile>().target = projectileDirection;
         projectile.GetComponent<SeekingProjectile>().speed = speed;
-        if (Random.Range(0, 20) == 0)
+        if (Random.Range(0, returnableChance[difficulty]) == 0)
         {
             projectile.tag = "ReturnableProjectile";
             projectile.GetComponent<Renderer>().material = returnableProjectileMaterial;

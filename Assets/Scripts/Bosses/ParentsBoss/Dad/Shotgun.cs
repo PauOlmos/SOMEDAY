@@ -12,6 +12,7 @@ public class Shotgun : MonoBehaviour
     public float timer = 0;
     public int shotCounter = 0;
     public bool right;
+    public int maxShots;
     public enum ShotgunState
     {
         movingf,shooting,movingb
@@ -41,7 +42,7 @@ public class Shotgun : MonoBehaviour
             case ShotgunState.shooting:
                 
                 timer += Time.deltaTime;
-                if (shotCounter < 4f)
+                if (shotCounter < maxShots)
                 {
                     if (timer >= 0.35f)
                     {

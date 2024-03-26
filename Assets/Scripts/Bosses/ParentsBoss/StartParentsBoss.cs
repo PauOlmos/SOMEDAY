@@ -51,6 +51,7 @@ public class StartParentsBoss : MonoBehaviour
 
     public GameObject greatAttackArea1;
     public GameObject greatAttackArea2;
+    public int difficulty;
     void Start()
     {
         
@@ -165,6 +166,7 @@ public class StartParentsBoss : MonoBehaviour
                 gameObject.GetComponent<DadBoss>().leftShotgunPositions = leftShotgunPositions;
                 gameObject.GetComponent<DadBoss>().spinner = spinner;
                 gameObject.GetComponent<DadBoss>().spinnerArea = spinnerArea;
+                gameObject.GetComponent<DadBoss>().difficulty = difficulty;
 
                 //Mom
                 momBoss.AddComponent<MomBoss>();
@@ -177,6 +179,7 @@ public class StartParentsBoss : MonoBehaviour
                 momBoss.GetComponent<MomBoss>().greatAttackArea = greatAttackArea;
                 momBoss.GetComponent<MomBoss>().greatAttackArea1 = greatAttackArea1;
                 momBoss.GetComponent<MomBoss>().greatAttackArea2 = greatAttackArea2;
+                momBoss.GetComponent<MomBoss>().difficulty = difficulty;
 
 
                 Destroy(gameObject.GetComponent<StartParentsBoss>());

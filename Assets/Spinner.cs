@@ -20,6 +20,8 @@ public class Spinner : MonoBehaviour
 
     public float delayTimer = 0.0f;
     public float delayTime = 1.0f;
+
+    public float duration;
     void Start()
     {
         
@@ -48,10 +50,10 @@ public class Spinner : MonoBehaviour
                 }
                 timer = 0.0f;
             }
-            if (lifeTime > 7)
+            if (lifeTime > duration)
             {
                 empty.SetActive(false);
-                if (lifeTime > 18)
+                if (lifeTime > duration + 11)
                 {
                     Destroy(empty);
                 }

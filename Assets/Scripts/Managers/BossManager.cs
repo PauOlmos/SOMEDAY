@@ -373,6 +373,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().greatAttackArea = greatAttackArea;
                 boss.GetComponent<StartParentsBoss>().greatAttackArea1 = greatAttackArea1;
                 boss.GetComponent<StartParentsBoss>().greatAttackArea2 = greatAttackArea2;
+                boss.GetComponent<StartParentsBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
 
                 break;
                 default: break;
@@ -534,7 +535,6 @@ public class BossManager : MonoBehaviour
                     boss.tag = "Untagged";
                     auxiliarBoss.GetComponent<MomBoss>().phase++;
                     auxiliarBoss.GetComponent<MomBoss>().delayTime = 2.15f;
-                    auxiliarBoss.GetComponent<MomBoss>().attackCooldownTime = 1.5f;
                     auxiliarBoss.GetComponent<MomBoss>().maxNumAttacks = 5;
                     auxiliarBoss.GetComponent<MomBoss>().movSpeed = 5.5f;
                 }
