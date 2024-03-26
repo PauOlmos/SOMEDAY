@@ -321,6 +321,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().subtitleManagaer = subtitleManagaer;
                 boss.GetComponent<StartHighSchoolBoss>().bossAudioSource = bossAudioSource;
                 boss.GetComponent<StartHighSchoolBoss>().bossDialogAudioSource = bossDialogAudioSource;
+                boss.GetComponent<StartHighSchoolBoss>().difficulty = difficulty;
 
                 break;
             case 2:

@@ -159,6 +159,16 @@ public class HighSchoolBoss : MonoBehaviour
     public AudioSource bossAudioSource;
     public AudioSource bossDialogAudioSource;
     public AudioClip[] highSchoolBossAudios;
+    public int difficulty;
+
+    [Header("DifficultySettings")]
+
+    public int[] portalWave1nums = { 1, 2, 3 };
+    public int[] portalWave2nums = { 2, 4, 6 };
+    public int[] portalWave3nums = { 5, 10, 15 };
+    public int[] portalWave4nums = { 5, 10, 15 };
+
+    public int[] numProjectilesPhase2 = { 2, 3, 4 };
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -326,10 +336,10 @@ public class HighSchoolBoss : MonoBehaviour
                                 if (bossShield.transform.localScale.x > 2.0f) bossShield.transform.localScale = Vector3.one * 2.0f;
                                 else bossShield.transform.localScale += Vector3.one * Time.deltaTime;
 
-                                if(portalWave1 == false) GenerarPosiciones(3, portalSpawnArea.transform, 1);
-                                if(portalWave2 == false && superAttackTimer > 1.5f) GenerarPosiciones(5, portalSpawnArea.transform, 2);
-                                if(portalWave3 == false && superAttackTimer > 3.0f) GenerarPosiciones(15, portalSpawnArea.transform, 3);
-                                if(portalWave4 == false && superAttackTimer > 4.5f) GenerarPosiciones(15, portalSpawnArea.transform, 4);
+                                if(portalWave1 == false) GenerarPosiciones(portalWave1nums[difficulty], portalSpawnArea.transform, 1);
+                                if(portalWave2 == false && superAttackTimer > 1.5f) GenerarPosiciones(portalWave2nums[difficulty], portalSpawnArea.transform, 2);
+                                if(portalWave3 == false && superAttackTimer > 3.0f) GenerarPosiciones(portalWave3nums[difficulty], portalSpawnArea.transform, 3);
+                                if(portalWave4 == false && superAttackTimer > 4.5f) GenerarPosiciones(portalWave4nums[difficulty], portalSpawnArea.transform, 4);
                                 if(superAttackTimer > 6.5f)
                                 {
                                     ResetSuperAttackVariables();
@@ -387,10 +397,13 @@ public class HighSchoolBoss : MonoBehaviour
                     {
                         GameObject portal1 = Instantiate(shadowDogPortalPrefab, shadowDogPortalPos1.transform.position, Quaternion.identity);
                         portal1.GetComponent<ShadowDogPortal>().player = player;
+                        portal1.GetComponent<ShadowDogPortal>().maxDogsSpawn = difficulty + 1;
                         GameObject portal2 = Instantiate(shadowDogPortalPrefab, shadowDogPortalPos2.transform.position, Quaternion.identity);
                         portal2.GetComponent<ShadowDogPortal>().player = player;
+                        portal2.GetComponent<ShadowDogPortal>().maxDogsSpawn = difficulty + 1;
                         GameObject portal3 = Instantiate(shadowDogPortalPrefab, shadowDogPortalPos3.transform.position, Quaternion.identity);
                         portal3.GetComponent<ShadowDogPortal>().player = player;
+                        portal3.GetComponent<ShadowDogPortal>().maxDogsSpawn = difficulty + 1;
 
                         corridorSpecialAttackTimer = 0.0f;
                     }
@@ -423,7 +436,7 @@ public class HighSchoolBoss : MonoBehaviour
                                     projectileAttackTimer = 0.0f;
                                 }
 
-                                if (numProjectilesShot > 4)
+                                if (numProjectilesShot > numProjectilesPhase2[difficulty])
                                 {
                                     canAttack = false;
                                     MeleeAttackType = AttackType.reset;
@@ -453,11 +466,6 @@ public class HighSchoolBoss : MonoBehaviour
                                 if (hand1.transform.eulerAngles.z < 271 && hand1.transform.eulerAngles.z > 269)
                                 {
                                     rotatingHands = true;
-                                    if (handDamage1.GetComponent<Rigidbody>() != null)
-                                    {
-                                        Debug.Log("PA QUE SIRVE ESTO");
-                                        Destroy(handDamage2.GetComponent<Rigidbody>());
-                                    }
                                 }
 
                                 if(rotatingHands == true)
