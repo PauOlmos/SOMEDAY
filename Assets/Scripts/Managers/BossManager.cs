@@ -185,6 +185,7 @@ public class BossManager : MonoBehaviour
     public GameObject greatAttackArea2;
 
     public GameObject auxiliarLight;
+    public int difficulty;
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -226,6 +227,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<TutorialBoss>().tutorialBossAudios = tutorialBossAudios;
                 boss.GetComponent<TutorialBoss>().tutorialBossDialogs = tutorialBossDialogs;
                 boss.GetComponent<TutorialBoss>().tutorialBossDialogAudios = tutorialBossDialogAudios;
+                boss.GetComponent<TutorialBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
 
                 tutorialAnimations.enabled = true;
                 break;
@@ -311,7 +313,6 @@ public class BossManager : MonoBehaviour
 
                 boss.GetComponent<StartHighSchoolBoss>().lightTarget1 = lightTarget1;
                 boss.GetComponent<StartHighSchoolBoss>().lightTarget2 = lightTarget2;
-
                 boss.GetComponent<StartHighSchoolBoss>().foco1 = foco1;
                 boss.GetComponent<StartHighSchoolBoss>().foco2 = foco2;
                 boss.GetComponent<StartHighSchoolBoss>().monolithWeakPoints = monolithWeakPoints;

@@ -64,6 +64,17 @@ public class TutorialBoss : MonoBehaviour
     public float showTutorialMessagesTimer = 0.0f;
     public float dialogTimer = 0.0f;
     public int dialogNum = 0;
+    public int difficulty;
+
+    public float cooldownTimer = 0.0f;
+
+    [Header("Difficulty Settings")]
+
+    public int[] maxCricles = { 5, 6, 7 };
+    public float[] criclesCooldown = { 3.0f, 2.5f, 2.0f };
+    public float[] criclesDelay = { 0.65f, 0.45f, 0.25f };
+    public float[] meleeCooldown = { 1.0f, 0.5f, 0.0f };
+    public float[] phase3Speed = { 10.0f, 7.5f, 5.0f };
     public enum MovementState
     {
         none, jump, startSpinning, spin, holdSpin
@@ -127,7 +138,7 @@ public class TutorialBoss : MonoBehaviour
                         case AttackType.circles:
                             if (circlesAttackCooldown == 0 && value == 0)
                             {
-                                value = Random.Range(3, 7);
+                                value = Random.Range(3, maxCricles[difficulty]);
                                 Debug.Log(value);
 
                             }
@@ -144,7 +155,7 @@ public class TutorialBoss : MonoBehaviour
 
                 if (canMove && gameObject.GetComponent<EnemyHP>().stun == false)
                 {
-                    proximityAreaTimer = 0.0F;
+                    proximityAreaTimer = 0.0f;
                     turoialAnimations.animState = TutorialBossAnimations.AnimationsState.idle;
                     if (IsNear(3.0f))
                     {
@@ -156,7 +167,7 @@ public class TutorialBoss : MonoBehaviour
                     }
                     else canAttack = false;
                 }
-                if (canAttack == true && gameObject.GetComponent<EnemyHP>().stun == false)
+                if (canAttack == true && gameObject.GetComponent<EnemyHP>().stun == false && cooldownTimer >= meleeCooldown[difficulty])
                 {
                     turoialAnimations.animState = TutorialBossAnimations.AnimationsState.attack;
 
@@ -195,6 +206,7 @@ public class TutorialBoss : MonoBehaviour
                                 turoialAnimations.hand2.transform.localEulerAngles = Vector3.zero;
                                 turoialAnimations.hand2.transform.Rotate(180, 0, 0);
                                 //agent.destination = player.transform.position;
+                                cooldownTimer = 0.0f;
                                 canMove = true;
 
                                 agent.speed = 3.5f;
@@ -202,6 +214,10 @@ public class TutorialBoss : MonoBehaviour
                             break;
 
                     }
+                }
+                else
+                {
+                    cooldownTimer += Time.deltaTime;
                 }
 
                 weakPoint.SetActive(gameObject.GetComponent<EnemyHP>().stun);
@@ -265,7 +281,7 @@ public class TutorialBoss : MonoBehaviour
                         }
                         else
                         {
-                            gameObject.GetComponent<Rigidbody>().AddForce(spinDirection / 5.0f, ForceMode.VelocityChange);
+                            gameObject.GetComponent<Rigidbody>().AddForce(spinDirection / phase3Speed[difficulty], ForceMode.VelocityChange);
                         }
                         break;
                     case MovementState.holdSpin:
@@ -324,13 +340,13 @@ public class TutorialBoss : MonoBehaviour
             canMove = true;
             return false;
         }
-        if (circlesAttackCooldown > 2.0f)
+        if (circlesAttackCooldown > criclesCooldown[difficulty])
         {
             turoialAnimations.animState = TutorialBossAnimations.AnimationsState.attack;
             bossAudioSource.clip = (tutorialBossAudios[1]);
             if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
         }
-        if (circlesAttackCooldown >= 2.75f)
+        if (circlesAttackCooldown >= criclesCooldown[difficulty] + criclesDelay[difficulty])
         {
             
             int value2 = Random.Range(0, 3);
