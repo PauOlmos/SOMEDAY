@@ -436,7 +436,7 @@ public class HighSchoolBoss : MonoBehaviour
                                     projectileAttackTimer = 0.0f;
                                 }
 
-                                if (numProjectilesShot > numProjectilesPhase2[difficulty])
+                                if (numProjectilesShot >= numProjectilesPhase2[difficulty])
                                 {
                                     canAttack = false;
                                     MeleeAttackType = AttackType.reset;
