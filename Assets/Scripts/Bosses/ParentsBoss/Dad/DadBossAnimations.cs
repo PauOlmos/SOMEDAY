@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class DadBossAnimations : MonoBehaviour
 {
-    public enum AnimationsState
-    {
-        idle, attack, damage
-    }
 
-    public AnimationsState animState = AnimationsState.idle;
     public AnimationClip[] animations;
     public AnimationClip actualAnimation;
     public GameObject model;
     public Animator animation;
     public DadBoss boss;
-    public bool attacking = false;
     public float damagedTimer = 0.0f;
 
     // Start is called before the first frame update
@@ -28,7 +22,7 @@ public class DadBossAnimations : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.GetComponent<DadBoss>() != null)
+        if (gameObject.GetComponent<DadBoss>() != null && boss == null)
         {
             boss = gameObject.GetComponent<DadBoss>();
         }

@@ -28,6 +28,7 @@ public class BossManager : MonoBehaviour
     public GameObject highSchoolBossModel;
     public DadBossAnimations dadBossAnimations;
     public GameObject dadBossModel;
+    public MomBossAnimations momBossAnimations;
     public GameObject auxiliarBoss;
     [Header("Audio")]
 
@@ -344,6 +345,11 @@ public class BossManager : MonoBehaviour
                 dadBossAnimations.animation = dadBossAnimations.model.GetComponent<Animator>();
                 dadBossAnimations.animation.Play(dadBossAnimations.animations[0].name);
                 dadBossAnimations.actualAnimation = dadBossAnimations.animations[0];
+                
+                momBossAnimations.enabled = true;
+                momBossAnimations.animation = momBossAnimations.model.GetComponent<Animator>();
+                //momBossAnimations.animation.Play(momBossAnimations.animations[0].name);
+                //momBossAnimations.actualAnimation = dadBossAnimations.animations[0];
                 boss.AddComponent<StartParentsBoss>();
                 boss.GetComponent<StartParentsBoss>().previousEnvironment = firstEnvironment;
                 boss.GetComponent<StartParentsBoss>().previousEnvironmentPosition = previousEnvironmentPosition;

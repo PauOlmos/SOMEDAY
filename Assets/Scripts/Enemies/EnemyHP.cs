@@ -40,6 +40,10 @@ public class EnemyHP : MonoBehaviour
                 {
                     gameObject.GetComponent<DadBoss>().damaged = true;
                 }
+                else if(gameObject.GetComponent<MomBoss>() != null)
+                {
+                    gameObject.GetComponent<MomBoss>().damaged = true;
+                }
                 hp -= damage;
                 canBeDamaged = false;
                 DamageSound();

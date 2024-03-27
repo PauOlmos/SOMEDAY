@@ -42,6 +42,9 @@ public class MomBoss : MonoBehaviour
 
     public float[] greatAreaRotationSpeed = { 30, 40, 50 };
     public float[] expandIncrement = { 1, 1.5f, 2.0f };
+
+    public bool damaged = false;
+
     public enum TeleportingState
     {
         reduce, move, expand
