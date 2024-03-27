@@ -43,11 +43,11 @@ public class PlayerHp : MonoBehaviour
     void Start()
     {
         difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
-        Debug.Log("CurrentBoss = " + Settings.actualBoss + ". MaxLevel = " + LoadPlayerData(Settings.archiveNum).maxLevel);
+        //Debug.Log("CurrentBoss = " + Settings.actualBoss + ". MaxLevel = " + LoadPlayerData(Settings.archiveNum).maxLevel);
         if (Settings.actualBoss == LoadPlayerData(Settings.archiveNum).maxLevel) playerHp = LoadPlayerData(Settings.archiveNum).maxHp;
         else
         {
-            Debug.Log(difficultyBasedHPs[0]);
+            //Debug.Log(difficultyBasedHPs[0]);
             playerHp = difficultyBasedHPs[difficulty];
         }
         GameCamera = GameObject.Find("Game Camera");
@@ -103,10 +103,10 @@ public class PlayerHp : MonoBehaviour
     {
         if (collision.gameObject.layer == 7)//7 = Attack
         {
-            Debug.Log("Hit");
+            //Debug.Log("Hit");
             if (!isInvencible && collision.gameObject.tag != "ParriedAttack")
             {
-                Debug.Log("Damaged from " + collision.gameObject.name);
+                //Debug.Log("Damaged from " + collision.gameObject.name);
 
                 TakeDamage();
             }
@@ -126,10 +126,10 @@ public class PlayerHp : MonoBehaviour
     {
         if (other.gameObject.layer == 7)//7 = Attack
         {
-            Debug.Log("Hit");
+            //Debug.Log("Hit");
             if (!isInvencible && other.gameObject.tag != "ParriedAttack")
             {
-                Debug.Log("Damaged from " + other.gameObject.name);
+                //Debug.Log("Damaged from " + other.gameObject.name);
 
                 TakeDamage();
             }
@@ -148,10 +148,10 @@ public class PlayerHp : MonoBehaviour
     {
         if (other.gameObject.layer == 7)//7 = Attack
         {
-            Debug.Log("Hit");
+            //Debug.Log("Hit");
             if (!isInvencible && other.gameObject.tag != "ParriedAttack")
             {
-                Debug.Log("Damaged from " + other.gameObject.name);
+                //Debug.Log("Damaged from " + other.gameObject.name);
 
                 TakeDamage();
             }
@@ -204,7 +204,7 @@ public class PlayerHp : MonoBehaviour
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            Debug.Log(json);
+            //Debug.Log(json);
             return JsonUtility.FromJson<DataToStore>(json);
         }
         else
@@ -219,7 +219,7 @@ public class PlayerHp : MonoBehaviour
         string json = JsonUtility.ToJson(data);
         string archiveNum = "Archive" + num.ToString(); ;
         File.WriteAllText(Application.streamingAssetsPath + "/" + archiveNum + ".json", json);
-        Debug.Log("Archive " + num.ToString() + " Created");
+        //Debug.Log("Archive " + num.ToString() + " Created");
         //Comença Partida
     }
 

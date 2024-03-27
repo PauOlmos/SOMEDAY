@@ -42,7 +42,7 @@ public class PlayerAnimations : MonoBehaviour
             {
                 case AnimationState.idle:
                     playerAudioSource.Stop();
-                    Debug.Log(animations[0].name);
+                    //Debug.Log(animations[0].name);
                     animation.Play(animations[0].name);
 
                     break;
@@ -50,7 +50,7 @@ public class PlayerAnimations : MonoBehaviour
                     playerAudioSource.clip = (playerAudios[0]);
                     playerAudioSource.loop = true;
                     if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
-                    Debug.Log(animations[1].name);
+                    //Debug.Log(animations[1].name);
                     animation.Play(animations[1].name);
 
                     break;
@@ -58,7 +58,7 @@ public class PlayerAnimations : MonoBehaviour
                     playerAudioSource.clip = (playerAudios[1]);
                     playerAudioSource.loop = false;
                     if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
-                    Debug.Log(animations[2].name);
+                    //Debug.Log(animations[2].name);
                     animation.Play(animations[2].name);
 
                     break;
@@ -75,7 +75,7 @@ public class PlayerAnimations : MonoBehaviour
 
                     }
 
-                    Debug.Log(animations[3].name);
+                    //Debug.Log(animations[3].name);
                     animation.Play(animations[3].name);
 
                     break;
@@ -91,13 +91,13 @@ public class PlayerAnimations : MonoBehaviour
                         animationsTimer = 0;
                     }
 
-                    Debug.Log(animations[4].name);
+                    //Debug.Log(animations[4].name);
                     animation.Play(animations[4].name);
 
                     break;
                 case AnimationState.floating:
 
-                    Debug.Log(animations[5].name);
+                    //Debug.Log(animations[5].name);
                     animation.Play(animations[5].name);
 
                     break;
@@ -105,7 +105,7 @@ public class PlayerAnimations : MonoBehaviour
                     playerAudioSource.clip = (playerAudios[4]);
                     playerAudioSource.loop = false;
                     if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
-                    Debug.Log(animations[6].name);
+                    //Debug.Log(animations[6].name);
                     animation.Play(animations[6].name);
 
                     break;
@@ -121,13 +121,13 @@ public class PlayerAnimations : MonoBehaviour
                         animationsTimer = 0;
                     }
 
-                    Debug.Log(animations[7].name);
+                    //Debug.Log(animations[7].name);
                     animation.Play(animations[7].name);
 
                     break;
                 case AnimationState.die:
 
-                    Debug.Log(animations[8].name);
+                    //Debug.Log(animations[8].name);
                     animation.Play(animations[8].name);
 
                     break;
@@ -145,7 +145,7 @@ public class PlayerAnimations : MonoBehaviour
 
                     }
 
-                    Debug.Log(animations[9].name);
+                    //Debug.Log(animations[9].name);
                     animation.Play(animations[9].name);
 
                     break;
@@ -161,7 +161,7 @@ public class PlayerAnimations : MonoBehaviour
                         animationsTimer = 0;
                     }
 
-                    Debug.Log(animations[10].name);
+                    //Debug.Log(animations[10].name);
                     animation.Play(animations[10].name);
 
                     break;
@@ -170,7 +170,7 @@ public class PlayerAnimations : MonoBehaviour
                     playerAudioSource.clip = (playerAudios[8]);
                     playerAudioSource.loop = true;
                     if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
-                    Debug.Log(animations[11].name);
+                    //Debug.Log(animations[11].name);
                     animation.Play(animations[11].name);
 
                     break;

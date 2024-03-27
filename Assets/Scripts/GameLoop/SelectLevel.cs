@@ -72,7 +72,7 @@ public class SelectLevel : MonoBehaviour
             if (actualPosition - 1 >= 0 && canMove == true)
             {
                 agent.destination = (levelArray[actualPosition - 1].level.transform.position);
-                Debug.Log(agent.destination);
+                //Debug.Log(agent.destination);
                 justOnce = true;
                 actualPosition--;
                 canMove = false;
@@ -84,7 +84,7 @@ public class SelectLevel : MonoBehaviour
             if (actualPosition + 1 <= maxLevel && actualPosition + 1 < levelArray.Length && canMove == true)
             {
                 agent.destination = (levelArray[actualPosition + 1].level.transform.position);
-                Debug.Log(agent.destination);
+                //Debug.Log(agent.destination);
                 justOnce = true;
                 actualPosition++;
                 canMove = false;
@@ -101,7 +101,7 @@ public class SelectLevel : MonoBehaviour
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            Debug.Log(json);
+            //Debug.Log(json);
             return JsonUtility.FromJson<DataToStore>(json);
         }
         else

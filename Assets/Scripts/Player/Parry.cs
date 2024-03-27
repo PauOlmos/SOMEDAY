@@ -89,7 +89,7 @@ public class Parry : MonoBehaviour
                 passiveAbility.passiveCharge += 2.5f;
                 other.gameObject.transform.localScale = Vector3.zero;
                 Destroy(other.gameObject);
-                Debug.Log(other.gameObject.transform.position);
+                //Debug.Log(other.gameObject.transform.position);
             }
             if (other.gameObject.tag == "Parryable")
             {
@@ -104,6 +104,7 @@ public class Parry : MonoBehaviour
             {
                 other.gameObject.GetComponent<SeekingProjectile>().shotByPlayer = true;
                 other.gameObject.GetComponent<SeekingProjectile>().canFail = false;
+                other.isTrigger = true;
                 other.gameObject.GetComponent<SeekingProjectile>().target = GameObject.Find("Boss").transform;
                 other.gameObject.GetComponent<DieByTime>().deathTime = 20.0f;
                 other.gameObject.tag = "Untagged";
@@ -124,18 +125,18 @@ public class Parry : MonoBehaviour
         {
             if (collision.gameObject.tag == "BasicProjectile")
             {
-                Debug.Log(collision.gameObject.name);
+                //Debug.Log(collision.gameObject.name);
                 playerAudioSource.loop = false;
                 playerAudioSource.PlayOneShot(successfulParry);
                 passiveAbility.passiveCharge += 2.5f;
                 collision.gameObject.transform.Translate(Vector3.up * 10000.0f);
                 Destroy(collision.gameObject);
-                Debug.Log(collision.gameObject.transform.position);
+                //Debug.Log(collision.gameObject.transform.position);
 
             }
             if (collision.gameObject.tag == "Parryable")
             {
-                Debug.Log(collision.gameObject.name);
+                //Debug.Log(collision.gameObject.name);
                 playerAudioSource.loop = false;
                 playerAudioSource.PlayOneShot(successfulParry);
                 passiveAbility.passiveCharge += 5.0f;

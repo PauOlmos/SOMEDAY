@@ -49,10 +49,13 @@ public class DadBoss : MonoBehaviour
 
     public int difficulty;
 
+    public bool damaged = false;
 
     public int[] returnableChance = { 8, 15, 20 };
     public int[] numShotgunProjectiles = { 1, 3, 4 };
     public float[] roombaDuration = { 4, 6, 7 };
+
+    public Transform dadPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +65,7 @@ public class DadBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gameObject.transform.position = dadPosition.position;
         gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
         if(originalBulletHell2DirectionPosition == Vector3.zero && bulletHell2Direction != null) originalBulletHell2DirectionPosition = bulletHell2Direction.transform.position;
         //Debug.Log(originalBulletHell2DirectionPosition);

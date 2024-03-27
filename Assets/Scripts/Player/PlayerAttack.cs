@@ -74,7 +74,7 @@ public class PlayerAttack : MonoBehaviour
 
                 if (other.gameObject.tag == "WeakPoint")
                 {
-                    Debug.Log("WeakPointHit");
+                    //Debug.Log("WeakPointHit");
                     tutorialBoss.GetComponent<EnemyHP>().DamageEnemy(1,true);
                     if(tutorialBoss.GetComponent<TutorialBoss>() != null) tutorialBoss.GetComponent<TutorialBoss>().stunTimer += 2.0f;
                     other.gameObject.SetActive(false);
@@ -93,7 +93,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 if (collision.gameObject.tag == "WeakPoint")
                 {
-                    Debug.Log("WeakPointHit");
+                    //Debug.Log("WeakPointHit");
                     tutorialBoss.GetComponent<EnemyHP>().DamageEnemy(1, true);
                     tutorialBoss.GetComponent<TutorialBoss>().stunTimer += 2.0f;
                     collision.gameObject.SetActive(false);

@@ -27,7 +27,7 @@ public class CheckCheckers : MonoBehaviour
         switch (state)
         {
             case SettingsState.predet:
-                Debug.Log(Settings.predetSettings);
+                //Debug.Log(Settings.predetSettings);
                 if (Settings.predetSettings == true) Go.GetComponent<Image>().sprite = menuManager.check;
                 else Go.GetComponent<Image>().sprite = menuManager.empty;
                 break;

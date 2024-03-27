@@ -373,7 +373,7 @@ public class MenuManager : MonoBehaviour
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            Debug.Log(json);
+            //Debug.Log(json);
             return JsonUtility.FromJson<DataToStore>(json);
         }
         else
@@ -387,7 +387,7 @@ public class MenuManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
         string archiveNum = "Archive" + num.ToString(); ;
         File.WriteAllText(Application.streamingAssetsPath + "/" + archiveNum + ".json", json);
-        Debug.Log("Archive " + num.ToString() + " Created");
+        //Debug.Log("Archive " + num.ToString() + " Created");
         //Comença Partida
     }
 

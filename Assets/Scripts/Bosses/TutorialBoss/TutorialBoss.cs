@@ -139,7 +139,7 @@ public class TutorialBoss : MonoBehaviour
                             if (circlesAttackCooldown == 0 && value == 0)
                             {
                                 value = Random.Range(3, maxCricles[difficulty]);
-                                Debug.Log(value);
+                                //Debug.Log(value);
 
                             }
                             canAttack = CirclesAttack(value);
@@ -489,7 +489,7 @@ public class TutorialBoss : MonoBehaviour
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                 hasCollided = true;
-                Debug.Log("Wallllll");
+                //Debug.Log("Wallllll");
                 int numWall = Random.Range(0, walls.Length);
 
                 Vector3 pos = new Vector3(walls[numWall].transform.position.x, 0.5f, walls[numWall].transform.position.z);

@@ -232,7 +232,7 @@ public class HighSchoolBoss : MonoBehaviour
                             agent.updateRotation = true;
                             Vector3 direction = transform.position - player.transform.position;
                             float distanceActual = direction.magnitude;
-                            Debug.Log("dISTANCIAaCTUAL = " + distanceActual);
+                           // Debug.Log("dISTANCIAaCTUAL = " + distanceActual);
 
                             if (distanceActual > 2.0f) agent.destination = player.transform.position;
                             else agent.destination = gameObject.transform.position;
@@ -584,7 +584,7 @@ public class HighSchoolBoss : MonoBehaviour
                             {
                                 touchingGround = false;
                                 player.GetComponent<PlayerHp>().TakeDamage();
-                                Debug.Log("HighSchoolBoss KLK");
+                                //Debug.Log("HighSchoolBoss KLK");
                             }
                             transitionToScenarioTimer += Time.deltaTime;
                             if (transitionToScenarioTimer > 7.0f)
@@ -1164,7 +1164,7 @@ public class HighSchoolBoss : MonoBehaviour
             if ((direction).magnitude < 0.1f)
             {
                 tablesOnPosition = true;
-                Debug.Log("JoinTables");
+                //Debug.Log("JoinTables");
             }
         }
     }

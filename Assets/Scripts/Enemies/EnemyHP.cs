@@ -36,6 +36,10 @@ public class EnemyHP : MonoBehaviour
                         gameObject.GetComponent<HighSchoolBoss>().hitsToSuperAttack -= damage;
                     }
                 }
+                else if(gameObject.GetComponent<DadBoss>() != null)
+                {
+                    gameObject.GetComponent<DadBoss>().damaged = true;
+                }
                 hp -= damage;
                 canBeDamaged = false;
                 DamageSound();

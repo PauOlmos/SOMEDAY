@@ -15,7 +15,7 @@ public class Portal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Random Projectile is " + projectileType);
+        //Debug.Log("Random Projectile is " + projectileType);
     }
 
     // Update is called once per frame

@@ -76,7 +76,7 @@ public class StartTutorial : MonoBehaviour
                 {
                     
                     klk = false;
-                    Debug.Log("!!!!!");
+                   // Debug.Log("!!!!!");
                     gameObject.GetComponentInChildren<Rigidbody>().useGravity = true;
 
                     if (Physics.Raycast(transform.position, Vector3.down, 1.5f + 0.2f, Ground))
@@ -85,7 +85,7 @@ public class StartTutorial : MonoBehaviour
                     }
                     if (spawningBoss)
                     {
-                        Debug.Log("???????????");
+                       // Debug.Log("???????????");
                         spawningBossTimer += Time.deltaTime;
                         if (spawningBossTimer < spawningBossTime)
                         {

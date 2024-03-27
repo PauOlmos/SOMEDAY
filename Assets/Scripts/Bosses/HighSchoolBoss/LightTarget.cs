@@ -37,11 +37,7 @@ public class LightTarget : MonoBehaviour
             );
 
             // Utilizamos la posición generada
-            Debug.Log("Posición aleatoria dentro del objeto: " + randomPosition);
-        }
-        else
-        {
-            Debug.LogError("El GameObject de destino no está asignado.");
+            //Debug.Log("Posición aleatoria dentro del objeto: " + randomPosition);
         }
     }
 }

@@ -52,6 +52,9 @@ public class StartParentsBoss : MonoBehaviour
     public GameObject greatAttackArea1;
     public GameObject greatAttackArea2;
     public int difficulty;
+
+    public GameObject highSchoolBossModel;
+    public GameObject dadBossModel;
     void Start()
     {
         
@@ -107,6 +110,10 @@ public class StartParentsBoss : MonoBehaviour
             if(Vector3.Distance(dadPosition.position, gameObject.transform.position) <= 7.45f && parentsHouse.transform.position.y <= -48.5f)
             {
                 gameObject.transform.position = dadPosition.position;
+                Destroy(highSchoolBossModel);
+                dadBossModel.SetActive(true); 
+                gameObject.GetComponent<Rigidbody>().freezeRotation = true;
+                gameObject.GetComponent<Rigidbody>().mass = 100000;
                 momBoss.transform.position = momPosition.position;
                 momBoss.SetActive(true);
                 doorTimer += Time.deltaTime;
@@ -122,7 +129,7 @@ public class StartParentsBoss : MonoBehaviour
                     gameObject.GetComponentInChildren<BoxCollider>().isTrigger = false;
                     gameObject.GetComponentInChildren<BoxCollider>().enabled = true;
                     doorTimer = 0.0f;
-                    Debug.Log("House Created Successfully");
+                   // Debug.Log("House Created Successfully");
                     readyToCombat = true;
                 }
 
@@ -167,6 +174,7 @@ public class StartParentsBoss : MonoBehaviour
                 gameObject.GetComponent<DadBoss>().spinner = spinner;
                 gameObject.GetComponent<DadBoss>().spinnerArea = spinnerArea;
                 gameObject.GetComponent<DadBoss>().difficulty = difficulty;
+                gameObject.GetComponent<DadBoss>().dadPosition = dadPosition;
 
                 //Mom
                 momBoss.AddComponent<MomBoss>();

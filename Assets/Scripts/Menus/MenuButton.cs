@@ -84,7 +84,7 @@ public class MenuButton : MonoBehaviour
                 if (!File.Exists(Application.streamingAssetsPath + "/Archive1.json"))
                 {
                     creatingArchiveNum = 1;
-                    Debug.Log(creatingArchiveNum);
+                    //Debug.Log(creatingArchiveNum);
                     dataToStore.numArchive = 1;
                     ChangeMenu(archivesMenu, difficultyMenu, MenuManager.Menus.difficulty, "Hard");
                     menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
@@ -109,7 +109,7 @@ public class MenuButton : MonoBehaviour
                     menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
 
                     creatingArchiveNum = 2;
-                    Debug.Log(creatingArchiveNum);
+                    //Debug.Log(creatingArchiveNum);
                     dataToStore.numArchive = 2;
                     ChangeMenu(archivesMenu, difficultyMenu, MenuManager.Menus.difficulty, "Hard");
                 }
@@ -131,7 +131,7 @@ public class MenuButton : MonoBehaviour
                 {
                 menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                     creatingArchiveNum = 3;
-                    Debug.Log(creatingArchiveNum);
+                    //Debug.Log(creatingArchiveNum);
                     ChangeMenu(archivesMenu, difficultyMenu, MenuManager.Menus.difficulty, "Hard");
                     dataToStore.numArchive = 3;
 
@@ -325,7 +325,7 @@ public class MenuButton : MonoBehaviour
         string json = JsonUtility.ToJson(data);
         string archiveNum = "Archive" + num.ToString(); ;
         File.WriteAllText(Application.streamingAssetsPath + "/"+archiveNum+".json", json);
-        Debug.Log("Archive " + num.ToString() + " Created");
+       // Debug.Log("Archive " + num.ToString() + " Created");
         //Comença Partida
     }
 
@@ -365,7 +365,7 @@ public class MenuButton : MonoBehaviour
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            Debug.Log(json);
+            //Debug.Log(json);
             return JsonUtility.FromJson<DataToStore>(json);
         }
         else

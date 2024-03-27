@@ -100,7 +100,7 @@ public class PassiveAbility : MonoBehaviour
                                     shootNow = true;
                                     break;
                                 case passiveType.hp:
-                                    Debug.Log(difficulty);
+                                    //Debug.Log(difficulty);
                                         if (playerHp.playerHp < difficultyBasedHP[difficulty] + 1)
                                         {
                                             RestoreHp(difficultyBasedRestoredHp[difficulty]);
@@ -153,7 +153,7 @@ public class PassiveAbility : MonoBehaviour
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            Debug.Log(json);
+            //Debug.Log(json);
             return JsonUtility.FromJson<DataToStore>(json);
         }
         else

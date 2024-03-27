@@ -97,7 +97,7 @@ public class Spinner : MonoBehaviour
             );
 
             // Utilizamos la posición generada
-            Debug.Log("Posición aleatoria dentro del objeto: " + randomPosition);
+            //Debug.Log("Posición aleatoria dentro del objeto: " + randomPosition);
         }
         else
         {

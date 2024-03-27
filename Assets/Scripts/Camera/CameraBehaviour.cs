@@ -75,7 +75,7 @@ public class CameraBehaviour : MonoBehaviour
         float verticalInput = Input.GetAxis("LeftVertical");
         righthorizontal = Input.GetAxis("L2");
         rightJoystick = Input.GetAxis("RightVertical");
-        Debug.Log("RightJoystick" + rightJoystick);
+        //Debug.Log("RightJoystick" + rightJoystick);
         if(Time.timeScale != 0 && rightJoystick > 0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick + sensitivity / 5.0f; 
         if(Time.timeScale != 0 && rightJoystick < -0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick - sensitivity / 5.0f; 
 

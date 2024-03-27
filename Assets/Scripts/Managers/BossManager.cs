@@ -26,7 +26,9 @@ public class BossManager : MonoBehaviour
     public GameObject tutorialBossModel;
     public HighSchoolBossAnimations highSchoolBossAnimations;
     public GameObject highSchoolBossModel;
+    public DadBossAnimations dadBossAnimations;
     public GameObject dadBossModel;
+    public GameObject auxiliarBoss;
     [Header("Audio")]
 
     public AudioSource bossAudioSource;
@@ -57,7 +59,6 @@ public class BossManager : MonoBehaviour
 
     public GameObject player;
     public GameObject boss;
-    public GameObject auxiliarBoss;
 
     public Transform tutorialMap;
     public float radius;
@@ -189,7 +190,7 @@ public class BossManager : MonoBehaviour
     void Start()
     {
         currentBoss = Settings.actualBoss;
-        Debug.Log(currentBoss);
+        //Debug.Log(currentBoss);
         ActivateBoss(currentBoss);
     }
 
@@ -332,13 +333,17 @@ public class BossManager : MonoBehaviour
                     player.transform.position = playerSpawnPositions[nBoss].position;
                     boss.transform.position = bossSpawnPositions[nBoss].position;
                     boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
-                    Debug.Log("Player: " + player.transform.position + "Position: " + playerSpawnPositions[nBoss].position);
+                    //Debug.Log("Player: " + player.transform.position + "Position: " + playerSpawnPositions[nBoss].position);
                 }
                 Destroy(highSchoolBossAnimations);
                 Destroy(tutorialAnimations);
                 Destroy(tutorialBossModel);
-                Destroy(highSchoolBossModel);
-                dadBossModel.SetActive(true);
+                //Destroy(highSchoolBossModel);
+                highSchoolBossModel.SetActive(true); 
+                dadBossAnimations.enabled = true;
+                dadBossAnimations.animation = dadBossAnimations.model.GetComponent<Animator>();
+                dadBossAnimations.animation.Play(dadBossAnimations.animations[0].name);
+                dadBossAnimations.actualAnimation = dadBossAnimations.animations[0];
                 boss.AddComponent<StartParentsBoss>();
                 boss.GetComponent<StartParentsBoss>().previousEnvironment = firstEnvironment;
                 boss.GetComponent<StartParentsBoss>().previousEnvironmentPosition = previousEnvironmentPosition;
@@ -373,6 +378,8 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().greatAttackArea = greatAttackArea;
                 boss.GetComponent<StartParentsBoss>().greatAttackArea1 = greatAttackArea1;
                 boss.GetComponent<StartParentsBoss>().greatAttackArea2 = greatAttackArea2;
+                boss.GetComponent<StartParentsBoss>().highSchoolBossModel = highSchoolBossModel;
+                boss.GetComponent<StartParentsBoss>().dadBossModel = dadBossModel;
                 boss.GetComponent<StartParentsBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
 
                 break;
@@ -574,7 +581,7 @@ public class BossManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
         string archiveNum = "Archive" + num.ToString(); ;
         File.WriteAllText(Application.streamingAssetsPath + "/" + archiveNum + ".json", json);
-        Debug.Log("Archive " + num.ToString() + " Created");
+        //Debug.Log("Archive " + num.ToString() + " Created");
         //Comença Partida
     }
     public DataToStore LoadPlayerData(int numArchive)
@@ -583,12 +590,12 @@ public class BossManager : MonoBehaviour
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
-            Debug.Log(json);
+            //Debug.Log(json);
             return JsonUtility.FromJson<DataToStore>(json);
         }
         else
         {
-            Debug.LogWarning("No se encontraron datos de jugador guardados.");
+            //Debug.LogWarning("No se encontraron datos de jugador guardados.");
             return null;
         }
     }
