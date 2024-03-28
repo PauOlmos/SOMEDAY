@@ -38,6 +38,16 @@ public class Spike : MonoBehaviour
             Destroy(collision.gameObject);
             if (hp <= 0) Destroy(Prefab);
         }
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Sword")
+        {
+            hp--;
+            if (hp <= 0) Destroy(Prefab);
+        }
     }
 
 }
