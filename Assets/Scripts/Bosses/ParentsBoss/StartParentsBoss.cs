@@ -76,7 +76,7 @@ public class StartParentsBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.GetComponent<EnemyHP>().hp = 20;
+        gameObject.GetComponent<EnemyHP>().hp = 30;
         gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
         if (transitioning)
         {

@@ -62,7 +62,7 @@ public class Spinner : MonoBehaviour
         else
         {
             Color auxColor = Color.Lerp(Color.green, Color.red, delayTimer / delayTime);
-            gameObject.GetComponent<Renderer>().material.color = auxColor;
+            gameObject.GetComponentInChildren<Renderer>().material.color = auxColor;
         }
     }
 

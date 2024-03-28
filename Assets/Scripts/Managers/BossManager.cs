@@ -537,6 +537,9 @@ public class BossManager : MonoBehaviour
                     auxiliarBoss.SetActive(false);
                     auxiliarBoss.tag = "Untagged";
                     boss.GetComponent<DadBoss>().phase++;
+                    boss.GetComponent<DadBoss>().shotgunTimer = 0.0f;
+                    boss.GetComponent<DadBoss>().molotovTimer = 0.0f;
+                    boss.GetComponent<DadBoss>().attackType = DadBoss.AttackType.spinners;
                     boss.GetComponent<DadBoss>().maxNumAttacks = 7;
                     boss.GetComponent<DadBoss>().attackCooldownTime = 4.0f;
                     boss.GetComponent<DadBoss>().delayTime = 1.20f;
