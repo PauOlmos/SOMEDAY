@@ -339,7 +339,8 @@ public class MenuButton : MonoBehaviour
         dataToStore.volume = 0.5f;
         dataToStore.sensitivity = 1;
         dataToStore.FOV = 50.0f;
-        dataToStore.tutorialMessages = true;
+        if(dataToStore.difficulty == 0) dataToStore.tutorialMessages = true;
+        else dataToStore.tutorialMessages = false;
         dataToStore.subtitles = true;
         dataToStore.subtitlesSize = 1;
         dataToStore.healthBar = false;

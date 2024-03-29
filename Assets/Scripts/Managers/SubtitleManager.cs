@@ -24,7 +24,7 @@ public class SubtitleManager : MonoBehaviour
         if(currentAudioClip != null)
         {
             audioTimer += Time.deltaTime;
-            if(audioTimer < currentAudioClip.length && canReproduceAudio == true)
+            if (audioTimer < currentAudioClip.length && canReproduceAudio == true)
             {
                 bossDialogAudioSource.clip = currentAudioClip;
                 if (Settings.subtitles == true)
@@ -33,8 +33,12 @@ public class SubtitleManager : MonoBehaviour
                     subtitles.text = subtitleText;
                     subtitles.fontSize = 8 + Settings.subtitlesSize * 14;
                 }
-               
-                if(!bossDialogAudioSource.isPlaying) bossDialogAudioSource.Play();
+
+                if (!bossDialogAudioSource.isPlaying)
+                {
+                    bossDialogAudioSource.Play();
+                    bossDialogAudioSource.loop = false;
+                }
             }
             else
             {
