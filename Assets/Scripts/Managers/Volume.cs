@@ -7,7 +7,11 @@ public class Volume : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        AudioListener[] allAudioListeners = FindObjectsOfType<AudioListener>();
+        foreach(AudioListener a in allAudioListeners)
+        {
+            Debug.Log(a.gameObject.name);
+        }
     }
 
     // Update is called once per frame

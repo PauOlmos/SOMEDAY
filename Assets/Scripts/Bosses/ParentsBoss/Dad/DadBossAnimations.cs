@@ -46,7 +46,6 @@ public class DadBossAnimations : MonoBehaviour
             {
                 if (boss.canAttack == true && actualAnimation != animations[1])
                 {
-                    Debug.Log("DADATTACK!!!!");
                     animation.Play(animations[1].name);
                     actualAnimation = animations[1];
                 }
