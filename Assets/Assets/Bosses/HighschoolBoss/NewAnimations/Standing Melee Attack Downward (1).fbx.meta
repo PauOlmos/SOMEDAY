@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 756373afd44ab184f9ab714efd1736e4
+guid: cbf4e378c78a6714c95739b7dadaf5d9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,18 +33,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: ShootProjectiles
+      name: Attack1
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 20
+      lastFrame: 68
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

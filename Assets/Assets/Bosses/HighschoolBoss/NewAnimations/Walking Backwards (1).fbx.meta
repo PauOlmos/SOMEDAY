@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f068e4023606cdb45a3cc61a46a73585
+guid: 78c0b5b577b8caa4f9a0d8cd2264ea5d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: MeleeAttack2
+      name: WalkBackwards
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 95
+      lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
