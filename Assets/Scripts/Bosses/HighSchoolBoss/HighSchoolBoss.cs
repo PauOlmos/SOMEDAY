@@ -390,6 +390,7 @@ public class HighSchoolBoss : MonoBehaviour
                 }
                 else
                 {
+                    corridorFloor.GetComponent<IsPlayerOnCorridor>().moveTexture = true;
                     gameObject.transform.LookAt(player.transform.position);
                     corridorSpecialAttackTimer += Time.deltaTime;
 

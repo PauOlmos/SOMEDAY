@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 2044453096852795139}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &4285717507744609500
 MeshRenderer:
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2fe3fce07974ca744b3d4687d8723009, type: 2}
+  - {fileID: 2100000, guid: 42765f0df33b0cd48826e4bf5105b3c1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -247,6 +247,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -809828480950454423, guid: a3b6fc582b54b3e4dbfb3da91eb0e602, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2fe3fce07974ca744b3d4687d8723009, type: 2}
     - target: {fileID: 919132149155446097, guid: a3b6fc582b54b3e4dbfb3da91eb0e602, type: 3}
       propertyPath: m_Name
       value: Walking
