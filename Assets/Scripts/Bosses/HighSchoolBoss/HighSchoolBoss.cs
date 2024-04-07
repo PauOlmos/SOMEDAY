@@ -159,8 +159,12 @@ public class HighSchoolBoss : MonoBehaviour
     public AudioSource bossAudioSource;
     public AudioSource bossDialogAudioSource;
     public AudioClip[] highSchoolBossAudios;
+    public AudioClip[] highSchoolBossDialogAudios;
+    public string[] highSchoolBossDialogs;
     public int difficulty;
 
+    public float dialogTimer = 0.0f;
+    public int dialogNum = 0;
     [Header("DifficultySettings")]
 
     public int[] portalWave1nums = { 1, 2, 3 };
@@ -183,6 +187,10 @@ public class HighSchoolBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dialogTimer += Time.deltaTime;
+
+        dialogTimer = Dialogs();
+
         stamina += Time.deltaTime;
         specialAbility += Time.deltaTime;
         switch (phase)
@@ -800,7 +808,23 @@ public class HighSchoolBoss : MonoBehaviour
         }
 
     }
+    public float Dialogs()
+    {
+        if (dialogTimer > 15.0f)
+        {
+            subtitleManagaer.subtitleText = highSchoolBossDialogs[dialogNum];
+            subtitleManagaer.currentAudioClip = highSchoolBossDialogAudios[dialogNum];
+            subtitleManagaer.canReproduceAudio = true;
+            dialogTimer = 0;
+            return dialogTimer;
+        }
+        else
+        {
 
+            dialogNum = Random.Range(0, highSchoolBossDialogAudios.Length - 1);
+            return dialogTimer;
+        }
+    }
     private void SelectCorridorAttack()
     {
         int attack = Random.Range(0, 2);
@@ -812,13 +836,13 @@ public class HighSchoolBoss : MonoBehaviour
                 break;
             case 1:
                 attackType = AttackType.two;
-                handDamage1.AddComponent<Rigidbody>();
+                if(handDamage1.GetComponent<Rigidbody>() == null) handDamage1.AddComponent<Rigidbody>();
                 handDamage1.GetComponent<Rigidbody>().useGravity = false;
 
-                handDamage2.AddComponent<Rigidbody>();
+                if (handDamage2.GetComponent<Rigidbody>() == null) handDamage2.AddComponent<Rigidbody>();
                 handDamage2.GetComponent<Rigidbody>().useGravity = false;
 
-                handDamage3.AddComponent<Rigidbody>();
+                if (handDamage3.GetComponent<Rigidbody>() == null) handDamage3.AddComponent<Rigidbody>();
                 handDamage3.GetComponent<Rigidbody>().useGravity = false;
 
                 weakPoint1.SetActive(true);

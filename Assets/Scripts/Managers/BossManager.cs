@@ -40,6 +40,8 @@ public class BossManager : MonoBehaviour
     public string[] tutorialBossDialogs;
 
     public AudioClip[] highSchoolBossAudios;
+    public AudioClip[] highSchoolBossDialogAudios;
+    public string[] highSchoolBossDialogs;
 
     public SubtitleManager subtitleManagaer;
 
@@ -323,6 +325,9 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().subtitleManagaer = subtitleManagaer;
                 boss.GetComponent<StartHighSchoolBoss>().bossAudioSource = bossAudioSource;
                 boss.GetComponent<StartHighSchoolBoss>().bossDialogAudioSource = bossDialogAudioSource;
+                boss.GetComponent<StartHighSchoolBoss>().highSchoolBossAudios = highSchoolBossAudios;
+                boss.GetComponent<StartHighSchoolBoss>().highSchoolBossDialogAudios = highSchoolBossDialogAudios;
+                boss.GetComponent<StartHighSchoolBoss>().highSchoolBossDialogs = highSchoolBossDialogs;
                 boss.GetComponent<StartHighSchoolBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
 
                 break;
@@ -473,6 +478,11 @@ public class BossManager : MonoBehaviour
                         if (boss.GetComponent<EnemyHP>().hp <= 0)
                         {
                             NextBoss();
+                            bossAudioSource.Stop();
+                            bossAudioSource.clip = tutorialBossDialogAudios[tutorialBossDialogAudios.Length-1];
+                            subtitleManagaer.subtitleText = tutorialBossDialogs[tutorialBossDialogAudios.Length-1];
+                            subtitleManagaer.currentAudioClip = tutorialBossDialogAudios[tutorialBossDialogAudios.Length-1];
+                            subtitleManagaer.canReproduceAudio = true;
                             Destroy(boss.GetComponent<TutorialBoss>());
                         }
                         break;

@@ -92,6 +92,8 @@ public class StartHighSchoolBoss : MonoBehaviour
     public AudioSource bossAudioSource;
     public AudioSource bossDialogAudioSource;
     public AudioClip[] highSchoolBossAudios;
+    public AudioClip[] highSchoolBossDialogAudios;
+    public string[] highSchoolBossDialogs;
     public int difficulty;
     void Start()
     {
@@ -199,6 +201,15 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().foco2 = foco2;
             gameObject.GetComponent<HighSchoolBoss>().monolithWeakPoints = monolithWeakPoints;
             gameObject.GetComponent<HighSchoolBoss>().projectileBossSource = projectileBossSource;
+
+            gameObject.GetComponent<HighSchoolBoss>().subtitleManagaer = subtitleManagaer;
+            gameObject.GetComponent<HighSchoolBoss>().bossAudioSource = bossAudioSource;
+            gameObject.GetComponent<HighSchoolBoss>().bossDialogAudioSource = bossDialogAudioSource;
+            gameObject.GetComponent<HighSchoolBoss>().highSchoolBossAudios = highSchoolBossAudios;
+            gameObject.GetComponent<HighSchoolBoss>().highSchoolBossDialogAudios = highSchoolBossDialogAudios;
+            gameObject.GetComponent<HighSchoolBoss>().highSchoolBossDialogs = highSchoolBossDialogs;
+
+
             gameObject.GetComponent<HighSchoolBoss>().difficulty = difficulty;
             Destroy(gameObject.GetComponent<StartHighSchoolBoss>());
         }

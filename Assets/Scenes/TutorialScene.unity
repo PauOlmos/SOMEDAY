@@ -3011,6 +3011,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 93fc5573acccf5e4b93dc34378f373e4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1044472851}
     - targetCorrespondingSourceObject: {fileID: 2563496969622287784, guid: 93fc5573acccf5e4b93dc34378f373e4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 212219330}
@@ -8401,8 +8404,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212219329}
   m_LocalRotation: {x: 0.48307225, y: -0.41262352, z: 0.48035088, w: -0.60468674}
-  m_LocalPosition: {x: 0.6803825, y: 1.3279328, z: -0.05495534}
-  m_LocalScale: {x: 0.22477278, y: 0.15900216, z: 2.5481713}
+  m_LocalPosition: {x: 0.889, y: 1.362, z: 0.17}
+  m_LocalScale: {x: 0.22477278, y: 0.040928744, z: 2.5229487}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 52259726}
@@ -8449,7 +8452,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 97525c15761ffa64583791900d0ed12e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19992,6 +19995,25 @@ MonoBehaviour:
   - "Muy bien\u2026 salgamos de este agujero. \xA1Ahora ya puedo ser libre! \xA1Yo
     tengo el control! \xA1Yo soy todoo! "
   highSchoolBossAudios: []
+  highSchoolBossDialogAudios:
+  - {fileID: 8300000, guid: 7f2986a15fa3be84eb94591a26a986c4, type: 3}
+  - {fileID: 8300000, guid: 792f436a4d52f0d4b999c1c241c86686, type: 3}
+  - {fileID: 8300000, guid: ee1b08975108bc340886ee5be18e9a0a, type: 3}
+  - {fileID: 8300000, guid: d720e38eac1fd1b4f9028b80f69b7aa8, type: 3}
+  - {fileID: 8300000, guid: 5d790584c0fa3f0439d7929af10cd315, type: 3}
+  - {fileID: 8300000, guid: 93e6dce4b412b564492dea819aa0d150, type: 3}
+  - {fileID: 8300000, guid: a38f3c869ae7cc6408fa998f9c95a63d, type: 3}
+  - {fileID: 8300000, guid: 70f182f115a824c45add0f89f79a249a, type: 3}
+  highSchoolBossDialogs:
+  - You remember this, don't you?
+  - Do you know where we are?
+  - Do you think you can run away from me?
+  - I am going to crush you little kid!
+  - Fatass! Monster! Dumbo! ...You are worthless...
+  - Your parents don't love you... Even less we want you here
+  - You will never be anything in your entire life!
+  - '*Tired sounds* Okay... Do you think you''ve done something? That you can defeat
+    me? You still don''t know what you have left.'
   subtitleManagaer: {fileID: 265395621}
   audioTransitions:
   - {fileID: 8300000, guid: 4346a6f24c0147942a6c673eec7bf188, type: 3}
@@ -20108,7 +20130,7 @@ MonoBehaviour:
   lightTarget2: {fileID: 777466341}
   foco1: {fileID: 1786447036}
   foco2: {fileID: 114612347}
-  projectileBossSource: {fileID: 0}
+  projectileBossSource: {fileID: 1044472850}
   monolithWeakPoints:
   - {fileID: 280953747}
   - {fileID: 359262801}
@@ -46632,6 +46654,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1474949198}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1044472850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1044472851}
+  m_Layer: 0
+  m_Name: ProjectileSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1044472851
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044472850}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.06, z: -2.59}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 52259723}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1049714476
@@ -83052,7 +83105,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754425188}
-  m_LocalRotation: {x: 0.22652903, y: -9.2354973e-17, z: 8.3385636e-17, w: 0.97400445}
+  m_LocalRotation: {x: 0.22652903, y: 9.2354973e-17, z: -8.3385636e-17, w: 0.97400445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -83215,9 +83268,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7862391691550088030, guid: f7c60e4fe6c3e2344b02958b67731297, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f7c60e4fe6c3e2344b02958b67731297, type: 3}
       propertyPath: m_Name
       value: Door2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f7c60e4fe6c3e2344b02958b67731297, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4407187375235809858, guid: f7c60e4fe6c3e2344b02958b67731297, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -83235,16 +83296,44 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4fc633e8098c6914eb27d51c399ed7d1, type: 2}
+    - target: {fileID: 8487167654232718067, guid: f7c60e4fe6c3e2344b02958b67731297, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f7c60e4fe6c3e2344b02958b67731297, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1759268530}
   m_SourcePrefab: {fileID: 100100000, guid: f7c60e4fe6c3e2344b02958b67731297, type: 3}
 --- !u!4 &1759268528 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f7c60e4fe6c3e2344b02958b67731297, type: 3}
   m_PrefabInstance: {fileID: 1759268527}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1759268529 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f7c60e4fe6c3e2344b02958b67731297, type: 3}
+  m_PrefabInstance: {fileID: 1759268527}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &1759268530
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759268529}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1759489321
 GameObject:
   m_ObjectHideFlags: 0
@@ -85388,8 +85477,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
   m_CollectObjects: 1
-  m_Size: {x: 21.42, y: 10, z: 52.89}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Size: {x: 14.3104515, y: 10, z: 41.68068}
+  m_Center: {x: -2.2226658, y: 2, z: -2.0650015}
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 72

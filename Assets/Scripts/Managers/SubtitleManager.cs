@@ -36,7 +36,7 @@ public class SubtitleManager : MonoBehaviour
 
                 if (!bossDialogAudioSource.isPlaying)
                 {
-                    bossDialogAudioSource.Play();
+                    bossDialogAudioSource.PlayOneShot(bossDialogAudioSource.clip);
                     bossDialogAudioSource.loop = false;
                 }
             }
