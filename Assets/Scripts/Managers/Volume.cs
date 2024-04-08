@@ -17,6 +17,7 @@ public class Volume : MonoBehaviour
         {
             SetGlobalVolume(Settings.volume);
         }
+        SetGlobalTimeVolume();
     }
     public static void SetGlobalVolume(float volume)
     {
@@ -28,6 +29,17 @@ public class Volume : MonoBehaviour
         {
             // Clamp the volume between 0 and 1
             audioSource.volume = Mathf.Clamp01(volume);
+        }
+    }
+
+    void SetGlobalTimeVolume()
+    {
+        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+        foreach (AudioSource audioSource in allAudioSources)
+        {
+            if(audioSource.name != "AmbienceAudioSource") audioSource.pitch = Time.timeScale;
+            // Clamp the volume between 0 and 1
+
         }
     }
 
