@@ -30,7 +30,10 @@ public class BossManager : MonoBehaviour
     public GameObject dadBossModel;
     public MomBossAnimations momBossAnimations;
     public GameObject auxiliarBoss;
+
     [Header("Audio")]
+    public AudioSource ambienceAudioSource;
+    public AudioClip[] ambienceAudios;
 
     public AudioSource bossAudioSource;
     public AudioSource bossDialogAudioSource;
@@ -328,6 +331,9 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().highSchoolBossAudios = highSchoolBossAudios;
                 boss.GetComponent<StartHighSchoolBoss>().highSchoolBossDialogAudios = highSchoolBossDialogAudios;
                 boss.GetComponent<StartHighSchoolBoss>().highSchoolBossDialogs = highSchoolBossDialogs;
+
+                boss.GetComponent<StartHighSchoolBoss>().ambienceAudioSource = ambienceAudioSource;
+                boss.GetComponent<StartHighSchoolBoss>().ambienceAudios = ambienceAudios;
                 boss.GetComponent<StartHighSchoolBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
 
                 break;

@@ -95,8 +95,14 @@ public class StartHighSchoolBoss : MonoBehaviour
     public AudioClip[] highSchoolBossDialogAudios;
     public string[] highSchoolBossDialogs;
     public int difficulty;
+
+    public AudioSource ambienceAudioSource;
+    public AudioClip[] ambienceAudios;
     void Start()
     {
+        bossAudioSource.PlayOneShot(highSchoolBossAudios[13]);
+        ambienceAudioSource.clip = ambienceAudios[1];
+        ambienceAudioSource.Play();
         TutorialWalls.isStatic = false;
         tables = GameObject.FindGameObjectsWithTag("Table");
         wall1.SetActive(true);
@@ -217,6 +223,7 @@ public class StartHighSchoolBoss : MonoBehaviour
 
     public bool CreateClassRoom()
     {
+
         int wallsInPosition = 0;
         agent.enabled = true;
         agent.destination = teacherTable.transform.position;

@@ -205,6 +205,10 @@ public class HighSchoolBoss : MonoBehaviour
                         specialAbility = 0.0f;
                         specialAttacking = true;
                         movState = MovementState.toTable;
+                        bossAudioSource.clip = (highSchoolBossAudios[3]);
+                        bossAudioSource.loop = false;
+
+                        if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
                     }
                     attackCooldownTimer += Time.deltaTime;
                     gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
@@ -224,7 +228,6 @@ public class HighSchoolBoss : MonoBehaviour
                     {
                         case MovementState.hiding:
                             agent.speed = 3.5f;
-
                             agent.updateRotation = false;
                             gameObject.transform.LookAt(player.transform.position);
                             Vector3 direccion = transform.position - player.transform.position;
@@ -236,7 +239,9 @@ public class HighSchoolBoss : MonoBehaviour
                             break;
                         case MovementState.seeking:
                             agent.speed = 3.5f;
-
+                            bossAudioSource.clip = (highSchoolBossAudios[6]);
+                            bossAudioSource.loop = true;
+                            if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
                             agent.updateRotation = true;
                             Vector3 direction = transform.position - player.transform.position;
                             float distanceActual = direction.magnitude;
@@ -404,6 +409,7 @@ public class HighSchoolBoss : MonoBehaviour
 
                     if(corridorSpecialAttackTimer > 20.0f)
                     {
+                        corridorFloor.GetComponent<AudioSource>().PlayOneShot(highSchoolBossAudios[7]);
                         GameObject portal1 = Instantiate(shadowDogPortalPrefab, shadowDogPortalPos1.transform.position, Quaternion.identity);
                         portal1.GetComponent<ShadowDogPortal>().player = player;
                         portal1.GetComponent<ShadowDogPortal>().maxDogsSpawn = difficulty + 1;
@@ -426,10 +432,15 @@ public class HighSchoolBoss : MonoBehaviour
                         switch (attackType)
                         {
                             case AttackType.one:
+
+                                
                                 projectileAttackTimer += Time.deltaTime;
                                 MeleeAttackType = AttackType.shoot;
                                 if(projectileAttackTimer > 0.25f)
                                 {
+                                    bossAudioSource.clip = (highSchoolBossAudios[8]);
+                                    bossAudioSource.loop = false;
+                                    if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
                                     GameObject projectile = Instantiate(projectilePrefab, projectileSource.transform.position, Quaternion.identity);
                                     projectile.AddComponent<SeekingProjectile>();
                                     projectile.GetComponent<SeekingProjectile>().canFail = true;
@@ -482,7 +493,9 @@ public class HighSchoolBoss : MonoBehaviour
                                     corridorAttackCooldownTimer += Time.deltaTime;
                                     if (corridorAttackCooldownTimer > 6.0f)
                                     {
-
+                                        bossAudioSource.clip = (highSchoolBossAudios[10]);
+                                        bossAudioSource.loop = false;
+                                        if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
                                         hand1.transform.RotateAround(handPos1.transform.position, Vector3.forward, Time.deltaTime * 60.0f);
                                         hand1.GetComponent<BoxCollider>().isTrigger = true;
                                         handDamage1.SetActive(false);
@@ -587,6 +600,13 @@ public class HighSchoolBoss : MonoBehaviour
 
                         if (hand1.transform.eulerAngles.z < 271 && hand1.transform.eulerAngles.z > 269)
                         {
+                            if(corridorFloor != null)
+                            {
+                                bossAudioSource.clip = (highSchoolBossAudios[12]);
+                                bossAudioSource.loop = false;
+                                if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
+                            }
+                            
                             Destroy(corridorFloor);
                             gameObject.GetComponent<NavMeshAgent>().enabled = false;
                             if (touchingGround == true)
@@ -599,6 +619,8 @@ public class HighSchoolBoss : MonoBehaviour
                             if (transitionToScenarioTimer > 7.0f)
                             {
                                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                                bossAudioSource.Stop();
+                                bossAudioSource.loop = false;
                                 canMove = true;
                                 transitionToScenario = true;
                                 attackCooldownTimer = 0.0f;
@@ -835,6 +857,9 @@ public class HighSchoolBoss : MonoBehaviour
                 numProjectilesShot = 0;
                 break;
             case 1:
+                bossAudioSource.clip = (highSchoolBossAudios[9]);
+                bossAudioSource.loop = false;
+                if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
                 attackType = AttackType.two;
                 if(handDamage1.GetComponent<Rigidbody>() == null) handDamage1.AddComponent<Rigidbody>();
                 handDamage1.GetComponent<Rigidbody>().useGravity = false;
@@ -889,6 +914,11 @@ public class HighSchoolBoss : MonoBehaviour
         else gameObject.transform.position = corridorPos.transform.position;
         if (wall4.transform.position.x < 11.5f)
         {
+            if (wall4.GetComponent<AudioSource>().isPlaying == false)
+            {
+                wall4.GetComponent<AudioSource>().Play();
+                bossAudioSource.loop = true;
+            }
             wall4.transform.Translate(Time.deltaTime * 2.0f, 0, 0);
         }
         wall4.tag = "NonParryable";
@@ -916,6 +946,8 @@ public class HighSchoolBoss : MonoBehaviour
         {
             wall4.tag = "Untagged";
             wall4.layer = 3;
+            wall4.GetComponent<AudioSource>().Stop();
+            wall4.GetComponent<AudioSource>().loop = false;
             transitionToCorridor = true;
             attackType = AttackType.reset;
             corridorFloor.GetComponent<NavMeshSurface>().BuildNavMesh();
@@ -1084,6 +1116,7 @@ public class HighSchoolBoss : MonoBehaviour
 
         if (armari1.transform.position.y < 0.51f || armari2.transform.position.y < 0.51f)
         {
+            armari1.GetComponent<AudioSource>().Play();
             specialAttackPhase = AttackType.reset;
         }
     }
@@ -1214,16 +1247,24 @@ public class HighSchoolBoss : MonoBehaviour
     }
     public bool AttackThreeTimes()
     {
+        agent.destination = gameObject.transform.position;
         proximityAreaTimer += Time.deltaTime;
-        if (MeleeAttackType == AttackType.reset) MeleeAttackType = AttackType.one;
+        if (MeleeAttackType == AttackType.reset)
+        {
+            bossAudioSource.clip = (highSchoolBossAudios[0]);
+            bossAudioSource.loop = false;
+            if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
+            MeleeAttackType = AttackType.one;
+        }
         if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == false && firstDone == false)
         {
             proximityArea.SetActive(true);
             proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             proximityArea.tag = "Parryable";
-            agent.destination = player.transform.position;
+            agent.destination = gameObject.transform.position;
 
-            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 40.0f, ForceMode.VelocityChange);
+
+            //gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 40.0f, ForceMode.VelocityChange);
         }
         if (proximityAreaTimer > 0.8f && proximityArea.activeInHierarchy == true && firstDone == false)
         {
@@ -1237,13 +1278,16 @@ public class HighSchoolBoss : MonoBehaviour
             proximityArea.tag = "Parryable";
             firstDone = true; 
             MeleeAttackType = AttackType.two;
+            bossAudioSource.clip = (highSchoolBossAudios[1]);
+            bossAudioSource.loop = false;
+            if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
         }
         if (proximityAreaTimer > 1.5f && proximityArea.activeInHierarchy == false && secondDone == false)
         {
             proximityArea.SetActive(true);
             proximityArea.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             proximityArea.tag = "Parryable";
-            agent.destination = player.transform.position;
+            agent.destination = gameObject.transform.position;
 
             gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 30.0f, ForceMode.VelocityChange);
         }
@@ -1260,6 +1304,9 @@ public class HighSchoolBoss : MonoBehaviour
             proximityArea.SetActive(false);
             firstDone = true;
             MeleeAttackType = AttackType.three;
+            bossAudioSource.clip = (highSchoolBossAudios[2]);
+            bossAudioSource.loop = false;
+            if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
             proximityArea.tag = "Parryable";
             secondDone = true;
         }
@@ -1292,14 +1339,22 @@ public class HighSchoolBoss : MonoBehaviour
     private bool AttackTwice()
     {
         proximityAreaTimer += Time.deltaTime;
-        //gameObject.transform.LookAt(player.transform.position);
-        if(MeleeAttackType == AttackType.reset) MeleeAttackType = AttackType.one;
-            if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == false && firstDone == false)
+        agent.destination = gameObject.transform.position;
+        if (MeleeAttackType == AttackType.reset)
+        {
+            bossAudioSource.clip = (highSchoolBossAudios[0]);
+            bossAudioSource.loop = false;
+
+            if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
+            MeleeAttackType = AttackType.one;
+        }
+        if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == false && firstDone == false)
         {
             proximityArea.SetActive(true);
             proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             proximityArea.tag = "Parryable";
-            agent.destination = player.transform.position;
+            agent.destination = gameObject.transform.position;
+
             gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 40.0f, ForceMode.VelocityChange);
         }
         if (proximityAreaTimer > 0.8f && proximityArea.activeInHierarchy == true && firstDone == false)
@@ -1314,13 +1369,17 @@ public class HighSchoolBoss : MonoBehaviour
             proximityArea.tag = "Parryable";
             firstDone = true;
             MeleeAttackType = AttackType.two;
+            bossAudioSource.clip = (highSchoolBossAudios[1]);
+            bossAudioSource.loop = false;
+
+            if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
         }
         if (proximityAreaTimer > 1.5f && proximityArea.activeInHierarchy == false)
         {
             proximityArea.SetActive(true);
             proximityArea.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             proximityArea.tag = "Parryable";
-            agent.destination = player.transform.position;
+            agent.destination = gameObject.transform.position;
             gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 30.0f, ForceMode.VelocityChange);
         }
         if (proximityAreaTimer > 1.9f && proximityArea.activeInHierarchy == true)
@@ -1349,6 +1408,10 @@ public class HighSchoolBoss : MonoBehaviour
     }
     public bool AttackOnce()
     {
+        bossAudioSource.clip = (highSchoolBossAudios[0]);
+        bossAudioSource.loop = false;
+        agent.destination = gameObject.transform.position;
+        if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
         proximityAreaTimer += Time.deltaTime;
         MeleeAttackType = AttackType.one;
         if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == false)
@@ -1356,8 +1419,10 @@ public class HighSchoolBoss : MonoBehaviour
             proximityArea.SetActive(true);
             proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             proximityArea.tag = "Parryable";
-            agent.destination = gameObject.transform.forward * 2;
-            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 40.0f, ForceMode.VelocityChange);
+            agent.destination = gameObject.transform.position;
+
+            //agent.destination = gameObject.transform.forward * 2;
+            //gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 40.0f, ForceMode.VelocityChange);
         }
         if (proximityAreaTimer > 0.8f && proximityArea.activeInHierarchy == true)
         {
@@ -1401,6 +1466,10 @@ public class HighSchoolBoss : MonoBehaviour
         if (hitsToSuperAttack <= 0 && phase == 0)
         {
             hitsToSuperAttack += 3;
+            bossAudioSource.clip = (highSchoolBossAudios[4]);
+            bossAudioSource.loop = false;
+
+            if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
             attackType = AttackType.portals;
             canMove = false;
             canAttack = true;

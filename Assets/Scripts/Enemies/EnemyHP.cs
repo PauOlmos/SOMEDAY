@@ -56,8 +56,11 @@ public class EnemyHP : MonoBehaviour
     {
         if(gameObject.GetComponent<TutorialBoss>() != null)
         {
-            gameObject.GetComponent<TutorialBoss>().bossAudioSource.clip = (gameObject.GetComponent<TutorialBoss>().tutorialBossAudios[2]);
-            if (gameObject.GetComponent<TutorialBoss>().bossAudioSource.isPlaying == false) gameObject.GetComponent<TutorialBoss>().bossAudioSource.Play();
+            gameObject.GetComponent<TutorialBoss>().bossAudioSource.PlayOneShot(gameObject.GetComponent<TutorialBoss>().tutorialBossAudios[2]);
+        }
+        if(gameObject.GetComponent<HighSchoolBoss>() != null)
+        {
+            gameObject.GetComponent<HighSchoolBoss>().bossAudioSource.PlayOneShot(gameObject.GetComponent<HighSchoolBoss>().highSchoolBossAudios[11]);
         }
     }
 }
