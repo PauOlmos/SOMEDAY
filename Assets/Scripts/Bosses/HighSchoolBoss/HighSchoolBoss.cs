@@ -16,7 +16,7 @@ public class HighSchoolBoss : MonoBehaviour
     public GameObject player;
 
     public bool canMove = true;
-    private float proximityAreaTimer;
+    public float proximityAreaTimer;
     public bool canAttack = false;
 
     public LayerMask Ground;
@@ -832,7 +832,7 @@ public class HighSchoolBoss : MonoBehaviour
     }
     public float Dialogs()
     {
-        if (dialogTimer > 15.0f)
+        if (dialogTimer > 30.0f)
         {
             subtitleManagaer.subtitleText = highSchoolBossDialogs[dialogNum];
             subtitleManagaer.currentAudioClip = highSchoolBossDialogAudios[dialogNum];
@@ -1256,15 +1256,13 @@ public class HighSchoolBoss : MonoBehaviour
             if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
             MeleeAttackType = AttackType.one;
         }
-        if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == false && firstDone == false)
+        if (proximityAreaTimer > 0.65f && proximityArea.activeInHierarchy == false && firstDone == false)
         {
             proximityArea.SetActive(true);
             proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             proximityArea.tag = "Parryable";
             agent.destination = gameObject.transform.position;
 
-
-            //gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 40.0f, ForceMode.VelocityChange);
         }
         if (proximityAreaTimer > 0.8f && proximityArea.activeInHierarchy == true && firstDone == false)
         {
@@ -1289,7 +1287,7 @@ public class HighSchoolBoss : MonoBehaviour
             proximityArea.tag = "Parryable";
             agent.destination = gameObject.transform.position;
 
-            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 30.0f, ForceMode.VelocityChange);
+            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 9.0f, ForceMode.VelocityChange);
         }
         if (proximityAreaTimer > 1.9f && proximityArea.activeInHierarchy == true && secondDone == false)
         {
@@ -1348,14 +1346,14 @@ public class HighSchoolBoss : MonoBehaviour
             if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
             MeleeAttackType = AttackType.one;
         }
-        if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == false && firstDone == false)
+        if (proximityAreaTimer > 0.65f && proximityArea.activeInHierarchy == false && firstDone == false)
         {
             proximityArea.SetActive(true);
             proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             proximityArea.tag = "Parryable";
             agent.destination = gameObject.transform.position;
 
-            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 40.0f, ForceMode.VelocityChange);
+            //gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 9.0f, ForceMode.VelocityChange);
         }
         if (proximityAreaTimer > 0.8f && proximityArea.activeInHierarchy == true && firstDone == false)
         {
@@ -1380,7 +1378,7 @@ public class HighSchoolBoss : MonoBehaviour
             proximityArea.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             proximityArea.tag = "Parryable";
             agent.destination = gameObject.transform.position;
-            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 30.0f, ForceMode.VelocityChange);
+            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 9.0f, ForceMode.VelocityChange);
         }
         if (proximityAreaTimer > 1.9f && proximityArea.activeInHierarchy == true)
         {
@@ -1414,15 +1412,13 @@ public class HighSchoolBoss : MonoBehaviour
         if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
         proximityAreaTimer += Time.deltaTime;
         MeleeAttackType = AttackType.one;
-        if (proximityAreaTimer > 0.5f && proximityArea.activeInHierarchy == false)
+        if (proximityAreaTimer > 0.65f && proximityArea.activeInHierarchy == false)
         {
             proximityArea.SetActive(true);
             proximityArea.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             proximityArea.tag = "Parryable";
             agent.destination = gameObject.transform.position;
 
-            //agent.destination = gameObject.transform.forward * 2;
-            //gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * 40.0f, ForceMode.VelocityChange);
         }
         if (proximityAreaTimer > 0.8f && proximityArea.activeInHierarchy == true)
         {
@@ -1454,7 +1450,7 @@ public class HighSchoolBoss : MonoBehaviour
         {
             attackType = AttackType.one;
         }
-        else if (stamina < 20.0f)
+        else if (stamina < 30.0f)
         {
             attackType = AttackType.two;
         }

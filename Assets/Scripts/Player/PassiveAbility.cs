@@ -39,6 +39,9 @@ public class PassiveAbility : MonoBehaviour
     public int[] difficultyBasedRestoredHp = { 5, 3, 1 };
     public int[] difficultyBasedNecessaryCharge = { 45, 90, 120 };
     public int difficulty;
+    public AudioSource chargeAudioSource;
+    public AudioClip chargedSound;
+    public bool hasSounded = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +60,11 @@ public class PassiveAbility : MonoBehaviour
         if (canCharge)
         {
             if (passiveCharge < necessaryCharge) passiveCharge += Time.deltaTime;
+            else if (hasSounded == false)
+            {
+                hasSounded = true;
+                chargeAudioSource.PlayOneShot(chargedSound);
+            }
         }
         else
         {
@@ -97,6 +105,7 @@ public class PassiveAbility : MonoBehaviour
                                     passiveProjectile.GetComponent<SeekingProjectile>().shotByPlayer = true;
                                     isCharged = false;
                                     passiveCharge = 0;
+                                    hasSounded = false;
                                     shootNow = true;
                                     break;
                                 case passiveType.hp:
@@ -105,7 +114,9 @@ public class PassiveAbility : MonoBehaviour
                                         {
                                             RestoreHp(difficultyBasedRestoredHp[difficulty]);
                                             isCharged = false;
-                                            passiveCharge = 0;
+                                        hasSounded = false;
+
+                                        passiveCharge = 0;
                                             healNow = true;
                                             break;
                                         }

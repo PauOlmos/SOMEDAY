@@ -62,23 +62,26 @@ public class PlayerMovement : MonoBehaviour
         || Physics.Raycast(new Vector3(transform.position.x + 0.35f, transform.position.y, transform.position.z), Vector3.down, playerHeight * 0.5f + 0.2f, Ground)
         || Physics.Raycast(new Vector3(transform.position.x - 0.35f, transform.position.y, transform.position.z), Vector3.down, playerHeight * 0.5f + 0.2f, Ground)
         || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.35f), Vector3.down, playerHeight * 0.5f + 0.2f, Ground)
-        || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.35f), Vector3.down, playerHeight * 0.5f + 0.2f, Ground))
+        || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.35f), Vector3.down, playerHeight * 0.5f + 0.2f, Ground)
+        )
         {
             grounded = true;
-
         }
         else
         {
             grounded = false;
         }
 
+
         if (grounded)
         {
+            gameObject.GetComponentInChildren<BoxCollider>().size = new Vector3(gameObject.GetComponentInChildren<BoxCollider>().size.x, 1.5f, gameObject.GetComponentInChildren<BoxCollider>().size.z);
             rb.drag = groundDrag;
         }
         else
         {
-            rb.drag = groundDrag / 1.5f;
+            gameObject.GetComponentInChildren<BoxCollider>().size = new Vector3(gameObject.GetComponentInChildren<BoxCollider>().size.x, 0.5f, gameObject.GetComponentInChildren<BoxCollider>().size.z);
+            rb.drag = groundDrag / 1.1f;
         }
 
         if(Time.timeScale != 0) Inputs();
