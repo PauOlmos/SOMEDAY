@@ -440,7 +440,7 @@ public class HighSchoolBoss : MonoBehaviour
                                 {
                                     bossAudioSource.clip = (highSchoolBossAudios[8]);
                                     bossAudioSource.loop = false;
-                                    if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
+                                    bossAudioSource.Play();
                                     GameObject projectile = Instantiate(projectilePrefab, projectileSource.transform.position, Quaternion.identity);
                                     projectile.AddComponent<SeekingProjectile>();
                                     projectile.GetComponent<SeekingProjectile>().canFail = true;

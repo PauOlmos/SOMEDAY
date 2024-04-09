@@ -501,14 +501,14 @@ public class BossManager : MonoBehaviour
                     switch (boss.GetComponent<HighSchoolBoss>().phase)
                     {
                         case 0:
-                            if (boss.GetComponent<EnemyHP>().hp < 85)
+                            if (boss.GetComponent<EnemyHP>().hp < 90)
                             {
                                 boss.GetComponent<EnemyHP>().canBeDamaged = false;
                                 boss.GetComponent<HighSchoolBoss>().phase++;
                             }
                             break;
                         case 1:
-                            if (boss.GetComponent<EnemyHP>().hp < 70)
+                            if (boss.GetComponent<EnemyHP>().hp < 80)
                             {
                                 boss.GetComponent<EnemyHP>().canBeDamaged = true;
                                 boss.GetComponent<HighSchoolBoss>().phase++;

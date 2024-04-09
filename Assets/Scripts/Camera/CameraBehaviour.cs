@@ -64,6 +64,7 @@ public class CameraBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gameObject.GetComponent<CinemachineFreeLook>().m_XAxis.m_MaxSpeed = 1;
         numBosses = CountBosses();
         allBosses = AllBosses();
         sensitivity = Settings.sensitivity;
@@ -76,16 +77,16 @@ public class CameraBehaviour : MonoBehaviour
         righthorizontal = Input.GetAxis("L2");
         rightJoystick = Input.GetAxis("RightVertical");
         //Debug.Log("RightJoystick" + rightJoystick);
-        if(Time.timeScale != 0 && rightJoystick > 0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick + sensitivity / 5.0f; 
-        if(Time.timeScale != 0 && rightJoystick < -0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick - sensitivity / 5.0f; 
+        if(Time.timeScale != 0 && rightJoystick > 0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick + sensitivity / 15.0f; 
+        if(Time.timeScale != 0 && rightJoystick < -0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick - sensitivity / 15.0f; 
 
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         gameObject.GetComponent<CinemachineFreeLook>().m_Lens.FieldOfView = Settings.fov;
 
-        if (inputDir != Vector3.zero && pMov.pStatus != PlayerMovement.playerState.dashing)
+        if (pMov.pStatus != PlayerMovement.playerState.dashing)
         {
-            objectiveObj.forward = Vector3.Slerp(objectiveObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed * sensitivity);
+            objectiveObj.forward = Vector3.Slerp(objectiveObj.forward, inputDir, Time.deltaTime * rotationSpeed * sensitivity);
         }
 
         if (Input.GetButtonDown("LockBoss"))
