@@ -201,7 +201,12 @@ public class BossManager : MonoBehaviour
     public GameObject auxiliarLight2;
 
     public GameObject ageCorridor;
-
+    public Transform[] bossTrail;
+    public GameObject streetFloor;
+    public GameObject street;
+    public GameObject car;
+    public Transform carDriversPosition;
+    public Transform[] carTrail;
 
     public int difficulty;
     void Start()
@@ -458,6 +463,21 @@ public class BossManager : MonoBehaviour
                 }
                 brotherBossModel.SetActive(true);
                 boss.AddComponent<StartBrotherBoss>();
+                boss.GetComponent<StartBrotherBoss>().player = player;
+                boss.GetComponent<StartBrotherBoss>().houseDoor1 = houseDoor1;
+                boss.GetComponent<StartBrotherBoss>().houseDoor2 = houseDoor2;
+                boss.GetComponent<StartBrotherBoss>().houseDoorPosition1 = houseDoorPosition1;
+                boss.GetComponent<StartBrotherBoss>().houseDoorPosition2 = houseDoorPosition2;
+                boss.GetComponent<StartBrotherBoss>().bossTrail = bossTrail;
+                boss.GetComponent<StartBrotherBoss>().isPlayerOnStreet = streetFloor.GetComponent<IsPlayerOnStreet>();
+                boss.GetComponent<StartBrotherBoss>().streetsFloor = streetFloor.GetComponent<NavMeshSurface>();
+                boss.GetComponent<StartBrotherBoss>().streets = street;
+                boss.GetComponent<StartBrotherBoss>().ageCorridor = ageCorridor;
+                boss.GetComponent<StartBrotherBoss>().car = car;
+                boss.GetComponent<StartBrotherBoss>().carDriversPosition = carDriversPosition;
+                boss.GetComponent<StartBrotherBoss>().carTrail = carTrail;
+
+
 
                 break;
 
