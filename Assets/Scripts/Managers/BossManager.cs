@@ -29,7 +29,10 @@ public class BossManager : MonoBehaviour
     public DadBossAnimations dadBossAnimations;
     public GameObject dadBossModel;
     public MomBossAnimations momBossAnimations;
-    public GameObject auxiliarBoss;
+    public GameObject momBossModel;
+
+    public GameObject brotherBossModel;
+    public GameObject auxiliarBrotherBossModel;
 
     [Header("Audio")]
     public AudioSource ambienceAudioSource;
@@ -192,6 +195,14 @@ public class BossManager : MonoBehaviour
     public GameObject greatAttackArea2;
 
     public GameObject auxiliarLight;
+
+    [Header("BrotherBoss")]
+
+    public GameObject auxiliarLight2;
+
+    public GameObject ageCorridor;
+
+
     public int difficulty;
     void Start()
     {
@@ -375,7 +386,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().houseDoorPosition1 = houseDoorPosition1;
                 boss.GetComponent<StartParentsBoss>().houseDoorPosition2 = houseDoorPosition2;
                 boss.GetComponent<StartParentsBoss>().isPlayerAtHome = isPlayerAtHome;
-                boss.GetComponent<StartParentsBoss>().momBoss = auxiliarBoss;
+                boss.GetComponent<StartParentsBoss>().momBoss = momBossModel;
                 boss.GetComponent<StartParentsBoss>().floor = houseFloor;
                 boss.GetComponent<StartParentsBoss>().center = houseCenter;
                 boss.GetComponent<StartParentsBoss>().mainDadProjectileSource = mainDadProjectileSource;
@@ -400,6 +411,56 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
 
                 break;
+
+            case 3:
+
+                if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
+                {
+                    parentsHouse.transform.position = new Vector3(38.2999992f, -49.5260925f, -59.7000008f);
+                    parentsHouse.SetActive(true);
+                    Destroy(firstEnvironment);
+                    player.SetActive(false);
+                    boss.SetActive(false);
+                    player.transform.position = playerSpawnPositions[nBoss].position;
+                    player.SetActive(true);
+                    boss.transform.position = bossSpawnPositions[nBoss].position;
+                    boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+                    boss.SetActive(true);
+
+
+                    //Debug.Log("Player: " + player.transform.position + "Position: " + playerSpawnPositions[nBoss].position);
+                }
+
+                lights[nBoss].SetActive(true);
+                auxiliarLight2.SetActive(true);
+                ageCorridor.SetActive(true);
+                Destroy(scenarioFloor);
+                if(boss.name == "Boss")
+                {
+                    if (tutorialAnimations != null) Destroy(tutorialAnimations);
+                    if (highSchoolBossAnimations != null) Destroy(highSchoolBossAnimations);
+                    if (dadBossAnimations != null) Destroy(dadBossAnimations);
+                    if (tutorialBossModel != null) Destroy(tutorialBossModel);
+                    if (highSchoolBossModel != null) Destroy(highSchoolBossModel);
+                    if (dadBossModel != null) Destroy(dadBossModel);
+                    if (dadBossAnimations != null) Destroy(dadBossAnimations);
+                    if (momBossModel != null) Destroy(momBossModel);
+                }
+                else if(boss.name == "Mom")
+                {
+                    if (boss.GetComponent<MomBossAnimations>() != null) Destroy(boss.GetComponent<MomBossAnimations>().model);
+                    if (momBossAnimations != null) Destroy(momBossAnimations);
+                    if (greatAttackArea != null) Destroy(greatAttackArea);
+                    if (circularArea != null) Destroy(circularArea);
+                    if (coneArea != null) Destroy(coneArea);
+                    boss.name = "Boss";
+                    brotherBossModel = auxiliarBrotherBossModel;
+                }
+                brotherBossModel.SetActive(true);
+                boss.AddComponent<StartBrotherBoss>();
+
+                break;
+
                 default: break;
         }
     }
@@ -528,30 +589,29 @@ public class BossManager : MonoBehaviour
 
             case 2:
 
-                if(auxiliarBoss.GetComponent<EnemyHP>().hp <= 0 && boss.GetComponent<EnemyHP>().hp <= 0)
+                if(momBossModel.GetComponent<EnemyHP>().hp <= 0 && boss.GetComponent<EnemyHP>().hp <= 0)
                 {
-                    if (auxiliarBoss.activeInHierarchy == true)
+                    if (momBossModel.activeInHierarchy == true)
                     {
-                        Destroy(auxiliarBoss.GetComponent<MomBoss>());
+                        Destroy(momBossModel.GetComponent<MomBoss>());
                         Destroy(boss);
-                        boss = auxiliarBoss;
+                        boss = momBossModel;
                         
                     }
                     else {
 
                         Destroy(boss.GetComponent<DadBoss>());
-                        Destroy(auxiliarBoss); 
+                        Destroy(momBossModel); 
 
                     }
-                    boss.name = "Boss";
                     NextBoss();
                     break;
                 }
 
-                if (auxiliarBoss.GetComponent<EnemyHP>().hp <= 0 && boss.GetComponent<DadBoss>().phase == 0 && boss.activeInHierarchy == true)
+                if (momBossModel.GetComponent<EnemyHP>().hp <= 0 && boss.GetComponent<DadBoss>().phase == 0 && boss.activeInHierarchy == true)
                 {
-                    auxiliarBoss.SetActive(false);
-                    auxiliarBoss.tag = "Untagged";
+                    momBossModel.SetActive(false);
+                    momBossModel.tag = "Untagged";
                     boss.GetComponent<DadBoss>().phase++;
                     boss.GetComponent<DadBoss>().shotgunTimer = 0.0f;
                     boss.GetComponent<DadBoss>().molotovTimer = 0.0f;
@@ -561,14 +621,14 @@ public class BossManager : MonoBehaviour
                     boss.GetComponent<DadBoss>().delayTime = 1.20f;
                     mainDadProjectileSource.gameObject.SetActive(false);
                 }
-                if(boss.GetComponent<EnemyHP>().hp <= 0 && auxiliarBoss.GetComponent<MomBoss>().phase == 0 && auxiliarBoss.activeInHierarchy == true)
+                if(boss.GetComponent<EnemyHP>().hp <= 0 && momBossModel.GetComponent<MomBoss>().phase == 0 && momBossModel.activeInHierarchy == true)
                 {
                     boss.SetActive(false);
                     boss.tag = "Untagged";
-                    auxiliarBoss.GetComponent<MomBoss>().phase++;
-                    auxiliarBoss.GetComponent<MomBoss>().delayTime = 2.15f;
-                    auxiliarBoss.GetComponent<MomBoss>().maxNumAttacks = 5;
-                    auxiliarBoss.GetComponent<MomBoss>().movSpeed = 5.5f;
+                    momBossModel.GetComponent<MomBoss>().phase++;
+                    momBossModel.GetComponent<MomBoss>().delayTime = 2.15f;
+                    momBossModel.GetComponent<MomBoss>().maxNumAttacks = 5;
+                    momBossModel.GetComponent<MomBoss>().movSpeed = 5.5f;
                 }
 
                 break;

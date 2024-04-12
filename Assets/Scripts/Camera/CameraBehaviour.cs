@@ -140,7 +140,7 @@ public class CameraBehaviour : MonoBehaviour
             case cameraState.onBoss:
                 AbilityAttack();
                 if(boss != null) CameraLimits(45, Angulo(objective, boss.transform), false);
-                bosslockDot.transform.position = mainCamera.GetComponent<Camera>().WorldToScreenPoint(boss.transform.position);
+                if(boss != null) bosslockDot.transform.position = mainCamera.GetComponent<Camera>().WorldToScreenPoint(boss.transform.position);
                 break;
             case cameraState.onPosition:
 
