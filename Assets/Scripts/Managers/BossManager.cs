@@ -213,6 +213,7 @@ public class BossManager : MonoBehaviour
 
     public GameObject clone;
 
+    public Transform[] randomMapPositions;
     public int difficulty;
     void Start()
     {
@@ -488,6 +489,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().clone2Position = clone2Position;
                 boss.GetComponent<StartBrotherBoss>().proximityAreaAttack = proximityArea;
                 boss.GetComponent<StartBrotherBoss>().brotherBossModel = brotherBossModel;
+                boss.GetComponent<StartBrotherBoss>().randomMapPositions = randomMapPositions;
 
 
 

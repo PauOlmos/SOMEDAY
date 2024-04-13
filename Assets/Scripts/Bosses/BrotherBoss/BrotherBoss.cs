@@ -16,6 +16,13 @@ public class BrotherBoss : MonoBehaviour
         trio, circle, walls
     }
 
+    public enum MovementState
+    {
+        seeking, hiding,
+    }
+
+    public MovementState mState = MovementState.seeking;
+
     public AttackType attackType;
 
     public bool attackSelected = false;
@@ -46,7 +53,8 @@ public class BrotherBoss : MonoBehaviour
     public Transform streets;
     public GameObject brotherBossModel;
 
-
+    public Transform[] randomMapPositions;
+    public float getPositionTimer = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,25 +76,51 @@ public class BrotherBoss : MonoBehaviour
             case 0:
                 if (canMove)
                 {
-                    gameObject.GetComponent<NavMeshAgent>().destination = player.transform.position;
-                    cooldownTimer += Time.deltaTime;
-                    if (cooldownTimer > attackCooldown && attackSelected == false)
+                    switch (mState)
                     {
-                        SelectAttack();
+                        case MovementState.seeking:
+
+                            gameObject.GetComponent<NavMeshAgent>().destination = player.transform.position;
+                            cooldownTimer += Time.deltaTime;
+                            if (cooldownTimer > attackCooldown && attackSelected == false)
+                            {
+                                SelectAttack();
+                            }
+                            else if (attackSelected == true)
+                            {
+                                if (attackType == AttackType.trio && Vector3.Distance(gameObject.transform.position, player.transform.position) < 25.0f)
+                                {
+                                    canMove = false;
+                                    canAttack = true;
+                                }
+                                if (attackType == AttackType.circle)
+                                {
+                                    canMove = false;
+                                    canAttack = false;
+                                }
+                            }
+
+                            break;
+                        case MovementState.hiding:
+                            cooldownTimer += Time.deltaTime;
+                            getPositionTimer += Time.deltaTime;
+                            if(getPositionTimer > 5.0f || Vector3.Distance(gameObject.transform.position, gameObject.GetComponent<NavMeshAgent>().destination) < 1.0f)
+                            {
+                                getPositionTimer = 0.0f;
+                                gameObject.GetComponent<NavMeshAgent>().destination = randomMapPositions[Random.Range(0, randomMapPositions.Length)].position;
+                            }
+
+                            if(cooldownTimer > 7.5f)
+                            {
+                                getPositionTimer = 0.0f;
+                                mState = MovementState.seeking;
+                                cooldownTimer = 0.0f;
+                                gameObject.GetComponent<NavMeshAgent>().destination = player.transform.position;
+                            }
+
+                            break;
                     }
-                    else if (attackSelected == true)
-                    {
-                        if (attackType == AttackType.trio && Vector3.Distance(gameObject.transform.position, player.transform.position) < 25.0f)
-                        {
-                            canMove = false;
-                            canAttack = true;
-                        }
-                        if (attackType == AttackType.circle)
-                        {
-                            canMove = false;
-                            canAttack = false;
-                        }
-                    }
+                    
                 }
                 if (canAttack)
                 {
@@ -97,7 +131,6 @@ public class BrotherBoss : MonoBehaviour
                             if (attack1Timer == 0.0f)
                             {
                                 gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
-                                Debug.Log("CreateClonesPlz");
                                 GameObject clone1 = Instantiate(clone, clone1Position.position, Quaternion.identity);
                                 clone1.GetComponent<CloneDash>().timeToDash = attack1Cooldown;
                                 clone1.GetComponent<CloneDash>().player = player;
@@ -151,6 +184,8 @@ public class BrotherBoss : MonoBehaviour
                                     gameObject.GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
                                     cooldownTimer = 0.0f;
                                     canMove = true;
+                                    mState = MovementState.hiding;
+                                    getPositionTimer = 5.0f;
                                     canAttack = false;
                                 }
                             }
@@ -172,7 +207,9 @@ public class BrotherBoss : MonoBehaviour
                         gameObject.GetComponent<CapsuleCollider>().isTrigger = true;
                         gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
                         stunTimer = 0.0f;
+                        getPositionTimer = 5.0f;
                         gameObject.GetComponent<EnemyHP>().stun = false;
+                        mState = MovementState.hiding;
                         canMove = true;
                     }
                     else

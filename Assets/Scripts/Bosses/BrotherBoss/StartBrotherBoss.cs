@@ -38,6 +38,7 @@ public class StartBrotherBoss : MonoBehaviour
     public GameObject proximityAreaAttack;
     public GameObject brotherBossModel;
 
+    public Transform[] randomMapPositions;
     public enum TransitionState
     {
         start, moving, waiting, driving, startBossFight 
@@ -146,6 +147,7 @@ public class StartBrotherBoss : MonoBehaviour
                     gameObject.GetComponent<BrotherBoss>().clone2Position = clone2Position;
                     gameObject.GetComponent<BrotherBoss>().proximityAreaAttack = proximityAreaAttack;
                     gameObject.GetComponent<BrotherBoss>().brotherBossModel = brotherBossModel;
+                    gameObject.GetComponent<BrotherBoss>().randomMapPositions = randomMapPositions;
                     Destroy(gameObject.GetComponent<StartBrotherBoss>());
                 }
 
