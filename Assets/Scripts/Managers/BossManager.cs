@@ -208,6 +208,11 @@ public class BossManager : MonoBehaviour
     public Transform carDriversPosition;
     public Transform[] carTrail;
 
+    public Transform clone1Position;
+    public Transform clone2Position;
+
+    public GameObject clone;
+
     public int difficulty;
     void Start()
     {
@@ -476,6 +481,13 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().car = car;
                 boss.GetComponent<StartBrotherBoss>().carDriversPosition = carDriversPosition;
                 boss.GetComponent<StartBrotherBoss>().carTrail = carTrail;
+
+                boss.GetComponent<StartBrotherBoss>().clone = clone;
+                boss.GetComponent<StartBrotherBoss>().clone1Position = clone1Position;
+
+                boss.GetComponent<StartBrotherBoss>().clone2Position = clone2Position;
+                boss.GetComponent<StartBrotherBoss>().proximityAreaAttack = proximityArea;
+                boss.GetComponent<StartBrotherBoss>().brotherBossModel = brotherBossModel;
 
 
 
