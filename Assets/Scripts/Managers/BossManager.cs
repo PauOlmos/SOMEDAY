@@ -212,6 +212,7 @@ public class BossManager : MonoBehaviour
     public Transform clone2Position;
 
     public GameObject clone;
+    public GameObject cloneWall;
 
     public Transform[] randomMapPositions;
     public int difficulty;
@@ -484,6 +485,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().carTrail = carTrail;
 
                 boss.GetComponent<StartBrotherBoss>().clone = clone;
+                boss.GetComponent<StartBrotherBoss>().cloneWall = cloneWall;
                 boss.GetComponent<StartBrotherBoss>().clone1Position = clone1Position;
 
                 boss.GetComponent<StartBrotherBoss>().clone2Position = clone2Position;

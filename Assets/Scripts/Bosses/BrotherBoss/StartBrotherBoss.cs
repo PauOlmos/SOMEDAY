@@ -37,6 +37,7 @@ public class StartBrotherBoss : MonoBehaviour
     public GameObject clone;
     public GameObject proximityAreaAttack;
     public GameObject brotherBossModel;
+    public GameObject cloneWall;
 
     public Transform[] randomMapPositions;
     public enum TransitionState
@@ -143,6 +144,7 @@ public class StartBrotherBoss : MonoBehaviour
                     gameObject.GetComponent<BrotherBoss>().player = player;
                     gameObject.GetComponent<BrotherBoss>().streets = streets.transform;
                     gameObject.GetComponent<BrotherBoss>().clone = clone;
+                    gameObject.GetComponent<BrotherBoss>().cloneWall = cloneWall;
                     gameObject.GetComponent<BrotherBoss>().clone1Position = clone1Position;
                     gameObject.GetComponent<BrotherBoss>().clone2Position = clone2Position;
                     gameObject.GetComponent<BrotherBoss>().proximityAreaAttack = proximityAreaAttack;

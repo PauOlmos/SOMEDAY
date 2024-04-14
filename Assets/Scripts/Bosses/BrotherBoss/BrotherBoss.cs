@@ -34,6 +34,7 @@ public class BrotherBoss : MonoBehaviour
     public Transform clone2Position;
 
     public GameObject clone;
+    public GameObject cloneWall;
 
     public float attack1Timer = 0.0f;
     public float attack1Cooldown = 0.6f;
@@ -55,11 +56,17 @@ public class BrotherBoss : MonoBehaviour
 
     public Transform[] randomMapPositions;
     public float getPositionTimer = 0.0f;
+
+    public float cloneRadius = 20.0f;
+    public float passiveCharge = 0.0f;
+    public bool activeWalls = false;
+
     // Start is called before the first frame update
     void Start()
     {
         gameObject.GetComponent<NavMeshAgent>().enabled = true;
         gameObject.GetComponent<NavMeshAgent>().speed = speed;
+        gameObject.GetComponent<NavMeshAgent>().angularSpeed = 300;
         proximityAreaAttack.transform.position = Vector3.zero;
         proximityAreaAttack.transform.localScale = Vector3.one * 2;
         proximityAreaAttack.transform.SetParent(brotherBossModel.transform);
@@ -74,6 +81,9 @@ public class BrotherBoss : MonoBehaviour
         switch (phase)
         {
             case 0:
+
+                passiveCharge += Time.deltaTime;
+
                 if (canMove)
                 {
                     switch (mState)
@@ -96,27 +106,52 @@ public class BrotherBoss : MonoBehaviour
                                 if (attackType == AttackType.circle)
                                 {
                                     canMove = false;
-                                    canAttack = false;
+                                    canAttack = true;
+                                }
+                                if (attackType == AttackType.walls)
+                                {
+                                    canMove = false;
+                                    canAttack = true;
                                 }
                             }
 
                             break;
                         case MovementState.hiding:
-                            cooldownTimer += Time.deltaTime;
-                            getPositionTimer += Time.deltaTime;
-                            if(getPositionTimer > 5.0f || Vector3.Distance(gameObject.transform.position, gameObject.GetComponent<NavMeshAgent>().destination) < 1.0f)
+
+                            if(activeWalls == true && passiveCharge < 30)
                             {
-                                getPositionTimer = 0.0f;
-                                gameObject.GetComponent<NavMeshAgent>().destination = randomMapPositions[Random.Range(0, randomMapPositions.Length)].position;
+                                gameObject.GetComponent<NavMeshAgent>().destination = player.transform.position;
+                                gameObject.GetComponent<NavMeshAgent>().speed = speed / 2;
+                                cooldownTimer += Time.deltaTime;
+                                if(cooldownTimer > 5.0f)
+                                {
+                                    mState = MovementState.seeking;
+                                    cooldownTimer = 0.0f;
+                                }
+                            }
+                            else
+                            {
+                                if (passiveCharge >= 30) activeWalls = false;
+                                cooldownTimer += Time.deltaTime;
+                                getPositionTimer += Time.deltaTime;
+                                gameObject.GetComponent<NavMeshAgent>().speed = speed;
+
+                                if (getPositionTimer > 5.0f || Vector3.Distance(gameObject.transform.position, gameObject.GetComponent<NavMeshAgent>().destination) < 1.0f)
+                                {
+                                    getPositionTimer = 0.0f;
+                                    gameObject.GetComponent<NavMeshAgent>().destination = randomMapPositions[Random.Range(0, randomMapPositions.Length)].position;
+                                }
+
+                                if (cooldownTimer > 7.5f)
+                                {
+                                    getPositionTimer = 0.0f;
+                                    mState = MovementState.seeking;
+                                    cooldownTimer = 0.0f;
+                                    gameObject.GetComponent<NavMeshAgent>().destination = player.transform.position;
+                                }
                             }
 
-                            if(cooldownTimer > 7.5f)
-                            {
-                                getPositionTimer = 0.0f;
-                                mState = MovementState.seeking;
-                                cooldownTimer = 0.0f;
-                                gameObject.GetComponent<NavMeshAgent>().destination = player.transform.position;
-                            }
+                            
 
                             break;
                     }
@@ -154,6 +189,7 @@ public class BrotherBoss : MonoBehaviour
                                 gameObject.GetComponent<NavMeshAgent>().destination = player.transform.position + dashDirection.normalized * 0.2f * dashDirection.magnitude;
                                 dashDirection = gameObject.GetComponent<NavMeshAgent>().destination;
                                 bossDash = true;
+                                brotherBossModel.GetComponent<TrailRenderer>().enabled = true;
                             }
 
                             if(bossDash == true)
@@ -187,10 +223,49 @@ public class BrotherBoss : MonoBehaviour
                                     mState = MovementState.hiding;
                                     getPositionTimer = 5.0f;
                                     canAttack = false;
+                                    brotherBossModel.GetComponent<TrailRenderer>().enabled = false;
+
                                 }
                             }
                             break;
                         case AttackType.circle:
+
+                            gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
+
+                            for (int i = 0; i < 10; i++)
+                            {
+                                // Calcular la posición alrededor del objeto principal
+                                float angle = i * (360 / 10);
+                                Vector3 position = player.transform.position + Quaternion.Euler(0, angle, 0) * Vector3.forward * cloneRadius;
+
+                                // Instanciar el objeto en la posición calculada
+                                GameObject circleClone = Instantiate(clone, position, Quaternion.identity);
+                                circleClone.GetComponent<CloneDash>().timeToDash = attack1Cooldown;
+                                circleClone.GetComponent<CloneDash>().player = player;
+                                circleClone.GetComponent<CloneDash>().streets = streets;
+                            }
+                            mState = MovementState.seeking;
+                            canAttack = false;
+                            canMove = true;
+                            cooldownTimer = 0.0f; 
+                            attackSelected = false;
+                            break;
+
+                        case AttackType.walls:
+
+                            GameObject wall1 = Instantiate(cloneWall, gameObject.transform.position, gameObject.transform.rotation);
+                            GameObject wall2 = Instantiate(cloneWall, gameObject.transform.position, gameObject.transform.rotation);
+
+                            wall1.transform.Rotate(0, 10, 0);
+                            wall2.transform.Rotate(0, -10, 0);
+
+
+                            passiveCharge = 0.0f;
+                            canAttack = false;
+                            attackSelected = false;
+                            cooldownTimer = 0.0f;
+                            canMove = true;
+                            activeWalls = true;
                             break;
                     }
                 }
@@ -214,6 +289,7 @@ public class BrotherBoss : MonoBehaviour
                     }
                     else
                     {
+                        brotherBossModel.GetComponent<TrailRenderer>().enabled = false;
                         bossDash = false;
                         vulnerabilityTimer = 0.0f;
                         gameObject.GetComponent<CapsuleCollider>().isTrigger = false;
@@ -242,9 +318,11 @@ public class BrotherBoss : MonoBehaviour
             case 0:
 
                 int value = Random.Range(0, 10);
-                value = 1;
                 if (value < 7) attackType = AttackType.trio;
                 else attackType = AttackType.circle;
+
+                if (passiveCharge > 60.0f) attackType = AttackType.walls;
+
                 attackSelected = true;
                 break;
         }
