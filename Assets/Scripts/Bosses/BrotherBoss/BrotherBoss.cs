@@ -70,6 +70,7 @@ public class BrotherBoss : MonoBehaviour
         proximityAreaAttack.transform.position = Vector3.zero;
         proximityAreaAttack.transform.localScale = Vector3.one * 2;
         proximityAreaAttack.transform.SetParent(brotherBossModel.transform);
+        if (gameObject.GetComponent<CapsuleCollider>() == null) gameObject.AddComponent<CapsuleCollider>();
         gameObject.GetComponent<CapsuleCollider>().isTrigger = true;
     }
 
@@ -77,6 +78,7 @@ public class BrotherBoss : MonoBehaviour
     void Update()
     {
         proximityAreaAttack.transform.localPosition = Vector3.zero;
+        brotherBossModel.transform.localPosition = Vector3.zero;
 
         switch (phase)
         {

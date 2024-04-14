@@ -56,6 +56,7 @@ public class StartBrotherBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        brotherBossModel.transform.localPosition = Vector3.zero;
 
         switch (transitionState)
         {

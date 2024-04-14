@@ -32,7 +32,6 @@ public class BossManager : MonoBehaviour
     public GameObject momBossModel;
 
     public GameObject brotherBossModel;
-    public GameObject auxiliarBrotherBossModel;
 
     [Header("Audio")]
     public AudioSource ambienceAudioSource;
@@ -466,7 +465,6 @@ public class BossManager : MonoBehaviour
                     if (circularArea != null) Destroy(circularArea);
                     if (coneArea != null) Destroy(coneArea);
                     boss.name = "Boss";
-                    brotherBossModel = auxiliarBrotherBossModel;
                 }
                 brotherBossModel.SetActive(true);
                 boss.AddComponent<StartBrotherBoss>();
@@ -632,7 +630,11 @@ public class BossManager : MonoBehaviour
                         Destroy(momBossModel.GetComponent<MomBoss>());
                         Destroy(boss);
                         boss = momBossModel;
-                        
+                        brotherBossModel.transform.localPosition = Vector3.zero;
+                        brotherBossModel.transform.SetParent(boss.transform);
+                        brotherBossModel.transform.localPosition = Vector3.zero;
+                        brotherBossModel.transform.Rotate(-brotherBossModel.transform.localEulerAngles.x, 0, -brotherBossModel.transform.localEulerAngles.z);
+                        proximityArea.transform.SetParent(boss.transform);
                     }
                     else {
 
@@ -665,6 +667,33 @@ public class BossManager : MonoBehaviour
                     momBossModel.GetComponent<MomBoss>().delayTime = 2.15f;
                     momBossModel.GetComponent<MomBoss>().maxNumAttacks = 5;
                     momBossModel.GetComponent<MomBoss>().movSpeed = 5.5f;
+                }
+
+                break;
+
+            case 3:
+
+                if(boss.GetComponent<BrotherBoss>() != null)
+                {
+                    switch (boss.GetComponent<BrotherBoss>().phase)
+                    {
+                        case 0:
+
+                            if(boss.GetComponent<EnemyHP>().hp < 30)
+                            {
+                                boss.GetComponent<BrotherBoss>().phase++;
+                                boss.GetComponent<BrotherBoss>().canAttack = false;
+                                boss.GetComponent<BrotherBoss>().canMove = true;
+                                boss.GetComponent<BrotherBoss>().cooldownTimer = 0.0f;
+                                boss.GetComponent<BrotherBoss>().attackSelected = false;
+
+                            }
+
+                            break;
+
+
+                        default:break;
+                    }
                 }
 
                 break;
