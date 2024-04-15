@@ -123,6 +123,11 @@ public class PlayerHp : MonoBehaviour
             {
                 gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 1) * 50, ForceMode.Impulse);
             }
+            if (collision.gameObject.name == "Car" && playerHp > 0)
+            {
+                gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 1) * 50, ForceMode.Impulse);
+                gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 1, 1) * 10, ForceMode.Impulse);
+            }
         }
     }
 

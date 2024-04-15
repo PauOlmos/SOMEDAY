@@ -105,7 +105,7 @@ public class Parry : MonoBehaviour
                 other.gameObject.GetComponent<SeekingProjectile>().shotByPlayer = true;
                 other.gameObject.GetComponent<SeekingProjectile>().canFail = false;
                 other.isTrigger = true;
-                other.gameObject.GetComponent<SeekingProjectile>().target = GameObject.Find("Boss").transform;
+                other.gameObject.GetComponent<SeekingProjectile>().target = other.gameObject.GetComponent<SeekingProjectile>().shotBy;
                 other.gameObject.GetComponent<DieByTime>().deathTime = 20.0f;
                 other.gameObject.tag = "Untagged";
                 other.gameObject.layer = 0;

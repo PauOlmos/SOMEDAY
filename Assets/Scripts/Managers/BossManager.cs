@@ -214,6 +214,12 @@ public class BossManager : MonoBehaviour
     public GameObject cloneWall;
 
     public Transform[] randomMapPositions;
+
+    public Transform aerialPosition;
+    public Transform[] discMovementArea;
+    public GameObject disc;
+    public GameObject drone;
+
     public int difficulty;
     void Start()
     {
@@ -490,7 +496,11 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().proximityAreaAttack = proximityArea;
                 boss.GetComponent<StartBrotherBoss>().brotherBossModel = brotherBossModel;
                 boss.GetComponent<StartBrotherBoss>().randomMapPositions = randomMapPositions;
-
+                
+                boss.GetComponent<StartBrotherBoss>().aerialPosition = aerialPosition;
+                boss.GetComponent<StartBrotherBoss>().disc = disc;
+                boss.GetComponent<StartBrotherBoss>().discMovementArea = discMovementArea;
+                boss.GetComponent<StartBrotherBoss>().drone = drone;
 
 
                 break;
@@ -686,7 +696,9 @@ public class BossManager : MonoBehaviour
                                 boss.GetComponent<BrotherBoss>().canMove = true;
                                 boss.GetComponent<BrotherBoss>().cooldownTimer = 0.0f;
                                 boss.GetComponent<BrotherBoss>().attackSelected = false;
-
+                                boss.GetComponent<BrotherBoss>().mState = BrotherBoss.MovementState.aerial;
+                                boss.GetComponent<CapsuleCollider>().isTrigger = false;
+                                boss.GetComponent<NavMeshAgent>().enabled = false;
                             }
 
                             break;

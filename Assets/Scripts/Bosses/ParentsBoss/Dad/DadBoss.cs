@@ -294,6 +294,7 @@ public class DadBoss : MonoBehaviour
         projectile.GetComponent<SeekingProjectile>().seekingTime = 0.1f;
         projectile.GetComponent<SeekingProjectile>().target = projectileDirection;
         projectile.GetComponent<SeekingProjectile>().speed = speed;
+        projectile.GetComponent<SeekingProjectile>().shotBy = gameObject.transform;
         if (Random.Range(0, returnableChance[difficulty]) == 0)
         {
             projectile.tag = "ReturnableProjectile";

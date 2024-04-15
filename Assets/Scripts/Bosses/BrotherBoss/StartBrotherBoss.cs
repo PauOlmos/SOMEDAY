@@ -40,6 +40,12 @@ public class StartBrotherBoss : MonoBehaviour
     public GameObject cloneWall;
 
     public Transform[] randomMapPositions;
+
+    public Transform aerialPosition;
+    public Transform[] discMovementArea;
+    public GameObject disc;
+    public GameObject drone;
+
     public enum TransitionState
     {
         start, moving, waiting, driving, startBossFight 
@@ -151,6 +157,11 @@ public class StartBrotherBoss : MonoBehaviour
                     gameObject.GetComponent<BrotherBoss>().proximityAreaAttack = proximityAreaAttack;
                     gameObject.GetComponent<BrotherBoss>().brotherBossModel = brotherBossModel;
                     gameObject.GetComponent<BrotherBoss>().randomMapPositions = randomMapPositions;
+                    gameObject.GetComponent<BrotherBoss>().aerialPosition = aerialPosition;
+                    gameObject.GetComponent<BrotherBoss>().disc = disc;
+                    gameObject.GetComponent<BrotherBoss>().discMovementArea = discMovementArea;
+                    gameObject.GetComponent<BrotherBoss>().drone = drone;
+                    gameObject.GetComponent<BrotherBoss>().car = car;
                     Destroy(gameObject.GetComponent<StartBrotherBoss>());
                 }
 

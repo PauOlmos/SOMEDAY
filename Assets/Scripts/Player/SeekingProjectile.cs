@@ -5,7 +5,7 @@ using UnityEngine;
 public class SeekingProjectile : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    public Transform shotBy;
     public Transform target;
     public bool canFail;
     public float seekingTime = 0.5f;

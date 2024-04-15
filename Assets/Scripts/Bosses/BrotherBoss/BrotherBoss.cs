@@ -13,12 +13,12 @@ public class BrotherBoss : MonoBehaviour
 
     public enum AttackType
     {
-        trio, circle, walls
+        trio, circle, walls, disc, car, drones
     }
 
     public enum MovementState
     {
-        seeking, hiding,
+        seeking, hiding, aerial,
     }
 
     public MovementState mState = MovementState.seeking;
@@ -61,6 +61,16 @@ public class BrotherBoss : MonoBehaviour
     public float passiveCharge = 0.0f;
     public bool activeWalls = false;
 
+    public Transform aerialPosition;
+    public Transform[] discMovementArea;
+    public GameObject disc;
+
+    public int[] dronesCooldown = { 0, 1, 2 };
+    public int numDrones = 0;
+    public float droneTimer = 0.0f;
+    public GameObject drone;
+
+    public GameObject car;
     // Start is called before the first frame update
     void Start()
     {
@@ -104,6 +114,10 @@ public class BrotherBoss : MonoBehaviour
                                 {
                                     canMove = false;
                                     canAttack = true;
+                                }
+                                else if (attackType == AttackType.trio)
+                                {
+                                    gameObject.GetComponent<NavMeshAgent>().speed = speed;
                                 }
                                 if (attackType == AttackType.circle)
                                 {
@@ -219,7 +233,7 @@ public class BrotherBoss : MonoBehaviour
                                     attackSelected = false;
                                     gameObject.GetComponent<NavMeshAgent>().speed = speed;
                                     gameObject.GetComponent<NavMeshAgent>().acceleration = acceleration;
-                                    gameObject.GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
+                                    gameObject.GetComponent<NavMeshAgent>().destination = player.transform.position;
                                     cooldownTimer = 0.0f;
                                     canMove = true;
                                     mState = MovementState.hiding;
@@ -308,6 +322,98 @@ public class BrotherBoss : MonoBehaviour
                 }
 
                 break;
+
+            case 1:
+
+                if (canMove)
+                {
+                    switch (mState)
+                    {
+                        case MovementState.aerial:
+                            if (Vector3.Distance(aerialPosition.position, gameObject.transform.position) < 0.5f)
+                            {
+                                mState = MovementState.hiding;
+                                break;
+                            }
+                            Vector3 distanceToPoint = aerialPosition.position - gameObject.transform.position;
+                            transform.position += distanceToPoint * 3.0f * Time.deltaTime;
+
+                            
+                            break;
+
+                        case MovementState.hiding:
+
+                            cooldownTimer += Time.deltaTime;
+
+                            if(cooldownTimer > 15.0f)
+                            {
+                                canMove = false;
+                                cooldownTimer = 0.0f;
+                                SelectAttack();
+                            }
+
+                            break;
+                    }
+                }
+                if (canAttack)
+                {
+                    switch (attackType)
+                    {
+                        case AttackType.disc:
+
+                            for (int i = 0; i < discMovementArea.Length; i++)
+                            {
+                                GameObject rotatingDisc = Instantiate(disc, gameObject.transform.position, Quaternion.identity);
+                                rotatingDisc.GetComponent<AerialDisc>().pointArea = discMovementArea[i];
+                            }
+
+                            canAttack = false;
+                            canMove = true;
+                            break;
+
+                        case AttackType.drones:
+
+                            if(numDrones == 1)
+                            {
+                                canAttack = false;
+                                canMove = true;
+                                numDrones = 0;
+                                droneTimer = 0.0f;
+                                break;
+                            }
+
+                            droneTimer += Time.deltaTime;
+
+                            if (droneTimer > dronesCooldown[numDrones])
+                            {
+                                GameObject droneEnemy = Instantiate(drone, gameObject.transform.position, Quaternion.identity);
+                                droneEnemy.GetComponent<Drone>().player = player;
+                                droneEnemy.GetComponent<EnemyHP>().hp = 2;
+                                numDrones++;
+                            }
+                            
+                            
+                            break;
+
+                        case AttackType.car:
+                            
+                            car.GetComponent<CarAttack>().enabled = true;
+                            car.GetComponent<CarAttack>().player = player;
+                            car.GetComponent<CarAttack>().bBoss = gameObject.GetComponent<BrotherBoss>();
+                            car.GetComponent<NavMeshAgent>().enabled = true;
+                            car.tag = "NonParryable";
+                            car.layer = 7;
+                            car.GetComponent<BoxCollider>().isTrigger = false;
+                            for (int i = 0; i < 4; i++)
+                            {
+                                car.GetComponent<CarAttack>().carWheels[i].GetComponent<CarWheel>().enabled = true;
+                            }
+                            break;
+
+                    }
+                }
+
+                break;
         }
 
         
@@ -325,6 +431,30 @@ public class BrotherBoss : MonoBehaviour
 
                 if (passiveCharge > 60.0f) attackType = AttackType.walls;
 
+                attackSelected = true;
+                break;
+
+            case 1:
+
+                int attack = Random.Range(0, 4);
+                attack = 2;
+                switch (attack)
+                {
+                    case 0:
+                        attackType = AttackType.disc;
+                        break;
+                    case 1:
+                        attackType = AttackType.drones;
+                        break;
+                    case 2:
+                        attackType = AttackType.car;
+                        break;
+                    case 3:
+                        //Fall into ground
+                        break;
+                }
+
+                canAttack = true;
                 attackSelected = true;
                 break;
         }
