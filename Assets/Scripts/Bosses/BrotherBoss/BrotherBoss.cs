@@ -13,14 +13,19 @@ public class BrotherBoss : MonoBehaviour
 
     public enum AttackType
     {
-        trio, circle, walls, disc, car, drones
+        trio, circle, walls, disc, car, drones, fall
     }
 
     public enum MovementState
     {
         seeking, hiding, aerial,
     }
+    public enum FallAttackState
+    {
+        positioning, falling, resting, protecting
+    }
 
+    public FallAttackState fallState = FallAttackState.positioning;
     public MovementState mState = MovementState.seeking;
 
     public AttackType attackType;
@@ -71,6 +76,8 @@ public class BrotherBoss : MonoBehaviour
     public GameObject drone;
 
     public GameObject car;
+    public float fallTimer = 0.0f;
+    public bool landed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -410,6 +417,70 @@ public class BrotherBoss : MonoBehaviour
                             }
                             break;
 
+                        case AttackType.fall:
+
+                            fallTimer += Time.deltaTime;
+
+                            switch (fallState)
+                            {
+                                
+                                case FallAttackState.positioning:
+
+                                    Vector3 distanceToPlayer = player.transform.position - gameObject.transform.position;
+                                    distanceToPlayer.y += 6.5f;
+                                    transform.position += distanceToPlayer * Time.deltaTime * 4.0f;
+
+                                    if (fallTimer > 5.0f || distanceToPlayer.magnitude < 1.0f)
+                                    {
+                                        fallTimer = 0.0f;
+                                        fallState = FallAttackState.falling;
+                                        //Set y to ground
+                                    }
+                                    break;
+                                case FallAttackState.falling:
+
+
+                                    if (!landed)
+                                    {
+                                        proximityAreaAttack.SetActive(true);
+                                        gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, -1, 0) * 20, ForceMode.VelocityChange);
+                                    }
+                                    else
+                                    {
+                                        proximityAreaAttack.SetActive(false);
+                                        fallTimer = 0.0f;
+                                        fallState = FallAttackState.resting;
+                                        gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
+
+                                    }
+
+                                    break;
+
+                                case FallAttackState.resting:
+                                    if(fallTimer > 2.5f)
+                                    {
+                                        gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
+                                        fallState = FallAttackState.protecting;
+                                        fallTimer = 0.0f;
+                                    }
+
+                                    break;
+
+
+                                case FallAttackState.protecting:
+
+                                    attackSelected = false;
+                                    canMove = true;
+                                    mState = MovementState.aerial;
+                                    fallState = FallAttackState.positioning;
+                                    canAttack = false;
+
+                                    break;
+                                
+                                }
+
+                            break;
+
                     }
                 }
 
@@ -418,7 +489,20 @@ public class BrotherBoss : MonoBehaviour
 
         
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.layer == 3 || collision.gameObject.layer == 6)
+        {
+            landed = true;
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.layer == 3 || collision.gameObject.layer == 6)
+        {
+            landed = false;
+        }
+    }
     void SelectAttack()
     {
         switch (phase)
@@ -437,7 +521,7 @@ public class BrotherBoss : MonoBehaviour
             case 1:
 
                 int attack = Random.Range(0, 4);
-                attack = 2;
+                attack = 3;
                 switch (attack)
                 {
                     case 0:
@@ -450,7 +534,7 @@ public class BrotherBoss : MonoBehaviour
                         attackType = AttackType.car;
                         break;
                     case 3:
-                        //Fall into ground
+                        attackType = AttackType.fall;
                         break;
                 }
 
