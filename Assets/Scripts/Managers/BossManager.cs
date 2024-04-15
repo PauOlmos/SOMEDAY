@@ -501,6 +501,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().disc = disc;
                 boss.GetComponent<StartBrotherBoss>().discMovementArea = discMovementArea;
                 boss.GetComponent<StartBrotherBoss>().drone = drone;
+                boss.GetComponent<StartBrotherBoss>().continousCircle = circlesPrefabs[0];
 
 
                 break;

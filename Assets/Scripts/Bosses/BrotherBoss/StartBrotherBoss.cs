@@ -24,6 +24,7 @@ public class StartBrotherBoss : MonoBehaviour
     public GameObject ageCorridor;
 
     public GameObject car;
+    public GameObject continousCircle;
     public Transform carDriversPosition;
     public GameObject streets;
     public NavMeshSurface streetsFloor;
@@ -162,6 +163,7 @@ public class StartBrotherBoss : MonoBehaviour
                     gameObject.GetComponent<BrotherBoss>().discMovementArea = discMovementArea;
                     gameObject.GetComponent<BrotherBoss>().drone = drone;
                     gameObject.GetComponent<BrotherBoss>().car = car;
+                    gameObject.GetComponent<BrotherBoss>().continousCircle = continousCircle;
                     Destroy(gameObject.GetComponent<StartBrotherBoss>());
                 }
 

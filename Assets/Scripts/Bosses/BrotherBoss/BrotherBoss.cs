@@ -78,6 +78,7 @@ public class BrotherBoss : MonoBehaviour
     public GameObject car;
     public float fallTimer = 0.0f;
     public bool landed = false;
+    public GameObject continousCircle;
     // Start is called before the first frame update
     void Start()
     {
@@ -425,6 +426,7 @@ public class BrotherBoss : MonoBehaviour
                             {
                                 
                                 case FallAttackState.positioning:
+                                    proximityAreaAttack.SetActive(true);
 
                                     Vector3 distanceToPlayer = player.transform.position - gameObject.transform.position;
                                     distanceToPlayer.y += 6.5f;
@@ -442,11 +444,14 @@ public class BrotherBoss : MonoBehaviour
 
                                     if (!landed)
                                     {
-                                        proximityAreaAttack.SetActive(true);
                                         gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, -1, 0) * 20, ForceMode.VelocityChange);
                                     }
                                     else
                                     {
+                                        Vector3 klk = new Vector3(gameObject.transform.position.x, -127.0f, gameObject.transform.position.z);
+                                        GameObject circle = Instantiate(continousCircle, klk, Quaternion.identity);
+                                        circle.transform.Rotate(new Vector3(-90, 0, 0));
+                                        circle.transform.localScale = circle.transform.localScale / 100.0f;
                                         proximityAreaAttack.SetActive(false);
                                         fallTimer = 0.0f;
                                         fallState = FallAttackState.resting;
@@ -521,7 +526,6 @@ public class BrotherBoss : MonoBehaviour
             case 1:
 
                 int attack = Random.Range(0, 4);
-                attack = 3;
                 switch (attack)
                 {
                     case 0:
