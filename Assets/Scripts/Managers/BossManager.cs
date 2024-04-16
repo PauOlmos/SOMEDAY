@@ -219,6 +219,9 @@ public class BossManager : MonoBehaviour
     public Transform[] discMovementArea;
     public GameObject disc;
     public GameObject drone;
+    public GameObject head;
+    public Transform headPosition;
+    public GameObject mainRoadBlock;
 
     public int difficulty;
     void Start()
@@ -501,6 +504,8 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().disc = disc;
                 boss.GetComponent<StartBrotherBoss>().discMovementArea = discMovementArea;
                 boss.GetComponent<StartBrotherBoss>().drone = drone;
+                boss.GetComponent<StartBrotherBoss>().head = head;
+                boss.GetComponent<StartBrotherBoss>().headPosition = headPosition;
                 boss.GetComponent<StartBrotherBoss>().continousCircle = circlesPrefabs[0];
 
 
@@ -704,6 +709,19 @@ public class BossManager : MonoBehaviour
 
                             break;
 
+                        case 1:
+
+                            if(boss.GetComponent<EnemyHP>().hp < 10)
+                            {
+                                boss.GetComponent<BrotherBoss>().phase++;
+                                boss.GetComponent<BrotherBoss>().canAttack = false;
+                                boss.GetComponent<BrotherBoss>().canMove = true;
+                                mainRoadBlock.SetActive(false);
+                                boss.GetComponent<NavMeshAgent>().enabled = false;
+                                boss.GetComponent<CapsuleCollider>().enabled = false;
+                            }
+
+                            break;
 
                         default:break;
                     }
