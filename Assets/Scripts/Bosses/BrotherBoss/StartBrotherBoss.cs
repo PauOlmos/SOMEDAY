@@ -46,7 +46,10 @@ public class StartBrotherBoss : MonoBehaviour
     public Transform[] discMovementArea;
     public GameObject disc;
     public GameObject drone;
-
+    public GameObject head;
+    public Transform headPosition;
+    public GameObject mainRoadBlock;
+    public Transform endOfTheStreet;
     public enum TransitionState
     {
         start, moving, waiting, driving, startBossFight 
@@ -163,7 +166,11 @@ public class StartBrotherBoss : MonoBehaviour
                     gameObject.GetComponent<BrotherBoss>().discMovementArea = discMovementArea;
                     gameObject.GetComponent<BrotherBoss>().drone = drone;
                     gameObject.GetComponent<BrotherBoss>().car = car;
-                    gameObject.GetComponent<BrotherBoss>().continousCircle = continousCircle;
+                    gameObject.GetComponent<BrotherBoss>().continousCircle = continousCircle; 
+                    gameObject.GetComponent<BrotherBoss>().head = head;
+                    gameObject.GetComponent<BrotherBoss>().headPosition = headPosition;
+                    gameObject.GetComponent<BrotherBoss>().mainRoadBlock = mainRoadBlock;
+                    gameObject.GetComponent<BrotherBoss>().endOfTheStreet = endOfTheStreet;
                     Destroy(gameObject.GetComponent<StartBrotherBoss>());
                 }
 

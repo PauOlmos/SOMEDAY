@@ -29,7 +29,12 @@ public class BrotherBoss : MonoBehaviour
     public MovementState mState = MovementState.seeking;
 
     public AttackType attackType;
+    public enum HeadTransition
+    {
+        growing, following, ending
+    }
 
+    public HeadTransition headTransition = HeadTransition.growing;
     public bool attackSelected = false;
 
     public GameObject player;
@@ -78,7 +83,13 @@ public class BrotherBoss : MonoBehaviour
     public GameObject car;
     public float fallTimer = 0.0f;
     public bool landed = false;
-    public GameObject continousCircle;
+    public GameObject continousCircle; 
+    public GameObject head;
+    public Transform headPosition;
+    public GameObject mainRoadBlock;
+    public Transform endOfTheStreet;
+    public Rigidbody rb;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -489,6 +500,46 @@ public class BrotherBoss : MonoBehaviour
                     }
                 }
 
+                break;
+            case 2:
+
+                switch (headTransition)
+                {
+                    case HeadTransition.growing:
+
+                        int cases = 0;
+
+                        if (head.transform.localScale.x < 40.0f)
+                        {
+                            head.transform.localScale += Vector3.one * Time.deltaTime * 5.0f;
+                        }
+                        else cases++;
+
+                        Vector3 distanceToPoint = headPosition.position - gameObject.transform.position;
+
+                        if (Vector3.Distance(gameObject.transform.position, headPosition.position) > 5.0f)
+                        {
+                            transform.position += distanceToPoint * 3.0f * Time.deltaTime;
+
+                        }
+                        else cases++;
+
+                        if (cases == 2)
+                        {
+                            gameObject.transform.LookAt(endOfTheStreet.position);
+                            headTransition = HeadTransition.following;
+                            gameObject.GetComponent<Rigidbody>().detectCollisions = false;
+                            gameObject.GetComponent<Rigidbody>().useGravity = false;
+                        }
+                        break;
+                    case HeadTransition.following:
+                        gameObject.GetComponent<Rigidbody>().Sleep();
+                        gameObject.transform.Translate(gameObject.transform.forward * Time.deltaTime * 10);
+
+                        break;
+                    case HeadTransition.ending:
+                        break;
+                }
                 break;
         }
 
