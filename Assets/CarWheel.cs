@@ -23,7 +23,7 @@ public class CarWheel : MonoBehaviour
 
         if(timer > 0.75f)
         {
-
+            Debug.Log("KLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLK");
             //target.position = gameObject.transform.position + gameObject.transform.right * 100;
             GameObject projectile = Instantiate(bossProjectile, gameObject.transform.position + transform.up, Quaternion.identity);
             projectile.AddComponent<SeekingProjectile>();
