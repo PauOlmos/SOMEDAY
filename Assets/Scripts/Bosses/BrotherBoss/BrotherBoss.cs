@@ -272,7 +272,7 @@ public class BrotherBoss : MonoBehaviour
                                 // Calcular la posición alrededor del objeto principal
                                 float angle = i * (360 / 10);
                                 Vector3 position = player.transform.position + Quaternion.Euler(0, angle, 0) * Vector3.forward * cloneRadius;
-
+                                position.y = -127;
                                 // Instanciar el objeto en la posición calculada
                                 GameObject circleClone = Instantiate(clone, position, Quaternion.identity);
                                 circleClone.GetComponent<CloneDash>().timeToDash = attack1Cooldown;

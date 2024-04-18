@@ -12,12 +12,21 @@ public class Drone : MonoBehaviour
     public Transform direction;
     public Vector3 randomSeed;
     public int seedDirection;
+    public Vector3[] droneSeekingPositions;
+    
     void Start()
     {
-        seedDirection = Random.Range(0, 4);
-        randomSeed.x = Random.Range(0.1f, 1.0f);
-        randomSeed.y = 0;
-        randomSeed.z = Random.Range(0.1f, 1.0f);
+        Vector3[] droneSeekingPositionsAuxiliar = new Vector3[10];
+        seedDirection = Random.Range(0, 10);
+        for (int i = 0; i < 10; i++)
+        {
+            // Calcular la posición alrededor del objeto principal
+            float angle = i * (360 / 10);
+            Vector3 position = player.transform.position + Quaternion.Euler(0, angle, 0) * Vector3.forward * 15;
+            position.y += 3.0f;
+            droneSeekingPositionsAuxiliar[i] = new Vector3(position.x,position.y,position.z);
+        }
+        droneSeekingPositions = droneSeekingPositionsAuxiliar;
     }
 
     // Update is called once per frame
@@ -40,30 +49,33 @@ public class Drone : MonoBehaviour
             }
             else
             {
-                Vector3 distanceToPlayer = Vector3.zero; ;
-                switch (seedDirection)
-                {
-                    case 0:
+                Vector3 distanceToPlayer = Vector3.zero;
 
-                       distanceToPlayer = player.transform.position + (player.transform.forward + randomSeed) * 100 - gameObject.transform.position;
+                distanceToPlayer = droneSeekingPositions[seedDirection] - gameObject.transform.position;
 
-                        break;
-                    case 1:
-
-                        distanceToPlayer = player.transform.position + (player.transform.right + randomSeed) * 100 - gameObject.transform.position;
-
-                        break;
-                    case 2:
-
-                        distanceToPlayer = player.transform.position + (-player.transform.forward + randomSeed) * 100 - gameObject.transform.position;
-
-                        break;
-                    case 3:
-
-                        distanceToPlayer = player.transform.position + (-player.transform.right + randomSeed) * 100 - gameObject.transform.position;
-
-                        break;
-                }
+                //switch (seedDirection)
+                //{
+                //    case 0:
+                //
+                //       distanceToPlayer = player.transform.position + (player.transform.forward + randomSeed) * 100 - gameObject.transform.position;
+                //
+                //        break;
+                //    case 1:
+                //
+                //        distanceToPlayer = player.transform.position + (player.transform.right + randomSeed) * 100 - gameObject.transform.position;
+                //
+                //        break;
+                //    case 2:
+                //
+                //        distanceToPlayer = player.transform.position + (-player.transform.forward + randomSeed) * 100 - gameObject.transform.position;
+                //
+                //        break;
+                //    case 3:
+                //
+                //        distanceToPlayer = player.transform.position + (-player.transform.right + randomSeed) * 100 - gameObject.transform.position;
+                //
+                //        break;
+                //}
                
                 transform.position += distanceToPlayer * Time.deltaTime / 2.5f;
             }

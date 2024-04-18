@@ -223,6 +223,8 @@ public class BossManager : MonoBehaviour
     public Transform headPosition;
     public GameObject mainRoadBlock;
     public Transform endOfTheStreet;
+
+    public GameObject secondEnvironment;
     public int difficulty;
     void Start()
     {
@@ -509,6 +511,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().headPosition = headPosition;
                 boss.GetComponent<StartBrotherBoss>().mainRoadBlock = mainRoadBlock;
                 boss.GetComponent<StartBrotherBoss>().endOfTheStreet = endOfTheStreet;
+                boss.GetComponent<StartBrotherBoss>().secondEnvironment = secondEnvironment;
 
                 break;
 

@@ -50,6 +50,8 @@ public class StartBrotherBoss : MonoBehaviour
     public Transform headPosition;
     public GameObject mainRoadBlock;
     public Transform endOfTheStreet;
+    public GameObject secondEnvironment;
+
     public enum TransitionState
     {
         start, moving, waiting, driving, startBossFight 
@@ -148,6 +150,7 @@ public class StartBrotherBoss : MonoBehaviour
 
                 if(startBossFightTimer > 5.0f)//Time for the audio transition (Ex: You killed me brother!!!)
                 {
+                    Destroy(secondEnvironment);
                     //Start BossFight
                     gameObject.GetComponent<EnemyHP>().hp = 40;
                     gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
