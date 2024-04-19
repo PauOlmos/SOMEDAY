@@ -534,6 +534,7 @@ public class BrotherBoss : MonoBehaviour
                         break;
                     case HeadTransition.following:
                         gameObject.GetComponent<Rigidbody>().Sleep();
+                        gameObject.transform.LookAt(endOfTheStreet);
                         gameObject.transform.Translate(gameObject.transform.forward * Time.deltaTime * 10);
 
                         break;
