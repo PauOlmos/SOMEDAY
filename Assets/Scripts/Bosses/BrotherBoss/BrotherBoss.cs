@@ -10,6 +10,9 @@ public class BrotherBoss : MonoBehaviour
     public float stunTimer;
     public float speed = 5.0f;
     public float acceleration = 8.0f;
+    public bool damaged = false;
+
+
 
     public enum AttackType
     {
@@ -582,12 +585,17 @@ public class BrotherBoss : MonoBehaviour
                 {
                     case 0:
                         attackType = AttackType.disc;
+                        gameObject.GetComponent<BrotherBossAnimations>().attacking = true;
                         break;
                     case 1:
                         attackType = AttackType.drones;
+                        gameObject.GetComponent<BrotherBossAnimations>().attacking = true;
+
                         break;
                     case 2:
                         attackType = AttackType.car;
+                        gameObject.GetComponent<BrotherBossAnimations>().attacking = true;
+
                         break;
                     case 3:
                         attackType = AttackType.fall;

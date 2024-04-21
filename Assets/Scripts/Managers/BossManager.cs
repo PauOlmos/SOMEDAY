@@ -30,7 +30,7 @@ public class BossManager : MonoBehaviour
     public GameObject dadBossModel;
     public MomBossAnimations momBossAnimations;
     public GameObject momBossModel;
-
+    public BrotherBossAnimations brotherBossAnimations;
     public GameObject brotherBossModel;
 
     [Header("Audio")]
@@ -477,7 +477,13 @@ public class BossManager : MonoBehaviour
                     if (coneArea != null) Destroy(coneArea);
                     boss.name = "Boss";
                 }
+                
                 brotherBossModel.SetActive(true);
+                brotherBossAnimations.enabled = true;
+                brotherBossAnimations.animation = brotherBossAnimations.model.GetComponent<Animator>();
+                brotherBossAnimations.animation.Play(brotherBossAnimations.animations[0].name);
+                brotherBossAnimations.actualAnimation = brotherBossAnimations.animations[0];
+
                 boss.AddComponent<StartBrotherBoss>();
                 boss.GetComponent<StartBrotherBoss>().player = player;
                 boss.GetComponent<StartBrotherBoss>().houseDoor1 = houseDoor1;
@@ -512,6 +518,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().mainRoadBlock = mainRoadBlock;
                 boss.GetComponent<StartBrotherBoss>().endOfTheStreet = endOfTheStreet;
                 boss.GetComponent<StartBrotherBoss>().secondEnvironment = secondEnvironment;
+                brotherBossAnimations.startBoss = boss.GetComponent<StartBrotherBoss>();
 
                 break;
 
