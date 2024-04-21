@@ -12,6 +12,8 @@ public class CloneDash : MonoBehaviour
     public GameObject player;
     public float speed;
     public Transform streets;
+    public Animator animator;
+    public AnimationClip dash;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,7 @@ public class CloneDash : MonoBehaviour
         if(timer > timeToDash && seeking == false)
         {
             seeking = true;
+            animator.Play(dash.name);
             direction = (player.transform.position - gameObject.transform.position);
             gameObject.transform.SetParent(streets);
             gameObject.GetComponent<NavMeshAgent>().enabled = true;
