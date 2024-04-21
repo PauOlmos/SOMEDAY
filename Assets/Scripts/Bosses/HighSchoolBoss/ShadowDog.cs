@@ -14,7 +14,7 @@ public class ShadowDog : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator.Play(walk.name);
+        if (animator != null) animator.Play(walk.name);
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class ShadowDog : MonoBehaviour
         if(Vector3.Distance(gameObject.transform.position, player.transform.position) < 1.5f && attacking == false)
         {
             attacking = true;
-            animator.Play(attack.name);
+            if(animator != null) animator.Play(attack.name);
         }
         if (attacking == true)
         {
@@ -33,7 +33,7 @@ public class ShadowDog : MonoBehaviour
             {
                 attackTimer = 0.0f;
                 attacking = false;
-                animator.Play(walk.name);
+                if (animator != null) animator.Play(walk.name);
 
             }
         }

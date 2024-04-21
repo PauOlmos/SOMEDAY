@@ -509,9 +509,9 @@ public class BrotherBoss : MonoBehaviour
 
                         int cases = 0;
 
-                        if (head.transform.localScale.x < 40.0f)
+                        if (head.transform.localScale.x < 2600.0f)
                         {
-                            head.transform.localScale += Vector3.one * Time.deltaTime * 5.0f;
+                            head.transform.localScale += Vector3.one * Time.deltaTime * 250.0f;
                         }
                         else cases++;
 
