@@ -7,6 +7,7 @@ public class EnemyHP : MonoBehaviour
     public int hp = 10;
     public bool canBeDamaged = true;
     public bool stun = false;
+    public BossManager bossManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +66,10 @@ public class EnemyHP : MonoBehaviour
         if(gameObject.GetComponent<HighSchoolBoss>() != null)
         {
             gameObject.GetComponent<HighSchoolBoss>().bossAudioSource.PlayOneShot(gameObject.GetComponent<HighSchoolBoss>().highSchoolBossAudios[11]);
+        }
+        if(gameObject.GetComponent<DadBoss>() != null || gameObject.GetComponent<MomBoss>()!= null)
+        {
+            bossManager.bossAudioSource.PlayOneShot(bossManager.highSchoolBossAudios[11]);
         }
     }
 }

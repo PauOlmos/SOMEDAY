@@ -100,7 +100,7 @@ public class StartHighSchoolBoss : MonoBehaviour
     public AudioClip[] ambienceAudios;
     void Start()
     {
-        bossAudioSource.PlayOneShot(highSchoolBossAudios[13]);
+        bossAudioSource.PlayOneShot(highSchoolBossAudios[13]);//Transition
         ambienceAudioSource.clip = ambienceAudios[1];
         ambienceAudioSource.Play();
         TutorialWalls.isStatic = false;

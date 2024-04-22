@@ -47,6 +47,10 @@ public class BossManager : MonoBehaviour
     public AudioClip[] highSchoolBossAudios;
     public AudioClip[] highSchoolBossDialogAudios;
     public string[] highSchoolBossDialogs;
+    
+    public AudioClip[] parentsBossAudios;
+    public AudioClip[] parentsBossDialogAudios;
+    public string[] parentsBossDialogs;
 
     public SubtitleManager subtitleManagaer;
 
@@ -226,6 +230,9 @@ public class BossManager : MonoBehaviour
 
     public GameObject secondEnvironment;
     public int difficulty;
+    public float dialogTimer = 0.0f;
+    private int dialogNum;
+
     void Start()
     {
         currentBoss = Settings.actualBoss;
@@ -371,6 +378,8 @@ public class BossManager : MonoBehaviour
 
                 break;
             case 2:
+                ambienceAudioSource.clip = ambienceAudios[2];
+                ambienceAudioSource.Play();
                 lights[nBoss].SetActive(true);
                 auxiliarLight.SetActive(true);
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
@@ -640,6 +649,11 @@ public class BossManager : MonoBehaviour
                             if(boss.GetComponent<HighSchoolBoss>().dead == true)
                             {
                                 NextBoss();
+                                bossAudioSource.Stop();
+                                bossAudioSource.clip = highSchoolBossDialogAudios[highSchoolBossDialogAudios.Length - 1];
+                                subtitleManagaer.subtitleText = highSchoolBossDialogs[highSchoolBossDialogAudios.Length - 1];
+                                subtitleManagaer.currentAudioClip = highSchoolBossDialogAudios[highSchoolBossDialogAudios.Length - 1];
+                                subtitleManagaer.canReproduceAudio = true;
                                 Destroy(boss.GetComponent<HighSchoolBoss>());
                             }
                             break;
@@ -650,7 +664,11 @@ public class BossManager : MonoBehaviour
 
             case 2:
 
-                if(momBossModel.GetComponent<EnemyHP>().hp <= 0 && boss.GetComponent<EnemyHP>().hp <= 0)
+                dialogTimer += Time.deltaTime;
+
+                dialogTimer = Dialogs();
+
+                if (momBossModel.GetComponent<EnemyHP>().hp <= 0 && boss.GetComponent<EnemyHP>().hp <= 0)
                 {
                     if (momBossModel.activeInHierarchy == true)
                     {
@@ -677,6 +695,10 @@ public class BossManager : MonoBehaviour
                 {
                     momBossModel.SetActive(false);
                     momBossModel.tag = "Untagged";
+                    subtitleManagaer.subtitleText = parentsBossDialogs[9];
+                    subtitleManagaer.currentAudioClip = parentsBossDialogAudios[9];
+                    subtitleManagaer.canReproduceAudio = true;
+                    dialogTimer = 0;
                     boss.GetComponent<DadBoss>().phase++;
                     boss.GetComponent<DadBoss>().shotgunTimer = 0.0f;
                     boss.GetComponent<DadBoss>().molotovTimer = 0.0f;
@@ -688,8 +710,15 @@ public class BossManager : MonoBehaviour
                 }
                 if(boss.GetComponent<EnemyHP>().hp <= 0 && momBossModel.GetComponent<MomBoss>().phase == 0 && momBossModel.activeInHierarchy == true)
                 {
+
+                    bossAudioSource.transform.SetParent(momBossModel.transform);
+                    bossDialogAudioSource.transform.SetParent(momBossModel.transform);
                     boss.SetActive(false);
                     boss.tag = "Untagged";
+                    subtitleManagaer.subtitleText = parentsBossDialogs[8];
+                    subtitleManagaer.currentAudioClip = parentsBossDialogAudios[8];
+                    subtitleManagaer.canReproduceAudio = true;
+                    dialogTimer = 0;
                     momBossModel.GetComponent<MomBoss>().phase++;
                     momBossModel.GetComponent<MomBoss>().delayTime = 2.15f;
                     momBossModel.GetComponent<MomBoss>().maxNumAttacks = 5;
@@ -726,6 +755,7 @@ public class BossManager : MonoBehaviour
                                 boss.GetComponent<BrotherBoss>().phase++;
                                 boss.GetComponent<BrotherBoss>().canAttack = false;
                                 boss.GetComponent<BrotherBoss>().canMove = true;
+                                head.SetActive(true);
                                 mainRoadBlock.SetActive(false);
                                 boss.GetComponent<NavMeshAgent>().enabled = false;
                                 boss.GetComponent<CapsuleCollider>().enabled = false;
@@ -741,6 +771,24 @@ public class BossManager : MonoBehaviour
             default:break;
         }
 
+    }
+
+    private float Dialogs()
+    {
+        if (dialogTimer > 30.0f)
+        {
+            subtitleManagaer.subtitleText = parentsBossDialogs[dialogNum];
+            subtitleManagaer.currentAudioClip = parentsBossDialogAudios[dialogNum];
+            subtitleManagaer.canReproduceAudio = true;
+            dialogTimer = 0;
+            return dialogTimer;
+        }
+        else
+        {
+
+            dialogNum = Random.Range(0, parentsBossDialogAudios.Length - 1);
+            return dialogTimer;
+        }
     }
 
     public void NextBoss()
