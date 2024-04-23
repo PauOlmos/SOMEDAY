@@ -55,6 +55,11 @@ public class StartParentsBoss : MonoBehaviour
 
     public GameObject highSchoolBossModel;
     public GameObject dadBossModel;
+
+    public AudioSource bossAudioSource;
+    public AudioSource momAudioSource;
+    public AudioClip[] parentsBossAudios;
+
     void Start()
     {
         
@@ -176,6 +181,8 @@ public class StartParentsBoss : MonoBehaviour
                 gameObject.GetComponent<DadBoss>().spinnerArea = spinnerArea;
                 gameObject.GetComponent<DadBoss>().difficulty = difficulty;
                 gameObject.GetComponent<DadBoss>().dadPosition = dadPosition;
+                gameObject.GetComponent<DadBoss>().bossAudioSource = bossAudioSource;
+                gameObject.GetComponent<DadBoss>().parentsBossAudios = parentsBossAudios;
 
                 //Mom
                 momBoss.AddComponent<MomBoss>();
@@ -189,6 +196,8 @@ public class StartParentsBoss : MonoBehaviour
                 momBoss.GetComponent<MomBoss>().greatAttackArea1 = greatAttackArea1;
                 momBoss.GetComponent<MomBoss>().greatAttackArea2 = greatAttackArea2;
                 momBoss.GetComponent<MomBoss>().difficulty = difficulty;
+                momBoss.GetComponent<MomBoss>().momAudioSource = momAudioSource;
+                momBoss.GetComponent<MomBoss>().parentsBossAudios = parentsBossAudios;
 
 
                 Destroy(gameObject.GetComponent<StartParentsBoss>());

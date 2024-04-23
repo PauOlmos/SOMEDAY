@@ -56,6 +56,8 @@ public class DadBoss : MonoBehaviour
     public float[] roombaDuration = { 4, 6, 7 };
 
     public Transform dadPosition;
+    public AudioSource bossAudioSource;
+    public AudioClip[] parentsBossAudios;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,9 +76,16 @@ public class DadBoss : MonoBehaviour
             switch (attackType)
             {
                 case AttackType.bullethell1:
+                    
                     delayTimer += Time.deltaTime;
                     if (delayTimer >= delayTime)
                     {
+                        if (bossAudioSource.isPlaying == false)
+                        {
+                            bossAudioSource.clip = parentsBossAudios[1];
+                            bossAudioSource.loop = true;
+                            bossAudioSource.Play();
+                        }
                         if (bulletHell1Count < 10)
                         {
                             if (bulletHellTimer >= 0.15f)
@@ -99,6 +108,7 @@ public class DadBoss : MonoBehaviour
                             delayTimer = 0.0f;
                             mainProjectileSource.GetComponentInChildren<Renderer>().material.color = Color.green;
                             mainProjectileSource.gameObject.SetActive(false);
+                            bossAudioSource.loop = false;
                             bulletHell1Count = 0;
                         }
 
@@ -110,9 +120,16 @@ public class DadBoss : MonoBehaviour
                     }
                     break;
                 case AttackType.bullethell2:
+
                     delayTimer += Time.deltaTime;
                     if (delayTimer >= delayTime)
                     {
+                        if (bossAudioSource.isPlaying == false)
+                        {
+                            bossAudioSource.clip = parentsBossAudios[1];
+                            bossAudioSource.loop = true;
+                            bossAudioSource.Play();
+                        }
                         if (bulletHell2Timer < 10)
                         {
                             bulletHell2Timer += Time.deltaTime;
@@ -134,6 +151,7 @@ public class DadBoss : MonoBehaviour
                         {
                             bulletHell2Direction.transform.position = originalBulletHell2DirectionPosition;
                             delayTimer = 0.0f;
+                            bossAudioSource.loop = false;
                             mainProjectileSource.GetComponentInChildren<Renderer>().material.color = Color.green;
                             mainProjectileSource.gameObject.SetActive(false);
                             canAttack = false;
@@ -148,9 +166,16 @@ public class DadBoss : MonoBehaviour
                     break;
 
                 case AttackType.bullethell3:
+
                     delayTimer += Time.deltaTime;
                     if (delayTimer >= delayTime)
                     {
+                        if (bossAudioSource.isPlaying == false)
+                        {
+                            bossAudioSource.clip = parentsBossAudios[1];
+                            bossAudioSource.loop = true;
+                            bossAudioSource.Play();
+                        }
                         if (bulletHell1Count < 1)
                         {
                             if (bulletHellTimer >= 0.15f)
@@ -194,6 +219,7 @@ public class DadBoss : MonoBehaviour
                                 canAttack = false;
                                 bulletHell1Count = 0;
                                 bulletHell3Count = 0;
+                                bossAudioSource.loop = false;
                             }
 
                         }
@@ -230,9 +256,24 @@ public class DadBoss : MonoBehaviour
                 int value = Random.Range(phase, maxNumAttacks);
                 switch (value)
                 {
-                    case 3: attackType = AttackType.bullethell1; break;
-                    case 1: attackType = AttackType.bullethell2; break;
-                    case 2: attackType = AttackType.bullethell3; break;
+                    case 3: attackType = AttackType.bullethell1;
+
+                        bossAudioSource.clip = parentsBossAudios[0];
+                        bossAudioSource.loop = false;
+                        bossAudioSource.Play();
+                        break;
+                    case 1: attackType = AttackType.bullethell2;
+
+                        bossAudioSource.clip = parentsBossAudios[0];
+                        bossAudioSource.loop = false;
+                        bossAudioSource.Play();
+                        break;
+                    case 2: attackType = AttackType.bullethell3;
+
+                        bossAudioSource.clip = parentsBossAudios[0];
+                        bossAudioSource.loop = false;
+                        bossAudioSource.Play();
+                        break;
                     case 0: attackType = AttackType.wallShotGuns; break;
                     default: attackType = AttackType.spinners; break;
                 }
@@ -265,6 +306,7 @@ public class DadBoss : MonoBehaviour
                 GameObject gun = Instantiate(shotgun, rightShotgunPositions[i].position, Quaternion.identity);
                 gun.GetComponent<Shotgun>().right = true;
                 gun.GetComponent<Shotgun>().maxShots = numShotgunProjectiles[difficulty];
+                gun.GetComponent<Shotgun>().gunNum = i;
             }
         }
         else if (shotgunTimer > 7.0f)
@@ -274,6 +316,7 @@ public class DadBoss : MonoBehaviour
                 GameObject gun = Instantiate(shotgun, leftShotgunPositions[i].position, Quaternion.identity);
                 gun.GetComponent<Shotgun>().right = false;
                 gun.GetComponent<Shotgun>().maxShots = numShotgunProjectiles[difficulty];
+                gun.GetComponent<Shotgun>().gunNum = i;
 
             }
             shotgunTimer = 0;

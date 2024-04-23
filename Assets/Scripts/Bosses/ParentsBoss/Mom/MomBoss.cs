@@ -45,6 +45,10 @@ public class MomBoss : MonoBehaviour
 
     public bool damaged = false;
 
+    public AudioSource momAudioSource;
+    public AudioClip[] parentsBossAudios;
+    public float momCrawlTimer = 100.0f;
+
     public enum TeleportingState
     {
         reduce, move, expand
@@ -73,7 +77,7 @@ public class MomBoss : MonoBehaviour
                     delayTimer += Time.deltaTime;
                     if (delayTimer > delayTime)
                     {
-
+                        
                         if (delayTimer > (delayTime + delayTime / 10))
                         {
                             circularArea.tag = "Untagged";
@@ -85,12 +89,19 @@ public class MomBoss : MonoBehaviour
                         }
                         else
                         {
+                            momAudioSource.Stop();
                             circularArea.layer = 7;
                             circularArea.tag = "NonParryable";
                         }
                     }
                     else
                     {
+                        if (momAudioSource.isPlaying == false)
+                        {
+                            momAudioSource.clip = parentsBossAudios[2];
+                            momAudioSource.loop = true;
+                            momAudioSource.Play();
+                        }
                         if (delayTimer > (delayTime - delayTime / 20)) gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
                         Color auxColor = Color.Lerp(Color.green, Color.red, delayTimer / 1.5f);
                         auxColor.a = 0.3f;
@@ -116,12 +127,18 @@ public class MomBoss : MonoBehaviour
                         else
                         {
                             coneArea.layer = 7;
-
+                            momAudioSource.Stop();
                             coneArea.tag = "NonParryable";
                         }
                     }
                     else
                     {
+                        if (momAudioSource.isPlaying == false)
+                        {
+                            momAudioSource.clip = parentsBossAudios[2];
+                            momAudioSource.loop = true;
+                            momAudioSource.Play();
+                        }
                         if (delayTimer > (delayTime - delayTime / 20))
                         {
                             gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
@@ -154,6 +171,13 @@ public class MomBoss : MonoBehaviour
                     delayTimer += Time.deltaTime;
                     if (delayTimer > delayTime)
                     {
+                        if (momAudioSource.clip != parentsBossAudios[3]) momAudioSource.Stop();
+                        if (momAudioSource.isPlaying == false)
+                        {
+                            momAudioSource.clip = parentsBossAudios[3];
+                            momAudioSource.loop = true;
+                            momAudioSource.Play();
+                        }
                         if (delayTimer > (delayTime * 4))
                         {
                             greatAttackArea1.tag = "Untagged";
@@ -166,6 +190,8 @@ public class MomBoss : MonoBehaviour
                             delayTimer = 0.0f;
                             gameObject.GetComponent<NavMeshAgent>().angularSpeed = 120.0f;
                             canAttack = false;
+                            momAudioSource.loop = false;
+
                         }
                         else
                         {
@@ -178,6 +204,12 @@ public class MomBoss : MonoBehaviour
                     }
                     else
                     {
+                        if (momAudioSource.isPlaying == false)
+                        {
+                            momAudioSource.clip = parentsBossAudios[2];
+                            momAudioSource.loop = true;
+                            momAudioSource.Play();
+                        }
                         if (delayTimer > (delayTime - delayTime / 20))
                         {
                             gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
@@ -194,6 +226,17 @@ public class MomBoss : MonoBehaviour
         }
         else
         {
+
+            momCrawlTimer += Time.deltaTime;
+
+            if(momCrawlTimer > parentsBossAudios[6].length)
+            {
+                momAudioSource.clip = parentsBossAudios[6];
+                momAudioSource.loop = false;
+                momAudioSource.Play();
+                momCrawlTimer = 0.0f;
+            }
+
             attackCooldownTimer += Time.deltaTime;
             if (attackCooldownTimer >= attackCooldownTime[difficulty])
             {
@@ -261,6 +304,11 @@ public class MomBoss : MonoBehaviour
         {
             case TeleportingState.reduce:
 
+                if(momAudioSource.isPlaying == false)
+                {
+                    momAudioSource.clip = parentsBossAudios[4];
+                    momAudioSource.Play();
+                }
                 gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
                 if (gameObject.transform.localScale.x > 0) gameObject.transform.localScale -= Vector3.one * Time.deltaTime;
 
@@ -275,16 +323,22 @@ public class MomBoss : MonoBehaviour
 
                 gameObject.transform.position = GeneratePointWithoutCollision();
                 telState = TeleportingState.expand;
+                momAudioSource.Stop();
 
                 break;
             case TeleportingState.expand:
-
-                if(gameObject.transform.localScale.x < 1.0f)
+                if (momAudioSource.isPlaying == false)
+                {
+                    momAudioSource.clip = parentsBossAudios[5];
+                    momAudioSource.Play();
+                }
+                if (gameObject.transform.localScale.x < 1.0f)
                 {
                     gameObject.transform.localScale += Vector3.one * Time.deltaTime * expandIncrement[difficulty];
                 }
                 else
                 {
+                    momAudioSource.Stop();
                     gameObject.transform.localScale = Vector3.one;
                     telState = TeleportingState.reduce;
                     return false;

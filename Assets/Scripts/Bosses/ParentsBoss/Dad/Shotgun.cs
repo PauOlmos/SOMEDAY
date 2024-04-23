@@ -13,6 +13,7 @@ public class Shotgun : MonoBehaviour
     public int shotCounter = 0;
     public bool right;
     public int maxShots;
+    public int gunNum = -1;
     public enum ShotgunState
     {
         movingf,shooting,movingb
@@ -44,6 +45,7 @@ public class Shotgun : MonoBehaviour
                 timer += Time.deltaTime;
                 if (shotCounter < maxShots)
                 {
+                    if(gunNum == 0) gameObject.GetComponent<AudioSource>().Play();
                     if (timer >= 0.35f)
                     {
                         CreateProjectile(target, 17.5f);

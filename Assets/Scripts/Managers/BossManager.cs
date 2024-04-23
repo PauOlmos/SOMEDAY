@@ -38,6 +38,7 @@ public class BossManager : MonoBehaviour
     public AudioClip[] ambienceAudios;
 
     public AudioSource bossAudioSource;
+    public AudioSource momAudioSource;
     public AudioSource bossDialogAudioSource;
 
     public AudioClip[] tutorialBossAudios;
@@ -439,6 +440,9 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartParentsBoss>().greatAttackArea2 = greatAttackArea2;
                 boss.GetComponent<StartParentsBoss>().highSchoolBossModel = highSchoolBossModel;
                 boss.GetComponent<StartParentsBoss>().dadBossModel = dadBossModel;
+                boss.GetComponent<StartParentsBoss>().bossAudioSource = bossAudioSource;
+                boss.GetComponent<StartParentsBoss>().momAudioSource = momAudioSource;
+                boss.GetComponent<StartParentsBoss>().parentsBossAudios = parentsBossAudios;
                 boss.GetComponent<StartParentsBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
 
                 break;
@@ -527,6 +531,9 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().mainRoadBlock = mainRoadBlock;
                 boss.GetComponent<StartBrotherBoss>().endOfTheStreet = endOfTheStreet;
                 boss.GetComponent<StartBrotherBoss>().secondEnvironment = secondEnvironment;
+
+
+
                 brotherBossAnimations.startBoss = boss.GetComponent<StartBrotherBoss>();
 
                 break;
@@ -699,6 +706,7 @@ public class BossManager : MonoBehaviour
                     subtitleManagaer.currentAudioClip = parentsBossDialogAudios[9];
                     subtitleManagaer.canReproduceAudio = true;
                     dialogTimer = 0;
+                    momAudioSource.Stop();
                     boss.GetComponent<DadBoss>().phase++;
                     boss.GetComponent<DadBoss>().shotgunTimer = 0.0f;
                     boss.GetComponent<DadBoss>().molotovTimer = 0.0f;
@@ -719,6 +727,8 @@ public class BossManager : MonoBehaviour
                     subtitleManagaer.currentAudioClip = parentsBossDialogAudios[8];
                     subtitleManagaer.canReproduceAudio = true;
                     dialogTimer = 0;
+                    bossAudioSource.Stop();
+
                     momBossModel.GetComponent<MomBoss>().phase++;
                     momBossModel.GetComponent<MomBoss>().delayTime = 2.15f;
                     momBossModel.GetComponent<MomBoss>().maxNumAttacks = 5;
@@ -786,7 +796,7 @@ public class BossManager : MonoBehaviour
         else
         {
 
-            dialogNum = Random.Range(0, parentsBossDialogAudios.Length - 1);
+            dialogNum = Random.Range(0, parentsBossDialogAudios.Length - 3);
             return dialogTimer;
         }
     }

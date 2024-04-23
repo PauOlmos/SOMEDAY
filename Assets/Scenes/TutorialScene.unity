@@ -8966,6 +8966,7 @@ GameObject:
   - component: {fileID: 177964941}
   - component: {fileID: 177964940}
   - component: {fileID: 177964946}
+  - component: {fileID: 177964947}
   m_Layer: 0
   m_Name: Mom
   m_TagString: Boss
@@ -9076,6 +9077,102 @@ MonoBehaviour:
   damagedTimer: 0
   beginTimer: 0
   animateNormally: 0
+--- !u!82 &177964947
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177964939}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: f57018ffe2867634687ad0848811e9fc, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &181349935
 GameObject:
   m_ObjectHideFlags: 0
@@ -24771,6 +24868,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cbdd53140659a024da2de9fd341af230, type: 3}
   - {fileID: 8300000, guid: 95c65f9657f94dd47b503c0e4ff4676a, type: 3}
   bossAudioSource: {fileID: 552759746}
+  momAudioSource: {fileID: 177964947}
   bossDialogAudioSource: {fileID: 500722004}
   tutorialBossAudios:
   - {fileID: 8300000, guid: 3c6df20dec7ae0141af8cf739ddcc890, type: 3}
@@ -24825,7 +24923,14 @@ MonoBehaviour:
   - You will never be anything in your entire life!
   - '*Tired sounds* Okay... Do you think you''ve done something? That you can defeat
     me? You still don''t know what you have left.'
-  parentsBossAudios: []
+  parentsBossAudios:
+  - {fileID: 8300000, guid: 3f7232004390b1e4faddf4e8f5a4f966, type: 3}
+  - {fileID: 8300000, guid: 16073f5df0e72104894288de7e3d6c99, type: 3}
+  - {fileID: 8300000, guid: dd96e26699238a94cb930dd5269605e5, type: 3}
+  - {fileID: 8300000, guid: 766ed5fc9f0ad50408980ade3c403ebc, type: 3}
+  - {fileID: 8300000, guid: 2534b4e5c62f4cd418ab9db0e60a47e3, type: 3}
+  - {fileID: 8300000, guid: 536eae1539bf5524db0172688a5365ef, type: 3}
+  - {fileID: 8300000, guid: 6ca18f2cdba388748b54e7e4d0b9da4f, type: 3}
   parentsBossDialogAudios:
   - {fileID: 8300000, guid: 16a70f8133ca44c45b268f3c6822a708, type: 3}
   - {fileID: 8300000, guid: ff9239061e2740541b6608b0500851c2, type: 3}
@@ -104129,7 +104234,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754425188}
-  m_LocalRotation: {x: 0.22652903, y: 9.2354973e-17, z: -8.3385636e-17, w: 0.97400445}
+  m_LocalRotation: {x: 0.22652902, y: 0.000000029027598, z: -0.0000000067510917, w: 0.97400445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

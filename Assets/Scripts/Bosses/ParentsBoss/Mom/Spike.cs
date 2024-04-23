@@ -9,6 +9,8 @@ public class Spike : MonoBehaviour
     public GameObject Prefab;
     public int hp = 2;
     public LayerMask nothing;
+    public AudioClip[] sounds;
+    public GameObject soundGO;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +38,19 @@ public class Spike : MonoBehaviour
         {
             hp--;
             Destroy(collision.gameObject);
-            if (hp <= 0) Destroy(Prefab);
+            if (hp <= 0)
+            {
+                GameObject sfx = Instantiate(soundGO, gameObject.transform.position, Quaternion.identity);
+                sfx.GetComponent<AudioSource>().clip = sounds[1];
+                sfx.GetComponent<AudioSource>().Play();
+                Destroy(Prefab);
+            }
+            else
+            {
+                gameObject.GetComponent<AudioSource>().clip = sounds[0];
+                gameObject.GetComponent<AudioSource>().loop = false;
+                gameObject.GetComponent<AudioSource>().Play();
+            }
         }
         
     }
@@ -46,7 +60,19 @@ public class Spike : MonoBehaviour
         if (other.gameObject.name == "Sword")
         {
             hp--;
-            if (hp <= 0) Destroy(Prefab);
+            if (hp <= 0)
+            {
+                GameObject sfx = Instantiate(soundGO, gameObject.transform.position, Quaternion.identity);
+                sfx.GetComponent<AudioSource>().clip = sounds[1];
+                sfx.GetComponent<AudioSource>().Play();
+                Destroy(Prefab);
+            }
+            else
+            {
+                gameObject.GetComponent<AudioSource>().clip = sounds[0];
+                gameObject.GetComponent<AudioSource>().loop = false;
+                gameObject.GetComponent<AudioSource>().Play();
+            }
         }
     }
 
