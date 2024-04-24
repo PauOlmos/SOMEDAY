@@ -67,7 +67,7 @@ Transform:
   - {fileID: 4975235259904872931}
   - {fileID: 5388094993823288850}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!23 &66960402304237689
 MeshRenderer:
@@ -151,6 +151,7 @@ MonoBehaviour:
   shotCounter: 0
   right: 0
   maxShots: 0
+  gunNum: 0
   state: 0
 --- !u!82 &56972623486305999
 AudioSource:
@@ -343,6 +344,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6053922253038618805, guid: c502a37a1f25865439835a9caad1026c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ddd2ff525b6242a419a044b5b5b2ca6e, type: 2}
+    - target: {fileID: -5215299815803115452, guid: c502a37a1f25865439835a9caad1026c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b715c58c15377234fb15cca4d7f511b0, type: 2}
+    - target: {fileID: -1903074178380694146, guid: c502a37a1f25865439835a9caad1026c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b715c58c15377234fb15cca4d7f511b0, type: 2}
     - target: {fileID: 919132149155446097, guid: c502a37a1f25865439835a9caad1026c, type: 3}
       propertyPath: m_Name
       value: Shotgun
