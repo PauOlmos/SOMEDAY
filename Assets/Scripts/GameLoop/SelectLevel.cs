@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.AI.Navigation;
 using Unity.IO.Archive;
 using UnityEngine;
 using UnityEngine.AI;
@@ -36,6 +37,7 @@ public class SelectLevel : MonoBehaviour
 
     void Start()
     {
+
         dataToStore = LoadPlayerData(Settings.archiveNum);
         maxLevel = dataToStore.maxLevel + 1;
         levelArray = new levels[maxLevel];
@@ -48,6 +50,10 @@ public class SelectLevel : MonoBehaviour
         }
         
         actualPosition = levelArray[maxLevel-1].levelIndex;
+        player.SetActive(false);
+        player.transform.position = levelArray[maxLevel - 1].level.transform.position;
+        agent.transform.position = levelArray[maxLevel - 1].level.transform.position;
+        player.SetActive(true);
     }
 
     // Update is called once per frame
@@ -63,8 +69,7 @@ public class SelectLevel : MonoBehaviour
 
         if (justOnce == false)
         {
-            player.transform.position = levelArray[maxLevel - 1].level.transform.position;
-            agent.transform.position = levelArray[maxLevel - 1].level.transform.position;
+            
         }
 
         if (Input.GetAxis("HorizontalArrows") < 0)//Left
