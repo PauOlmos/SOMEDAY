@@ -25,9 +25,14 @@ public class SelectLevel : MonoBehaviour
 
     public bool canMove = true;
 
-    public bool justOnce = false;
     public int scene;
     public bool collidingWithLevel = true;
+
+    public AnimationClip idle;
+    public AnimationClip run;
+    public AnimationClip actualAnimation;
+    public Animator animator;
+    public bool isIdle = true;
     public struct levels
     {
         public GameObject level;
@@ -59,17 +64,13 @@ public class SelectLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        isIdle = Vector3.Distance(gameObject.transform.position, agent.destination) < 1.0f;
+        Animations();
         if (Input.GetButtonDown("Jump") && collidingWithLevel)
         {
             collidingWithLevel = true;
             Settings.actualBoss = scene;
             if(Settings.actualBoss == scene) SceneManager.LoadScene(2);
-        }
-
-        if (justOnce == false)
-        {
-            
         }
 
         if (Input.GetAxis("HorizontalArrows") < 0)//Left
@@ -78,7 +79,6 @@ public class SelectLevel : MonoBehaviour
             {
                 agent.destination = (levelArray[actualPosition - 1].level.transform.position);
                 //Debug.Log(agent.destination);
-                justOnce = true;
                 actualPosition--;
                 canMove = false;
             }
@@ -90,7 +90,6 @@ public class SelectLevel : MonoBehaviour
             {
                 agent.destination = (levelArray[actualPosition + 1].level.transform.position);
                 //Debug.Log(agent.destination);
-                justOnce = true;
                 actualPosition++;
                 canMove = false;
             }
@@ -151,6 +150,11 @@ public class SelectLevel : MonoBehaviour
         {
             collidingWithLevel = false;
         }
+    }
+    private void Animations()
+    {
+        if (isIdle && actualAnimation != idle) animator.Play(idle.name); 
+        if (!isIdle && actualAnimation != run) animator.Play(run.name); 
     }
 
 }
