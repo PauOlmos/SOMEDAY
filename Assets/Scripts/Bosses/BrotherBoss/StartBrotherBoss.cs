@@ -51,6 +51,10 @@ public class StartBrotherBoss : MonoBehaviour
     public GameObject mainRoadBlock;
     public Transform endOfTheStreet;
     public GameObject secondEnvironment;
+    public GameObject brotherModel;
+
+    public GameObject cityBarrier1;
+    public GameObject cityBarrier2;
 
     public enum TransitionState
     {
@@ -112,10 +116,11 @@ public class StartBrotherBoss : MonoBehaviour
                 gameObject.transform.position = carDriversPosition.position;
                 if(isPlayerOnStreet.isOnStreet == true)
                 {
+                    isPlayerOnStreet.enabled = false;
                     Destroy(isPlayerOnStreet);
                     transitionState = TransitionState.driving;
                     actualSeekingPosition = 0;
-                    streetsFloor.BuildNavMesh();
+                    //streetsFloor.BuildNavMesh();
                 }
 
                 break;
@@ -174,6 +179,10 @@ public class StartBrotherBoss : MonoBehaviour
                     gameObject.GetComponent<BrotherBoss>().headPosition = headPosition;
                     gameObject.GetComponent<BrotherBoss>().mainRoadBlock = mainRoadBlock;
                     gameObject.GetComponent<BrotherBoss>().endOfTheStreet = endOfTheStreet;
+                    gameObject.GetComponent<BrotherBoss>().brotherModel = brotherModel;
+                    gameObject.GetComponent<BrotherBoss>().cityBarrier1 = cityBarrier1;
+                    gameObject.GetComponent<BrotherBoss>().cityBarrier2 = cityBarrier2;
+
                     Destroy(gameObject.GetComponent<StartBrotherBoss>());
                 }
 

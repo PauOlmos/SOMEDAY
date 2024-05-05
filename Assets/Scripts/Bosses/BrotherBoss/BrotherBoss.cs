@@ -93,6 +93,11 @@ public class BrotherBoss : MonoBehaviour
     public Transform endOfTheStreet;
     public Rigidbody rb;
 
+    public GameObject brotherModel;
+    public GameObject cityBarrier1;
+    public GameObject cityBarrier2;
+    public float cityBarrierTiming;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -512,7 +517,7 @@ public class BrotherBoss : MonoBehaviour
 
                         int cases = 0;
 
-                        if (head.transform.localScale.x < 1000.0f)
+                        if (head.transform.localScale.x < 1200.0f)
                         {
                             head.transform.localScale += Vector3.one * Time.deltaTime * 250.0f;
                         }
@@ -533,9 +538,19 @@ public class BrotherBoss : MonoBehaviour
                             headTransition = HeadTransition.following;
                             gameObject.GetComponent<Rigidbody>().detectCollisions = false;
                             gameObject.GetComponent<Rigidbody>().useGravity = false;
+                            head.layer = 7;
+                            head.tag = "NonParryable";
+                            brotherModel.SetActive(false);
                         }
                         break;
                     case HeadTransition.following:
+                        cityBarrierTiming += Time.deltaTime;
+                        if (cityBarrierTiming <= 6.0f)
+                        {
+                            cityBarrier1.transform.Translate(Vector3.right * Time.deltaTime * 7.5f);
+                            cityBarrier2.transform.Translate(Vector3.left * Time.deltaTime * 7.5f);
+                        }
+                        
                         gameObject.GetComponent<Rigidbody>().Sleep();
                         gameObject.transform.LookAt(endOfTheStreet);
                         gameObject.transform.Translate(gameObject.transform.forward * Time.deltaTime * 10);

@@ -228,6 +228,10 @@ public class BossManager : MonoBehaviour
     public Transform headPosition;
     public GameObject mainRoadBlock;
     public Transform endOfTheStreet;
+    public GameObject brotherModel;
+
+    public GameObject cityBarrier1;
+    public GameObject cityBarrier2;
 
     public GameObject secondEnvironment;
     public int difficulty;
@@ -531,6 +535,9 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().mainRoadBlock = mainRoadBlock;
                 boss.GetComponent<StartBrotherBoss>().endOfTheStreet = endOfTheStreet;
                 boss.GetComponent<StartBrotherBoss>().secondEnvironment = secondEnvironment;
+                boss.GetComponent<StartBrotherBoss>().brotherModel = brotherModel;
+                boss.GetComponent<StartBrotherBoss>().cityBarrier1 = cityBarrier1;
+                boss.GetComponent<StartBrotherBoss>().cityBarrier2 = cityBarrier2;
 
 
 
