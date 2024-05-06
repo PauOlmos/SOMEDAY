@@ -394,6 +394,10 @@ public class BossManager : MonoBehaviour
                     boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
                     //Debug.Log("Player: " + player.transform.position + "Position: " + playerSpawnPositions[nBoss].position);
                 }
+                else
+                {
+                    player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                }
                 Destroy(highSchoolBossAnimations);
                 Destroy(tutorialAnimations);
                 Destroy(tutorialBossModel);
@@ -655,15 +659,19 @@ public class BossManager : MonoBehaviour
                         case 1:
                             if (boss.GetComponent<EnemyHP>().hp < 80)
                             {
+                                lights[nBoss].SetActive(false);
                                 boss.GetComponent<EnemyHP>().canBeDamaged = true;
                                 boss.GetComponent<HighSchoolBoss>().phase++;
                                 boss.GetComponentInChildren<NavMeshAgent>().enabled = false;
+                                player.GetComponent<Light>().enabled = true;
 
                             }
                             break;
                         case 2:
                             if(boss.GetComponent<HighSchoolBoss>().dead == true)
                             {
+                                lights[nBoss].SetActive(true);
+                                player.GetComponent<Light>().enabled = false;
                                 NextBoss();
                                 bossAudioSource.Stop();
                                 bossAudioSource.clip = highSchoolBossDialogAudios[highSchoolBossDialogAudios.Length - 1];

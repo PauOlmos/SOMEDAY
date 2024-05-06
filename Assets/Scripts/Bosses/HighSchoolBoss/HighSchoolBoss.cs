@@ -650,7 +650,8 @@ public class HighSchoolBoss : MonoBehaviour
                             }
                             else
                             {
-                                if(!Physics.Raycast(gameObject.transform.position, Vector3.down, 5.0f, Ground)) gameObject.transform.Translate(Vector3.down * Time.deltaTime * 7.5f);
+                                if (!Physics.Raycast(gameObject.transform.position, Vector3.down, 15.0f, Ground)) gameObject.transform.Translate(Vector3.down * Time.deltaTime * 7.5f);
+                                else Debug.Log("Boss Touching Ground");
                             }
                         }
                         else
@@ -778,6 +779,9 @@ public class HighSchoolBoss : MonoBehaviour
 
                                     if (projectileAttackTimer > 0.25f)
                                     {
+                                        bossAudioSource.clip = (highSchoolBossAudios[8]);
+                                        bossAudioSource.loop = false;
+                                        bossAudioSource.Play();
                                         GameObject projectile = Instantiate(projectilePrefab, projectileBossSource.transform.position, Quaternion.identity);
                                         projectile.AddComponent<SeekingProjectile>();
                                         projectile.GetComponent<SeekingProjectile>().canFail = true;
@@ -790,11 +794,12 @@ public class HighSchoolBoss : MonoBehaviour
                                         projectile.AddComponent<DieByTime>();
                                         projectile.GetComponent<DieByTime>().deathTime = 30.0f;
                                         projectile.transform.localScale = Vector3.one + Vector3.one * numShots * 0.25f;
+                                        projectile.AddComponent<Light>();
                                         numProjectilesShot++;
                                         projectileAttackTimer = 0.0f;
                                     }
 
-                                    if (numProjectilesShot > 8)
+                                    if (numProjectilesShot > numProjectilesPhase2[difficulty] * 2)
                                     {
                                         numProjectilesShot = 0;
                                         attackSelected = false;
