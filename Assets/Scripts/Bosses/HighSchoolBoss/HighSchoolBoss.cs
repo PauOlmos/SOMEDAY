@@ -608,7 +608,6 @@ public class HighSchoolBoss : MonoBehaviour
                             }
                             
                             Destroy(corridorFloor);
-                            gameObject.GetComponent<NavMeshAgent>().enabled = false;
                             if (touchingGround == true)
                             {
                                 touchingGround = false;
@@ -648,6 +647,10 @@ public class HighSchoolBoss : MonoBehaviour
                                 Destroy(handPos2);
                                 Destroy(handPos3);
                                 agent.angularSpeed = 100.0f;
+                            }
+                            else
+                            {
+                                if(!Physics.Raycast(gameObject.transform.position, Vector3.down, 5.0f, Ground)) gameObject.transform.Translate(Vector3.down * Time.deltaTime * 7.5f);
                             }
                         }
                         else

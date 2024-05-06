@@ -657,6 +657,8 @@ public class BossManager : MonoBehaviour
                             {
                                 boss.GetComponent<EnemyHP>().canBeDamaged = true;
                                 boss.GetComponent<HighSchoolBoss>().phase++;
+                                boss.GetComponentInChildren<NavMeshAgent>().enabled = false;
+
                             }
                             break;
                         case 2:
