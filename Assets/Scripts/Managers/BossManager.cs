@@ -52,6 +52,10 @@ public class BossManager : MonoBehaviour
     public AudioClip[] parentsBossAudios;
     public AudioClip[] parentsBossDialogAudios;
     public string[] parentsBossDialogs;
+    
+    public AudioClip[] brotherBossAudios;
+    public AudioClip[] brotherBossDialogAudios;
+    public string[] brotherBossDialogs;
 
     public SubtitleManager subtitleManagaer;
 
@@ -403,12 +407,12 @@ public class BossManager : MonoBehaviour
                 Destroy(tutorialAnimations);
                 Destroy(tutorialBossModel);
                 //Destroy(highSchoolBossModel);
-                highSchoolBossModel.SetActive(true); 
+                highSchoolBossModel.SetActive(true);
                 dadBossAnimations.enabled = true;
                 dadBossAnimations.animation = dadBossAnimations.model.GetComponent<Animator>();
                 dadBossAnimations.animation.Play(dadBossAnimations.animations[0].name);
                 dadBossAnimations.actualAnimation = dadBossAnimations.animations[0];
-                
+
                 momBossAnimations.enabled = true;
                 momBossAnimations.animation = momBossAnimations.model.GetComponent<Animator>();
                 //momBossAnimations.animation.Play(momBossAnimations.animations[0].name);
@@ -479,7 +483,7 @@ public class BossManager : MonoBehaviour
                 auxiliarLight2.SetActive(true);
                 ageCorridor.SetActive(true);
                 Destroy(scenarioFloor);
-                if(boss.name == "Boss")
+                if (boss.name == "Boss")
                 {
                     if (tutorialAnimations != null) Destroy(tutorialAnimations);
                     if (highSchoolBossAnimations != null) Destroy(highSchoolBossAnimations);
@@ -490,7 +494,7 @@ public class BossManager : MonoBehaviour
                     if (dadBossAnimations != null) Destroy(dadBossAnimations);
                     if (momBossModel != null) Destroy(momBossModel);
                 }
-                else if(boss.name == "Mom")
+                else if (boss.name == "Mom")
                 {
                     if (boss.GetComponent<MomBossAnimations>() != null) Destroy(boss.GetComponent<MomBossAnimations>().model);
                     if (momBossAnimations != null) Destroy(momBossAnimations);
@@ -499,7 +503,7 @@ public class BossManager : MonoBehaviour
                     if (coneArea != null) Destroy(coneArea);
                     boss.name = "Boss";
                 }
-                
+
                 brotherBossModel.SetActive(true);
                 brotherBossAnimations.enabled = true;
                 brotherBossAnimations.animation = brotherBossAnimations.model.GetComponent<Animator>();
@@ -529,7 +533,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().proximityAreaAttack = proximityArea;
                 boss.GetComponent<StartBrotherBoss>().brotherBossModel = brotherBossModel;
                 boss.GetComponent<StartBrotherBoss>().randomMapPositions = randomMapPositions;
-                
+
                 boss.GetComponent<StartBrotherBoss>().aerialPosition = aerialPosition;
                 boss.GetComponent<StartBrotherBoss>().disc = disc;
                 boss.GetComponent<StartBrotherBoss>().discMovementArea = discMovementArea;
@@ -544,13 +548,18 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().cityBarrier1 = cityBarrier1;
                 boss.GetComponent<StartBrotherBoss>().cityBarrier2 = cityBarrier2;
 
+                boss.GetComponent<StartBrotherBoss>().brotherBossAudios = brotherBossAudios;
+                boss.GetComponent<StartBrotherBoss>().brotherBossDialogAudios = brotherBossDialogAudios;
+                boss.GetComponent<StartBrotherBoss>().brotherBossDialogs = brotherBossDialogs;
+                boss.GetComponent<StartBrotherBoss>().subtitleManagaer = subtitleManagaer;
 
-
+                boss.GetComponent<StartBrotherBoss>().ambienceAudioSource = ambienceAudioSource;
+                boss.GetComponent<StartBrotherBoss>().ambienceAudios = ambienceAudios;
                 brotherBossAnimations.startBoss = boss.GetComponent<StartBrotherBoss>();
 
                 break;
 
-                default: break;
+            default: break;
         }
     }
 
@@ -694,14 +703,27 @@ public class BossManager : MonoBehaviour
 
                 if (momBossModel.GetComponent<EnemyHP>().hp <= 0 && boss.GetComponent<EnemyHP>().hp <= 0)
                 {
+                    ambienceAudioSource.Stop();
+                    ambienceAudioSource.clip = brotherBossAudios[0];
+                    ambienceAudioSource.Play();
+                    ambienceAudioSource.loop = false;
+                    bossAudioSource.Stop();
+                    bossAudioSource.clip = parentsBossDialogAudios[parentsBossDialogAudios.Length - 1];
+                    subtitleManagaer.subtitleText = parentsBossDialogs[parentsBossDialogs.Length-1];
+                    subtitleManagaer.currentAudioClip = parentsBossDialogAudios[parentsBossDialogs.Length-1];
+                    subtitleManagaer.canReproduceAudio = true;
                     if (momBossModel.activeInHierarchy == true)
                     {
+
                         Destroy(momBossModel.GetComponent<MomBoss>());
                         Destroy(boss);
                         boss = momBossModel;
+                        boss.GetComponent<BrotherBossAnimations>().enabled = true;
+                        brotherModel.transform.localPosition = Vector3.zero;
                         brotherBossModel.transform.localPosition = Vector3.zero;
                         brotherBossModel.transform.SetParent(boss.transform);
                         brotherBossModel.transform.localPosition = Vector3.zero;
+                        brotherModel.transform.Rotate(0, 90, 0);
                         brotherBossModel.transform.Rotate(-brotherBossModel.transform.localEulerAngles.x, 0, -brotherBossModel.transform.localEulerAngles.z);
                         proximityArea.transform.SetParent(boss.transform);
                     }

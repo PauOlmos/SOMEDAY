@@ -56,6 +56,14 @@ public class StartBrotherBoss : MonoBehaviour
     public GameObject cityBarrier1;
     public GameObject cityBarrier2;
 
+
+    public AudioSource ambienceAudioSource;
+    public AudioClip[] ambienceAudios;
+    public SubtitleManager subtitleManagaer;
+    public AudioClip[] brotherBossAudios;
+    public AudioClip[] brotherBossDialogAudios;
+    public string[] brotherBossDialogs;
+
     public enum TransitionState
     {
         start, moving, waiting, driving, startBossFight 
@@ -153,7 +161,7 @@ public class StartBrotherBoss : MonoBehaviour
 
                 startBossFightTimer += Time.deltaTime;
 
-                if(startBossFightTimer > 5.0f)//Time for the audio transition (Ex: You killed me brother!!!)
+                if (startBossFightTimer > 5.0f)//Time for the audio transition (Ex: You killed me brother!!!)
                 {
                     Destroy(secondEnvironment);
                     //Start BossFight
@@ -174,7 +182,7 @@ public class StartBrotherBoss : MonoBehaviour
                     gameObject.GetComponent<BrotherBoss>().discMovementArea = discMovementArea;
                     gameObject.GetComponent<BrotherBoss>().drone = drone;
                     gameObject.GetComponent<BrotherBoss>().car = car;
-                    gameObject.GetComponent<BrotherBoss>().continousCircle = continousCircle; 
+                    gameObject.GetComponent<BrotherBoss>().continousCircle = continousCircle;
                     gameObject.GetComponent<BrotherBoss>().head = head;
                     gameObject.GetComponent<BrotherBoss>().headPosition = headPosition;
                     gameObject.GetComponent<BrotherBoss>().mainRoadBlock = mainRoadBlock;
@@ -182,6 +190,12 @@ public class StartBrotherBoss : MonoBehaviour
                     gameObject.GetComponent<BrotherBoss>().brotherModel = brotherModel;
                     gameObject.GetComponent<BrotherBoss>().cityBarrier1 = cityBarrier1;
                     gameObject.GetComponent<BrotherBoss>().cityBarrier2 = cityBarrier2;
+                    gameObject.GetComponent<BrotherBoss>().brotherBossAudios = brotherBossAudios;
+                    gameObject.GetComponent<BrotherBoss>().brotherBossDialogAudios = brotherBossDialogAudios;
+                    gameObject.GetComponent<BrotherBoss>().brotherBossDialogs = brotherBossDialogs;
+                    gameObject.GetComponent<BrotherBoss>().subtitleManagaer = subtitleManagaer;
+                    gameObject.GetComponent<BrotherBoss>().ambienceAudioSource = ambienceAudioSource;
+                    gameObject.GetComponent<BrotherBoss>().ambienceAudios = ambienceAudios;
 
                     Destroy(gameObject.GetComponent<StartBrotherBoss>());
                 }

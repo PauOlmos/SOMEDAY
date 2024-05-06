@@ -44,149 +44,151 @@ public class BrotherBossAnimations : MonoBehaviour
         }
         else
         {
-            switch (boss.phase)
+            if (boss != null)
             {
-                case 0:
+                switch (boss.phase)
+                {
+                    case 0:
 
-                    if (boss.canMove == true)
-                    {
-                        if (actualAnimation != animations[2])
+                        if (boss.canMove == true)
                         {
-                            damagedTimer = 0.0f;
-                            gameObject.GetComponent<BrotherBoss>().damaged = false;
-                            actualAnimation = animations[2];
-                            animation.Play(animations[2].name);
-                        }
-                    }
-                    else
-                    {
-                        if (gameObject.GetComponent<EnemyHP>().stun == true)
-                        {
-                            if (actualAnimation != animations[6])
+                            if (actualAnimation != animations[2])
                             {
-                                actualAnimation = animations[6];
-                                animation.Play(animations[6].name);
+                                damagedTimer = 0.0f;
+                                gameObject.GetComponent<BrotherBoss>().damaged = false;
+                                actualAnimation = animations[2];
+                                animation.Play(animations[2].name);
                             }
                         }
                         else
                         {
-                            if (gameObject.GetComponent<BrotherBoss>().damaged == true) //TakeDamage Animation Priority
+                            if (gameObject.GetComponent<EnemyHP>().stun == true)
                             {
-                                if (actualAnimation != animations[5])
+                                if (actualAnimation != animations[6])
                                 {
-                                    actualAnimation = animations[5];
-                                    animation.Play(animations[5].name);
-                                }
-                                damagedTimer += Time.deltaTime;
-                                if (damagedTimer >= animations[5].length)
-                                {
-                                    gameObject.GetComponent<BrotherBoss>().damaged = false;
-                                    damagedTimer = 0.0f;
+                                    actualAnimation = animations[6];
+                                    animation.Play(animations[6].name);
                                 }
                             }
                             else
                             {
-                                if (boss.canAttack == true)
+                                if (gameObject.GetComponent<BrotherBoss>().damaged == true) //TakeDamage Animation Priority
                                 {
-                                    if (boss.bossDash == false)
+                                    if (actualAnimation != animations[5])
                                     {
-                                        if (actualAnimation != animations[3])
-                                        {
-                                            actualAnimation = animations[3];
-                                            animation.Play(animations[3].name);
-                                        }
+                                        actualAnimation = animations[5];
+                                        animation.Play(animations[5].name);
                                     }
-                                    else
+                                    damagedTimer += Time.deltaTime;
+                                    if (damagedTimer >= animations[5].length)
                                     {
-                                        if (actualAnimation != animations[4])
-                                        {
-                                            actualAnimation = animations[4];
-                                            animation.Play(animations[4].name);
-                                        }
+                                        gameObject.GetComponent<BrotherBoss>().damaged = false;
+                                        damagedTimer = 0.0f;
                                     }
-
                                 }
-                            }
-                        }
-                        
-                        
-                       
-                    }
-                    
-                    break;
-                case 1:
-                    if (gameObject.GetComponent<BrotherBoss>().damaged == true) //TakeDamage Animation Priority
-                    {
-                        if (actualAnimation != animations[5])
-                        {
-                            actualAnimation = animations[5];
-                            animation.Play(animations[5].name);
-                        }
-                        damagedTimer += Time.deltaTime;
-                        if (damagedTimer >= animations[5].length)
-                        {
-                            gameObject.GetComponent<BrotherBoss>().damaged = false;
-                            damagedTimer = 0.0f;
-                        }
-                    }
-                    else
-                    {
-                        if (attacking == true)
-                        {
-                            if (actualAnimation != animations[8])
-                            {
-                                actualAnimation = animations[8];
-                                animation.Play(animations[8].name);
-                            }
-                            phase2AttackTimer += Time.deltaTime;
-                            if (phase2AttackTimer >= animations[8].length)
-                            {
-                                attacking = false;
-                                phase2AttackTimer = 0.0f;
-                            }
-                        }
-                        else
-                        {
-                            if (boss.canMove)
-                            {
-                                if (actualAnimation != animations[0])
+                                else
                                 {
-                                    actualAnimation = animations[0];
-                                    animation.Play(animations[0].name);
-                                }
-                            }
-                            else
-                            {
-                                if (boss.canAttack)
-                                {
-                                    if (boss.attackType == BrotherBoss.AttackType.fall)
+                                    if (boss.canAttack == true)
                                     {
-
-                                        if (boss.fallState != BrotherBoss.FallAttackState.positioning)
+                                        if (boss.bossDash == false)
                                         {
-                                            if (actualAnimation != animations[7])
+                                            if (actualAnimation != animations[3])
                                             {
-                                                actualAnimation = animations[7];
-                                                animation.Play(animations[7].name);
+                                                actualAnimation = animations[3];
+                                                animation.Play(animations[3].name);
                                             }
                                         }
                                         else
                                         {
-                                            if (actualAnimation != animations[0])
+                                            if (actualAnimation != animations[4])
                                             {
-                                                actualAnimation = animations[0];
-                                                animation.Play(animations[0].name);
+                                                actualAnimation = animations[4];
+                                                animation.Play(animations[4].name);
                                             }
                                         }
-                                    }
 
+                                    }
+                                }
+                            }
+
+
+
+                        }
+
+                        break;
+                    case 1:
+                        if (gameObject.GetComponent<BrotherBoss>().damaged == true) //TakeDamage Animation Priority
+                        {
+                            if (actualAnimation != animations[5])
+                            {
+                                actualAnimation = animations[5];
+                                animation.Play(animations[5].name);
+                            }
+                            damagedTimer += Time.deltaTime;
+                            if (damagedTimer >= animations[5].length)
+                            {
+                                gameObject.GetComponent<BrotherBoss>().damaged = false;
+                                damagedTimer = 0.0f;
+                            }
+                        }
+                        else
+                        {
+                            if (attacking == true)
+                            {
+                                if (actualAnimation != animations[8])
+                                {
+                                    actualAnimation = animations[8];
+                                    animation.Play(animations[8].name);
+                                }
+                                phase2AttackTimer += Time.deltaTime;
+                                if (phase2AttackTimer >= animations[8].length)
+                                {
+                                    attacking = false;
+                                    phase2AttackTimer = 0.0f;
+                                }
+                            }
+                            else
+                            {
+                                if (boss.canMove)
+                                {
+                                    if (actualAnimation != animations[0])
+                                    {
+                                        actualAnimation = animations[0];
+                                        animation.Play(animations[0].name);
+                                    }
+                                }
+                                else
+                                {
+                                    if (boss.canAttack)
+                                    {
+                                        if (boss.attackType == BrotherBoss.AttackType.fall)
+                                        {
+
+                                            if (boss.fallState != BrotherBoss.FallAttackState.positioning)
+                                            {
+                                                if (actualAnimation != animations[7])
+                                                {
+                                                    actualAnimation = animations[7];
+                                                    animation.Play(animations[7].name);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (actualAnimation != animations[0])
+                                                {
+                                                    actualAnimation = animations[0];
+                                                    animation.Play(animations[0].name);
+                                                }
+                                            }
+                                        }
+
+                                    }
                                 }
                             }
                         }
-                    }
-                    break;
+                        break;
+                }
             }
-            
             
         }
         

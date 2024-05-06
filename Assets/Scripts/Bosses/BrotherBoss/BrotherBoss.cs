@@ -98,6 +98,16 @@ public class BrotherBoss : MonoBehaviour
     public GameObject cityBarrier2;
     public float cityBarrierTiming;
 
+    
+    public AudioSource ambienceAudioSource;
+    public AudioClip[] ambienceAudios;
+    public SubtitleManager subtitleManagaer;
+    public AudioClip[] brotherBossAudios;
+    public AudioClip[] brotherBossDialogAudios;
+    public string[] brotherBossDialogs;
+    private float dialogTimer;
+    private int dialogNum;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -109,6 +119,10 @@ public class BrotherBoss : MonoBehaviour
         proximityAreaAttack.transform.SetParent(brotherBossModel.transform);
         if (gameObject.GetComponent<CapsuleCollider>() == null) gameObject.AddComponent<CapsuleCollider>();
         gameObject.GetComponent<CapsuleCollider>().isTrigger = true;
+        ambienceAudioSource.Stop();
+        ambienceAudioSource.loop = true;
+        ambienceAudioSource.clip = ambienceAudios[3];
+        ambienceAudioSource.Play();
     }
 
     // Update is called once per frame
@@ -116,6 +130,10 @@ public class BrotherBoss : MonoBehaviour
     {
         proximityAreaAttack.transform.localPosition = Vector3.zero;
         brotherBossModel.transform.localPosition = Vector3.zero;
+
+        dialogTimer += Time.deltaTime;
+
+        dialogTimer = Dialogs();
 
         switch (phase)
         {
@@ -564,6 +582,24 @@ public class BrotherBoss : MonoBehaviour
 
         
     }
+    public float Dialogs()
+    {
+        if (dialogTimer > 30.0f)
+        {
+            subtitleManagaer.subtitleText = brotherBossDialogs[dialogNum];
+            subtitleManagaer.currentAudioClip = brotherBossDialogAudios[dialogNum];
+            subtitleManagaer.canReproduceAudio = true;
+            dialogTimer = 0;
+            return dialogTimer;
+        }
+        else
+        {
+
+            dialogNum = Random.Range(0, brotherBossDialogAudios.Length - 1);
+            return dialogTimer;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.layer == 3 || collision.gameObject.layer == 6)
