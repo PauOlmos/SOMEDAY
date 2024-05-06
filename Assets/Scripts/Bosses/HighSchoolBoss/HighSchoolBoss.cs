@@ -800,6 +800,7 @@ public class HighSchoolBoss : MonoBehaviour
                                         attackSelected = false;
                                         canAttack = false;
                                         attackType = AttackType.one;
+                                        MeleeAttackType = AttackType.reset;
                                         canMove = true;
                                         numShots++;
                                         specialAttacking = false;
