@@ -173,6 +173,8 @@ public class HighSchoolBoss : MonoBehaviour
     public int[] portalWave4nums = { 5, 10, 15 };
 
     public int[] numProjectilesPhase2 = { 2, 3, 4 };
+
+    public GameObject mainLight;
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
@@ -593,6 +595,8 @@ public class HighSchoolBoss : MonoBehaviour
                         if (hand1.transform.eulerAngles.z < 359 && hand1.transform.eulerAngles.z > 358)
                         {
                             destroyCorridor = true;
+                            mainLight.SetActive(false);
+
                         }
                     }
                     else
@@ -631,7 +635,7 @@ public class HighSchoolBoss : MonoBehaviour
                                 canAttack = false;
                                 attackSelected = false;
                                 proximityAreaTimer = 0.0f;
-                                scenarioFloor.GetComponent<NavMeshSurface>().BuildNavMesh();
+                                //scenarioFloor.GetComponent<NavMeshSurface>().BuildNavMesh();
                                 lightTarget1.SetActive(true);
                                 lightTarget2.SetActive(true);
                                 foco1.SetActive(true);

@@ -379,6 +379,7 @@ public class BossManager : MonoBehaviour
 
                 boss.GetComponent<StartHighSchoolBoss>().ambienceAudioSource = ambienceAudioSource;
                 boss.GetComponent<StartHighSchoolBoss>().ambienceAudios = ambienceAudios;
+                boss.GetComponent<StartHighSchoolBoss>().mainLight = lights[nBoss];
                 boss.GetComponent<StartHighSchoolBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
 
                 break;
@@ -659,7 +660,6 @@ public class BossManager : MonoBehaviour
                         case 1:
                             if (boss.GetComponent<EnemyHP>().hp < 80)
                             {
-                                lights[nBoss].SetActive(false);
                                 boss.GetComponent<EnemyHP>().canBeDamaged = true;
                                 boss.GetComponent<HighSchoolBoss>().phase++;
                                 boss.GetComponentInChildren<NavMeshAgent>().enabled = false;

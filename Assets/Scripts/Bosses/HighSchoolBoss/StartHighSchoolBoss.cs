@@ -98,6 +98,7 @@ public class StartHighSchoolBoss : MonoBehaviour
 
     public AudioSource ambienceAudioSource;
     public AudioClip[] ambienceAudios;
+    public GameObject mainLight;
     void Start()
     {
         bossAudioSource.PlayOneShot(highSchoolBossAudios[13]);//Transition
@@ -214,6 +215,7 @@ public class StartHighSchoolBoss : MonoBehaviour
             gameObject.GetComponent<HighSchoolBoss>().highSchoolBossAudios = highSchoolBossAudios;
             gameObject.GetComponent<HighSchoolBoss>().highSchoolBossDialogAudios = highSchoolBossDialogAudios;
             gameObject.GetComponent<HighSchoolBoss>().highSchoolBossDialogs = highSchoolBossDialogs;
+            gameObject.GetComponent<HighSchoolBoss>().mainLight = mainLight;
 
 
             gameObject.GetComponent<HighSchoolBoss>().difficulty = difficulty;
