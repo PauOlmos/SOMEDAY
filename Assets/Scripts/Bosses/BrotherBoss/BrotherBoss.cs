@@ -124,11 +124,13 @@ public class BrotherBoss : MonoBehaviour
         ambienceAudioSource.loop = true;
         ambienceAudioSource.clip = ambienceAudios[3];
         ambienceAudioSource.Play();
+        ChangeTransparency(brotherModel, 0.25f);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         proximityAreaAttack.transform.localPosition = Vector3.zero;
         brotherBossModel.transform.localPosition = Vector3.zero;
 
@@ -617,7 +619,30 @@ public class BrotherBoss : MonoBehaviour
         
     }
 
-    
+    void ChangeTransparency(GameObject obj, float alpha)
+    {
+        // Verifica si el GameObject tiene un SkinnedMeshRenderer
+        SkinnedMeshRenderer renderer = obj.GetComponent<SkinnedMeshRenderer>();
+        if (renderer != null)
+        {
+            // Obtiene los materiales del SkinnedMeshRenderer
+            Material[] materials = renderer.materials;
+
+            // Modifica la transparencia de cada material
+            foreach (Material mat in materials)
+            {
+                Color color = mat.color;
+                color.a = alpha;
+                mat.color = color;
+            }
+        }
+
+        // Recorre todos los hijos recursivamente
+        foreach (Transform child in obj.transform)
+        {
+            ChangeTransparency(child.gameObject, alpha);
+        }
+    }
 
     public float Dialogs()
     {

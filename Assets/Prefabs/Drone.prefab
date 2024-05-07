@@ -92,7 +92,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4874126678125670354, guid: d9ecd8fe725d8584ca8a9d213d9ac1a4, type: 3}
+  - {fileID: 2100000, guid: 2fe3fce07974ca744b3d4687d8723009, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -243,6 +243,7 @@ MonoBehaviour:
   randomSeed: {x: 0, y: 0, z: 0}
   seedDirection: 0
   droneSeekingPositions: []
+  sound: {fileID: 0}
 --- !u!114 &-4427304162311599619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,3 +259,4 @@ MonoBehaviour:
   hp: 1
   canBeDamaged: 1
   stun: 0
+  bossManager: {fileID: 0}
