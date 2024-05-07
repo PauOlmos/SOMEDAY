@@ -86,6 +86,7 @@ public class BrotherBoss : MonoBehaviour
     public GameObject car;
     public float fallTimer = 0.0f;
     public bool landed = false;
+    public float landTimer = 0.0f;
     public GameObject continousCircle; 
     public GameObject head;
     public Transform headPosition;
@@ -427,7 +428,7 @@ public class BrotherBoss : MonoBehaviour
                                 GameObject rotatingDisc = Instantiate(disc, gameObject.transform.position, Quaternion.identity);
                                 rotatingDisc.GetComponent<AerialDisc>().pointArea = discMovementArea[i];
                             }
-
+                            BossManager.SoundEffect(brotherBossAudios[6]);
                             canAttack = false;
                             canMove = true;
                             break;
@@ -449,7 +450,9 @@ public class BrotherBoss : MonoBehaviour
                             {
                                 GameObject droneEnemy = Instantiate(drone, gameObject.transform.position, Quaternion.identity);
                                 droneEnemy.GetComponent<Drone>().player = player;
+                                droneEnemy.GetComponent<Drone>().sound = brotherBossAudios[14];
                                 droneEnemy.GetComponent<EnemyHP>().hp = 2;
+                                BossManager.SoundEffect(brotherBossAudios[13]);
                                 numDrones++;
                             }
                             
@@ -460,6 +463,7 @@ public class BrotherBoss : MonoBehaviour
                             
                             car.GetComponent<CarAttack>().enabled = true;
                             car.GetComponent<CarAttack>().player = player;
+                            car.GetComponent<CarAttack>().sound = brotherBossAudios[12];
                             car.GetComponent<CarAttack>().bBoss = gameObject.GetComponent<BrotherBoss>();
                             car.GetComponent<NavMeshAgent>().enabled = true;
                             car.tag = "NonParryable";
@@ -469,6 +473,9 @@ public class BrotherBoss : MonoBehaviour
                             {
                                 car.GetComponent<CarAttack>().carWheels[i].GetComponent<CarWheel>().enabled = true;
                             }
+
+
+
                             break;
 
                         case AttackType.fall:
@@ -489,6 +496,7 @@ public class BrotherBoss : MonoBehaviour
                                     {
                                         fallTimer = 0.0f;
                                         fallState = FallAttackState.falling;
+                                        BossManager.SoundEffect(brotherBossAudios[8]);
                                         //Set y to ground
                                     }
                                     break;
@@ -497,10 +505,12 @@ public class BrotherBoss : MonoBehaviour
 
                                     if (!landed)
                                     {
-                                        gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, -1, 0) * 20, ForceMode.VelocityChange);
+                                        landTimer += Time.deltaTime;
+                                        if(landTimer > 5.0f) gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, -1, 0) * 20, ForceMode.VelocityChange);
                                     }
                                     else
                                     {
+                                        BossManager.SoundEffect(brotherBossAudios[9]);
                                         Vector3 klk = new Vector3(gameObject.transform.position.x, -127.0f, gameObject.transform.position.z);
                                         GameObject circle = Instantiate(continousCircle, klk, Quaternion.identity);
                                         circle.transform.Rotate(new Vector3(-90, 0, 0));
@@ -526,7 +536,7 @@ public class BrotherBoss : MonoBehaviour
 
 
                                 case FallAttackState.protecting:
-
+                                    landTimer = 0.0f;
                                     attackSelected = false;
                                     canMove = true;
                                     mState = MovementState.aerial;
@@ -575,9 +585,17 @@ public class BrotherBoss : MonoBehaviour
                             head.layer = 7;
                             head.tag = "NonParryable";
                             brotherModel.SetActive(false);
+                            brotherBossModel.GetComponent<TrailRenderer>().enabled = false;
+                            bossAudioSource.Stop();
+                            bossAudioSource.clip = brotherBossAudios[15];
+                            bossAudioSource.loop = true;
+                            bossAudioSource.Play();
                         }
                         break;
                     case HeadTransition.following:
+
+                        
+
                         cityBarrierTiming += Time.deltaTime;
                         if (cityBarrierTiming <= 6.0f)
                         {
@@ -650,26 +668,29 @@ public class BrotherBoss : MonoBehaviour
 
             case 1:
 
-                int attack = Random.Range(0, 4);
-                switch (attack)
+                int attack = Random.Range(0, 100);
+                if (attack < 15)
                 {
-                    case 0:
-                        attackType = AttackType.disc;
-                        gameObject.GetComponent<BrotherBossAnimations>().attacking = true;
-                        break;
-                    case 1:
-                        attackType = AttackType.drones;
-                        gameObject.GetComponent<BrotherBossAnimations>().attacking = true;
+                    attackType = AttackType.disc;
+                    gameObject.GetComponent<BrotherBossAnimations>().attacking = true;
+                }
+                else if (attack >= 15 && attack < 40)
+                {
+                    attackType = AttackType.drones;
+                    gameObject.GetComponent<BrotherBossAnimations>().attacking = true;
 
-                        break;
-                    case 2:
-                        attackType = AttackType.car;
-                        gameObject.GetComponent<BrotherBossAnimations>().attacking = true;
+                }
+                else if (attack >= 40 && attack < 65)
+                {
+                    attackType = AttackType.car;
+                    BossManager.SoundEffect(brotherBossAudios[11]);
+                    gameObject.GetComponent<BrotherBossAnimations>().attacking = true;
 
-                        break;
-                    case 3:
-                        attackType = AttackType.fall;
-                        break;
+                }
+                else if (attack >= 65)
+                {
+                    BossManager.SoundEffect(brotherBossAudios[7]);
+                    attackType = AttackType.fall;
                 }
 
                 canAttack = true;

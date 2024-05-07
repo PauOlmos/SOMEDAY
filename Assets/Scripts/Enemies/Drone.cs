@@ -13,7 +13,7 @@ public class Drone : MonoBehaviour
     public Vector3 randomSeed;
     public int seedDirection;
     public Vector3[] droneSeekingPositions;
-    
+    public AudioClip sound;
     void Start()
     {
         Vector3[] droneSeekingPositionsAuxiliar = new Vector3[10];
@@ -92,6 +92,7 @@ public class Drone : MonoBehaviour
         projectile.GetComponent<SeekingProjectile>().target = projectileDirection;
         projectile.GetComponent<SeekingProjectile>().speed = speed;
         projectile.GetComponent<SeekingProjectile>().shotBy = gameObject.transform;
+        BossManager.SoundEffect(sound);
         if (Random.Range(0, 1) == 0)
         {
             projectile.tag = "ReturnableProjectile";

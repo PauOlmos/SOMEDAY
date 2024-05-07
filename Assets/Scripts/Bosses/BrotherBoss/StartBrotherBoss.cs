@@ -128,6 +128,7 @@ public class StartBrotherBoss : MonoBehaviour
                     Destroy(isPlayerOnStreet);
                     transitionState = TransitionState.driving;
                     actualSeekingPosition = 0;
+                    bossAudioSource.PlayOneShot(brotherBossAudios[10]);
                     //streetsFloor.BuildNavMesh();
                 }
 
@@ -161,7 +162,7 @@ public class StartBrotherBoss : MonoBehaviour
 
                 startBossFightTimer += Time.deltaTime;
 
-                if (startBossFightTimer > 5.0f)//Time for the audio transition (Ex: You killed me brother!!!)
+                if (startBossFightTimer > 0.0f)//Time for the audio transition (Ex: You killed me brother!!!)
                 {
                     Destroy(secondEnvironment);
                     //Start BossFight

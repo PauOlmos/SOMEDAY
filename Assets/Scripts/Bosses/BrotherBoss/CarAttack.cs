@@ -13,6 +13,7 @@ public class CarAttack : MonoBehaviour
     public bool touchingWorld = false;
     public BrotherBoss bBoss;
     public GameObject[] carWheels;
+    public AudioClip sound;
     public enum MovementState
     {
         seekingPlayer, waiting, dashing
@@ -59,6 +60,8 @@ public class CarAttack : MonoBehaviour
                 {
                     gameObject.GetComponent<NavMeshAgent>().speed = speed * 3;
                     mState = MovementState.dashing;
+                    BossManager.SoundEffect(sound);
+
                     timer = 0.0f;
                 }
                 break;

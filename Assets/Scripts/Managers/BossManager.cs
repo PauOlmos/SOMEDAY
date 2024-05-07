@@ -577,6 +577,7 @@ public class BossManager : MonoBehaviour
         GameObject sfx = Instantiate(SFX, Vector3.zero, Quaternion.identity);
         sfx.GetComponent<AudioSource>().PlayOneShot(sound);
         sfx.GetComponent<DieByTime>().deathTime = sound.length;
+        sfx.GetComponent<AudioSource>().volume = Mathf.Clamp01(Settings.volume);
     }
 
     public void CheckBossHp(int nBoss)
@@ -815,7 +816,7 @@ public class BossManager : MonoBehaviour
                             break;
                         case 1:
 
-                            if (boss.GetComponent<EnemyHP>().hp < 10)
+                            if (boss.GetComponent<EnemyHP>().hp < 18)
                             {
                                 boss.GetComponent<BrotherBoss>().phase++;
                                 boss.GetComponent<BrotherBoss>().canAttack = false;
