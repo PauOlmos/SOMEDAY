@@ -56,7 +56,7 @@ public class StartBrotherBoss : MonoBehaviour
     public GameObject cityBarrier1;
     public GameObject cityBarrier2;
 
-
+    public AudioSource bossAudioSource;
     public AudioSource ambienceAudioSource;
     public AudioClip[] ambienceAudios;
     public SubtitleManager subtitleManagaer;
@@ -196,6 +196,7 @@ public class StartBrotherBoss : MonoBehaviour
                     gameObject.GetComponent<BrotherBoss>().subtitleManagaer = subtitleManagaer;
                     gameObject.GetComponent<BrotherBoss>().ambienceAudioSource = ambienceAudioSource;
                     gameObject.GetComponent<BrotherBoss>().ambienceAudios = ambienceAudios;
+                    gameObject.GetComponent<BrotherBoss>().bossAudioSource = bossAudioSource;
 
                     Destroy(gameObject.GetComponent<StartBrotherBoss>());
                 }

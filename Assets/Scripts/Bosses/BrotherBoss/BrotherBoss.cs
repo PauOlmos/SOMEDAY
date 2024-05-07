@@ -98,7 +98,7 @@ public class BrotherBoss : MonoBehaviour
     public GameObject cityBarrier2;
     public float cityBarrierTiming;
 
-    
+    public AudioSource bossAudioSource;
     public AudioSource ambienceAudioSource;
     public AudioClip[] ambienceAudios;
     public SubtitleManager subtitleManagaer;
@@ -143,6 +143,11 @@ public class BrotherBoss : MonoBehaviour
 
                 if (canMove)
                 {
+                    bossAudioSource.clip = (brotherBossAudios[1]);
+                    bossAudioSource.loop = true;
+
+                    if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
+
                     switch (mState)
                     {
                         case MovementState.seeking:
@@ -158,6 +163,8 @@ public class BrotherBoss : MonoBehaviour
                                 if (attackType == AttackType.trio && Vector3.Distance(gameObject.transform.position, player.transform.position) < 25.0f)
                                 {
                                     canMove = false;
+                                    bossAudioSource.Stop();
+                                    bossAudioSource.loop = false;
                                     canAttack = true;
                                 }
                                 else if (attackType == AttackType.trio)
@@ -167,11 +174,16 @@ public class BrotherBoss : MonoBehaviour
                                 if (attackType == AttackType.circle)
                                 {
                                     canMove = false;
+                                    bossAudioSource.Stop();
                                     canAttack = true;
+                                    bossAudioSource.loop = false;
+
                                 }
                                 if (attackType == AttackType.walls)
                                 {
                                     canMove = false;
+                                    bossAudioSource.loop = false;
+                                    bossAudioSource.Stop();
                                     canAttack = true;
                                 }
                             }
@@ -231,12 +243,13 @@ public class BrotherBoss : MonoBehaviour
                                 clone1.GetComponent<CloneDash>().timeToDash = attack1Cooldown;
                                 clone1.GetComponent<CloneDash>().player = player;
                                 clone1.GetComponent<CloneDash>().streets = streets;
+                                clone1.GetComponent<CloneDash>().sound = brotherBossAudios[3];
                                 clone1.transform.SetParent(gameObject.transform);
-
                                 GameObject clone2 = Instantiate(clone, clone2Position.position, Quaternion.identity);
                                 clone2.GetComponent<CloneDash>().timeToDash = attack1Cooldown * 1.75f;
                                 clone2.GetComponent<CloneDash>().player = player;
                                 clone2.GetComponent<CloneDash>().streets = streets;
+                                clone2.GetComponent<CloneDash>().sound = brotherBossAudios[3];
                                 clone2.transform.SetParent(gameObject.transform);
 
                             }
@@ -251,9 +264,10 @@ public class BrotherBoss : MonoBehaviour
                                 dashDirection = gameObject.GetComponent<NavMeshAgent>().destination;
                                 bossDash = true;
                                 brotherBossModel.GetComponent<TrailRenderer>().enabled = true;
+                                BossManager.SoundEffect(brotherBossAudios[4]);
                             }
 
-                            if(bossDash == true)
+                            if (bossDash == true)
                             {
                                 gameObject.GetComponent<NavMeshAgent>().destination = dashDirection;
                                 gameObject.GetComponent<NavMeshAgent>().speed = dashSpeed;
@@ -304,12 +318,15 @@ public class BrotherBoss : MonoBehaviour
                                 circleClone.GetComponent<CloneDash>().timeToDash = attack1Cooldown;
                                 circleClone.GetComponent<CloneDash>().player = player;
                                 circleClone.GetComponent<CloneDash>().streets = streets;
+
                             }
+                            BossManager.SoundEffect(brotherBossAudios[3]);
                             mState = MovementState.seeking;
                             canAttack = false;
                             canMove = true;
                             cooldownTimer = 0.0f; 
                             attackSelected = false;
+                            BossManager.SoundEffect(brotherBossAudios[2]);
                             break;
 
                         case AttackType.walls:
@@ -319,8 +336,7 @@ public class BrotherBoss : MonoBehaviour
 
                             wall1.transform.Rotate(0, 10, 0);
                             wall2.transform.Rotate(0, -10, 0);
-
-
+                            BossManager.SoundEffect(brotherBossAudios[5]);
                             passiveCharge = 0.0f;
                             canAttack = false;
                             attackSelected = false;
@@ -582,6 +598,9 @@ public class BrotherBoss : MonoBehaviour
 
         
     }
+
+    
+
     public float Dialogs()
     {
         if (dialogTimer > 30.0f)

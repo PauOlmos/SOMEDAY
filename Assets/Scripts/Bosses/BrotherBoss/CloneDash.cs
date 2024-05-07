@@ -14,6 +14,7 @@ public class CloneDash : MonoBehaviour
     public Transform streets;
     public Animator animator;
     public AnimationClip dash;
+    public AudioClip sound;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,7 @@ public class CloneDash : MonoBehaviour
 
         if(timer > timeToDash && seeking == false)
         {
+            if (sound != null) BossManager.SoundEffect(sound);
             seeking = true;
             animator.Play(dash.name);
             direction = (player.transform.position - gameObject.transform.position);

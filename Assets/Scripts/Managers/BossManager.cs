@@ -34,6 +34,9 @@ public class BossManager : MonoBehaviour
     public GameObject brotherBossModel;
 
     [Header("Audio")]
+
+    private static GameObject SFX;
+    public GameObject soundEfffectPrefab;
     public AudioSource ambienceAudioSource;
     public AudioClip[] ambienceAudios;
 
@@ -62,7 +65,9 @@ public class BossManager : MonoBehaviour
     public AudioClip[] audioTransitions;
 
     public GameObject tutorialMessagesManager;
+
     [Header("TutorialBoss")]
+    
     public int currentBoss;
 
     public int phase = 0;
@@ -244,6 +249,7 @@ public class BossManager : MonoBehaviour
 
     void Start()
     {
+        SFX = soundEfffectPrefab;
         currentBoss = Settings.actualBoss;
         //Debug.Log(currentBoss);
         ActivateBoss(currentBoss);
@@ -464,6 +470,7 @@ public class BossManager : MonoBehaviour
 
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
                 {
+                    ambienceAudioSource.Stop();
                     parentsHouse.transform.position = new Vector3(38.2999992f, -49.5260925f, -59.7000008f);
                     parentsHouse.SetActive(true);
                     Destroy(firstEnvironment);
@@ -555,12 +562,21 @@ public class BossManager : MonoBehaviour
 
                 boss.GetComponent<StartBrotherBoss>().ambienceAudioSource = ambienceAudioSource;
                 boss.GetComponent<StartBrotherBoss>().ambienceAudios = ambienceAudios;
+                boss.GetComponent<StartBrotherBoss>().bossAudioSource = bossAudioSource;
+
                 brotherBossAnimations.startBoss = boss.GetComponent<StartBrotherBoss>();
 
                 break;
 
             default: break;
         }
+    }
+
+    public static void SoundEffect(AudioClip sound)
+    {
+        GameObject sfx = Instantiate(SFX, Vector3.zero, Quaternion.identity);
+        sfx.GetComponent<AudioSource>().PlayOneShot(sound);
+        sfx.GetComponent<DieByTime>().deathTime = sound.length;
     }
 
     public void CheckBossHp(int nBoss)

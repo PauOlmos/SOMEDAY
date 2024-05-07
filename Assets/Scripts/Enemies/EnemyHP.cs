@@ -71,5 +71,9 @@ public class EnemyHP : MonoBehaviour
         {
             bossManager.bossAudioSource.PlayOneShot(bossManager.highSchoolBossAudios[11]);
         }
+        if (gameObject.GetComponent<BrotherBoss>() != null)
+        {
+            gameObject.GetComponent<BrotherBoss>().bossAudioSource.PlayOneShot(bossManager.highSchoolBossAudios[11]);
+        }
     }
 }
