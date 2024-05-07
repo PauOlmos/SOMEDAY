@@ -281,6 +281,7 @@ public class BrotherBoss : MonoBehaviour
                             {
                                 proximityAreaAttack.SetActive(false);
                                 gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
+                                ChangeTransparency(brotherModel, 1.0f);
                                 gameObject.GetComponent<NavMeshAgent>().speed = 0;
                                 vulnerabilityTimer += Time.deltaTime;
                                 gameObject.GetComponent<CapsuleCollider>().isTrigger = false;
@@ -289,6 +290,7 @@ public class BrotherBoss : MonoBehaviour
                                 {
                                     gameObject.GetComponent<CapsuleCollider>().isTrigger = true;
                                     gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
+                                    ChangeTransparency(brotherModel, 0.25f);
                                     vulnerabilityTimer = 0.0f;
                                     bossDash = false;
                                     attack1Timer = 0.0f;
@@ -361,6 +363,7 @@ public class BrotherBoss : MonoBehaviour
                         gameObject.GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
                         gameObject.GetComponent<CapsuleCollider>().isTrigger = true;
                         gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
+                        ChangeTransparency(brotherModel, 0.25f);
                         stunTimer = 0.0f;
                         getPositionTimer = 5.0f;
                         gameObject.GetComponent<EnemyHP>().stun = false;
@@ -374,6 +377,7 @@ public class BrotherBoss : MonoBehaviour
                         vulnerabilityTimer = 0.0f;
                         gameObject.GetComponent<CapsuleCollider>().isTrigger = false;
                         gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
+                        ChangeTransparency(brotherModel, 1.0f);
                         gameObject.GetComponent<NavMeshAgent>().destination = gameObject.transform.position;
                         gameObject.GetComponent<NavMeshAgent>().speed = 0.0f;
                         attack1Timer = 0.0f;
@@ -521,6 +525,7 @@ public class BrotherBoss : MonoBehaviour
                                         fallTimer = 0.0f;
                                         fallState = FallAttackState.resting;
                                         gameObject.GetComponent<EnemyHP>().canBeDamaged = true;
+                                        ChangeTransparency(brotherModel, 1.0f);
 
                                     }
 
@@ -530,6 +535,7 @@ public class BrotherBoss : MonoBehaviour
                                     if(fallTimer > 2.5f)
                                     {
                                         gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
+                                        ChangeTransparency(brotherModel, 0.25f);
                                         fallState = FallAttackState.protecting;
                                         fallTimer = 0.0f;
                                     }
@@ -621,12 +627,27 @@ public class BrotherBoss : MonoBehaviour
 
     void ChangeTransparency(GameObject obj, float alpha)
     {
-        // Verifica si el GameObject tiene un SkinnedMeshRenderer
-        SkinnedMeshRenderer renderer = obj.GetComponent<SkinnedMeshRenderer>();
-        if (renderer != null)
+        // Verifica si el GameObject tiene un SkinnedMeshRenderer o MeshRenderer
+        SkinnedMeshRenderer skinnedRenderer = obj.GetComponent<SkinnedMeshRenderer>();
+        MeshRenderer meshRenderer = obj.GetComponent<MeshRenderer>();
+
+        if (skinnedRenderer != null)
         {
             // Obtiene los materiales del SkinnedMeshRenderer
-            Material[] materials = renderer.materials;
+            Material[] materials = skinnedRenderer.materials;
+
+            // Modifica la transparencia de cada material
+            foreach (Material mat in materials)
+            {
+                Color color = mat.color;
+                color.a = alpha;
+                mat.color = color;
+            }
+        }
+        else if (meshRenderer != null)
+        {
+            // Obtiene los materiales del MeshRenderer
+            Material[] materials = meshRenderer.materials;
 
             // Modifica la transparencia de cada material
             foreach (Material mat in materials)
@@ -643,7 +664,6 @@ public class BrotherBoss : MonoBehaviour
             ChangeTransparency(child.gameObject, alpha);
         }
     }
-
     public float Dialogs()
     {
         if (dialogTimer > 30.0f)

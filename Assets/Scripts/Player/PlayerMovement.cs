@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
             case playerState.moving:
                 canParry = true;
                 canAttack = true;
-                if(p.parrying == false && pAttack.attackActive == true) rb.AddForce(player.transform.forward.normalized * moveSpeed, ForceMode.Force);
+                if(p.parrying == false && pAttack.attackActive == true) rb.AddForce(player.transform.forward.normalized * moveSpeed, ForceMode.VelocityChange);
                 rb.freezeRotation = true;
                 
                 break;
