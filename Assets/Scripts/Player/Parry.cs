@@ -39,7 +39,7 @@ public class Parry : MonoBehaviour
     // Update is called once per frame
     void Update()
     {//Que no estigui invencible
-        if(Input.GetButtonDown("Parry") && parryActive == true && pMov.grounded == true && pMov.canParry == true && pAttack.attacking == false && pHp.isInvencible == false)
+        if(Input.GetButtonDown("Parry") && parryActive == true && pMov.grounded == true && pMov.canParry == true && /*pAttack.attacking == false*/pHp.isInvencible == false)
         {
             UseParry();
         }

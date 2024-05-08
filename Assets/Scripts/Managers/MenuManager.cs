@@ -68,8 +68,6 @@ public class MenuManager : MonoBehaviour
     }
 
     public Menus switchFromMenu;
-    private bool isPressingTriangle;
-    private float pressingStartTime;
 
     public Sprite check;
     public Sprite empty;
@@ -256,6 +254,7 @@ public class MenuManager : MonoBehaviour
             }
             else
             {
+                Application.Quit();
                 //Quit Game??
             }
 
