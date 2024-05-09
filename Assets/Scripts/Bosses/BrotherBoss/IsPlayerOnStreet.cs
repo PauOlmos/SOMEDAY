@@ -37,5 +37,12 @@ public class IsPlayerOnStreet : MonoBehaviour
             isOnStreet = true;
         }
     }
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+            Destroy(gameObject);
+        }
+    }
 
 }
