@@ -124,8 +124,6 @@ public class BossManager : MonoBehaviour
     public GameObject portalSpawnArea;
 
     public GameObject portalPrefab;
-
-
     public GameObject corridorPos;
     public GameObject door1;
     public GameObject door2;
@@ -290,6 +288,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<TutorialBoss>().tutorialBossDialogs = tutorialBossDialogs;
                 boss.GetComponent<TutorialBoss>().tutorialBossDialogAudios = tutorialBossDialogAudios;
                 boss.GetComponent<TutorialBoss>().destination = direction;
+                boss.GetComponent<TutorialBoss>().tutorialBossModel = tutorialBossModel;
                 boss.GetComponent<TutorialBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
 
                 tutorialAnimations.enabled = true;

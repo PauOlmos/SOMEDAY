@@ -56,7 +56,6 @@ public class TutorialBoss : MonoBehaviour
     public Vector3 spinDirection;
 
     public GameObject[] walls;
-    public bool hasCollided = false;
 
     public GameObject Sword1;
     public GameObject Sword2;
@@ -69,7 +68,8 @@ public class TutorialBoss : MonoBehaviour
     public float cooldownTimer = 0.0f;
 
     public GameObject destination;
-    public Vector3 spinVector;
+
+    public GameObject tutorialBossModel;
     [Header("Difficulty Settings")]
 
     public int[] maxCricles = { 5, 6, 7 };
@@ -91,7 +91,7 @@ public class TutorialBoss : MonoBehaviour
     void Start()
     {
         gameObject.GetComponent<Rigidbody>().freezeRotation = true;
-        walls = GameObject.FindGameObjectsWithTag("Wall");
+        walls = GameObject.FindGameObjectsWithTag("WallPosition");
     }
 
     int value = 0;
@@ -259,41 +259,41 @@ public class TutorialBoss : MonoBehaviour
                         bossAudioSource.loop = true;
                         if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
                         startSpinTimer += Time.deltaTime;
-                        gameObject.transform.Rotate(Vector3.up * startSpinTimer * Time.deltaTime * 300);
+                        tutorialBossModel.transform.Rotate(Vector3.up * startSpinTimer * Time.deltaTime * 300);
                         if (startSpinTimer > 3.0f)
                         {
                             movementState = MovementState.spin;
-                            spinDirection = (player.transform.position - gameObject.transform.position).normalized;
-                            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+                            spinDirection = (player.transform.position - gameObject.transform.position);
+                            spinDirection *= 100;
+                            spinDirection.y = gameObject.transform.position.y;
                         }
                         break;
                     case MovementState.spin:
                         bossAudioSource.clip = (tutorialBossAudios[3]);
                         bossAudioSource.loop = true;
                         if (bossAudioSource.isPlaying == false) bossAudioSource.Play();
-                        gameObject.transform.Rotate(Vector3.up * startSpinTimer * Time.deltaTime * 300);
+                        tutorialBossModel.transform.Rotate(Vector3.up * startSpinTimer * Time.deltaTime * 300);
                         spinTimer += Time.deltaTime;
                         if(spinTimer > 10.0f)
                         {
-                            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                            gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                             movementState = MovementState.holdSpin;
                             spinTimer = 0;
-                            startSpinTimer = 0;
                         }
                         else
                         {
-                            gameObject.GetComponent<Rigidbody>().AddForce(spinDirection / phase3Speed[difficulty], ForceMode.VelocityChange);
+                            Seek(spinDirection);
                         }
                         break;
                     case MovementState.holdSpin:
                         bossAudioSource.loop = false;
-                        gameObject.transform.Rotate(Vector3.up * 3.0f * Time.deltaTime * 300);
+                        tutorialBossModel.transform.Rotate(Vector3.up * 3.0f * Time.deltaTime * 300);
                         holdSpinTimer += Time.deltaTime;
                         if(holdSpinTimer > 5.0f)
                         {
                             holdSpinTimer = 0.0f;
-                            spinDirection = (player.transform.position - gameObject.transform.position).normalized;
+                            spinDirection = (player.transform.position - gameObject.transform.position);
+                            spinDirection *= 100.0f;
+                            spinDirection.y = gameObject.transform.position.y;
                             movementState = MovementState.spin;
                             startSpinTimer = 3.0f;
                         }
@@ -323,12 +323,21 @@ public class TutorialBoss : MonoBehaviour
             return dialogTimer;
         }
     }
+
+    void Seek(Vector3 target)
+    {
+        spinDirection = target - transform.position;
+        spinDirection.y = gameObject.transform.position.y;
+        
+        // Move towards the target
+        transform.position += spinDirection * phase3Speed[difficulty] * Time.deltaTime / (400.0f);
+    }
+
     public bool IsNear(float distanceToAttack)
     {
         if (Vector3.Distance(player.transform.position, proximityArea.transform.position) < distanceToAttack) { return true; }
         else { return false; }
     }
-
     public bool CirclesAttack(int numCircles)
     {
         circlesAttackCooldown += Time.deltaTime;
@@ -452,7 +461,6 @@ public class TutorialBoss : MonoBehaviour
         // Devuelve la posición aleatoria dentro del círculo, manteniendo la altura
         return new Vector3(x, center.y, z);
     }
-
     private void JumpToPosition(Vector3 targetPosition, float jumpDistance, float jumpForceMultiplier)
     {
         // Calcula la dirección hacia la posición objetivo
@@ -480,22 +488,18 @@ public class TutorialBoss : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             canAttack = true;
         }
-        if(phase == 2 && movementState == MovementState.spin)
+        if (collision.gameObject.tag == "Wall")//World
         {
-            if (collision.gameObject.tag == "Wall")//World
-            {
-                gameObject.GetComponent<Rigidbody>().Sleep();
-                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-                hasCollided = true;
-                //Debug.Log("Wallllll");
-                int numWall = Random.Range(0, walls.Length);
-
-                Vector3 pos = new Vector3(walls[numWall].transform.position.x, 0.5f, walls[numWall].transform.position.z);
-                spinDirection = pos.normalized;
-                gameObject.transform.forward = spinDirection;
-            }
+            if (phase == 2 && movementState == MovementState.spin) ChangeSpinDirection();
         }
         
+        
+    }
+
+    void ChangeSpinDirection()
+    {
+        int value = Random.Range(0, walls.Length);
+        spinDirection = walls[value].transform.position;
+        spinDirection.y = gameObject.transform.position.y;
     }
 }
