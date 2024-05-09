@@ -106,7 +106,7 @@ public class HighSchoolBoss : MonoBehaviour
     public GameObject projectilePrefab;
     public bool teleportBoss = false;
     public float doorTimer = 0.0f;
-    public float floorMultiplier = 19.0f;
+    public float floorMultiplier = 38.0f;
     public float corridorAttackCooldownTimer = 0.0f;
 
     public float projectileAttackTimer = 0.0f;

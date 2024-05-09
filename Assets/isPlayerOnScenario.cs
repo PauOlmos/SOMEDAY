@@ -35,4 +35,11 @@ public class isPlayerOnScenario : MonoBehaviour
             other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
     }
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+            Destroy(gameObject);
+        }
+    }
 }
