@@ -77,8 +77,8 @@ public class CameraBehaviour : MonoBehaviour
         righthorizontal = Input.GetAxis("L2");
         rightJoystick = Input.GetAxis("RightVertical");
         //Debug.Log("RightJoystick" + rightJoystick);
-        if(Time.timeScale != 0 && rightJoystick > 0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick + sensitivity / 15.0f; 
-        if(Time.timeScale != 0 && rightJoystick < -0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick - sensitivity / 15.0f; 
+        if(Time.timeScale != 0 && rightJoystick > 0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick + sensitivity / 5.0f; 
+        if(Time.timeScale != 0 && rightJoystick < -0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick - sensitivity / 5.0f; 
 
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
