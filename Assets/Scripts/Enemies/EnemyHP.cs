@@ -8,10 +8,11 @@ public class EnemyHP : MonoBehaviour
     public bool canBeDamaged = true;
     public bool stun = false;
     public BossManager bossManager;
+    public AudioClip damageSound;
     // Start is called before the first frame update
     void Start()
     {
-        
+        damageSound = bossManager.tutorialBossAudios[2];
     }
 
     // Update is called once per frame
@@ -59,21 +60,6 @@ public class EnemyHP : MonoBehaviour
 
     public void DamageSound()
     {
-        if(gameObject.GetComponent<TutorialBoss>() != null)
-        {
-            gameObject.GetComponent<TutorialBoss>().bossAudioSource.PlayOneShot(gameObject.GetComponent<TutorialBoss>().tutorialBossAudios[2]);
-        }
-        if(gameObject.GetComponent<HighSchoolBoss>() != null)
-        {
-            gameObject.GetComponent<HighSchoolBoss>().bossAudioSource.PlayOneShot(gameObject.GetComponent<HighSchoolBoss>().highSchoolBossAudios[11]);
-        }
-        if(gameObject.GetComponent<DadBoss>() != null || gameObject.GetComponent<MomBoss>()!= null)
-        {
-            bossManager.bossAudioSource.PlayOneShot(bossManager.highSchoolBossAudios[11]);
-        }
-        if (gameObject.GetComponent<BrotherBoss>() != null)
-        {
-            gameObject.GetComponent<BrotherBoss>().bossAudioSource.PlayOneShot(bossManager.highSchoolBossAudios[11]);
-        }
+        BossManager.SoundEffect(damageSound);
     }
 }

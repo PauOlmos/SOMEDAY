@@ -68,6 +68,8 @@ public class TutorialBoss : MonoBehaviour
 
     public float cooldownTimer = 0.0f;
 
+    public GameObject destination;
+    public Vector3 spinVector;
     [Header("Difficulty Settings")]
 
     public int[] maxCricles = { 5, 6, 7 };
@@ -395,29 +397,33 @@ public class TutorialBoss : MonoBehaviour
             GameObject circle = Instantiate(circlePrefab, position, Quaternion.identity);
 
             Quaternion forwardRotation = Quaternion.LookRotation(position - transform.position, Vector3.up);
-
-
             // Aplicar la rotación al objeto
-            circle.transform.rotation = forwardRotation;
             // Aplicar fuerza hacia adelante al objeto
-            Rigidbody rb = circle.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                if (discontinious)
-                {
-
-                    circle.transform.rotation = forwardRotation;
-
-                    //circle.transform.Translate(new Vector3(0, (4.0f - 0.15f), 0));
-                    rb.freezeRotation = true;
-                }
-                rb.AddForce(circle.transform.forward * force, ForceMode.Impulse);
-            }
-            if (!discontinious) circle.transform.localScale = circle.transform.localScale / 100.0f;
             if (discontinious)
             {
-                circle.transform.Rotate(0, -130, 0);
-                //circle.transform.localScale *= 4;
+
+                float Auxangle = i * (angularSeparation / numberOfCircles);
+                Vector3 Auxposition = transform.position + Quaternion.Euler(0, Auxangle, 0) * Vector3.forward * radius * 100.0f;
+                GameObject realDestination = Instantiate(destination, Auxposition, Quaternion.identity);
+                realDestination.AddComponent<DieByTime>();
+                realDestination.GetComponent<DieByTime>().deathTime = 10.0f;
+                //GameObject projectile = Instantiate(circlePrefab, position, Quaternion.identity);
+                circle.AddComponent<SeekingProjectile>();
+                circle.GetComponent<SeekingProjectile>().canFail = false;
+                circle.GetComponent<SeekingProjectile>().shotByPlayer = false;
+                circle.GetComponent<SeekingProjectile>().seekingTime = 10.1f;
+                circle.GetComponent<SeekingProjectile>().target = realDestination.transform;
+                circle.GetComponent<SeekingProjectile>().speed = 15;
+                circle.GetComponent<SeekingProjectile>().shotBy = gameObject.transform;
+                circle.tag = "BasicProjectile";
+                circle.layer = 7;
+                circle.AddComponent<DieByTime>();
+                circle.GetComponent<DieByTime>().deathTime = 5.0f;
+            }
+            if (!discontinious)
+            {
+                circle.transform.rotation = forwardRotation;
+                circle.transform.localScale = circle.transform.localScale / 100.0f;
             }
         }
     }
@@ -464,13 +470,6 @@ public class TutorialBoss : MonoBehaviour
 
         // Aplica la fuerza del salto en la dirección calculada
         gameObject.GetComponent<Rigidbody>().AddForce(fuerzaSalto, ForceMode.VelocityChange);
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.layer == 4 && phase == 2 || collision.gameObject.tag == "Player")//World
-        { 
-            //hasCollided = false;
-        }
     }
     private void OnCollisionEnter(Collision collision)
     {

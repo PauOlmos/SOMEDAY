@@ -252,7 +252,7 @@ public class MenuManager : MonoBehaviour
                     default: break;
                 }
             }
-            else
+            else if(mainMenu != null)
             {
                 Application.Quit();
                 //Quit Game??

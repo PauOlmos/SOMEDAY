@@ -95,7 +95,7 @@ public class BossManager : MonoBehaviour
     public GameObject Sword1;
     public GameObject Sword2;
     public GameObject TutorialMessages;
-
+    public GameObject direction;
     [Header("HighSchool Boss")]
 
     public GameObject TutorialWalls;
@@ -289,6 +289,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<TutorialBoss>().tutorialBossAudios = tutorialBossAudios;
                 boss.GetComponent<TutorialBoss>().tutorialBossDialogs = tutorialBossDialogs;
                 boss.GetComponent<TutorialBoss>().tutorialBossDialogAudios = tutorialBossDialogAudios;
+                boss.GetComponent<TutorialBoss>().destination = direction;
                 boss.GetComponent<TutorialBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
 
                 tutorialAnimations.enabled = true;
