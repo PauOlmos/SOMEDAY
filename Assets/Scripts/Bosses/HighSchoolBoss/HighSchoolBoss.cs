@@ -1109,6 +1109,8 @@ public class HighSchoolBoss : MonoBehaviour
         {
             armari1.AddComponent<Rigidbody>();
             armari1.GetComponent<Rigidbody>().useGravity = true;
+            armari1.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
+            armari1.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             armari1.tag = "NonParryable";
             armari1.GetComponent<Rigidbody>().freezeRotation = true;
             armari1.GetComponent<Rigidbody>().mass = 100.0f;
@@ -1121,6 +1123,8 @@ public class HighSchoolBoss : MonoBehaviour
             armari2.tag = "NonParryable";
             armari2.AddComponent<Rigidbody>();
             armari2.GetComponent<Rigidbody>().useGravity = true;
+            armari2.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
+            armari2.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             armari2.GetComponent<Rigidbody>().freezeRotation = true;
             armari2.GetComponent<Rigidbody>().mass = 100.0f;
             armari2.layer = 7;
