@@ -32,7 +32,8 @@ public class StartHighSchoolBoss : MonoBehaviour
     public GameObject armariResetPos2;
     public GameObject armariPos1;
     public GameObject armariPos2;
-    public GameObject[] tableAttackPositions;
+    public GameObject[] tableAttackPositionsPar;
+    public GameObject[] tableAttackPositionsInpar;
     public GameObject[] tableRestPositions;
     public bool highSchoolCreationCompleted = false;
 
@@ -151,7 +152,8 @@ public class StartHighSchoolBoss : MonoBehaviour
 
             gameObject.GetComponent<HighSchoolBoss>().tables = tables;
             gameObject.GetComponent<HighSchoolBoss>().teacherTable = teacherTable;
-            gameObject.GetComponent<HighSchoolBoss>().tableAttackPositions = tableAttackPositions;
+            gameObject.GetComponent<HighSchoolBoss>().tableAttackPositionsPar = tableAttackPositionsPar;
+            gameObject.GetComponent<HighSchoolBoss>().tableAttackPositionsInpar = tableAttackPositionsInpar;
             gameObject.GetComponent<HighSchoolBoss>().tableRestPositions = tableRestPositions;
 
             gameObject.GetComponent<HighSchoolBoss>().armari1 = armari1;

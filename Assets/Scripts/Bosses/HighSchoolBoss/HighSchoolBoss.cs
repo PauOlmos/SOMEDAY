@@ -45,7 +45,10 @@ public class HighSchoolBoss : MonoBehaviour
     public GameObject[] tables;
     public GameObject teacherTable;
 
-    public GameObject[] tableAttackPositions;
+    public int parCount = 0;
+    public int InparCount = 0;
+    public GameObject[] tableAttackPositionsPar;
+    public GameObject[] tableAttackPositionsInpar;
     public GameObject[] tableRestPositions;
 
     public GameObject armari1;
@@ -443,11 +446,11 @@ public class HighSchoolBoss : MonoBehaviour
                                     bossAudioSource.clip = (highSchoolBossAudios[8]);
                                     bossAudioSource.loop = false;
                                     bossAudioSource.Play();
-                                    GameObject projectile = Instantiate(projectilePrefab, projectileSource.transform.position, Quaternion.identity);
+                                    GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, Quaternion.identity);
                                     projectile.AddComponent<SeekingProjectile>();
                                     projectile.GetComponent<SeekingProjectile>().canFail = true;
                                     projectile.GetComponent<SeekingProjectile>().shotByPlayer = false;
-                                    projectile.GetComponent<SeekingProjectile>().seekingTime = 0.01f;
+                                    projectile.GetComponent<SeekingProjectile>().seekingTime = 0.1f;
                                     projectile.GetComponent<SeekingProjectile>().target = player.transform;
                                     projectile.GetComponent<SeekingProjectile>().speed = 25.0f;
                                     projectile.tag = "BasicProjectile";
@@ -1178,6 +1181,8 @@ public class HighSchoolBoss : MonoBehaviour
             if (tables[i].GetComponent<Rigidbody>() == null)
             {
                 tables[i].AddComponent<Rigidbody>();
+                tables[i].GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
+                tables[i].GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
                 tables[i].GetComponent<Rigidbody>().useGravity = false;
                 tables[i].GetComponent<Rigidbody>().freezeRotation = true;
                 tables[i].GetComponent<Rigidbody>().mass = 100.0f;
@@ -1208,8 +1213,18 @@ public class HighSchoolBoss : MonoBehaviour
     {
         for (int i = 0; i < tables.Length; i++)
         {
-            Vector3 direction = tableAttackPositions[i].transform.position - tables[i].transform.position;
+            Vector3 direction;
+            if (tables[i].GetComponent<ParInpar>().par == true)
+            {
+                direction = tableAttackPositionsPar[parCount].transform.position - tables[i].transform.position;
+                parCount++;
+            }
+            else
+            {
+                direction = tableAttackPositionsInpar[InparCount].transform.position - tables[i].transform.position;
+                InparCount++;
 
+            }
             if (tablesOnPosition == false)
             {
                 tables[i].transform.Translate(direction * Time.deltaTime * 4);
@@ -1242,6 +1257,8 @@ public class HighSchoolBoss : MonoBehaviour
                 //Debug.Log("JoinTables");
             }
         }
+        parCount = 0;
+        InparCount = 0;
     }
 
     public void IgnoreTables()

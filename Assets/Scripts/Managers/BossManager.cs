@@ -107,7 +107,8 @@ public class BossManager : MonoBehaviour
 
     public GameObject allTables;
     public GameObject teacherTable;
-    public GameObject[] tableAttackPositions;
+    public GameObject[] tableAttackPositionsPar;
+    public GameObject[] tableAttackPositionsInpar;
     public GameObject[] tableRestPositions;
 
     public GameObject armari1;
@@ -332,7 +333,8 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartHighSchoolBoss>().proximityArea = proximityArea;
                 boss.GetComponent<StartHighSchoolBoss>().floor = floor;
                 boss.GetComponent<StartHighSchoolBoss>().teacherTable = teacherTable;
-                boss.GetComponent<StartHighSchoolBoss>().tableAttackPositions = tableAttackPositions;
+                boss.GetComponent<StartHighSchoolBoss>().tableAttackPositionsPar = tableAttackPositionsPar;
+                boss.GetComponent<StartHighSchoolBoss>().tableAttackPositionsInpar = tableAttackPositionsInpar;
                 boss.GetComponent<StartHighSchoolBoss>().tableRestPositions = tableRestPositions;
                 boss.GetComponent<StartHighSchoolBoss>().armari1 = armari1;
                 boss.GetComponent<StartHighSchoolBoss>().armari2 = armari2;
