@@ -24,6 +24,14 @@ public class FinalBoss : MonoBehaviour
     public Transform projectileSource;
 
     public float projectilesCooldown = 0.0f;
+
+    public Animator animator;
+    public AnimationClip idle;
+    public AnimationClip slashAttack;
+    public float slashAttackTimer = 0.0f;
+    public GameObject realSword;
+    public GameObject auxiliarSword;
+
     void Start()
     {
         
@@ -63,6 +71,37 @@ public class FinalBoss : MonoBehaviour
                     }
 
                     break;
+
+                case AttackType.slash:
+
+                    slashAttackTimer += Time.deltaTime;
+
+                    if (slashAttackTimer > 36.0f && slashAttackTimer < 42.5f)
+                    {
+                        auxiliarSword.SetActive(true);
+                        auxiliarSword.transform.Rotate(Vector3.left * Time.deltaTime * 25.0f);
+
+                    }
+
+                    if(slashAttackTimer > 42.5f)
+                    {
+                        auxiliarSword.SetActive(false);
+                    }
+
+                    if (slashAttackTimer * 0.05f > slashAttack.length)
+                    {
+                        slashAttackTimer = 0.0f;
+                        animator.Play(idle.name);
+                        canAttack = false;
+                        Vector3 currentRotation = auxiliarSword.transform.rotation.eulerAngles;
+                        currentRotation.y = 180f;
+                        auxiliarSword.transform.rotation = Quaternion.Euler(currentRotation);
+                        auxiliarSword.transform.Rotate(180,0, 0);
+                    }
+
+
+                    break;
+
             }
             
 
@@ -74,12 +113,16 @@ public class FinalBoss : MonoBehaviour
     public void SelectAttack()
     {
         int value = Random.Range(0, 3);
-        value = 0;
+        value = 1;
         switch (value)
         {
             case 0:
 
                 attackType = AttackType.Projectiles;
+                break;
+            case 1:
+                attackType = AttackType.slash;
+                animator.Play(slashAttack.name);
                 break;
         }
         canAttack = true;

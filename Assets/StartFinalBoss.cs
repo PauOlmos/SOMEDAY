@@ -17,7 +17,7 @@ public class StartFinalBoss : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        gameObject.transform.Translate(Vector3.up * Time.deltaTime * 20);
+        gameObject.transform.Translate(Vector3.up * Time.deltaTime * 22.5f);
         if(timer > 15.0f)
         {
             gameObject.GetComponent<FinalBoss>().enabled = true;
