@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Cinemachine;
 using Random = UnityEngine.Random;
  
 public class BossManager : MonoBehaviour
@@ -245,6 +246,15 @@ public class BossManager : MonoBehaviour
     public int difficulty;
     public float dialogTimer = 0.0f;
     private int dialogNum;
+
+    public GameObject[] obstacles;
+
+    [Header("FinalBoss")]
+
+    public GameObject graveyard;
+    public GameObject finalBoss;
+    public IsPlayerOnGraveyard isPlayerOnGraveyard;
+    public GameObject gameCamera;
 
     void Start()
     {
@@ -570,6 +580,42 @@ public class BossManager : MonoBehaviour
 
                 break;
 
+            case 4:
+
+                if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
+                {
+                    Destroy(isPlayerOnGraveyard.gameObject);
+                    graveyard.SetActive(true);
+                    ambienceAudioSource.Stop();
+                    Destroy(firstEnvironment);
+                    Destroy(secondEnvironment);
+
+                    player.SetActive(false);
+                    player.transform.position = playerSpawnPositions[nBoss].position;
+                    player.SetActive(true);
+                    bossAudioSource.transform.SetParent(finalBoss.transform);
+                    bossDialogAudioSource.transform.SetParent(finalBoss.transform);
+                    Destroy(boss);
+                    boss = finalBoss;
+                    boss.SetActive(true);
+                }
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach (GameObject enemy in enemies)
+                {
+                    Destroy(enemy);
+                }
+                lights[nBoss].SetActive(true);
+                gameCamera.GetComponent<CinemachineFreeLook>().m_Lens.FarClipPlane = 2000;
+                Destroy(street);
+                Destroy(scenarioFloor);
+                //Funcion para destruir obstaculos de street, talvez al crearlos añadirlos a un array y iterarlo aqui para destruirlos todos.
+
+                //ambienceAudioSource.clip = ambienceAudios[3];
+                //ambienceAudioSource.Play();
+
+                //Començar amb StartFinalBoss y tol rollo
+                break;
+
             default: break;
         }
     }
@@ -827,6 +873,27 @@ public class BossManager : MonoBehaviour
                                 mainRoadBlock.SetActive(false);
                                 boss.GetComponent<NavMeshAgent>().enabled = false;
                                 boss.GetComponent<CapsuleCollider>().enabled = false;
+                                graveyard.SetActive(true);
+
+                            }
+
+                            break;
+
+                        case 2:
+
+                            if(isPlayerOnGraveyard.isAtGraveyard == true)
+                            {
+                                NextBoss();
+                                bossAudioSource.Stop();
+                                bossAudioSource.clip = brotherBossDialogAudios[brotherBossDialogAudios.Length - 1];
+                                subtitleManagaer.subtitleText = brotherBossDialogs[brotherBossDialogAudios.Length - 1];
+                                subtitleManagaer.currentAudioClip = brotherBossDialogAudios[brotherBossDialogAudios.Length - 1];
+                                subtitleManagaer.canReproduceAudio = true;
+                                bossAudioSource.transform.SetParent(finalBoss.transform);
+                                bossDialogAudioSource.transform.SetParent(finalBoss.transform);
+                                Destroy(boss);
+                                boss = finalBoss;
+                                boss.SetActive(true);
                             }
 
                             break;

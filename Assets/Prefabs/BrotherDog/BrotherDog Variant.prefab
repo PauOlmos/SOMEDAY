@@ -718,6 +718,7 @@ MonoBehaviour:
   canBeDamaged: 1
   stun: 0
   bossManager: {fileID: 0}
+  damageSound: {fileID: 8300000, guid: d91a0e8f3661bc84bb28bead320a0fb6, type: 3}
 --- !u!65 &959987200924510490
 BoxCollider:
   m_ObjectHideFlags: 0

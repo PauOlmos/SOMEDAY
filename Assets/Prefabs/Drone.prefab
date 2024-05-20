@@ -256,7 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50b7d9429cd9f744a44539ad7b36a43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 1
+  hp: 23
   canBeDamaged: 1
   stun: 0
   bossManager: {fileID: 0}
+  damageSound: {fileID: 8300000, guid: d91a0e8f3661bc84bb28bead320a0fb6, type: 3}

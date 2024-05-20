@@ -602,8 +602,6 @@ public class BrotherBoss : MonoBehaviour
                         break;
                     case HeadTransition.following:
 
-                        
-
                         cityBarrierTiming += Time.deltaTime;
                         if (cityBarrierTiming <= 6.0f)
                         {

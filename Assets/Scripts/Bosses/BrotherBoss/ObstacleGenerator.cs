@@ -12,6 +12,7 @@ public class ObstacleGenerator : MonoBehaviour
     public Transform[] containerPositions;
     public Transform[] carPositions;
     public Transform[] handPositions;
+    public GameObject street;
 
     void Start()
     {
@@ -20,19 +21,21 @@ public class ObstacleGenerator : MonoBehaviour
         {
             case 0:
                 //RubishWalls
-                Instantiate(prefabs[whichObject], rubishWallPosition.position, Quaternion.identity);
-
+                GameObject obs = Instantiate(prefabs[whichObject], rubishWallPosition.position, Quaternion.identity);
+                obs.transform.SetParent(street.transform);
                 break;
 
             case 1:
                 //Containers
-                Instantiate(prefabs[whichObject], containerPositions[Random.Range(0, containerPositions.Length)].position, Quaternion.identity);
+                GameObject obs1 = Instantiate(prefabs[whichObject], containerPositions[Random.Range(0, containerPositions.Length)].position, Quaternion.identity);
+                obs1.transform.SetParent(street.transform);
 
                 break;
 
             case 2:
 
-                Instantiate(prefabs[whichObject], carPositions[Random.Range(0, carPositions.Length)].position, Quaternion.identity);
+                GameObject obs2 = Instantiate(prefabs[whichObject], carPositions[Random.Range(0, carPositions.Length)].position, Quaternion.identity);
+                obs2.transform.SetParent(street.transform);
 
                 break;
 
@@ -45,6 +48,8 @@ public class ObstacleGenerator : MonoBehaviour
                     creatingHand.GetComponentInChildren<ActivateHand>().speed = -creatingHand.GetComponentInChildren<ActivateHand>().speed;
                     creatingHand.transform.Rotate(0, 180, 0);
                 }
+                creatingHand.transform.SetParent(street.transform);
+
                 break;
         }
         Destroy(gameObject);

@@ -7,12 +7,10 @@ public class EnemyHP : MonoBehaviour
     public int hp = 10;
     public bool canBeDamaged = true;
     public bool stun = false;
-    public BossManager bossManager;
     public AudioClip damageSound;
     // Start is called before the first frame update
     void Start()
     {
-        damageSound = bossManager.tutorialBossAudios[2];
     }
 
     // Update is called once per frame

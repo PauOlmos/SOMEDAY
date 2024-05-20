@@ -138,6 +138,8 @@ MonoBehaviour:
   hp: 1
   canBeDamaged: 1
   stun: 0
+  bossManager: {fileID: 0}
+  damageSound: {fileID: 8300000, guid: d91a0e8f3661bc84bb28bead320a0fb6, type: 3}
 --- !u!54 &-38679901651307408
 Rigidbody:
   m_ObjectHideFlags: 0

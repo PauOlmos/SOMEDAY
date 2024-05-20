@@ -619,7 +619,6 @@ public class HighSchoolBoss : MonoBehaviour
                             {
                                 touchingGround = false;
                                 player.GetComponent<PlayerHp>().TakeDamage();
-                                //Debug.Log("HighSchoolBoss KLK");
                             }
                             transitionToScenarioTimer += Time.deltaTime;
                             if (transitionToScenarioTimer > 7.0f)
