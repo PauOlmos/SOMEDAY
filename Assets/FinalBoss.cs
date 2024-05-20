@@ -15,6 +15,14 @@ public class FinalBoss : MonoBehaviour
         Projectiles, slash, sword
     }
 
+    public enum SwordAttackStates
+    {
+        attack, rest, back
+    }
+
+    public SwordAttackStates swordAttackStates;
+    public float swordAttackTimer = 0.0f;
+
     public AttackType attackType;
 
     public int numProjectiles = 0;
@@ -28,6 +36,7 @@ public class FinalBoss : MonoBehaviour
     public Animator animator;
     public AnimationClip idle;
     public AnimationClip slashAttack;
+    public AnimationClip stabAttack;
     public float slashAttackTimer = 0.0f;
     public GameObject realSword;
     public GameObject auxiliarSword;
@@ -78,6 +87,7 @@ public class FinalBoss : MonoBehaviour
 
                     if (slashAttackTimer > 36.0f && slashAttackTimer < 42.5f)
                     {
+                        realSword.SetActive(false);
                         auxiliarSword.SetActive(true);
                         auxiliarSword.transform.Rotate(Vector3.left * Time.deltaTime * 25.0f);
 
@@ -86,6 +96,8 @@ public class FinalBoss : MonoBehaviour
                     if(slashAttackTimer > 42.5f)
                     {
                         auxiliarSword.SetActive(false);
+                        realSword.SetActive(true);
+
                     }
 
                     if (slashAttackTimer * 0.05f > slashAttack.length)
@@ -99,6 +111,19 @@ public class FinalBoss : MonoBehaviour
                         auxiliarSword.transform.Rotate(180,0, 0);
                     }
 
+                    break;
+                case AttackType.sword:
+
+                    switch (swordAttackStates)
+                    {
+                        case SwordAttackStates.attack:
+
+                            swordAttackTimer += Time.deltaTime;
+
+
+
+                            break;
+                    }
 
                     break;
 
@@ -123,6 +148,13 @@ public class FinalBoss : MonoBehaviour
             case 1:
                 attackType = AttackType.slash;
                 animator.Play(slashAttack.name);
+                break;
+            case 2:
+
+                attackType = AttackType.sword;
+                swordAttackStates = SwordAttackStates.attack;
+                animator.Play(stabAttack.name);
+
                 break;
         }
         canAttack = true;
