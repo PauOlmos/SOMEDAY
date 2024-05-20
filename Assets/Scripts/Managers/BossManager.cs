@@ -255,6 +255,9 @@ public class BossManager : MonoBehaviour
     public GameObject finalBoss;
     public IsPlayerOnGraveyard isPlayerOnGraveyard;
     public GameObject gameCamera;
+    public Transform finalProjectileSource;
+    public GameObject finalProjectiles;
+
 
     void Start()
     {
@@ -584,7 +587,7 @@ public class BossManager : MonoBehaviour
 
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
                 {
-                    Destroy(isPlayerOnGraveyard.gameObject);
+                    //Destroy(isPlayerOnGraveyard.gameObject);
                     graveyard.SetActive(true);
                     ambienceAudioSource.Stop();
                     Destroy(firstEnvironment);
@@ -608,6 +611,11 @@ public class BossManager : MonoBehaviour
                 gameCamera.GetComponent<CinemachineFreeLook>().m_Lens.FarClipPlane = 2000;
                 Destroy(street);
                 Destroy(scenarioFloor);
+
+                boss.GetComponent<FinalBoss>().player = player;
+                boss.GetComponent<FinalBoss>().projectileSource = finalProjectileSource;
+                boss.GetComponent<FinalBoss>().projectiles = finalProjectiles;
+
                 //Funcion para destruir obstaculos de street, talvez al crearlos añadirlos a un array y iterarlo aqui para destruirlos todos.
 
                 //ambienceAudioSource.clip = ambienceAudios[3];
