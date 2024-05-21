@@ -40,7 +40,9 @@ public class FinalBoss : MonoBehaviour
     public float slashAttackTimer = 0.0f;
     public GameObject realSword;
     public GameObject auxiliarSword;
-
+    public bool isPlayerOnSword = false;
+    public GameObject isOnSword;
+    public GameObject swordGround;
     void Start()
     {
         
@@ -119,10 +121,51 @@ public class FinalBoss : MonoBehaviour
                         case SwordAttackStates.attack:
 
                             swordAttackTimer += Time.deltaTime;
-
-
+                            if(swordAttackTimer * 0.05f > stabAttack.length)
+                            {
+                                swordAttackTimer = 0.0f;
+                                swordAttackStates = SwordAttackStates.rest;
+                                isOnSword.SetActive(true);
+                            }
 
                             break;
+
+                        case SwordAttackStates.rest:
+
+                            swordAttackTimer += Time.deltaTime;
+
+                            if (swordAttackTimer > 18.0f && isOnSword.GetComponent<IsPlayerOnSword>().isOnSwordThePlayer == false)
+                            {
+                                swordAttackTimer = 0.0f;
+                                animator.SetBool("StabToIdle", true);
+
+                                swordAttackStates = SwordAttackStates.back;
+                                isOnSword.SetActive(false);
+                                swordGround.GetComponent<MeshCollider>().isTrigger = true;
+
+                            }
+
+                            //if(isOnSword.GetComponent<IsPlayerOnSword>().isOnSwordThePlayer == true) animator.SetBool("StabToIdle", false);
+
+                            break;
+
+                        case SwordAttackStates.back:
+
+                            swordAttackTimer += Time.deltaTime;
+
+                            if(swordAttackTimer > 20.0f)
+                            {
+                                swordAttackTimer = 0.0f;
+                                animator.SetBool("StabToIdle", false);
+                                swordGround.GetComponent<MeshCollider>().isTrigger = false;
+                                animator.Play(idle.name);
+                                canAttack = false;
+                            }
+
+                            break;
+
+                        default: break;
+
                     }
 
                     break;
@@ -138,7 +181,7 @@ public class FinalBoss : MonoBehaviour
     public void SelectAttack()
     {
         int value = Random.Range(0, 3);
-        value = 1;
+        value = 2;
         switch (value)
         {
             case 0:
@@ -149,7 +192,7 @@ public class FinalBoss : MonoBehaviour
                 attackType = AttackType.slash;
                 animator.Play(slashAttack.name);
                 break;
-            case 2:
+            case 2://Fer passiva i canviar per rayo de la muerte
 
                 attackType = AttackType.sword;
                 swordAttackStates = SwordAttackStates.attack;
