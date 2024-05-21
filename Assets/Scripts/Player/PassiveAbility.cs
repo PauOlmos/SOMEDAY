@@ -99,7 +99,7 @@ public class PassiveAbility : MonoBehaviour
                                 case passiveType.shoot:
 
                                     GameObject passiveProjectile = Instantiate(playerProjectile, transform.position, Quaternion.identity);
-                                    passiveProjectile.GetComponent<SeekingProjectile>().target = camBehaviour.boss.transform;
+                                    passiveProjectile.GetComponent<SeekingProjectile>().target = bossManager.boss.transform;
                                     passiveProjectile.GetComponent<SeekingProjectile>().speed = 10.0f;
                                     passiveProjectile.GetComponent<SeekingProjectile>().canFail = false;
                                     passiveProjectile.GetComponent<SeekingProjectile>().shotByPlayer = true;

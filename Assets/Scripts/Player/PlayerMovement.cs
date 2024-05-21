@@ -72,19 +72,20 @@ public class PlayerMovement : MonoBehaviour
             grounded = false;
         }
 
-
         if (grounded)
         {
-            gameObject.GetComponentInChildren<BoxCollider>().size = new Vector3(gameObject.GetComponentInChildren<BoxCollider>().size.x, 1.5f, gameObject.GetComponentInChildren<BoxCollider>().size.z);
+            //gameObject.GetComponentInChildren<BoxCollider>().size = new Vector3(gameObject.GetComponentInChildren<BoxCollider>().size.x, 1.5f, gameObject.GetComponentInChildren<BoxCollider>().size.z);
             rb.drag = groundDrag;
         }
         else
         {
-            gameObject.GetComponentInChildren<BoxCollider>().size = new Vector3(gameObject.GetComponentInChildren<BoxCollider>().size.x, 0.5f, gameObject.GetComponentInChildren<BoxCollider>().size.z);
+            //gameObject.GetComponentInChildren<BoxCollider>().size = new Vector3(gameObject.GetComponentInChildren<BoxCollider>().size.x, 0.5f, gameObject.GetComponentInChildren<BoxCollider>().size.z);
             rb.drag = groundDrag / 1.1f;
         }
 
-        if(Time.timeScale != 0) Inputs();
+        //if(rb.velocity.y < 0) gameObject.GetComponentInChildren<BoxCollider>().size = new Vector3(gameObject.GetComponentInChildren<BoxCollider>().size.x, 1.5f, gameObject.GetComponentInChildren<BoxCollider>().size.z);
+
+        if (Time.timeScale != 0) Inputs();
         SpeedCap();
 
         switch (pStatus)

@@ -135,6 +135,11 @@ public class PlayerHp : MonoBehaviour
                 gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, 1, 0) * 30, ForceMode.Impulse);
             }
         }
+        if (collision.gameObject.layer == 10)//7 = Attack
+        {
+            playerHp -= 20;
+            TakeDamage();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -158,6 +163,11 @@ public class PlayerHp : MonoBehaviour
                 gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(-1, 0, 0) * 150, ForceMode.Impulse);
             }
         }
+        if (other.gameObject.layer == 10)//7 = Attack
+        {
+            playerHp -= 20;
+            TakeDamage();
+        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -180,6 +190,7 @@ public class PlayerHp : MonoBehaviour
                 gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(-1, 0, 0) * 150, ForceMode.Impulse);
             }
         }
+
     }
 
     public void TakeDamage()

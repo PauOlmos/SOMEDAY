@@ -17,6 +17,8 @@ TagManager:
   - Portal
   - ReturnableProjectile
   - WallPosition
+  - SwordWeakPoint
+  - FinalBoss
   layers:
   - Default
   - TransparentFX
@@ -28,7 +30,7 @@ TagManager:
   - Attack
   - PhisicLight
   - CloneWall
-  - 
+  - BossFoot
   - 
   - 
   - 

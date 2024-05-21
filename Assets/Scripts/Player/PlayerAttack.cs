@@ -16,6 +16,7 @@ public class PlayerAttack : MonoBehaviour
     Parry parry;
     public GameObject tutorialBoss;
     public Transform attacPos;
+    public GameObject finalBoss;
     void Start()
     {
         pMov = GameObject.Find("Player").GetComponent<PlayerMovement>();
@@ -68,10 +69,17 @@ public class PlayerAttack : MonoBehaviour
     {
         if (other != null)
         {
-
-            if (other.gameObject.tag == "Boss" || other.gameObject.tag == "Enemy" || other.gameObject.tag == "WeakPoint")
+            if (other.gameObject.tag == "FinalBoss")
             {
-
+                finalBoss.GetComponent<FinalBoss>().hp--;
+            }
+            if (other.gameObject.tag == "SwordWeakPoint")
+            {
+                Destroy(other.gameObject);
+            }
+            else if (other.gameObject.tag == "Boss" || other.gameObject.tag == "Enemy" || other.gameObject.tag == "WeakPoint")
+            {
+                
                 if (other.gameObject.tag == "WeakPoint")
                 {
                     //Debug.Log("WeakPointHit");
@@ -88,8 +96,15 @@ public class PlayerAttack : MonoBehaviour
     {
         if (collision != null)
         {
-
-            if (collision.gameObject.tag == "Boss" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "WeakPoint")
+            if (collision.gameObject.tag == "FinalBoss")
+            {
+                finalBoss.GetComponent<FinalBoss>().hp--;
+            }
+            if (collision.gameObject.tag == "SwordWeakPoint")
+            {
+                Destroy(collision.gameObject);
+            }
+            else if (collision.gameObject.tag == "Boss" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "WeakPoint")
             {
                 if (collision.gameObject.tag == "WeakPoint")
                 {

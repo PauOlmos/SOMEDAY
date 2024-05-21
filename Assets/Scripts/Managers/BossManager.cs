@@ -257,7 +257,11 @@ public class BossManager : MonoBehaviour
     public GameObject gameCamera;
     public Transform finalProjectileSource;
     public GameObject finalProjectiles;
-
+    public GameObject lastWeakpoint;
+    public AnimationClip walkAnimation;
+    public AnimationClip dieAnimation;
+    public GameObject graveyardWalls;
+    public GameObject auxiliarGraveyard;
 
     void Start()
     {
@@ -911,6 +915,39 @@ public class BossManager : MonoBehaviour
                 }
 
                 break;
+
+            case 4:
+
+                switch (boss.GetComponent<FinalBoss>().phase)
+                {
+                    case 1:
+
+                        if (lastWeakpoint == null)
+                        {
+                            Destroy(boss.GetComponent<FinalBoss>().realSword);
+                            boss.GetComponent<FinalBoss>().phase++;
+                            boss.GetComponent<FinalBoss>().animator.Play(walkAnimation.name);
+                            graveyardWalls.SetActive(false);
+                            auxiliarGraveyard.SetActive(true);
+                        }
+
+                        break;
+
+                    case 2:
+
+                        if(boss.GetComponent<FinalBoss>().hp < 0)
+                        {
+                            boss.GetComponent<FinalBoss>().phase++;
+                            boss.GetComponent<FinalBoss>().animator.Play(dieAnimation.name);
+                            
+                        }
+
+                        break;
+                    default: break;
+                }
+
+                break;
+
             default:break;
         }
 
