@@ -262,7 +262,11 @@ public class BossManager : MonoBehaviour
     public AnimationClip dieAnimation;
     public GameObject graveyardWalls;
     public GameObject auxiliarGraveyard;
-
+    public GameObject end;
+    public Image white;
+    public float changeToWhite = 0.0f;
+    public GameObject footDmg1;
+    public GameObject footDmg2;
     void Start()
     {
         SFX = soundEfffectPrefab;
@@ -939,10 +943,26 @@ public class BossManager : MonoBehaviour
                         {
                             boss.GetComponent<FinalBoss>().phase++;
                             boss.GetComponent<FinalBoss>().animator.Play(dieAnimation.name);
-                            
+                            footDmg1.SetActive(false);
+                            footDmg2.SetActive(false);
                         }
 
                         break;
+
+                    case 3:
+                        Debug.Log("Hola");
+
+                        if (end == null)
+                        {
+                            Debug.Log("Adeu");
+                            changeToWhite += Time.deltaTime;
+                            //FadeToWhite + ChangeScene to limbo
+                            white.color = new Color(1, 1, 1, changeToWhite / 5);
+                            if (white.color.a >= 1) SceneManager.LoadScene(3);
+                        }
+
+                        break;
+
                     default: break;
                 }
 
