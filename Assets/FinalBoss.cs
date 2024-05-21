@@ -26,7 +26,7 @@ public class FinalBoss : MonoBehaviour
     public AttackType attackType;
 
     public int numProjectiles = 0;
-
+    public int numAttacks = 0;
     public GameObject projectiles;
 
     public Transform projectileSource;
@@ -219,20 +219,21 @@ public class FinalBoss : MonoBehaviour
 
     public void SelectAttack()
     {
-        int value = Random.Range(0, 3);
-        value = 2;
+        numAttacks++;
+        int value = Random.Range(0, 4);
+        if (numAttacks > 7) value = 4;
         switch (value)
         {
             case 0:
-
+            case 1:
                 attackType = AttackType.Projectiles;
                 break;
-            case 1:
+            case 2:
                 attackType = AttackType.slash;
                 animator.Play(slashAttack.name);
                 break;
 
-            case 2:
+            case 3:
                 rayType = Random.Range(0, 2);
                 attackType = AttackType.ray;
                 if(rayType == 0)animator.Play(rayAttack1.name);
@@ -241,8 +242,8 @@ public class FinalBoss : MonoBehaviour
 
                 break;
 
-            case 3://Fer passiva i canviar per rayo de la muerte
-
+            case 4://Fer passiva i canviar per rayo de la muerte
+                numAttacks = 4;
                 attackType = AttackType.sword;
                 swordAttackStates = SwordAttackStates.attack;
                 animator.Play(stabAttack.name);

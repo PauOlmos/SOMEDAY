@@ -188,7 +188,8 @@ public class PlayerHp : MonoBehaviour
         {
             passiveAbility.canCharge = false;
             passiveAbility.canChargeTimer = 0.0f;
-            playerHp--;
+            if (bossManager.currentBoss != 4) playerHp--;
+            else playerHp -= 2;
             isInvencible = true;
             invencibilityTimer = 0;
             gotDamaged = true;
