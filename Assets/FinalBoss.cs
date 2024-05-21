@@ -12,7 +12,7 @@ public class FinalBoss : MonoBehaviour
 
     public enum AttackType
     {
-        Projectiles, slash, sword
+        Projectiles, slash, sword, ray
     }
 
     public enum SwordAttackStates
@@ -37,12 +37,18 @@ public class FinalBoss : MonoBehaviour
     public AnimationClip idle;
     public AnimationClip slashAttack;
     public AnimationClip stabAttack;
+    int rayType = 0;
+    public AnimationClip rayAttack1;
+    public AnimationClip rayAttack2;
     public float slashAttackTimer = 0.0f;
+    public float rayAttackTimer = 0.0f;
     public GameObject realSword;
     public GameObject auxiliarSword;
     public bool isPlayerOnSword = false;
     public GameObject isOnSword;
     public GameObject swordGround;
+    public GameObject rayVisual;
+    public GameObject rayCollider;
     void Start()
     {
         
@@ -114,6 +120,39 @@ public class FinalBoss : MonoBehaviour
                     }
 
                     break;
+
+                case AttackType.ray:
+
+                    rayAttackTimer += Time.deltaTime;
+
+                    if (rayAttackTimer > 5.0f) rayCollider.SetActive(true);
+                    if (rayType == 0)
+                    {
+                        if (rayAttackTimer * 0.2f > rayAttack1.length)
+                        {
+                            rayAttackTimer = 0.0f;
+                            animator.Play(idle.name);
+                            canAttack = false;
+                            rayVisual.SetActive(false);
+                            rayCollider.SetActive(false);
+                        }
+                    }
+                    else
+                    {
+                        if (rayAttackTimer * 0.2f > rayAttack2.length)
+                        {
+                            rayAttackTimer = 0.0f;
+                            animator.Play(idle.name);
+                            canAttack = false;
+                            rayVisual.SetActive(false);
+                            rayCollider.SetActive(false);
+                        }
+                    }
+                    
+
+
+                    break;
+
                 case AttackType.sword:
 
                     switch (swordAttackStates)
@@ -192,7 +231,17 @@ public class FinalBoss : MonoBehaviour
                 attackType = AttackType.slash;
                 animator.Play(slashAttack.name);
                 break;
-            case 2://Fer passiva i canviar per rayo de la muerte
+
+            case 2:
+                rayType = Random.Range(0, 2);
+                attackType = AttackType.ray;
+                if(rayType == 0)animator.Play(rayAttack1.name);
+                else animator.Play(rayAttack2.name);
+                rayVisual.SetActive(true);
+
+                break;
+
+            case 3://Fer passiva i canviar per rayo de la muerte
 
                 attackType = AttackType.sword;
                 swordAttackStates = SwordAttackStates.attack;
