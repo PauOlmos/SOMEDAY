@@ -12,8 +12,6 @@ public class BrotherBoss : MonoBehaviour
     public float acceleration = 8.0f;
     public bool damaged = false;
 
-
-
     public enum AttackType
     {
         trio, circle, walls, disc, car, drones, fall

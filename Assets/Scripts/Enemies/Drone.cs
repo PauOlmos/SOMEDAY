@@ -52,30 +52,6 @@ public class Drone : MonoBehaviour
                 Vector3 distanceToPlayer = Vector3.zero;
 
                 distanceToPlayer = droneSeekingPositions[seedDirection] - gameObject.transform.position;
-
-                //switch (seedDirection)
-                //{
-                //    case 0:
-                //
-                //       distanceToPlayer = player.transform.position + (player.transform.forward + randomSeed) * 100 - gameObject.transform.position;
-                //
-                //        break;
-                //    case 1:
-                //
-                //        distanceToPlayer = player.transform.position + (player.transform.right + randomSeed) * 100 - gameObject.transform.position;
-                //
-                //        break;
-                //    case 2:
-                //
-                //        distanceToPlayer = player.transform.position + (-player.transform.forward + randomSeed) * 100 - gameObject.transform.position;
-                //
-                //        break;
-                //    case 3:
-                //
-                //        distanceToPlayer = player.transform.position + (-player.transform.right + randomSeed) * 100 - gameObject.transform.position;
-                //
-                //        break;
-                //}
                
                 transform.position += distanceToPlayer * Time.deltaTime / 2.5f;
             }

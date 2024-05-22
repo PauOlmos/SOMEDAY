@@ -267,6 +267,7 @@ public class BossManager : MonoBehaviour
     public float changeToWhite = 0.0f;
     public GameObject footDmg1;
     public GameObject footDmg2;
+    public Terrain terrain;
     void Start()
     {
         SFX = soundEfffectPrefab;
@@ -933,6 +934,7 @@ public class BossManager : MonoBehaviour
                             boss.GetComponent<FinalBoss>().animator.Play(walkAnimation.name);
                             graveyardWalls.SetActive(false);
                             auxiliarGraveyard.SetActive(true);
+                            terrain.terrainData.size = new Vector3(terrain.terrainData.size.x, terrain.terrainData.size.y, 2300);
                         }
 
                         break;
