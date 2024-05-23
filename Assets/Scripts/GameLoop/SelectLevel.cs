@@ -64,6 +64,7 @@ public class SelectLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("Back")) SceneManager.LoadScene(0);
         isIdle = Vector3.Distance(gameObject.transform.position, agent.destination) < 1.0f;
         Animations();
         if (Input.GetButtonDown("Jump") && collidingWithLevel)

@@ -544,6 +544,9 @@ public class HighSchoolBoss : MonoBehaviour
                     }
                     else if(attackType == AttackType.reset)
                     {
+                        weakPoint1.SetActive(false);
+                        weakPoint2.SetActive(false);
+                        weakPoint3.SetActive(false);
                         corridorAttackCooldownTimer += Time.deltaTime;
                         if(corridorAttackCooldownTimer > 4.0f)
                         {
@@ -908,6 +911,7 @@ public class HighSchoolBoss : MonoBehaviour
 
     private void EveryoneToCorrdor()
     {
+        bossAudioSource.Stop();
         gameObject.transform.LookAt(player.transform.position);
         bossShield.SetActive(false);
         bossShield.transform.localScale = Vector3.zero;

@@ -88,8 +88,12 @@ public class PlayerHp : MonoBehaviour
             dieTimer += Time.deltaTime;
             if(dieTimer > 10.0f)
             {
-                if (LoadPlayerData(Settings.archiveNum).difficulty == 2) File.Delete(Application.streamingAssetsPath + "/Archive" + Settings.archiveNum.ToString() + ".json");
-                SceneManager.LoadScene(0);//Main menu
+                if (LoadPlayerData(Settings.archiveNum).difficulty == 2)
+                {
+                    File.Delete(Application.streamingAssetsPath + "/Archive" + Settings.archiveNum.ToString() + ".json");
+                    SceneManager.LoadScene(0);//Main menu
+                }
+                else SceneManager.LoadScene(1);//LvlSelector
             }
             else
             {

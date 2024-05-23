@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: BrotherBlack
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_Parent: {fileID: 2100000, guid: 42765f0df33b0cd48826e4bf5105b3c1, type: 2}
+  m_Parent: {fileID: 2100000, guid: d50b94da1d482ba4c9f92bfb37f54ccc, type: 2}
   m_ModifiedSerializedProperties: 16
   m_ValidKeywords:
   - _ALPHAPREMULTIPLY_ON
@@ -38,5 +38,5 @@ Material:
     - _UVSec: 1
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0.08395338, g: 0, b: 1, a: 1}
   m_BuildTextureStacks: []
