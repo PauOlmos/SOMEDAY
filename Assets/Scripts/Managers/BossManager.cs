@@ -654,7 +654,6 @@ public class BossManager : MonoBehaviour
         sfx.GetComponent<AudioSource>().PlayOneShot(sound);
         sfx.GetComponent<DieByTime>().deathTime = sound.length;
         sfx.GetComponent<AudioSource>().volume = Settings.volume;
-        Debug.Log(Settings.volume);
     }
 
     public void CheckBossHp(int nBoss)
