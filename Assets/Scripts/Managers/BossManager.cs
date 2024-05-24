@@ -84,6 +84,7 @@ public class BossManager : MonoBehaviour
     public GameObject boss;
 
     public Transform tutorialMap;
+    public GameObject puddles;
     public float radius;
 
     public GameObject[] circlesPrefabs = new GameObject[3];
@@ -99,6 +100,7 @@ public class BossManager : MonoBehaviour
     public GameObject direction;
     [Header("HighSchool Boss")]
 
+    public Material ClassroomFloorMaterial;
     public GameObject TutorialWalls;
 
     public GameObject wall1;
@@ -269,6 +271,8 @@ public class BossManager : MonoBehaviour
     public GameObject footDmg1;
     public GameObject footDmg2;
     public Terrain terrain;
+    public float[] walkingSpeedMultiplier = { 1.0f, 2.0f, 3.0f };
+
     void Start()
     {
         SFX = soundEfffectPrefab;
@@ -288,6 +292,7 @@ public class BossManager : MonoBehaviour
         switch (nBoss)
         {
             case 0:
+                
                 lights[nBoss].SetActive(true);
                 boss = GameObject.Find("Boss");
                 tutorialAnimations.enabled = true;
@@ -319,6 +324,8 @@ public class BossManager : MonoBehaviour
                 break;
 
             case 1:
+                puddles.SetActive(false);
+                tutorialMap.GetComponent<Renderer>().material = ClassroomFloorMaterial;
                 Destroy(tutorialAnimations);
                 Destroy(tutorialBossModel);
                 highSchoolBossAnimations.enabled = true;
@@ -881,6 +888,7 @@ public class BossManager : MonoBehaviour
                                 boss.GetComponent<BrotherBoss>().mState = BrotherBoss.MovementState.aerial;
                                 boss.GetComponent<CapsuleCollider>().isTrigger = false;
                                 boss.GetComponent<NavMeshAgent>().enabled = false;
+                                bossAudioSource.Stop();
                             }
 
                             break;
@@ -932,6 +940,8 @@ public class BossManager : MonoBehaviour
                             Destroy(boss.GetComponent<FinalBoss>().realSword);
                             boss.GetComponent<FinalBoss>().phase++;
                             boss.GetComponent<FinalBoss>().animator.Play(walkAnimation.name);
+                            boss.GetComponent<FinalBoss>().animator.SetFloat("Multiplier", walkingSpeedMultiplier[difficulty]);
+                            //walkAnimation = walkingSpeedMultiplier[difficulty];
                             graveyardWalls.SetActive(false);
                             auxiliarGraveyard.SetActive(true);
                             terrain.terrainData.size = new Vector3(terrain.terrainData.size.x, terrain.terrainData.size.y, 2300);

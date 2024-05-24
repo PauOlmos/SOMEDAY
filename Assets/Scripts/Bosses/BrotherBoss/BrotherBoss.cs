@@ -110,6 +110,15 @@ public class BrotherBoss : MonoBehaviour
     public int difficulty = 0;
     public Transform continousCircleSpawnPosition;
 
+    public float[] hidingTime = { 5.0f, 3.5f, 3.0f };
+    public float[] vulnerabilities = { 1.5f, 1.0f, 0.75f };
+    public float[] stunTimes = { 2.0f, 1.5f, 1.25f };
+    public float[] cooldownTimes = { 10.0f, 8.0f, 7.5f };
+    public bool sounded = false;
+    public float[] fallingTimes = { 2.5f, 2.0f, 1.5f };
+    public float[] restingTimes = { 4.0f, 3.0f, 2.0f };
+    public int[] maxDrones = { 1, 2, 3 };
+    public float[] headSpeed = { 7.5f, 10.0f, 12.0f };
     // Start is called before the first frame update
     void Start()
     {
@@ -200,7 +209,7 @@ public class BrotherBoss : MonoBehaviour
                                 gameObject.GetComponent<NavMeshAgent>().destination = player.transform.position;
                                 gameObject.GetComponent<NavMeshAgent>().speed = speed / 2;
                                 cooldownTimer += Time.deltaTime;
-                                if(cooldownTimer > 5.0f)
+                                if(cooldownTimer > hidingTime[difficulty])
                                 {
                                     mState = MovementState.seeking;
                                     cooldownTimer = 0.0f;
@@ -219,7 +228,7 @@ public class BrotherBoss : MonoBehaviour
                                     gameObject.GetComponent<NavMeshAgent>().destination = randomMapPositions[Random.Range(0, randomMapPositions.Length)].position;
                                 }
 
-                                if (cooldownTimer > 7.5f)
+                                if (cooldownTimer > hidingTime[difficulty] + 1.5f)
                                 {
                                     getPositionTimer = 0.0f;
                                     mState = MovementState.seeking;
@@ -227,8 +236,6 @@ public class BrotherBoss : MonoBehaviour
                                     gameObject.GetComponent<NavMeshAgent>().destination = player.transform.position;
                                 }
                             }
-
-                            
 
                             break;
                     }
@@ -287,7 +294,7 @@ public class BrotherBoss : MonoBehaviour
                                 vulnerabilityTimer += Time.deltaTime;
                                 gameObject.GetComponent<CapsuleCollider>().isTrigger = false;
 
-                                if (vulnerabilityTimer > 1.0f)
+                                if (vulnerabilityTimer > vulnerabilities[difficulty])
                                 {
                                     gameObject.GetComponent<CapsuleCollider>().isTrigger = true;
                                     gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
@@ -356,7 +363,7 @@ public class BrotherBoss : MonoBehaviour
                 if (gameObject.GetComponent<EnemyHP>().stun == true)
                 {
                     stunTimer += Time.deltaTime;
-                    if (stunTimer > 1.5f)
+                    if (stunTimer > stunTimes[difficulty])
                     {
                         proximityAreaAttack.tag = "Parryable";
                         gameObject.GetComponent<NavMeshAgent>().speed = speed;
@@ -414,7 +421,7 @@ public class BrotherBoss : MonoBehaviour
 
                             cooldownTimer += Time.deltaTime;
 
-                            if(cooldownTimer > 15.0f)
+                            if(cooldownTimer > cooldownTimes[difficulty])
                             {
                                 canMove = false;
                                 cooldownTimer = 0.0f;
@@ -442,7 +449,7 @@ public class BrotherBoss : MonoBehaviour
 
                         case AttackType.drones:
 
-                            if(numDrones == 1)
+                            if(numDrones == maxDrones[difficulty])
                             {
                                 canAttack = false;
                                 canMove = true;
@@ -499,11 +506,18 @@ public class BrotherBoss : MonoBehaviour
                                     distanceToPlayer.y += 6.5f;
                                     transform.position += distanceToPlayer * Time.deltaTime * 4.0f;
 
-                                    if (fallTimer > 5.0f || distanceToPlayer.magnitude < 1.0f)
+                                    if(distanceToPlayer.magnitude < 1.0f && sounded == false)
+                                    {
+                                        sounded = true;
+                                        BossManager.SoundEffect(brotherBossAudios[8]);
+                                    }
+
+                                    if (fallTimer > fallingTimes[difficulty])
                                     {
                                         fallTimer = 0.0f;
                                         fallState = FallAttackState.falling;
-                                        BossManager.SoundEffect(brotherBossAudios[8]);
+                                        sounded = false;
+
                                         //Set y to ground
                                     }
                                     break;
@@ -532,7 +546,7 @@ public class BrotherBoss : MonoBehaviour
                                     break;
 
                                 case FallAttackState.resting:
-                                    if(fallTimer > 2.5f)
+                                    if(fallTimer > restingTimes[difficulty])
                                     {
                                         gameObject.GetComponent<EnemyHP>().canBeDamaged = false;
                                         ChangeTransparency(brotherModel, 0.25f);
@@ -611,7 +625,7 @@ public class BrotherBoss : MonoBehaviour
                         
                         gameObject.GetComponent<Rigidbody>().Sleep();
                         gameObject.transform.LookAt(endOfTheStreet);
-                        gameObject.transform.Translate(gameObject.transform.forward * Time.deltaTime * 10);
+                        gameObject.transform.Translate(gameObject.transform.forward * Time.deltaTime * headSpeed[difficulty]);
 
                         break;
                     case HeadTransition.ending:

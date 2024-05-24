@@ -58,6 +58,7 @@ public class FinalBoss : MonoBehaviour
     public bool right = false;
     public int hp = 50;
     public int difficulty;
+    public float[] attackCooldown = { 10.0f, 7.5f, 5.0f };
     
     public enum Phase2State
     {
@@ -80,7 +81,7 @@ public class FinalBoss : MonoBehaviour
                 if (!canAttack)
                 {
                     attackTimer += Time.deltaTime;
-                    if (attackTimer > 10.0f) SelectAttack();
+                    if (attackTimer > attackCooldown[difficulty]) SelectAttack();
                 }
                 else
                 {
@@ -96,6 +97,7 @@ public class FinalBoss : MonoBehaviour
                                 Vector3 forceVector = new Vector3(Random.Range(-100, 100), Random.Range(100, 200), Random.Range(-400, -600));
                                 p.GetComponent<Rigidbody>().AddForce(forceVector, ForceMode.Impulse);
                                 p.GetComponent<FinalBossProjectile>().player = player;
+                                p.GetComponent<FinalBossProjectile>().difficulty = difficulty;
                                 numProjectiles++;
                                 projectilesCooldown = 0.0f;
                             }
@@ -113,7 +115,7 @@ public class FinalBoss : MonoBehaviour
 
                             slashAttackTimer += Time.deltaTime;
 
-                            if (slashAttackTimer > 36.0f && slashAttackTimer < 42.5f)
+                            if (slashAttackTimer > 15.0f && slashAttackTimer < 21.0f)
                             {
                                 realSword.SetActive(false);
                                 auxiliarSword.SetActive(true);
@@ -121,14 +123,14 @@ public class FinalBoss : MonoBehaviour
 
                             }
 
-                            if (slashAttackTimer > 42.5f)
+                            if (slashAttackTimer > 21.0f)
                             {
                                 auxiliarSword.SetActive(false);
                                 realSword.SetActive(true);
 
                             }
 
-                            if (slashAttackTimer * 0.05f > slashAttack.length)
+                            if (slashAttackTimer > 27.0f)
                             {
                                 slashAttackTimer = 0.0f;
                                 animator.Play(idle.name);
@@ -295,6 +297,7 @@ public class FinalBoss : MonoBehaviour
     {
         numAttacks++;
         int value = Random.Range(0, 4);
+        value = 2;
         if (numAttacks > 7) value = 4;
         switch (value)
         {

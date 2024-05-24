@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class FinalBossProjectile : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class FinalBossProjectile : MonoBehaviour
     public GameObject finalDog;
     public GameObject liquid;
     public GameObject player;
-
+    public int difficulty;
+    public float[] dogsSpeed = { 5, 7.5f, 8.5f };
+    public float[] liquidsTimes = { 30.0f, 45.0f, 55.0f };
     void Start()
     {
         projectileType = Random.Range(0, 3);
@@ -35,6 +38,7 @@ public class FinalBossProjectile : MonoBehaviour
                     GameObject dog = Instantiate(finalDog, gameObject.transform.position, Quaternion.identity);
 
                     dog.GetComponent<ShadowDog>().player = player;
+                    dog.GetComponent<NavMeshAgent>().speed = dogsSpeed[difficulty];
 
                     break;
 
@@ -42,6 +46,7 @@ public class FinalBossProjectile : MonoBehaviour
 
                     GameObject likid = Instantiate(liquid, gameObject.transform.position, Quaternion.identity);
                     likid.transform.position = new Vector3(likid.transform.position.x, -220.0f, likid.transform.position.z);
+                    likid.GetComponent<DieByTime>().deathTime = liquidsTimes[difficulty];
                     break;
 
                 default: break;
