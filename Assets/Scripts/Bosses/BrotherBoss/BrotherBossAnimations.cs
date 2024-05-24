@@ -19,6 +19,7 @@ public class BrotherBossAnimations : MonoBehaviour
     public bool attacking = false;
     public float damagedTimer = 0.0f;
     public float phase2AttackTimer = 0.0f;
+    public bool didAttackLand = false;
     void Start()
     {
         
@@ -151,6 +152,8 @@ public class BrotherBossAnimations : MonoBehaviour
                             {
                                 if (boss.canMove)
                                 {
+                                    didAttackLand = false;
+
                                     if (actualAnimation != animations[0])
                                     {
                                         actualAnimation = animations[0];
@@ -166,8 +169,9 @@ public class BrotherBossAnimations : MonoBehaviour
 
                                             if (boss.fallState != BrotherBoss.FallAttackState.positioning)
                                             {
-                                                if (actualAnimation != animations[7])
+                                                if (actualAnimation != animations[7] && didAttackLand == false)
                                                 {
+                                                    didAttackLand = true;
                                                     actualAnimation = animations[7];
                                                     animation.Play(animations[7].name);
                                                 }

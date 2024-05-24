@@ -112,7 +112,7 @@ public class StartParentsBoss : MonoBehaviour
                 gameObject.transform.LookAt(player.transform.position);
             }
             if (parentsHouse.transform.position.y > -49.5f) parentsHouse.transform.Translate(0, -Time.deltaTime * 10.0f, 0);
-            if(Vector3.Distance(dadPosition.position, gameObject.transform.position) <= 7.45f && parentsHouse.transform.position.y <= -48.5f)
+            if(Vector3.Distance(dadPosition.position, gameObject.transform.position) <= 20.45f && parentsHouse.transform.position.y <= -48.5f)
             {
                 gameObject.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
                 gameObject.transform.position = dadPosition.position;

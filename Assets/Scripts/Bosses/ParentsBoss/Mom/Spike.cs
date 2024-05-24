@@ -40,19 +40,19 @@ public class Spike : MonoBehaviour
             Destroy(collision.gameObject);
             if (hp <= 0)
             {
-                GameObject sfx = Instantiate(soundGO, gameObject.transform.position, Quaternion.identity);
-                sfx.GetComponent<AudioSource>().clip = sounds[1];
-                sfx.GetComponent<AudioSource>().Play();
+                BossManager.SoundEffect(sounds[1]);
                 Destroy(Prefab);
             }
             else
             {
-                gameObject.GetComponent<AudioSource>().clip = sounds[0];
-                gameObject.GetComponent<AudioSource>().loop = false;
-                gameObject.GetComponent<AudioSource>().Play();
+                BossManager.SoundEffect(sounds[0]);
+
             }
         }
-        
+        if(collision.gameObject.tag == "Spike" && timer < 4)
+        {
+            Destroy(collision.gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -62,16 +62,14 @@ public class Spike : MonoBehaviour
             hp--;
             if (hp <= 0)
             {
-                GameObject sfx = Instantiate(soundGO, gameObject.transform.position, Quaternion.identity);
-                sfx.GetComponent<AudioSource>().clip = sounds[1];
-                sfx.GetComponent<AudioSource>().Play();
+                BossManager.SoundEffect(sounds[1]);
+
                 Destroy(Prefab);
             }
             else
             {
-                gameObject.GetComponent<AudioSource>().clip = sounds[0];
-                gameObject.GetComponent<AudioSource>().loop = false;
-                gameObject.GetComponent<AudioSource>().Play();
+                BossManager.SoundEffect(sounds[0]);
+
             }
         }
     }

@@ -107,6 +107,9 @@ public class BrotherBoss : MonoBehaviour
     private float dialogTimer;
     private int dialogNum;
 
+    public int difficulty = 0;
+    public Transform continousCircleSpawnPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -427,7 +430,7 @@ public class BrotherBoss : MonoBehaviour
                     {
                         case AttackType.disc:
 
-                            for (int i = 0; i < discMovementArea.Length; i++)
+                            for (int i = 0; i < discMovementArea.Length - 2 + difficulty; i++)
                             {
                                 GameObject rotatingDisc = Instantiate(disc, gameObject.transform.position, Quaternion.identity);
                                 rotatingDisc.GetComponent<AerialDisc>().pointArea = discMovementArea[i];
@@ -515,10 +518,9 @@ public class BrotherBoss : MonoBehaviour
                                     else
                                     {
                                         BossManager.SoundEffect(brotherBossAudios[9]);
-                                        Vector3 klk = new Vector3(gameObject.transform.position.x, -127.0f, gameObject.transform.position.z);
-                                        GameObject circle = Instantiate(continousCircle, klk, Quaternion.identity);
+                                        GameObject circle = Instantiate(continousCircle, continousCircleSpawnPosition.position, Quaternion.identity);
                                         circle.transform.Rotate(new Vector3(-90, 0, 0));
-                                        circle.transform.localScale = circle.transform.localScale / 100.0f;
+                                        circle.transform.localScale = circle.transform.localScale / 50.0f;
                                         proximityAreaAttack.SetActive(false);
                                         fallTimer = 0.0f;
                                         fallState = FallAttackState.resting;

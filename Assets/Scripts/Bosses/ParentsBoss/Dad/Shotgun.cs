@@ -24,6 +24,7 @@ public class Shotgun : MonoBehaviour
     void Start()
     {
         if (!right) gameObject.transform.Rotate(Vector3.up, 180);
+        gameObject.GetComponent<AudioSource>().volume = Settings.volume;
     }
 
     // Update is called once per frame

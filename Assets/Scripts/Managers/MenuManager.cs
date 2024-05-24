@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -257,7 +258,7 @@ public class MenuManager : MonoBehaviour
                 Application.Quit();
                 //Quit Game??
             }
-
+            StopPhysics();
 
         }
         if (Input.GetButtonUp("Pause") && playing)
@@ -271,6 +272,11 @@ public class MenuManager : MonoBehaviour
                 ResumeGame();
             }
         }
+    }
+
+    private void StopPhysics()
+    {
+        if (paused) player.GetComponent<Rigidbody>().Sleep();
     }
 
     void DeleteArchives()

@@ -246,7 +246,7 @@ public class BossManager : MonoBehaviour
     public int difficulty;
     public float dialogTimer = 0.0f;
     private int dialogNum;
-
+    public Transform continousCircleSpawnPosition;
     public GameObject[] obstacles;
 
     [Header("FinalBoss")]
@@ -263,6 +263,7 @@ public class BossManager : MonoBehaviour
     public GameObject graveyardWalls;
     public GameObject auxiliarGraveyard;
     public GameObject end;
+    public GameObject finalWeakPointAuxiliar;
     public Image white;
     public float changeToWhite = 0.0f;
     public GameObject footDmg1;
@@ -442,7 +443,7 @@ public class BossManager : MonoBehaviour
                 dadBossAnimations.animation = dadBossAnimations.model.GetComponent<Animator>();
                 dadBossAnimations.animation.Play(dadBossAnimations.animations[0].name);
                 dadBossAnimations.actualAnimation = dadBossAnimations.animations[0];
-
+                momAudioSource.volume = Settings.volume;
                 momBossAnimations.enabled = true;
                 momBossAnimations.animation = momBossAnimations.model.GetComponent<Animator>();
                 //momBossAnimations.animation.Play(momBossAnimations.animations[0].name);
@@ -587,7 +588,9 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<StartBrotherBoss>().ambienceAudioSource = ambienceAudioSource;
                 boss.GetComponent<StartBrotherBoss>().ambienceAudios = ambienceAudios;
                 boss.GetComponent<StartBrotherBoss>().bossAudioSource = bossAudioSource;
+                boss.GetComponent<StartBrotherBoss>().continousCircleSpawnPosition = continousCircleSpawnPosition;
 
+                boss.GetComponent<StartBrotherBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
                 brotherBossAnimations.startBoss = boss.GetComponent<StartBrotherBoss>();
 
                 break;
@@ -605,12 +608,13 @@ public class BossManager : MonoBehaviour
                     player.SetActive(false);
                     player.transform.position = playerSpawnPositions[nBoss].position;
                     player.SetActive(true);
-                    bossAudioSource.transform.SetParent(finalBoss.transform);
-                    bossDialogAudioSource.transform.SetParent(finalBoss.transform);
-                    Destroy(boss);
-                    boss = finalBoss;
-                    boss.SetActive(true);
+                    
                 }
+                bossAudioSource.transform.SetParent(finalBoss.transform);
+                bossDialogAudioSource.transform.SetParent(finalBoss.transform);
+                Destroy(boss);
+                boss = finalBoss;
+                boss.SetActive(true);
                 GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
                 foreach (GameObject enemy in enemies)
                 {
@@ -624,7 +628,7 @@ public class BossManager : MonoBehaviour
                 boss.GetComponent<FinalBoss>().player = player;
                 boss.GetComponent<FinalBoss>().projectileSource = finalProjectileSource;
                 boss.GetComponent<FinalBoss>().projectiles = finalProjectiles;
-
+                boss.GetComponent<FinalBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
                 //Funcion para destruir obstaculos de street, talvez al crearlos añadirlos a un array y iterarlo aqui para destruirlos todos.
 
                 //ambienceAudioSource.clip = ambienceAudios[3];
@@ -642,7 +646,8 @@ public class BossManager : MonoBehaviour
         GameObject sfx = Instantiate(SFX, Vector3.zero, Quaternion.identity);
         sfx.GetComponent<AudioSource>().PlayOneShot(sound);
         sfx.GetComponent<DieByTime>().deathTime = sound.length;
-        sfx.GetComponent<AudioSource>().volume = Mathf.Clamp01(Settings.volume);
+        sfx.GetComponent<AudioSource>().volume = Settings.volume;
+        Debug.Log(Settings.volume);
     }
 
     public void CheckBossHp(int nBoss)
@@ -906,11 +911,6 @@ public class BossManager : MonoBehaviour
                                 subtitleManagaer.subtitleText = brotherBossDialogs[brotherBossDialogAudios.Length - 1];
                                 subtitleManagaer.currentAudioClip = brotherBossDialogAudios[brotherBossDialogAudios.Length - 1];
                                 subtitleManagaer.canReproduceAudio = true;
-                                bossAudioSource.transform.SetParent(finalBoss.transform);
-                                bossDialogAudioSource.transform.SetParent(finalBoss.transform);
-                                Destroy(boss);
-                                boss = finalBoss;
-                                boss.SetActive(true);
                             }
 
                             break;
@@ -947,16 +947,16 @@ public class BossManager : MonoBehaviour
                             boss.GetComponent<FinalBoss>().animator.Play(dieAnimation.name);
                             footDmg1.SetActive(false);
                             footDmg2.SetActive(false);
+                            finalWeakPointAuxiliar.SetActive(false);
+                            end.SetActive(true);
                         }
 
                         break;
 
                     case 3:
-                        Debug.Log("Hola");
 
                         if (end == null)
                         {
-                            Debug.Log("Adeu");
                             changeToWhite += Time.deltaTime;
                             //FadeToWhite + ChangeScene to limbo
                             white.color = new Color(1, 1, 1, changeToWhite / 5);

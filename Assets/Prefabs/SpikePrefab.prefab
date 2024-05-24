@@ -31,7 +31,7 @@ Transform:
   - {fileID: 2410187456930149673}
   - {fileID: 124343389766766699}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9926438686559547
 GameObject:
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 6846751623014483665}
   m_Layer: 0
   m_Name: Spike
-  m_TagString: Untagged
+  m_TagString: Spike
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

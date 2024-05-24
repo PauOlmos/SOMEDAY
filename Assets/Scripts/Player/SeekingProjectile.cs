@@ -82,5 +82,6 @@ public class SeekingProjectile : MonoBehaviour
             if(!shotByPlayer) Destroy(gameObject);
             
         }
+        if (other.gameObject.tag == "DestroyProjectiles") Destroy(gameObject);
     }
 }

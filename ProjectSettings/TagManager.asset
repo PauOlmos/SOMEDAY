@@ -19,6 +19,8 @@ TagManager:
   - WallPosition
   - SwordWeakPoint
   - FinalBoss
+  - Spike
+  - DestroyProjectiles
   layers:
   - Default
   - TransparentFX

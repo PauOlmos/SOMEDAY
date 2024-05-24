@@ -9,7 +9,7 @@ public class StartBrotherBoss : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject player;
-
+    public int difficulty;
     public GameObject houseDoor1;
     public Transform houseDoorPosition1;
     public Transform houseDoorPosition2;
@@ -63,7 +63,7 @@ public class StartBrotherBoss : MonoBehaviour
     public AudioClip[] brotherBossAudios;
     public AudioClip[] brotherBossDialogAudios;
     public string[] brotherBossDialogs;
-
+    public Transform continousCircleSpawnPosition;
     public enum TransitionState
     {
         start, moving, waiting, driving, startBossFight 
@@ -198,6 +198,8 @@ public class StartBrotherBoss : MonoBehaviour
                     gameObject.GetComponent<BrotherBoss>().ambienceAudioSource = ambienceAudioSource;
                     gameObject.GetComponent<BrotherBoss>().ambienceAudios = ambienceAudios;
                     gameObject.GetComponent<BrotherBoss>().bossAudioSource = bossAudioSource;
+                    gameObject.GetComponent<BrotherBoss>().continousCircleSpawnPosition = continousCircleSpawnPosition;
+                    gameObject.GetComponent<BrotherBoss>().difficulty = difficulty;
 
                     Destroy(gameObject.GetComponent<StartBrotherBoss>());
                 }
