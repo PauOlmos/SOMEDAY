@@ -76,11 +76,11 @@ public class PlayerHp : MonoBehaviour
             {
                 gotDamaged = false;
                 cameraShakeTimer = 0;
-                cameraBehaviour.CameraShake(0.0f, 0.0f);
+                //CameraBehaviour.ActivateCameraShake(0.0f, 0.0f);
             }
             else
             {
-                cameraBehaviour.CameraShake(3.0f, 0.25f);
+                //CameraBehaviour.CameraShake(3.0f, 0.25f);
             }
         }
         if(dying == true)
@@ -201,6 +201,7 @@ public class PlayerHp : MonoBehaviour
     {
         if(dying == false)
         {
+            CameraBehaviour.ActivateCameraShake(9.0f, 0.5f);
             passiveAbility.canCharge = false;
             passiveAbility.canChargeTimer = 0.0f;
             if (bossManager.currentBoss != 4) playerHp--;

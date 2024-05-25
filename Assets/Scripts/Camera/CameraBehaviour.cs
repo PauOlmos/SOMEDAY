@@ -21,7 +21,7 @@ public class CameraBehaviour : MonoBehaviour
     public float righthorizontal;
 
     public Transform lockPosition;
-    private float shakeTimer = 0.0f;
+    private static float shakeTimer = 0.0f;
     public enum cameraState
     {
         onObjective, onBoss, onPosition,
@@ -31,7 +31,7 @@ public class CameraBehaviour : MonoBehaviour
     public Image bosslockDot;
     public Camera mainCamera;
 
-    public bool cameraShake = false;
+    public static bool cameraShake = false;
 
     GameObject player;
     PlayerMovement pMov;
@@ -45,6 +45,9 @@ public class CameraBehaviour : MonoBehaviour
     public float rightJoystick;
 
     public bool readyBoss = false;
+    public static CinemachineBasicMultiChannelPerlin perlin;
+    public static float m_intensity;
+    public static float m_time;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +61,7 @@ public class CameraBehaviour : MonoBehaviour
         boss = FindClosestEnemy("Boss");
         numBosses = CountBosses();
         allBosses = AllBosses();
+        perlin = gameObject.GetComponent<CinemachineFreeLook>().GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
 
@@ -77,8 +81,8 @@ public class CameraBehaviour : MonoBehaviour
         righthorizontal = Input.GetAxis("L2");
         rightJoystick = Input.GetAxis("RightVertical");
         //Debug.Log("RightJoystick" + rightJoystick);
-        if(Time.timeScale != 0 && rightJoystick > 0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick + sensitivity / 5.0f; 
-        if(Time.timeScale != 0 && rightJoystick < -0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick - sensitivity / 5.0f; 
+        if (Time.timeScale != 0 && rightJoystick > 0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick + sensitivity / 5.0f;
+        if (Time.timeScale != 0 && rightJoystick < -0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick - sensitivity / 5.0f;
 
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
@@ -93,7 +97,7 @@ public class CameraBehaviour : MonoBehaviour
         {
             //CameraOnLock(lockPosition, boss);
             //cameraShake = true;
-            if(numBosses == 1)
+            if (numBosses == 1)
             {
                 if (camState == cameraState.onBoss)
                 {
@@ -114,18 +118,18 @@ public class CameraBehaviour : MonoBehaviour
                         camState = cameraState.onBoss;
 
                         break;
-                        case 1:
+                    case 1:
                         boss = allBosses[1];
                         currentLockedBoss = 2;
                         camState = cameraState.onBoss;
 
                         break;
-                        case 2:
+                    case 2:
                         camState = cameraState.onObjective;
                         currentLockedBoss = 0;
                         break;
                 }
-            }            
+            }
 
         }
 
@@ -139,8 +143,8 @@ public class CameraBehaviour : MonoBehaviour
                 break;
             case cameraState.onBoss:
                 AbilityAttack();
-                if(boss != null) CameraLimits(45, Angulo(objective, boss.transform), false);
-                if(boss != null) bosslockDot.transform.position = mainCamera.GetComponent<Camera>().WorldToScreenPoint(boss.transform.position);
+                if (boss != null) CameraLimits(45, Angulo(objective, boss.transform), false);
+                if (boss != null) bosslockDot.transform.position = mainCamera.GetComponent<Camera>().WorldToScreenPoint(boss.transform.position);
                 break;
             case cameraState.onPosition:
 
@@ -153,7 +157,7 @@ public class CameraBehaviour : MonoBehaviour
 
         }
 
-        //if (cameraShake) CameraShake(3.0f, 0.25f);
+        if (cameraShake) CameraShake(m_intensity, m_time);
 
     }
 
@@ -205,15 +209,27 @@ public class CameraBehaviour : MonoBehaviour
 
     }
 
+    public static void ActivateCameraShake(float intensity, float time)
+    {
+        m_intensity += intensity;
+        m_time += time;
+        cameraShake = true;
+    }
+
+
     public void CameraShake(float intensity, float time)
     {
+
         shakeTimer += Time.deltaTime;
-        if (shakeTimer < time) gameObject.GetComponent<CinemachineFreeLook>().GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = intensity;
+        if (shakeTimer < time) perlin.m_AmplitudeGain = intensity;
         else
         {
-            gameObject.GetComponent<CinemachineFreeLook>().GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+
+            perlin.m_AmplitudeGain = 0;
             shakeTimer = 0;
             cameraShake = false;
+            m_intensity = 0;
+            m_time = 0;
         }
     }
 

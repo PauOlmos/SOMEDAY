@@ -272,7 +272,8 @@ public class BossManager : MonoBehaviour
     public GameObject footDmg2;
     public Terrain terrain;
     public float[] walkingSpeedMultiplier = { 1.0f, 2.0f, 3.0f };
-
+    public float lastCameraShakeTimer = 0.0f;
+    public bool lastCameraShakeChecker = false;
     void Start()
     {
         SFX = soundEfffectPrefab;
@@ -541,6 +542,7 @@ public class BossManager : MonoBehaviour
                     if (circularArea != null) Destroy(circularArea);
                     if (coneArea != null) Destroy(coneArea);
                     boss.name = "Boss";
+                    brotherBossModel.transform.eulerAngles = new Vector3(brotherBossModel.transform.eulerAngles.x, -90, brotherBossModel.transform.eulerAngles.z);
                 }
 
                 brotherBossModel.SetActive(true);
@@ -963,6 +965,13 @@ public class BossManager : MonoBehaviour
                         break;
 
                     case 3:
+                        lastCameraShakeTimer += Time.deltaTime;
+
+                        if(lastCameraShakeTimer * 0.2f > 1.6f  && lastCameraShakeChecker == false)
+                        {
+                            lastCameraShakeChecker = true;
+                            CameraBehaviour.ActivateCameraShake(6.0f, 7.8f);
+                        }
 
                         if (end == null)
                         {

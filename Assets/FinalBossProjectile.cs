@@ -31,6 +31,8 @@ public class FinalBossProjectile : MonoBehaviour
     {
         if(collision.gameObject.layer == 6)
         {
+            CameraBehaviour.ActivateCameraShake(4.0f, 0.35f);
+
             switch (projectileType)
             {
                 case 0:
@@ -60,6 +62,8 @@ public class FinalBossProjectile : MonoBehaviour
     {
         if (other.gameObject.layer == 6)
         {
+            CameraBehaviour.ActivateCameraShake(2.0f, 0.15f);
+
             switch (projectileType)
             {
                 case 0:

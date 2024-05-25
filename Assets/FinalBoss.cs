@@ -45,6 +45,8 @@ public class FinalBoss : MonoBehaviour
     public float slashAttackTimer = 0.0f;
     public float rayAttackTimer = 0.0f;
     public GameObject realSword;
+    public bool slashAttackShake = false;
+    public bool swordAttackShake = false;
     public GameObject auxiliarSword;
     public bool isPlayerOnSword = false;
     public GameObject isOnSword;
@@ -59,6 +61,7 @@ public class FinalBoss : MonoBehaviour
     public int hp = 50;
     public int difficulty;
     public float[] attackCooldown = { 10.0f, 7.5f, 5.0f };
+    public CameraBehaviour camerabehaviour;
     
     public enum Phase2State
     {
@@ -69,7 +72,7 @@ public class FinalBoss : MonoBehaviour
 
     void Start()
     {
-
+        CameraBehaviour.ActivateCameraShake(9.0f, 3.0f);
     }
 
     // Update is called once per frame
@@ -123,15 +126,25 @@ public class FinalBoss : MonoBehaviour
 
                             }
 
+                            if(slashAttackTimer > 15.0f && slashAttackShake == false)
+                            {
+                                CameraBehaviour.ActivateCameraShake(4.0f, 6.0f);
+                                slashAttackShake = true;
+                            }
+
                             if (slashAttackTimer > 21.0f)
                             {
                                 auxiliarSword.SetActive(false);
                                 realSword.SetActive(true);
+                                
+
 
                             }
 
                             if (slashAttackTimer > 27.0f)
                             {
+                                slashAttackShake = false;
+
                                 slashAttackTimer = 0.0f;
                                 animator.Play(idle.name);
                                 canAttack = false;
@@ -182,11 +195,19 @@ public class FinalBoss : MonoBehaviour
                                 case SwordAttackStates.attack:
 
                                     swordAttackTimer += Time.deltaTime;
+                                    if (swordAttackTimer * 0.05f > stabAttack.length - 1.5f * 0.05f && swordAttackShake == false)
+                                    {
+                                        swordAttackShake = true;
+                                        CameraBehaviour.ActivateCameraShake(6.0f, 1.6f);
+                                    
+                                    }
                                     if (swordAttackTimer * 0.05f > stabAttack.length)
                                     {
+                                        swordAttackShake = false;
                                         swordAttackTimer = 0.0f;
                                         swordAttackStates = SwordAttackStates.rest;
                                         isOnSword.SetActive(true);
+
                                     }
 
                                     break;
@@ -297,8 +318,8 @@ public class FinalBoss : MonoBehaviour
     {
         numAttacks++;
         int value = Random.Range(0, 4);
-        value = 2;
         if (numAttacks > 7) value = 4;
+        value = 2;
         switch (value)
         {
             case 0:
@@ -306,11 +327,13 @@ public class FinalBoss : MonoBehaviour
                 attackType = AttackType.Projectiles;
                 break;
             case 2:
+
                 attackType = AttackType.slash;
                 animator.Play(slashAttack.name);
                 break;
 
             case 3:
+                CameraBehaviour.ActivateCameraShake(6.0f, 10.0f);
                 rayType = Random.Range(0, 2);
                 attackType = AttackType.ray;
                 if(rayType == 0)animator.Play(rayAttack1.name);
@@ -320,6 +343,8 @@ public class FinalBoss : MonoBehaviour
                 break;
 
             case 4://Fer passiva i canviar per rayo de la muerte
+               // camerabehaviour.CameraShake(3.0f, 1.0f);
+
                 numAttacks = 4;
                 attackType = AttackType.sword;
                 swordAttackStates = SwordAttackStates.attack;

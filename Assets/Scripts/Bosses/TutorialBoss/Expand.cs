@@ -15,6 +15,6 @@ public class Expand : MonoBehaviour
     void Update()
     {
         gameObject.transform.localScale += Vector3.one * Time.deltaTime * 3;
-        if (gameObject.transform.localScale.x > 8.5f) Destroy(gameObject);
+        if (gameObject.transform.localScale.x > 8.5f * expandMultiplier) Destroy(gameObject);
     }
 }
