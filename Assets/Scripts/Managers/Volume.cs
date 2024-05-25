@@ -7,7 +7,7 @@ public class Volume : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetGlobalVolume(Settings.volume);
     }
 
     // Update is called once per frame
