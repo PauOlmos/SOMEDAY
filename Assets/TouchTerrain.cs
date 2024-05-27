@@ -9,6 +9,7 @@ public class TouchTerrain : MonoBehaviour
     public FinalBoss finalBoss;
     public float cooldown = 0.0f;
     public bool hasTouchedGround = false;
+    public AudioClip footStep;
     void Start()
     {
         
@@ -31,7 +32,7 @@ public class TouchTerrain : MonoBehaviour
         if(collision.gameObject.layer == 6 && finalBoss.phase2State != FinalBoss.Phase2State.climb && hasTouchedGround == false)
         {
             hasTouchedGround = true;
-            Debug.Log("patata");
+            BossManager.SoundEffect(footStep);
             CameraBehaviour.ActivateCameraShake(6.0f, 3.5f);
             GameObject impactArea = Instantiate(continousCircle, new Vector3(gameObject.transform.position.x, -220, gameObject.transform.position.z), Quaternion.identity);
             impactArea.transform.Rotate(new Vector3(-90, 0, 0));
@@ -45,8 +46,7 @@ public class TouchTerrain : MonoBehaviour
         {
             hasTouchedGround = true;
 
-            Debug.Log("patata");
-
+            BossManager.SoundEffect(footStep);
             CameraBehaviour.ActivateCameraShake(6.0f, 3.5f);
             GameObject impactArea = Instantiate(continousCircle, new Vector3 (gameObject.transform.position.x, -220, gameObject.transform.position.z), Quaternion.identity);
             impactArea.transform.Rotate(new Vector3(-90, 0, 0));

@@ -17,6 +17,7 @@ public class PlayerAttack : MonoBehaviour
     public GameObject tutorialBoss;
     public Transform attacPos;
     public GameObject finalBoss;
+    public AudioClip damageSound;
     void Start()
     {
         pMov = GameObject.Find("Player").GetComponent<PlayerMovement>();
@@ -72,6 +73,7 @@ public class PlayerAttack : MonoBehaviour
             if (other.gameObject.tag == "FinalBoss")
             {
                 finalBoss.GetComponent<FinalBoss>().hp--;
+                BossManager.SoundEffect(damageSound);
             }
             if (other.gameObject.tag == "SwordWeakPoint")
             {
@@ -99,6 +101,8 @@ public class PlayerAttack : MonoBehaviour
             if (collision.gameObject.tag == "FinalBoss")
             {
                 finalBoss.GetComponent<FinalBoss>().hp--;
+                BossManager.SoundEffect(damageSound);
+
             }
             if (collision.gameObject.tag == "SwordWeakPoint")
             {

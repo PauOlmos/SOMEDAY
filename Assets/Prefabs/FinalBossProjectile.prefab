@@ -150,3 +150,13 @@ MonoBehaviour:
   finalDog: {fileID: 1371668819280417542, guid: 0718034be3bd46f418461aa49102f89d, type: 3}
   liquid: {fileID: 2048053958131844495, guid: d5933966a54221e4bb3cab3ee63bbcaa, type: 3}
   player: {fileID: 0}
+  difficulty: 0
+  dogsSpeed:
+  - 5
+  - 7.5
+  - 8.5
+  liquidsTimes:
+  - 30
+  - 45
+  - 55
+  vomitImpactSound: {fileID: 8300000, guid: e542e052e2f48a54d97f84a4b25a03f6, type: 3}

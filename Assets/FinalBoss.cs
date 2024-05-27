@@ -62,22 +62,39 @@ public class FinalBoss : MonoBehaviour
     public int difficulty;
     public float[] attackCooldown = { 10.0f, 7.5f, 5.0f };
     public CameraBehaviour camerabehaviour;
-    
+
+    public AudioClip initialScream;//
+    public AudioClip[] finalBossAudiosSounds;//
+    public AudioClip[] finalBossAudiosDialogs;//
+    public string[] finalBossDialogs;//
+    public AudioSource bossAudioDialogSource;//
+
+    public SubtitleManager subtitleManagaer;//
+
     public enum Phase2State
     {
         climb, warden
     }
 
     public Phase2State phase2State = Phase2State.climb;
+    private float dialogTimer;
+    public int dialogNum = 0;
 
     void Start()
     {
         CameraBehaviour.ActivateCameraShake(9.0f, 3.0f);
+        BossManager.SoundEffect(initialScream);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(phase < 3)
+        {
+            dialogTimer += Time.deltaTime;
+
+            dialogTimer = Dialogs();
+        }
         switch (phase)
         {
             case 1:
@@ -120,6 +137,8 @@ public class FinalBoss : MonoBehaviour
 
                             if (slashAttackTimer > 15.0f && slashAttackTimer < 21.0f)
                             {
+                                BossManager.SoundEffect(finalBossAudiosSounds[3]);
+
                                 realSword.SetActive(false);
                                 auxiliarSword.SetActive(true);
                                 auxiliarSword.transform.Rotate(Vector3.left * Time.deltaTime * 25.0f);
@@ -319,14 +338,15 @@ public class FinalBoss : MonoBehaviour
         numAttacks++;
         int value = Random.Range(0, 4);
         if (numAttacks > 7) value = 4;
-        value = 2;
         switch (value)
         {
             case 0:
             case 1:
                 attackType = AttackType.Projectiles;
+                BossManager.SoundEffect(finalBossAudiosSounds[0]);
                 break;
             case 2:
+                BossManager.SoundEffect(finalBossAudiosSounds[2]);
 
                 attackType = AttackType.slash;
                 animator.Play(slashAttack.name);
@@ -339,12 +359,12 @@ public class FinalBoss : MonoBehaviour
                 if(rayType == 0)animator.Play(rayAttack1.name);
                 else animator.Play(rayAttack2.name);
                 rayVisual.SetActive(true);
-
+                BossManager.SoundEffect(finalBossAudiosSounds[1]);
                 break;
 
             case 4://Fer passiva i canviar per rayo de la muerte
-               // camerabehaviour.CameraShake(3.0f, 1.0f);
-
+                   // camerabehaviour.CameraShake(3.0f, 1.0f);
+                BossManager.SoundEffect(finalBossAudiosSounds[2]);
                 numAttacks = 4;
                 attackType = AttackType.sword;
                 swordAttackStates = SwordAttackStates.attack;
@@ -355,4 +375,23 @@ public class FinalBoss : MonoBehaviour
         canAttack = true;
         attackTimer = 0.0f;
     }
+
+    public float Dialogs()
+    {
+        if (dialogTimer > 30.0f)
+        {
+            subtitleManagaer.subtitleText = finalBossDialogs[dialogNum];
+            subtitleManagaer.currentAudioClip = finalBossAudiosDialogs[dialogNum];
+            subtitleManagaer.canReproduceAudio = true;
+            dialogTimer = 0;
+            return dialogTimer;
+        }
+        else
+        {
+
+            dialogNum = Random.Range(0, finalBossAudiosDialogs.Length - 1);
+            return dialogTimer;
+        }
+    }
+
 }

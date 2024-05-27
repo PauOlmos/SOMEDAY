@@ -15,6 +15,7 @@ public class FinalBossProjectile : MonoBehaviour
     public int difficulty;
     public float[] dogsSpeed = { 5, 7.5f, 8.5f };
     public float[] liquidsTimes = { 30.0f, 45.0f, 55.0f };
+    public AudioClip vomitImpactSound;
     void Start()
     {
         projectileType = Random.Range(0, 3);
@@ -53,7 +54,7 @@ public class FinalBossProjectile : MonoBehaviour
 
                 default: break;
             }
-
+            BossManager.SoundEffect(vomitImpactSound);
             Destroy(gameObject);
         }
 
@@ -82,7 +83,7 @@ public class FinalBossProjectile : MonoBehaviour
 
                 default: break;
             }
-
+            BossManager.SoundEffect(vomitImpactSound);
             Destroy(gameObject);
         }
     }

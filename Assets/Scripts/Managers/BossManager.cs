@@ -65,6 +65,8 @@ public class BossManager : MonoBehaviour
 
     public AudioClip[] audioTransitions;
 
+    public AudioClip transitionToLimbo;
+    public bool transitionToLimboChecker = false;
     public GameObject tutorialMessagesManager;
 
     [Header("TutorialBoss")]
@@ -633,10 +635,14 @@ public class BossManager : MonoBehaviour
                 gameCamera.GetComponent<CinemachineFreeLook>().m_Lens.FarClipPlane = 2000;
                 Destroy(street);
                 Destroy(scenarioFloor);
-
+                ambienceAudioSource.loop = true;
+                ambienceAudioSource.clip = ambienceAudios[nBoss];
+                ambienceAudioSource.Play();
                 boss.GetComponent<FinalBoss>().player = player;
                 boss.GetComponent<FinalBoss>().projectileSource = finalProjectileSource;
                 boss.GetComponent<FinalBoss>().projectiles = finalProjectiles;
+                boss.GetComponent<FinalBoss>().bossAudioDialogSource = bossDialogAudioSource;
+                boss.GetComponent<FinalBoss>().subtitleManagaer = subtitleManagaer;
                 boss.GetComponent<FinalBoss>().difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
                 //Funcion para destruir obstaculos de street, talvez al crearlos añadirlos a un array y iterarlo aqui para destruirlos todos.
 
@@ -938,6 +944,7 @@ public class BossManager : MonoBehaviour
 
                         if (lastWeakpoint == null)
                         {
+                            SoundEffect(tutorialBossAudios[2]);
                             Destroy(boss.GetComponent<FinalBoss>().realSword);
                             boss.GetComponent<FinalBoss>().phase++;
                             boss.GetComponent<FinalBoss>().animator.Play(walkAnimation.name);
@@ -960,6 +967,9 @@ public class BossManager : MonoBehaviour
                             footDmg2.SetActive(false);
                             finalWeakPointAuxiliar.SetActive(false);
                             end.SetActive(true);
+                            ambienceAudioSource.Stop();
+                            ambienceAudioSource.clip = ambienceAudios[nBoss + 1];
+                            ambienceAudioSource.Play();
                         }
 
                         break;
@@ -975,6 +985,11 @@ public class BossManager : MonoBehaviour
 
                         if (end == null)
                         {
+                            if (transitionToLimboChecker == false)
+                            {
+                                transitionToLimboChecker = true;
+                                BossManager.SoundEffect(transitionToLimbo);
+                            }
                             changeToWhite += Time.deltaTime;
                             //FadeToWhite + ChangeScene to limbo
                             white.color = new Color(1, 1, 1, changeToWhite / 5);

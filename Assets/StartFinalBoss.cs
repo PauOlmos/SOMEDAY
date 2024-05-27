@@ -9,10 +9,11 @@ public class StartFinalBoss : MonoBehaviour
     public float timer = 0.0f;
     public GameObject footTrigger1;
     public GameObject footTrigger2;
+    public AudioClip startFinalBoss;
     void Start()
     {
         CameraBehaviour.ActivateCameraShake(4.0f, 15.0f);
-
+        BossManager.SoundEffect(startFinalBoss);
     }
 
     // Update is called once per frame
