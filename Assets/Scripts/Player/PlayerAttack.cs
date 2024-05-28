@@ -27,7 +27,7 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pMov.canParry == true && Input.GetButtonDown("Attack") && parry.parrying == false && Time.timeScale != 0)
+        if (pMov.canParry == true && InputManager.GetButtonDown("Attack") && parry.parrying == false && Time.timeScale != 0)
         {
             UseAttack();
         }

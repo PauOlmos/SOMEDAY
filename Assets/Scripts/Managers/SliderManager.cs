@@ -26,7 +26,7 @@ public class SliderManager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetAxis("HorizontalArrows") == 0) canMoveHorizontally = true;
+        if (InputManager.GetAxis("HorizontalArrows") == 0) canMoveHorizontally = true;
         ChangeSettingsSlider();
 
     }
@@ -38,13 +38,13 @@ public class SliderManager : MonoBehaviour
             case SliderType.volume:
                 if(menuManager.currentSelected == gameObject)
                 {
-                    if (Input.GetAxis("HorizontalArrows") < 0 && canMoveHorizontally)
+                    if (InputManager.GetAxis("HorizontalArrows") < 0 && canMoveHorizontally)
                     {
                         canMoveHorizontally = false;
                         gameObject.GetComponent<UnityEngine.UI.Slider>().value -= 0.05f;
                         Settings.volume = gameObject.GetComponent<UnityEngine.UI.Slider>().value;
                     }
-                    if (Input.GetAxis("HorizontalArrows") > 0 && canMoveHorizontally)
+                    if (InputManager.GetAxis("HorizontalArrows") > 0 && canMoveHorizontally)
                     {
                         canMoveHorizontally = false;
                         gameObject.GetComponent<UnityEngine.UI.Slider>().value += 0.05f;
@@ -59,13 +59,13 @@ public class SliderManager : MonoBehaviour
             case SliderType.sensitivity:
                 if (menuManager.currentSelected == gameObject)
                 {
-                    if (Input.GetAxis("HorizontalArrows") < 0 && canMoveHorizontally)
+                    if (InputManager.GetAxis("HorizontalArrows") < 0 && canMoveHorizontally)
                     {
                         canMoveHorizontally = false;
                         gameObject.GetComponent<UnityEngine.UI.Slider>().value -= 0.05f;
                         Settings.sensitivity = gameObject.GetComponent<UnityEngine.UI.Slider>().value;
                     }
-                    if (Input.GetAxis("HorizontalArrows") > 0 && canMoveHorizontally)
+                    if (InputManager.GetAxis("HorizontalArrows") > 0 && canMoveHorizontally)
                     {
                         canMoveHorizontally = false;
                         gameObject.GetComponent<UnityEngine.UI.Slider>().value += 0.05f;
@@ -77,13 +77,13 @@ public class SliderManager : MonoBehaviour
             case SliderType.fov:
                 if (menuManager.currentSelected == gameObject)
                 {
-                    if (Input.GetAxis("HorizontalArrows") < 0 && canMoveHorizontally)
+                    if (InputManager.GetAxis("HorizontalArrows") < 0 && canMoveHorizontally)
                     {
                         canMoveHorizontally = false;
                         gameObject.GetComponent<UnityEngine.UI.Slider>().value -= 1.0f;
                         Settings.fov = gameObject.GetComponent<UnityEngine.UI.Slider>().value;
                     }
-                    if (Input.GetAxis("HorizontalArrows") > 0 && canMoveHorizontally)
+                    if (InputManager.GetAxis("HorizontalArrows") > 0 && canMoveHorizontally)
                     {
                         canMoveHorizontally = false;
                         gameObject.GetComponent<UnityEngine.UI.Slider>().value += 1.0f;

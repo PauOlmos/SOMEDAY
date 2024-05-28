@@ -64,17 +64,17 @@ public class SelectLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Back")) SceneManager.LoadScene(0);
+        if (InputManager.GetButtonDown("Back")) SceneManager.LoadScene(0);
         isIdle = Vector3.Distance(gameObject.transform.position, agent.destination) < 1.0f;
         Animations();
-        if (Input.GetButtonDown("Jump") && collidingWithLevel)
+        if (InputManager.GetButtonDown("Jump") && collidingWithLevel)
         {
             collidingWithLevel = true;
             Settings.actualBoss = scene;
             if(Settings.actualBoss == scene) SceneManager.LoadScene(2);
         }
 
-        if (Input.GetAxis("HorizontalArrows") < 0)//Left
+        if (InputManager.GetAxis("HorizontalArrows") < 0)//Left
         {
             if (actualPosition - 1 >= 0 && canMove == true)
             {
@@ -84,7 +84,7 @@ public class SelectLevel : MonoBehaviour
                 canMove = false;
             }
         }
-        if (Input.GetAxis("HorizontalArrows") > 0)//Right
+        if (InputManager.GetAxis("HorizontalArrows") > 0)//Right
         {
 
             if (actualPosition + 1 <= maxLevel && actualPosition + 1 < levelArray.Length && canMove == true)
@@ -95,7 +95,7 @@ public class SelectLevel : MonoBehaviour
                 canMove = false;
             }
         }
-        if (Input.GetAxis("HorizontalArrows") == 0)//Idle
+        if (InputManager.GetAxis("HorizontalArrows") == 0)//Idle
         {
             canMove = true;
         }

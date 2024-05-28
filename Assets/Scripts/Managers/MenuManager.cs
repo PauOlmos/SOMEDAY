@@ -78,9 +78,9 @@ public class MenuManager : MonoBehaviour
     {
         CheckCreatedArchives();
         DeleteArchives();
-        if (Input.GetAxis("HorizontalArrows") == 0) canMoveHorizontally = true;
-        if (Input.GetAxis("VerticalArrows") == 0) canMoveVertically = true;
-        if (Input.GetAxis("HorizontalArrows") < 0 && canMoveHorizontally)
+        if (InputManager.GetAxis("HorizontalArrows") == 0) canMoveHorizontally = true;
+        if (InputManager.GetAxis("VerticalArrows") == 0) canMoveVertically = true;
+        if (InputManager.GetAxis("HorizontalArrows") < 0 && canMoveHorizontally)
         {
             if (player == null)
             {
@@ -106,7 +106,7 @@ public class MenuManager : MonoBehaviour
             }
             
         }
-        if (Input.GetAxis("HorizontalArrows") > 0 && canMoveHorizontally)
+        if (InputManager.GetAxis("HorizontalArrows") > 0 && canMoveHorizontally)
         {
             if (player == null)
             {
@@ -132,7 +132,7 @@ public class MenuManager : MonoBehaviour
             }
             
         }
-        if (Input.GetAxis("VerticalArrows") > 0 && canMoveVertically)
+        if (InputManager.GetAxis("VerticalArrows") > 0 && canMoveVertically)
         {
             if (player == null)
             {
@@ -159,7 +159,12 @@ public class MenuManager : MonoBehaviour
                 }
             }
         }
-        if (Input.GetAxis("VerticalArrows") < 0 && canMoveVertically)
+        float klk = InputManager.GetAxis("VerticalArrows");
+        if (klk != 0)
+        {
+            int klkklk = 0;
+        }
+        if (InputManager.GetAxis("VerticalArrows") < 0 && canMoveVertically)
         {
             if (player == null)
             {
@@ -187,7 +192,7 @@ public class MenuManager : MonoBehaviour
             }
             
         }
-        if (Input.GetButtonUp("Jump"))
+        if (InputManager.GetButtonUp("Jump"))
         {
             if (currentSelected != null)
             {
@@ -195,7 +200,7 @@ public class MenuManager : MonoBehaviour
 
             }
         }
-        if (Input.GetButtonUp("Back"))
+        if (InputManager.GetButtonUp("Back"))
         {
             if (backMenu != null)
             {
@@ -261,7 +266,7 @@ public class MenuManager : MonoBehaviour
             StopPhysics();
 
         }
-        if (Input.GetButtonUp("Pause") && playing)
+        if (InputManager.GetButtonUp("Pause") && playing)
         {
             if(!paused)
             {
@@ -281,7 +286,7 @@ public class MenuManager : MonoBehaviour
 
     void DeleteArchives()
     {
-        if (Input.GetButton("SwapAbilities") && player == null)
+        if (InputManager.GetButton("SwapAbilities") && player == null)
         {
             if (currentSelected.name == "Archive1")
             {

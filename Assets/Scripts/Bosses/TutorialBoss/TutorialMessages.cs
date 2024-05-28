@@ -58,7 +58,7 @@ public class TutorialMessages : MonoBehaviour
                         {
                             case 0:
 
-                                if (Input.GetButtonDown("Jump") && boss.GetComponent<TutorialBoss>().phase == 0)
+                                if (InputManager.GetButtonDown("Jump") && boss.GetComponent<TutorialBoss>().phase == 0)
                                 {
                                     NextControl();
                                 }
@@ -66,7 +66,7 @@ public class TutorialMessages : MonoBehaviour
                                 break;
                             case 1:
 
-                                if (Input.GetButtonDown("Attack") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 0)
+                                if (InputManager.GetButtonDown("Attack") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 0)
                                 {
                                     NextControl();
                                 }
@@ -74,7 +74,7 @@ public class TutorialMessages : MonoBehaviour
                                 break;
                             case 2:
 
-                                if (Input.GetButtonDown("Dash") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 0)
+                                if (InputManager.GetButtonDown("Dash") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 0)
                                 {
                                     NextControl();
                                 }
@@ -82,7 +82,7 @@ public class TutorialMessages : MonoBehaviour
                                 break;
                             case 3:
 
-                                if (Input.GetButtonDown("Parry") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 1)
+                                if (InputManager.GetButtonDown("Parry") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 1)
                                 {
                                     NextControl();
                                 }
@@ -90,7 +90,7 @@ public class TutorialMessages : MonoBehaviour
                                 break;
                             case 4:
 
-                                if (Input.GetButtonDown("LockBoss") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 1)
+                                if (InputManager.GetButtonDown("LockBoss") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 1)
                                 {
                                     NextControl();
                                 }
@@ -98,7 +98,7 @@ public class TutorialMessages : MonoBehaviour
                                 break;
                             case 5:
 
-                                if (Input.GetAxis("L2") != -1 && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 2)
+                                if (InputManager.GetAxis("L2") != -1 && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 2)
                                 {
                                     NextControl();
                                 }
@@ -113,7 +113,7 @@ public class TutorialMessages : MonoBehaviour
                                 }
                                 else
                                 {
-                                    if (Input.GetAxis("R2") != -1 && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 2)
+                                    if (InputManager.GetAxis("R2") != -1 && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 2)
                                     {
                                         NextControl();
                                     }
@@ -122,7 +122,7 @@ public class TutorialMessages : MonoBehaviour
                                 break;
                             case 7:
 
-                                if (Input.GetButtonDown("SwapAbilities") && Time.timeScale > 0.0f)
+                                if (InputManager.GetButtonDown("SwapAbilities") && Time.timeScale > 0.0f)
                                 {
                                     Time.timeScale = 1.0f;
                                     Destroy(gameObject);

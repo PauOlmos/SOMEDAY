@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
         CheckCharging();
 
-        if (Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.35f, Ground)
+        if (Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.1f + 0.35f, Ground)
         || Physics.Raycast(new Vector3(transform.position.x + 0.35f, transform.position.y, transform.position.z), Vector3.down, playerHeight * 0.5f + 0.2f, Ground)
         || Physics.Raycast(new Vector3(transform.position.x - 0.35f, transform.position.y, transform.position.z), Vector3.down, playerHeight * 0.5f + 0.2f, Ground)
         || Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.35f), Vector3.down, playerHeight * 0.5f + 0.2f, Ground)
@@ -171,8 +171,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Inputs()
     {
-        float horizontalInput = Input.GetAxis("LeftHorizontal");
-        float verticalInput = Input.GetAxis("LeftVertical");
+        float horizontalInput = InputManager.GetAxis("LeftHorizontal");
+        float verticalInput = InputManager.GetAxis("LeftVertical");
 
         if (horizontalInput != 0.0f || verticalInput != 0.0f)
         {
@@ -186,23 +186,23 @@ public class PlayerMovement : MonoBehaviour
             pStatus = playerState.stand;
         }
 
-        if (Input.GetAxis("R2") > -1 && pStatus != playerState.dashing)
+        if (InputManager.GetAxis("R2") > -1 && pStatus != playerState.dashing)
         {
             pStatus = playerState.shooting;
         }
-        if (Input.GetAxis("L2") > -1 && pStatus != playerState.dashing)
+        if (InputManager.GetAxis("L2") > -1 && pStatus != playerState.dashing)
         {
             //Debug.Log("Charge");
             pStatus = playerState.charging;
         }
-        if (pStatus == playerState.charging && Input.GetAxis("L2") == -1) pStatus = playerState.moving;
+        if (pStatus == playerState.charging && InputManager.GetAxis("L2") == -1) pStatus = playerState.moving;
 
 
-        if (Input.GetButtonDown("Dash") && pStatus != playerState.charging && pStatus != playerState.shooting) {
+        if (InputManager.GetButtonDown("Dash") && pStatus != playerState.charging && pStatus != playerState.shooting) {
             Dash();
         }
         
-        if(Input.GetButtonDown("Jump") && grounded && canJump == true && pStatus != playerState.charging && pStatus != playerState.dashing) {
+        if(InputManager.GetButtonDown("Jump") && grounded && canJump == true && pStatus != playerState.charging && pStatus != playerState.dashing) {
             Jump();
         }
         else

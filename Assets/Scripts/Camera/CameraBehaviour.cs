@@ -76,10 +76,10 @@ public class CameraBehaviour : MonoBehaviour
         Vector3 viewDir = objective.position - new Vector3(transform.position.x, objective.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;
 
-        float horizontalInput = Input.GetAxis("LeftHorizontal");
-        float verticalInput = Input.GetAxis("LeftVertical");
-        righthorizontal = Input.GetAxis("L2");
-        rightJoystick = Input.GetAxis("RightVertical");
+        float horizontalInput = InputManager.GetAxis("LeftHorizontal");
+        float verticalInput = InputManager.GetAxis("LeftVertical");
+        righthorizontal = InputManager.GetAxis("L2");
+        rightJoystick = InputManager.GetAxis("RightVertical");
         //Debug.Log("RightJoystick" + rightJoystick);
         if (Time.timeScale != 0 && rightJoystick > 0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick + sensitivity / 5.0f;
         if (Time.timeScale != 0 && rightJoystick < -0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick - sensitivity / 5.0f;
@@ -93,7 +93,7 @@ public class CameraBehaviour : MonoBehaviour
             objectiveObj.forward = Vector3.Slerp(objectiveObj.forward, inputDir, Time.deltaTime * rotationSpeed * sensitivity);
         }
 
-        if (Input.GetButtonDown("LockBoss"))
+        if (InputManager.GetButtonDown("LockBoss"))
         {
             //CameraOnLock(lockPosition, boss);
             //cameraShake = true;
@@ -192,7 +192,7 @@ public class CameraBehaviour : MonoBehaviour
     {
         if (pMov.grounded && pMov.pStatus != PlayerMovement.playerState.dashing)
         {
-            if (Input.GetAxis("R2") > -1 && passiveAbility.isCharged && passiveAbility.passive == PassiveAbility.passiveType.shoot)
+            if (InputManager.GetAxis("R2") > -1 && passiveAbility.isCharged && passiveAbility.passive == PassiveAbility.passiveType.shoot)
             {
                 gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "R2";
                 camState = cameraState.onBoss;

@@ -52,7 +52,7 @@ public class StartTutorial : MonoBehaviour
                 transform.position = initialPlayerPosition.position;
                 transform.rotation = initialPlayerPosition.rotation;
             }
-            if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Back"))
+            if (InputManager.GetButtonDown("Jump") || InputManager.GetButtonDown("Back"))
             {
                 if (blackInitialTimer > 1.35f)
                 {
@@ -64,7 +64,7 @@ public class StartTutorial : MonoBehaviour
             blackInitialTimer += Time.deltaTime;
             if (blackInitialTimer > blackInitialDuration)
             {
-                if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Back"))
+                if (InputManager.GetButtonDown("Jump") || InputManager.GetButtonDown("Back"))
                 {
                     BossManager.bossAudioSource.Stop();
                     blackTimer = blackDuration;
