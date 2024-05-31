@@ -58,7 +58,7 @@ public class FinalBoss : MonoBehaviour
     public int randomTime = 0;
     public float phase2Timer = 0.0f;
     public bool right = false;
-    public int hp = 50;
+    public int hp = 30;
     public int difficulty;
     public float[] attackCooldown = { 10.0f, 7.5f, 5.0f };
     public CameraBehaviour camerabehaviour;
