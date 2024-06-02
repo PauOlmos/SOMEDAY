@@ -31,7 +31,6 @@ public class LimboPortal : MonoBehaviour
         {
             transitionTimer += Time.deltaTime;
             white.color = new Color(1, 1, 1, transitionTimer / 5);
-            //CameraShake¿?
         }
     }
     private void OnTriggerExit(Collider other)
