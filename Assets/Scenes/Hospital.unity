@@ -242,27 +242,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f5edae216059154eabbacca41aada37, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.4749
+      value: 7.28339
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f5edae216059154eabbacca41aada37, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.4749
+      value: 5.4152
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f5edae216059154eabbacca41aada37, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.4749
+      value: 5.5873795
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f5edae216059154eabbacca41aada37, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -91.47
+      value: -91.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f5edae216059154eabbacca41aada37, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -57.37
+      value: -57.43
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f5edae216059154eabbacca41aada37, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 725.55
+      value: 725.29
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7f5edae216059154eabbacca41aada37, type: 3}
       propertyPath: m_LocalRotation.w
@@ -296,6 +296,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: HospitalDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 4407187375235809858, guid: 7f5edae216059154eabbacca41aada37, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b715c58c15377234fb15cca4d7f511b0, type: 2}
+    - target: {fileID: 4431670454091400558, guid: 7f5edae216059154eabbacca41aada37, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 029c33ecc7606b745856242af8e97194, type: 2}
+    - target: {fileID: 8424073627695423409, guid: 7f5edae216059154eabbacca41aada37, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7aed1783cd753d644b78d7068854a7c8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -365,10 +377,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4558906730386509825, guid: 92bc2ca374320c744bbbf237d8fc25f2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 960be44969768794f9cc1e8affd86587, type: 2}
+    - target: {fileID: -4219672960652126078, guid: 92bc2ca374320c744bbbf237d8fc25f2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f2d04c0f1379484394f91d6b2eca341, type: 2}
     - target: {fileID: 919132149155446097, guid: 92bc2ca374320c744bbbf237d8fc25f2, type: 3}
       propertyPath: m_Name
       value: HospitalChair
       objectReference: {fileID: 0}
+    - target: {fileID: 1347992783226417666, guid: 92bc2ca374320c744bbbf237d8fc25f2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f2d04c0f1379484394f91d6b2eca341, type: 2}
+    - target: {fileID: 6662865414454781896, guid: 92bc2ca374320c744bbbf237d8fc25f2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 960be44969768794f9cc1e8affd86587, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -556,10 +584,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4558906730386509825, guid: 92bc2ca374320c744bbbf237d8fc25f2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 960be44969768794f9cc1e8affd86587, type: 2}
+    - target: {fileID: -4219672960652126078, guid: 92bc2ca374320c744bbbf237d8fc25f2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f2d04c0f1379484394f91d6b2eca341, type: 2}
     - target: {fileID: 919132149155446097, guid: 92bc2ca374320c744bbbf237d8fc25f2, type: 3}
       propertyPath: m_Name
       value: HospitalChair (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1347992783226417666, guid: 92bc2ca374320c744bbbf237d8fc25f2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f2d04c0f1379484394f91d6b2eca341, type: 2}
+    - target: {fileID: 6662865414454781896, guid: 92bc2ca374320c744bbbf237d8fc25f2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 960be44969768794f9cc1e8affd86587, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -626,7 +670,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 029c33ecc7606b745856242af8e97194, type: 2}
+  - {fileID: 2100000, guid: fef46b4cbb7ff5641982fa83456015a7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -664,8 +708,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195047088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -77.07889, y: -57.29889, z: 751.53973}
-  m_LocalScale: {x: 13.073, y: 13.073, z: 13.073}
+  m_LocalPosition: {x: -77.07889, y: -57.29889, z: 728.23}
+  m_LocalScale: {x: 13.073, y: 13.073, z: 6.4264255}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -735,6 +779,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4852103211118952997, guid: 40b5454027f59ea4fbf76e36b0243a0c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3638a9e61ce94b040b1d9e752de17796, type: 2}
     - target: {fileID: 919132149155446097, guid: 40b5454027f59ea4fbf76e36b0243a0c, type: 3}
       propertyPath: m_Name
       value: Breathing Idle
@@ -812,14 +860,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6475017874439140184, guid: 3b1a4cab2792fe947a25b183dca5e8b3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7a2e35b5eaef84f478abbbff54782c33, type: 2}
     - target: {fileID: 919132149155446097, guid: 3b1a4cab2792fe947a25b183dca5e8b3, type: 3}
       propertyPath: m_Name
       value: Crying
       objectReference: {fileID: 0}
+    - target: {fileID: 5112089031922033336, guid: 3b1a4cab2792fe947a25b183dca5e8b3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3638a9e61ce94b040b1d9e752de17796, type: 2}
     - target: {fileID: 5866666021909216657, guid: 3b1a4cab2792fe947a25b183dca5e8b3, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 2dcfee018ddbfad4b96935f5f559a4e1, type: 2}
+    - target: {fileID: 8417361359673230750, guid: 3b1a4cab2792fe947a25b183dca5e8b3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3638a9e61ce94b040b1d9e752de17796, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -994,10 +1054,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7798175757374839549, guid: 8d060662be417ac489cc9e2559970ee8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 960be44969768794f9cc1e8affd86587, type: 2}
+    - target: {fileID: -3477821731311062464, guid: 8d060662be417ac489cc9e2559970ee8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e8d05c74055afc448b4a89f949f4f2af, type: 2}
+    - target: {fileID: -3233184894843762586, guid: 8d060662be417ac489cc9e2559970ee8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 960be44969768794f9cc1e8affd86587, type: 2}
+    - target: {fileID: -161489912839538271, guid: 8d060662be417ac489cc9e2559970ee8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f381c25e7d56ef4fbbb13d3a73e89d6, type: 2}
     - target: {fileID: 919132149155446097, guid: 8d060662be417ac489cc9e2559970ee8, type: 3}
       propertyPath: m_Name
       value: Monitor
       objectReference: {fileID: 0}
+    - target: {fileID: 1603246306389932429, guid: 8d060662be417ac489cc9e2559970ee8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2eaa5895765a43346b008030a896da9e, type: 2}
+    - target: {fileID: 2305302597091861298, guid: 8d060662be417ac489cc9e2559970ee8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 960be44969768794f9cc1e8affd86587, type: 2}
+    - target: {fileID: 4407187375235809858, guid: 8d060662be417ac489cc9e2559970ee8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e8d05c74055afc448b4a89f949f4f2af, type: 2}
+    - target: {fileID: 8006958694806783865, guid: 8d060662be417ac489cc9e2559970ee8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 960be44969768794f9cc1e8affd86587, type: 2}
     - target: {fileID: 8835409689826365435, guid: 8d060662be417ac489cc9e2559970ee8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1202,6 +1294,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: NightTable
       objectReference: {fileID: 0}
+    - target: {fileID: 1603246306389932429, guid: 1fe6e08e5e1886a4a8aa2d6596054c35, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3638a9e61ce94b040b1d9e752de17796, type: 2}
+    - target: {fileID: 3816654056258493912, guid: 1fe6e08e5e1886a4a8aa2d6596054c35, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 08666402624d72f4f98121a250812c48, type: 2}
+    - target: {fileID: 4407187375235809858, guid: 1fe6e08e5e1886a4a8aa2d6596054c35, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3638a9e61ce94b040b1d9e752de17796, type: 2}
+    - target: {fileID: 8424073627695423409, guid: 1fe6e08e5e1886a4a8aa2d6596054c35, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 89d57bdb7b08062409ce4c46efd60502, type: 2}
+    - target: {fileID: 8736054615233459941, guid: 1fe6e08e5e1886a4a8aa2d6596054c35, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 08666402624d72f4f98121a250812c48, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1504,10 +1616,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4558906730386509825, guid: 17d2de5176be4d44aaf84ca3ed321ad4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 960be44969768794f9cc1e8affd86587, type: 2}
+    - target: {fileID: -4219672960652126078, guid: 17d2de5176be4d44aaf84ca3ed321ad4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4867cc0557f25cd4db5cb7c6f64904ca, type: 2}
+    - target: {fileID: -967377624335479496, guid: 17d2de5176be4d44aaf84ca3ed321ad4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4867cc0557f25cd4db5cb7c6f64904ca, type: 2}
     - target: {fileID: 919132149155446097, guid: 17d2de5176be4d44aaf84ca3ed321ad4, type: 3}
       propertyPath: m_Name
       value: HospitalCouch
       objectReference: {fileID: 0}
+    - target: {fileID: 1154216979754815905, guid: 17d2de5176be4d44aaf84ca3ed321ad4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4867cc0557f25cd4db5cb7c6f64904ca, type: 2}
+    - target: {fileID: 1347992783226417666, guid: 17d2de5176be4d44aaf84ca3ed321ad4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4867cc0557f25cd4db5cb7c6f64904ca, type: 2}
+    - target: {fileID: 1898189023657594303, guid: 17d2de5176be4d44aaf84ca3ed321ad4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4867cc0557f25cd4db5cb7c6f64904ca, type: 2}
+    - target: {fileID: 6662865414454781896, guid: 17d2de5176be4d44aaf84ca3ed321ad4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 960be44969768794f9cc1e8affd86587, type: 2}
+    - target: {fileID: 7000911434615368227, guid: 17d2de5176be4d44aaf84ca3ed321ad4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4867cc0557f25cd4db5cb7c6f64904ca, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1577,6 +1721,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4852103211118952997, guid: e9e171a7d22f4a14fadaf8874160f128, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3638a9e61ce94b040b1d9e752de17796, type: 2}
     - target: {fileID: 919132149155446097, guid: e9e171a7d22f4a14fadaf8874160f128, type: 3}
       propertyPath: m_Name
       value: "FemaleNurse\xE7 (1)"
@@ -1654,10 +1802,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: -3477821731311062464, guid: ca14e4ccdf787b0448a6fda8905daa4e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e8d05c74055afc448b4a89f949f4f2af, type: 2}
     - target: {fileID: 919132149155446097, guid: ca14e4ccdf787b0448a6fda8905daa4e, type: 3}
       propertyPath: m_Name
       value: HospitalLight
       objectReference: {fileID: 0}
+    - target: {fileID: 1603246306389932429, guid: ca14e4ccdf787b0448a6fda8905daa4e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4867cc0557f25cd4db5cb7c6f64904ca, type: 2}
+    - target: {fileID: 4407187375235809858, guid: ca14e4ccdf787b0448a6fda8905daa4e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2eaa5895765a43346b008030a896da9e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1727,6 +1887,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6053922253038618805, guid: 059feabc67a074c4193e12d7fdd69f5c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f381c25e7d56ef4fbbb13d3a73e89d6, type: 2}
     - target: {fileID: -4084672777538192892, guid: 059feabc67a074c4193e12d7fdd69f5c, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.4334
@@ -1739,6 +1903,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: ViaHospitalaria
       objectReference: {fileID: 0}
+    - target: {fileID: 4407187375235809858, guid: 059feabc67a074c4193e12d7fdd69f5c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 253933c5d009a3e49b783db35d1b543a, type: 2}
+    - target: {fileID: 7120643502973992140, guid: 059feabc67a074c4193e12d7fdd69f5c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6ac68df6dcd1a7849bd18801bb23796c, type: 2}
+    - target: {fileID: 7774538584566148371, guid: 059feabc67a074c4193e12d7fdd69f5c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2eaa5895765a43346b008030a896da9e, type: 2}
+    - target: {fileID: 8424073627695423409, guid: 059feabc67a074c4193e12d7fdd69f5c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 253933c5d009a3e49b783db35d1b543a, type: 2}
+    - target: {fileID: 9050817489936365762, guid: 059feabc67a074c4193e12d7fdd69f5c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6ac68df6dcd1a7849bd18801bb23796c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2057,6 +2241,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1035974370}
+  - component: {fileID: 1035974371}
   m_Layer: 0
   m_Name: HeadReference
   m_TagString: Untagged
@@ -2079,6 +2264,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1035974371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035974369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53830a5b561130b47977b5b40e0550ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1118794372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2143,6 +2340,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4852103211118952997, guid: e9e171a7d22f4a14fadaf8874160f128, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3638a9e61ce94b040b1d9e752de17796, type: 2}
     - target: {fileID: 919132149155446097, guid: e9e171a7d22f4a14fadaf8874160f128, type: 3}
       propertyPath: m_Name
       value: "FemaleNurse\xE7"
@@ -2627,6 +2828,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90.00101
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 96c29c77c30bbd045a743300ad82e205, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 89d57bdb7b08062409ce4c46efd60502, type: 2}
     - target: {fileID: 919132149155446097, guid: 96c29c77c30bbd045a743300ad82e205, type: 3}
       propertyPath: m_Name
       value: ScenarioOpenWalls
@@ -2700,10 +2905,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4852103211118952997, guid: 21a15bd482bbe8842843d5efea84cbb0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3638a9e61ce94b040b1d9e752de17796, type: 2}
+    - target: {fileID: -4616484756756010930, guid: 21a15bd482bbe8842843d5efea84cbb0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4867cc0557f25cd4db5cb7c6f64904ca, type: 2}
+    - target: {fileID: -3053802530404951726, guid: 21a15bd482bbe8842843d5efea84cbb0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 253933c5d009a3e49b783db35d1b543a, type: 2}
     - target: {fileID: 919132149155446097, guid: 21a15bd482bbe8842843d5efea84cbb0, type: 3}
       propertyPath: m_Name
       value: Standing Clap
       objectReference: {fileID: 0}
+    - target: {fileID: 4100105155872383852, guid: 21a15bd482bbe8842843d5efea84cbb0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3638a9e61ce94b040b1d9e752de17796, type: 2}
     - target: {fileID: 5866666021909216657, guid: 21a15bd482bbe8842843d5efea84cbb0, type: 3}
       propertyPath: m_Controller
       value: 
@@ -2721,6 +2942,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8983472060837281508, guid: 7eaac0466d9ac4e43a328844668e6343, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 029c33ecc7606b745856242af8e97194, type: 2}
     - target: {fileID: -8679921383154817045, guid: 7eaac0466d9ac4e43a328844668e6343, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -2777,10 +3002,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2859109400176981367, guid: 7eaac0466d9ac4e43a328844668e6343, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 89d57bdb7b08062409ce4c46efd60502, type: 2}
+    - target: {fileID: -803405088876591012, guid: 7eaac0466d9ac4e43a328844668e6343, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 960be44969768794f9cc1e8affd86587, type: 2}
+    - target: {fileID: 584425060794420580, guid: 7eaac0466d9ac4e43a328844668e6343, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 029c33ecc7606b745856242af8e97194, type: 2}
     - target: {fileID: 919132149155446097, guid: 7eaac0466d9ac4e43a328844668e6343, type: 3}
       propertyPath: m_Name
       value: HospitalBed
       objectReference: {fileID: 0}
+    - target: {fileID: 6275124871635579053, guid: 7eaac0466d9ac4e43a328844668e6343, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 029c33ecc7606b745856242af8e97194, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2854,6 +3095,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EmergencyButton
       objectReference: {fileID: 0}
+    - target: {fileID: 3765108852280629433, guid: c1d1454359c69314eb0eb32fcf085657, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 253933c5d009a3e49b783db35d1b543a, type: 2}
+    - target: {fileID: 4431670454091400558, guid: c1d1454359c69314eb0eb32fcf085657, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4867cc0557f25cd4db5cb7c6f64904ca, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2923,6 +3172,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4852103211118952997, guid: 40b5454027f59ea4fbf76e36b0243a0c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3638a9e61ce94b040b1d9e752de17796, type: 2}
     - target: {fileID: 919132149155446097, guid: 40b5454027f59ea4fbf76e36b0243a0c, type: 3}
       propertyPath: m_Name
       value: Breathing Idle (1)
@@ -3957,10 +4210,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2475442535801572233, guid: 3bba89eebba476b438de0dd0c71fdd31, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7fedae66c0f662d4db7ef0fdc8c31657, type: 2}
+    - target: {fileID: -230758222943892604, guid: 3bba89eebba476b438de0dd0c71fdd31, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7fedae66c0f662d4db7ef0fdc8c31657, type: 2}
     - target: {fileID: 919132149155446097, guid: 3bba89eebba476b438de0dd0c71fdd31, type: 3}
       propertyPath: m_Name
       value: SunFlower
       objectReference: {fileID: 0}
+    - target: {fileID: 1808264854275127991, guid: 3bba89eebba476b438de0dd0c71fdd31, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7fedae66c0f662d4db7ef0fdc8c31657, type: 2}
+    - target: {fileID: 3765108852280629433, guid: 3bba89eebba476b438de0dd0c71fdd31, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2e220cf8d3733f64f9210973ec5076d9, type: 2}
+    - target: {fileID: 4431670454091400558, guid: 3bba89eebba476b438de0dd0c71fdd31, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 08666402624d72f4f98121a250812c48, type: 2}
+    - target: {fileID: 8006958694806783865, guid: 3bba89eebba476b438de0dd0c71fdd31, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4a33c2603ac6c0c48a557c21fd726564, type: 2}
+    - target: {fileID: 9185549887808798685, guid: 3bba89eebba476b438de0dd0c71fdd31, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2eaa5895765a43346b008030a896da9e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
