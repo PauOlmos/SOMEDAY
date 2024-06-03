@@ -295,7 +295,7 @@ public class BossManager : MonoBehaviour
         switch (nBoss)
         {
             case 0:
-                
+                ChangeLightSmooth(lights[nBoss], false);
                 lights[nBoss].SetActive(true);
                 boss = GameObject.Find("Boss");
                 tutorialAnimations.enabled = true;
@@ -337,6 +337,7 @@ public class BossManager : MonoBehaviour
                 highSchoolBossAnimations.actualAnimation = highSchoolBossAnimations.animations[1];
                 highSchoolBossModel.SetActive(true);
                 lights[nBoss].SetActive(true);
+                ChangeLightSmooth(lights[nBoss], false);
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
                 {
                     player.SetActive(false);
@@ -349,7 +350,9 @@ public class BossManager : MonoBehaviour
                     boss.SetActive(true);
 
                 }
-                Destroy(lights[0]);
+                ChangeLightSmooth(lights[nBoss -1] , true);
+
+                //Destroy(lights[0]);
                 Destroy(Sword1);
                 Destroy(Sword2);
                 Destroy(weakPoint);
@@ -431,6 +434,7 @@ public class BossManager : MonoBehaviour
             case 2:
                 ambienceAudioSource.clip = ambienceAudios[2];
                 ambienceAudioSource.Play();
+                ChangeLightSmooth(lights[nBoss], false);
                 lights[nBoss].SetActive(true);
                 auxiliarLight.SetActive(true);
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
@@ -520,7 +524,7 @@ public class BossManager : MonoBehaviour
 
                     //Debug.Log("Player: " + player.transform.position + "Position: " + playerSpawnPositions[nBoss].position);
                 }
-
+                ChangeLightSmooth(lights[nBoss], false);
                 lights[nBoss].SetActive(true);
                 auxiliarLight2.SetActive(true);
                 ageCorridor.SetActive(true);
@@ -631,6 +635,7 @@ public class BossManager : MonoBehaviour
                 {
                     Destroy(enemy);
                 }
+                ChangeLightSmooth(lights[nBoss], false);
                 lights[nBoss].SetActive(true);
                 gameCamera.GetComponent<CinemachineFreeLook>().m_Lens.FarClipPlane = 2000;
                 Destroy(street);
@@ -654,6 +659,44 @@ public class BossManager : MonoBehaviour
 
             default: break;
         }
+    }
+
+    public void ChangeLightSmooth(GameObject go, bool turnOff)
+    {
+        Debug.Log("Entras?");
+        go.AddComponent<SmoothLight>();
+        if (turnOff == false)
+        {
+            go.GetComponent<SmoothLight>().desiredIntensity = go.GetComponent<Light>().intensity;
+        }
+        else go.GetComponent<SmoothLight>().desiredIntensity = 0.0f;
+        go.GetComponent<SmoothLight>().turnOff = turnOff;
+
+        foreach(GameObject childrenLight in GetChildrenWithLight(go.transform))
+        {
+            ChangeLightSmooth(childrenLight.gameObject, turnOff);
+        }
+    }
+
+    GameObject[] GetChildrenWithLight(Transform parent)
+    {
+        // Lista para almacenar los GameObjects que tienen el componente Light
+        List<GameObject> childrenWithLight = new List<GameObject>();
+
+        // Recorre todos los hijos del GameObject
+        foreach (Transform child in parent)
+        {
+            // Comprueba si el hijo tiene el componente Light
+            Light light = child.GetComponent<Light>();
+            if (light != null)
+            {
+                // Si el hijo tiene el componente Light, lo agrega a la lista
+                childrenWithLight.Add(child.gameObject);
+            }
+        }
+
+        // Convierte la lista a un array y lo devuelve
+        return childrenWithLight.ToArray();
     }
 
     public static void SoundEffect(AudioClip sound)
@@ -780,6 +823,7 @@ public class BossManager : MonoBehaviour
                         case 2:
                             if(boss.GetComponent<HighSchoolBoss>().dead == true)
                             {
+                                ChangeLightSmooth(lights[nBoss], false);
                                 lights[nBoss].SetActive(true);
                                 player.GetComponent<Light>().enabled = false;
                                 NextBoss();
