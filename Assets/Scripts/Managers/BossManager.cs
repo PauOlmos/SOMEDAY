@@ -348,7 +348,7 @@ public class BossManager : MonoBehaviour
                     boss.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
                     player.SetActive(true);
                     boss.SetActive(true);
-
+                    if (tutorialMessagesManager != null) Destroy(tutorialMessagesManager);
                 }
                 ChangeLightSmooth(lights[nBoss -1] , true);
 
@@ -356,7 +356,6 @@ public class BossManager : MonoBehaviour
                 Destroy(Sword1);
                 Destroy(Sword2);
                 Destroy(weakPoint);
-                if (tutorialMessagesManager != null) Destroy(tutorialMessagesManager);
                 boss.AddComponent<StartHighSchoolBoss>();
                 boss.GetComponent<StartHighSchoolBoss>().TutorialWalls = TutorialWalls;
                 boss.GetComponent<StartHighSchoolBoss>().wall1 = wall1;
@@ -663,7 +662,7 @@ public class BossManager : MonoBehaviour
 
     public void ChangeLightSmooth(GameObject go, bool turnOff)
     {
-        Debug.Log("Entras?");
+        //Debug.Log("Entras?");
         go.AddComponent<SmoothLight>();
         if (turnOff == false)
         {
