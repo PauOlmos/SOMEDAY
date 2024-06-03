@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class HospitalCamera : MonoBehaviour
@@ -12,6 +13,9 @@ public class HospitalCamera : MonoBehaviour
 
     public int currentCamPos = 0;
 
+    public Image white;
+
+    public float transitionTimer = 1;
     void Start()
     {
         gameObject.transform.position = camPath[0].position;
@@ -23,6 +27,8 @@ public class HospitalCamera : MonoBehaviour
     {
         gameObject.transform.LookAt(LookAtHeadPlayer);
 
+        transitionTimer -= Time.deltaTime /5;
+        white.color = new Color(1, 1, 1, transitionTimer);
         if (currentCamPos + 1 < camPath.Length)
         {
             Vector3 direction = camPath[currentCamPos + 1].localPosition - gameObject.transform.localPosition;

@@ -10,7 +10,7 @@ public class LimboPortal : MonoBehaviour
 
     public float transitionTimer = 0.0f;
     public Image white;
-
+    public AudioSource limboAudioSource;
     void Start()
     {
         
@@ -30,6 +30,7 @@ public class LimboPortal : MonoBehaviour
         if (other.gameObject.name == "PlayerModel")
         {
             transitionTimer += Time.deltaTime;
+            limboAudioSource.volume -= transitionTimer / 100;
             white.color = new Color(1, 1, 1, transitionTimer / 5);
         }
     }
@@ -37,6 +38,6 @@ public class LimboPortal : MonoBehaviour
     {
         transitionTimer = 0.0f;
         white.color = new Color(1, 1, 1, 0);
-
+        limboAudioSource.volume = Settings.volume;
     }
 }

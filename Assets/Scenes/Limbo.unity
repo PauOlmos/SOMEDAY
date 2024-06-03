@@ -536,6 +536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionTimer: 0
   white: {fileID: 1161550771}
+  limboAudioSource: {fileID: 1326810815}
 --- !u!65 &327606904
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1105,7 +1106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703758379}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -651.15674, y: 1, z: 1407.24}
+  m_LocalPosition: {x: -651.15674, y: 1, z: 1406.87}
   m_LocalScale: {x: 1, y: 29.474, z: 134.37614}
   m_ConstrainProportionsScale: 0
   m_Children: []
