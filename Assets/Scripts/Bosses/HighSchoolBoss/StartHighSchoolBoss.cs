@@ -100,6 +100,8 @@ public class StartHighSchoolBoss : MonoBehaviour
     public AudioSource ambienceAudioSource;
     public AudioClip[] ambienceAudios;
     public GameObject mainLight;
+    public GameObject tutorialBoss;
+    public GameObject highSchoolBossModel;
     void Start()
     {
         bossAudioSource.PlayOneShot(highSchoolBossAudios[13]);//Transition
@@ -125,6 +127,9 @@ public class StartHighSchoolBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (tutorialBoss != null) BossManager.SmoothBossTransition(tutorialBoss, highSchoolBossModel);
+
         if(destroyedWalls == false) destroyedWalls = DestroyWalls();
         else
         {

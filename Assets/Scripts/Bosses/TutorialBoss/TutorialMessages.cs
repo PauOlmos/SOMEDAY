@@ -20,8 +20,6 @@ public class TutorialMessages : MonoBehaviour
     public GameObject boss;
     public GameObject player;
 
-    public bool momentForParry = false;
-
     public bool readyToShow = true;
     void Start()
     {

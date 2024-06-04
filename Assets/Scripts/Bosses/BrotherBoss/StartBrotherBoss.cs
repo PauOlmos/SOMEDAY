@@ -64,6 +64,9 @@ public class StartBrotherBoss : MonoBehaviour
     public AudioClip[] brotherBossDialogAudios;
     public string[] brotherBossDialogs;
     public Transform continousCircleSpawnPosition;
+
+    public GameObject actualModel;
+    public GameObject broModel;
     public enum TransitionState
     {
         start, moving, waiting, driving, startBossFight 
@@ -80,6 +83,8 @@ public class StartBrotherBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (actualModel != null) BossManager.SmoothBossTransition(actualModel, broModel);
+
         brotherBossModel.transform.localPosition = Vector3.zero;
 
         switch (transitionState)

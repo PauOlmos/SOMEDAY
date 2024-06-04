@@ -19,10 +19,13 @@ public class BossManager : MonoBehaviour
     public Transform[] playerSpawnPositions;
     public Transform[] bossSpawnPositions;
     public GameObject floor;
-    public GameObject[] lights; 
+    public GameObject[] lights;
 
     [Header("Animations")]
 
+    public static float swapModelsTimer = 0.0f;
+    public static ParticleSystem swapModelsParticleSystem;
+    public ParticleSystem SwapModelsParticleSystem;
     public TutorialBossAnimations tutorialAnimations;
     public GameObject tutorialBossModel;
     public HighSchoolBossAnimations highSchoolBossAnimations;
@@ -212,7 +215,7 @@ public class BossManager : MonoBehaviour
     public GameObject greatAttackArea2;
 
     public GameObject auxiliarLight;
-
+    public GameObject actualModel;
     [Header("BrotherBoss")]
 
     public GameObject auxiliarLight2;
@@ -281,6 +284,9 @@ public class BossManager : MonoBehaviour
         SFX = soundEfffectPrefab;
         currentBoss = Settings.actualBoss;
         //Debug.Log(currentBoss);
+
+        swapModelsParticleSystem = SwapModelsParticleSystem;
+        swapModelsParticleSystem.Stop();
         ActivateBoss(currentBoss);
     }
 
@@ -330,12 +336,12 @@ public class BossManager : MonoBehaviour
                 puddles.SetActive(false);
                 tutorialMap.GetComponent<Renderer>().material = ClassroomFloorMaterial;
                 Destroy(tutorialAnimations);
-                Destroy(tutorialBossModel);
+                //Destroy(tutorialBossModel);
                 highSchoolBossAnimations.enabled = true;
                 highSchoolBossAnimations.animation = highSchoolBossAnimations.model.GetComponent<Animator>();
                 highSchoolBossAnimations.animation.Play(highSchoolBossAnimations.animations[1].name);
                 highSchoolBossAnimations.actualAnimation = highSchoolBossAnimations.animations[1];
-                highSchoolBossModel.SetActive(true);
+                //highSchoolBossModel.SetActive(true);
                 lights[nBoss].SetActive(true);
                 ChangeLightSmooth(lights[nBoss], false);
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
@@ -357,6 +363,8 @@ public class BossManager : MonoBehaviour
                 Destroy(Sword2);
                 Destroy(weakPoint);
                 boss.AddComponent<StartHighSchoolBoss>();
+                boss.GetComponent<StartHighSchoolBoss>().tutorialBoss = tutorialBossModel;
+                boss.GetComponent<StartHighSchoolBoss>().highSchoolBossModel = highSchoolBossModel;
                 boss.GetComponent<StartHighSchoolBoss>().TutorialWalls = TutorialWalls;
                 boss.GetComponent<StartHighSchoolBoss>().wall1 = wall1;
                 boss.GetComponent<StartHighSchoolBoss>().wall2 = wall2;
@@ -696,6 +704,23 @@ public class BossManager : MonoBehaviour
 
         // Convierte la lista a un array y lo devuelve
         return childrenWithLight.ToArray();
+    }
+
+    public static void SmoothBossTransition(GameObject destroyBoss, GameObject createBoss)
+    {
+        if (swapModelsTimer == 0)
+        {
+            Instantiate(swapModelsParticleSystem, createBoss.transform.position, Quaternion.identity);
+        }
+        swapModelsTimer += Time.deltaTime;
+
+        if(swapModelsTimer > 1.5f)
+        {
+            Destroy(destroyBoss);
+            createBoss.SetActive(true);
+            swapModelsTimer = 0;
+        }
+
     }
 
     public static void SoundEffect(AudioClip sound)

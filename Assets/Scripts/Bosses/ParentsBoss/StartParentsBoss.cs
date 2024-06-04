@@ -74,7 +74,7 @@ public class StartParentsBoss : MonoBehaviour
         foreach (ParticleSystem particleSystem in allParticleSystems)
         {
             // Clamp the volume between 0 and 1
-            Destroy(particleSystem);
+            if(particleSystem != BossManager.swapModelsParticleSystem)Destroy(particleSystem);
         }
     }
 
