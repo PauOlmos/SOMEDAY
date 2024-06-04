@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hospital.unity
     guid: bb3e87f8b9e7e314db7c64a9f8f76361
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: a4b0202c2fe49f64ba2a9cbbb92ff1fe
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 4e9f4b4c2b54536449dd9418f9f404d0, type: 2}

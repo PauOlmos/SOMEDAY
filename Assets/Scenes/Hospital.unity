@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4510132, g: 0.50085884, b: 0.5742881, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -511,6 +511,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cbfdf93825f954e96ed79721065633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  music: {fileID: 606037686}
+  musicTimer: 0
+  fadeBlackTimer: 0
   LookAtHeadPlayer: {fileID: 1035974370}
   camPath:
   - {fileID: 8198396}
@@ -1455,7 +1458,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
