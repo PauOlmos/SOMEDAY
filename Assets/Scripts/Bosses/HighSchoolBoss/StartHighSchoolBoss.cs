@@ -128,7 +128,7 @@ public class StartHighSchoolBoss : MonoBehaviour
     void Update()
     {
 
-        if (tutorialBoss != null) BossManager.SmoothBossTransition(tutorialBoss, highSchoolBossModel);
+        //if (tutorialBoss != null) BossManager.SmoothBossTransition(tutorialBoss, highSchoolBossModel);
 
         if(destroyedWalls == false) destroyedWalls = DestroyWalls();
         else

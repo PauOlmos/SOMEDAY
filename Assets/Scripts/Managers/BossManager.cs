@@ -336,12 +336,12 @@ public class BossManager : MonoBehaviour
                 puddles.SetActive(false);
                 tutorialMap.GetComponent<Renderer>().material = ClassroomFloorMaterial;
                 Destroy(tutorialAnimations);
-                //Destroy(tutorialBossModel);
+                Destroy(tutorialBossModel);
                 highSchoolBossAnimations.enabled = true;
                 highSchoolBossAnimations.animation = highSchoolBossAnimations.model.GetComponent<Animator>();
                 highSchoolBossAnimations.animation.Play(highSchoolBossAnimations.animations[1].name);
                 highSchoolBossAnimations.actualAnimation = highSchoolBossAnimations.animations[1];
-                //highSchoolBossModel.SetActive(true);
+                highSchoolBossModel.SetActive(true);
                 lights[nBoss].SetActive(true);
                 ChangeLightSmooth(lights[nBoss], false);
                 if (player.GetComponent<PlayerHp>().lifeTime < 15.0f)
@@ -706,21 +706,21 @@ public class BossManager : MonoBehaviour
         return childrenWithLight.ToArray();
     }
 
-    public static void SmoothBossTransition(GameObject destroyBoss, GameObject createBoss)
+    public static int SmoothBossTransition(GameObject boss)
     {
         if (swapModelsTimer == 0)
         {
-            Instantiate(swapModelsParticleSystem, createBoss.transform.position, Quaternion.identity);
+           Instantiate(swapModelsParticleSystem, boss.transform.position, Quaternion.identity);//Find a way to Make it stop later (DieByTime/stopByTime??) Or see why it does not dissapear.
         }
         swapModelsTimer += Time.deltaTime;
 
         if(swapModelsTimer > 1.5f)
         {
-            Destroy(destroyBoss);
-            createBoss.SetActive(true);
+            //createBoss.SetActive(true);
             swapModelsTimer = 0;
+            return 1;
         }
-
+        else return 0;
     }
 
     public static void SoundEffect(AudioClip sound)
@@ -775,6 +775,7 @@ public class BossManager : MonoBehaviour
                             if (transfromTimer > 3.0f)
                             {
                                 transfromTimer = 0.0f;
+                                boss.GetComponent<EnemyHP>().hp = 3;
                                 boss.GetComponent<TutorialBoss>().phase++;
                                 boss.GetComponent<TutorialBoss>().proximityArea.SetActive(false);
                                 boss.GetComponent<NavMeshAgent>().enabled = false;
@@ -808,6 +809,13 @@ public class BossManager : MonoBehaviour
                         }
                         break;
                     case 2:
+
+                        if(boss.GetComponent<EnemyHP>().hp < 2)
+                        {
+                            boss.GetComponent<TutorialBoss>().enabled = false;
+                            boss.GetComponent<EnemyHP>().hp -= SmoothBossTransition(tutorialBossModel);
+                        }
+
                         if (boss.GetComponent<EnemyHP>().hp <= 0)
                         {
                             NextBoss();
@@ -869,6 +877,15 @@ public class BossManager : MonoBehaviour
                 dialogTimer += Time.deltaTime;
 
                 dialogTimer = Dialogs();
+
+                if (momBossModel.GetComponent<EnemyHP>().hp <= 1 && momBossModel.GetComponent<EnemyHP>().hp > 0)
+                {
+                    momBossModel.GetComponent<EnemyHP>().hp -= SmoothBossTransition(momBossModel) * 2;
+                }
+                if (boss.GetComponent<EnemyHP>().hp <= 1 && boss.GetComponent<EnemyHP>().hp > 0)
+                {
+                    boss.GetComponent<EnemyHP>().hp -= SmoothBossTransition(dadBossModel) * 2;
+                }
 
                 if (momBossModel.GetComponent<EnemyHP>().hp <= 0 && boss.GetComponent<EnemyHP>().hp <= 0)
                 {
