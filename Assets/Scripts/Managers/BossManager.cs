@@ -1078,7 +1078,11 @@ public class BossManager : MonoBehaviour
                             changeToWhite += Time.deltaTime;
                             //FadeToWhite + ChangeScene to limbo
                             white.color = new Color(1, 1, 1, changeToWhite / 5);
-                            if (white.color.a >= 1) SceneManager.LoadScene(3);
+                            if (white.color.a >= 1)
+                            {
+                                NextBoss();
+                                SceneManager.LoadScene(3);
+                            }
                         }
 
                         break;

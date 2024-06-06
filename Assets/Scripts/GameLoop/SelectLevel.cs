@@ -71,7 +71,8 @@ public class SelectLevel : MonoBehaviour
         {
             collidingWithLevel = true;
             Settings.actualBoss = scene;
-            if(Settings.actualBoss == scene) SceneManager.LoadScene(2);
+            if (scene == 5) SceneManager.LoadScene(3);
+            else if(Settings.actualBoss == scene) SceneManager.LoadScene(2);
         }
 
         if (InputManager.GetAxis("HorizontalArrows") < 0)//Left
