@@ -18,6 +18,14 @@ public class CreaditsManager : MonoBehaviour
     public float creditSpeed;
 
     public Image black;
+
+    public Camera cam;
+
+    public float camRotatingTimer = 0.0f;
+
+    public int currentStatue = 1;
+
+    public AudioSource music;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +35,7 @@ public class CreaditsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        CamRotation();
 
         creditsTimer += Time.deltaTime;
 
@@ -45,8 +53,22 @@ public class CreaditsManager : MonoBehaviour
         {
             if(creditsArray[i] != null) if (creditsArray[i].activeInHierarchy == true) creditsArray[i].transform.Translate(0, creditSpeed * Time.deltaTime, 0);
         }
+        if (creditsTimer > 13.0f) music.volume -= Time.deltaTime / 1.5f;
+        if (creditsTimer > 14.5f) SceneManager.LoadScene(0);
 
-        if (creditsTimer > 15.0f) SceneManager.LoadScene(0);
+    }
+
+    public void CamRotation()
+    {
+        camRotatingTimer += Time.deltaTime;
+
+        if (cam.transform.eulerAngles.y < (currentStatue - 1) * 60) cam.transform.Rotate(0, Time.deltaTime * 100, 0);
+
+        if(camRotatingTimer > 12.5f * currentStatue)
+        {
+            //cam.transform.Rotate(0, 60, 0);
+            currentStatue++;
+        }
 
     }
 
