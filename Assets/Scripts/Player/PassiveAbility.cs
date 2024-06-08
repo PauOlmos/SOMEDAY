@@ -137,9 +137,7 @@ public class PassiveAbility : MonoBehaviour
 
     private void SwapAbilities()
     {
-        playerAudioSource.clip = (swapAbilities);
-        playerAudioSource.loop = false;
-        if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
+        BossManager.SoundEffect(swapAbilities);
         switch (passive)
         {
             case passiveType.shoot:

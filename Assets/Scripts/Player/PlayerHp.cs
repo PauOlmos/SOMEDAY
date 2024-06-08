@@ -39,9 +39,14 @@ public class PlayerHp : MonoBehaviour
 
     public int[] difficultyBasedHPs = { 10, 5, 3 };
 
+    public AudioSource playerLowHp;
+
     // Start is called before the first frame update
     void Start()
     {
+
+        
+
         difficulty = LoadPlayerData(Settings.archiveNum).difficulty;
         //Debug.Log("CurrentBoss = " + Settings.actualBoss + ". MaxLevel = " + LoadPlayerData(Settings.archiveNum).maxLevel);
         if (Settings.actualBoss == LoadPlayerData(Settings.archiveNum).maxLevel) playerHp = LoadPlayerData(Settings.archiveNum).maxHp;
@@ -58,6 +63,9 @@ public class PlayerHp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerHp == 1 && playerLowHp.isPlaying == false) playerLowHp.Play();
+        else if( playerHp > 1) playerLowHp.Stop();
+
         lifeTime += Time.deltaTime;
         if(isInvencible)
         {

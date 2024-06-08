@@ -49,9 +49,9 @@ public class EnemyHP : MonoBehaviour
                     gameObject.GetComponent<BrotherBoss>().damaged = true;
                 }
                 hp -= damage;
-                canBeDamaged = false;
+                //canBeDamaged = false;
                 DamageSound();
-                
+                //if(damageParticles != null) Instantiate(damageParticles, gameObject.transform.position, Quaternion.identity);
             }
         }
     }

@@ -11,7 +11,7 @@ public static class Settings
     public static bool predetSettings = true;
     public static float volume = 0.50f;
     public static float sensitivity = 1.0f;
-    public static float fov = 50.0f;
+    public static float fov = 70.0f;
     public static bool tutorialMessages = true;
     public static bool subtitles = true;
     public static int subtitlesSize = 2;

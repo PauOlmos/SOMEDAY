@@ -222,7 +222,7 @@ public class MenuButton : MonoBehaviour
                     menuManager.ChangeSettings.SetActive(false);
                     Settings.volume = 0.5f;
                     Settings.sensitivity = 1.0f;
-                    Settings.fov = 50.0f;
+                    Settings.fov = 70.0f;
                     Settings.tutorialMessages = true;
                     Settings.subtitles = true;
                     Settings.subtitlesSize = 2;
@@ -338,7 +338,7 @@ public class MenuButton : MonoBehaviour
         dataToStore.predetSettings = true;
         dataToStore.volume = 0.5f;
         dataToStore.sensitivity = 1;
-        dataToStore.FOV = 50.0f;
+        dataToStore.FOV = 70.0f;
         if(dataToStore.difficulty == 0) dataToStore.tutorialMessages = true;
         else dataToStore.tutorialMessages = false;
         dataToStore.subtitles = true;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TouchTerrain : MonoBehaviour
 {
+    public GameObject damage;
     // Start is called before the first frame update
     public GameObject continousCircle;
     public FinalBoss finalBoss;
@@ -12,7 +13,7 @@ public class TouchTerrain : MonoBehaviour
     public AudioClip footStep;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -22,6 +23,7 @@ public class TouchTerrain : MonoBehaviour
         if (hasTouchedGround) cooldown += Time.deltaTime;
         if(cooldown > 45.0f)
         {
+            damage.SetActive(true);
             cooldown = 0.0f;
             hasTouchedGround = false;
         }
@@ -31,6 +33,7 @@ public class TouchTerrain : MonoBehaviour
     {
         if(collision.gameObject.layer == 6 && finalBoss.phase2State != FinalBoss.Phase2State.climb && hasTouchedGround == false)
         {
+            damage.SetActive(false);
             hasTouchedGround = true;
             BossManager.SoundEffect(footStep);
             CameraBehaviour.ActivateCameraShake(6.0f, 3.5f);
@@ -44,6 +47,8 @@ public class TouchTerrain : MonoBehaviour
     {
         if (other.gameObject.layer == 6 && finalBoss.phase2State != FinalBoss.Phase2State.climb && hasTouchedGround == false)
         {
+            damage.SetActive(false);
+
             hasTouchedGround = true;
 
             BossManager.SoundEffect(footStep);

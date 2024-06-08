@@ -20,6 +20,8 @@ public class PlayerAnimations : MonoBehaviour
     public AudioSource playerAudioSource;
     public AudioClip[] playerAudios;
 
+    public GameObject healinParticles;
+
     public enum AnimationState
     {
         idle,run,jump,dash,parry,attack,takeDmg,restoreHp,shootProj,chargePassive,die,floating
@@ -60,7 +62,6 @@ public class PlayerAnimations : MonoBehaviour
                     if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
                     //Debug.Log(animations[2].name);
                     animation.Play(animations[2].name);
-
                     break;
                 case AnimationState.shootProj:
                     animationsTimer += Time.deltaTime;
@@ -136,6 +137,7 @@ public class PlayerAnimations : MonoBehaviour
                     animationsTimer += Time.deltaTime;
                     playerAudioSource.clip = (playerAudios[6]);
                     playerAudioSource.loop = false;
+
                     if (playerAudioSource.isPlaying == false) playerAudioSource.Play();
                     if (animationsTimer >= animations[9].length)
                     {
@@ -194,6 +196,9 @@ public class PlayerAnimations : MonoBehaviour
                 }
                 if (pAbility.healNow == true)//Projectile
                 {
+                    GameObject particles = Instantiate(healinParticles, gameObject.transform.position, Quaternion.identity);
+                    particles.transform.Rotate(-90, 0, 0);
+                    
                     animState = AnimationState.restoreHp;
                     sword.SetActive(false);
                     pAbility.healNow = false;

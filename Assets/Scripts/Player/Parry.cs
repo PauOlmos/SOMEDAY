@@ -86,10 +86,10 @@ public class Parry : MonoBehaviour
     {
         if (other.gameObject.layer == 7)//7 = Attack
         {
-            if (other.gameObject.tag == "BasicProjectile") 
+            if (other.gameObject.tag == "BasicProjectile")
             {
-                playerAudioSource.loop = false;
-                playerAudioSource.PlayOneShot(successfulParry);
+                BossManager.SoundEffect(successfulParry);
+
                 passiveAbility.passiveCharge += 2.5f;
                 other.gameObject.transform.localScale = Vector3.zero;
                 Destroy(other.gameObject);
@@ -97,9 +97,8 @@ public class Parry : MonoBehaviour
             }
             if (other.gameObject.tag == "Parryable")
             {
+                BossManager.SoundEffect(successfulParry);
 
-                playerAudioSource.loop = false;
-                playerAudioSource.PlayOneShot(successfulParry);
 
                 passiveAbility.passiveCharge += 5.0f;
                 other.gameObject.tag = "ParriedAttack";
@@ -130,8 +129,7 @@ public class Parry : MonoBehaviour
             if (collision.gameObject.tag == "BasicProjectile")
             {
                 //Debug.Log(collision.gameObject.name);
-                playerAudioSource.loop = false;
-                playerAudioSource.PlayOneShot(successfulParry);
+                BossManager.SoundEffect(successfulParry);
                 passiveAbility.passiveCharge += 2.5f;
                 collision.gameObject.transform.Translate(Vector3.up * 10000.0f);
                 Destroy(collision.gameObject);
@@ -141,8 +139,7 @@ public class Parry : MonoBehaviour
             if (collision.gameObject.tag == "Parryable")
             {
                 //Debug.Log(collision.gameObject.name);
-                playerAudioSource.loop = false;
-                playerAudioSource.PlayOneShot(successfulParry);
+                BossManager.SoundEffect(successfulParry);
                 passiveAbility.passiveCharge += 5.0f;
                 collision.gameObject.tag = "ParriedAttack";
             }
