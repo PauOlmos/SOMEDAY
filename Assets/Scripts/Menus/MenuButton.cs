@@ -92,6 +92,8 @@ public class MenuButton : MonoBehaviour
                 }
                 else
                 {
+                    creatingArchiveNum = 1;
+
                     menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
 
                     dataToStore.numArchive = 1;
@@ -115,6 +117,8 @@ public class MenuButton : MonoBehaviour
                 }
                 else
                 {
+                    creatingArchiveNum = 2;
+
                     Settings.archiveNum = 2;
                     menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
 
@@ -138,7 +142,9 @@ public class MenuButton : MonoBehaviour
                 }
                 else
                 {
-                menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
+                    creatingArchiveNum = 3;
+
+                    menuManager.menuAudioSource.PlayOneShot(menuManager.pressButtonAudio);
                     dataToStore.numArchive = 3;
                     Settings.archiveNum = 3;
                     LoadSettings(3);

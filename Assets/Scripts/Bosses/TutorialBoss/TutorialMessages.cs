@@ -57,7 +57,7 @@ public class TutorialMessages : MonoBehaviour
                         {
                             case 0:
 
-                                if (InputManager.GetButtonDown("Jump") && boss.GetComponent<TutorialBoss>().phase == 0)
+                                if (InputManager.GetButtonDown("Jump") && boss.GetComponent<TutorialBoss>().phase == 0 && Time.timeScale != 0.0f)
                                 {
                                     NextControl();
                                 }
@@ -65,7 +65,7 @@ public class TutorialMessages : MonoBehaviour
                                 break;
                             case 1:
 
-                                if (InputManager.GetButtonDown("Attack") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 0)
+                                if (InputManager.GetButtonDown("Attack") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 0 && Time.timeScale != 0.0f)
                                 {
                                     NextControl();
                                 }
@@ -73,7 +73,7 @@ public class TutorialMessages : MonoBehaviour
                                 break;
                             case 2:
 
-                                if (InputManager.GetButtonDown("Dash") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 0)
+                                if (InputManager.GetButtonDown("Dash") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 0 && Time.timeScale != 0.0f)
                                 {
                                     NextControl();
                                 }
@@ -81,7 +81,7 @@ public class TutorialMessages : MonoBehaviour
                                 break;
                             case 3:
 
-                                if (InputManager.GetButtonDown("Parry") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 1)
+                                if (InputManager.GetButtonDown("Parry") && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 1 && Time.timeScale != 0.0f)
                                 {
                                     NextControl();
                                 }
@@ -89,7 +89,7 @@ public class TutorialMessages : MonoBehaviour
                                 break;
                             case 4:
 
-                                if (InputManager.GetAxis("L2") != -1 && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 2)
+                                if (InputManager.GetAxis("L2") != -1 && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 2 && Time.timeScale != 0.0f)
                                 {
                                     NextControl();
                                 }
@@ -97,14 +97,16 @@ public class TutorialMessages : MonoBehaviour
                                 break;
                             case 5:
 
-                                if (player.GetComponent<PassiveAbility>().passiveCharge < player.GetComponent<PassiveAbility>().necessaryCharge)
+                                if (player.GetComponent<PassiveAbility>().passiveCharge < player.GetComponent<PassiveAbility>().necessaryCharge && Time.timeScale != 0.0f)
                                 {
                                     Time.timeScale = 1.0f;
                                     empty.SetActive(false);
+                                    explanationText.gameObject.SetActive(false);
+
                                 }
                                 else
                                 {
-                                    if (InputManager.GetAxis("R2") != -1 && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 2)
+                                    if (InputManager.GetAxis("R2") != -1 && Time.timeScale > 0.0f && boss.GetComponent<TutorialBoss>().phase == 2 && Time.timeScale != 0.0f)
                                     {
                                         NextControl();
                                     }
@@ -113,7 +115,7 @@ public class TutorialMessages : MonoBehaviour
                                 break;
                             case 6:
 
-                                if (InputManager.GetButtonDown("SwapAbilities") && Time.timeScale > 0.0f)
+                                if (InputManager.GetButtonDown("SwapAbilities") && Time.timeScale > 0.0f && Time.timeScale != 0.0f)
                                 {
                                     Time.timeScale = 1.0f;
                                     Destroy(gameObject);
@@ -127,6 +129,8 @@ public class TutorialMessages : MonoBehaviour
                 else
                 {
                     empty.SetActive(false);
+                    explanationText.gameObject.SetActive(false);
+
                     if (Time.timeScale != 0.0f && Time.timeScale != 1.0f) Time.timeScale = 1.0f;
                 }
             }

@@ -42,6 +42,7 @@ public class PassiveAbility : MonoBehaviour
     public AudioSource chargeAudioSource;
     public AudioClip chargedSound;
     public bool hasSounded = false;
+    public PassiveAnimation passiveAnimation;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +60,11 @@ public class PassiveAbility : MonoBehaviour
     {
         if (canCharge)
         {
-            if (passiveCharge < necessaryCharge) passiveCharge += Time.deltaTime;
+            if (passiveCharge < necessaryCharge)
+            {
+                passiveAnimation.auxMultiplier = 0.5f;
+                passiveCharge += Time.deltaTime;
+            }
             else if (hasSounded == false)
             {
                 hasSounded = true;
@@ -90,6 +95,8 @@ public class PassiveAbility : MonoBehaviour
                 {
                     case PlayerMovement.playerState.charging:
                         passiveCharge += Time.deltaTime;
+                        passiveAnimation.baseMultiplier = 0.75f;
+
                         break;
                     case PlayerMovement.playerState.shooting:
                         if (passiveCharge >= necessaryCharge)

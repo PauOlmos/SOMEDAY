@@ -288,29 +288,42 @@ public class MenuManager : MonoBehaviour
     {
         if (InputManager.GetButton("SwapAbilities") && player == null)
         {
-            if (currentSelected.name == "Archive1")
+            if (currentSelected.name == "Archive1" && currentSelected.GetComponentInChildren<TextMeshProUGUI>().text == "Continue")
             {
                 deleteTimer += Time.deltaTime;
                 if (deleteTimer > 3.0f)
                 {
                     deleteTimer = 0;
+
+                    DataToStore auxData = LoadPlayerData(1);
+                    auxData.maxLevel = 0;
+                    auxData.charge = 0.0f;
+                    auxData.maxHp = 0;
                     File.Delete(Application.streamingAssetsPath + "/Archive1.json");
                 }
             }
-            if (currentSelected.name == "Archive2")
+            if (currentSelected.name == "Archive2" && currentSelected.GetComponentInChildren<TextMeshProUGUI>().text == "Continue")
             {
                 deleteTimer += Time.deltaTime;
                 if (deleteTimer > 3.0f)
                 {
+                    DataToStore auxData = LoadPlayerData(2);
+                    auxData.maxLevel = 0;
+                    auxData.charge = 0.0f;
+                    auxData.maxHp = 0;
                     deleteTimer = 0;
                     File.Delete(Application.streamingAssetsPath + "/Archive2.json");
                 }
             }
-            if(currentSelected.name == "Archive3")
+            if(currentSelected.name == "Archive3" && currentSelected.GetComponentInChildren<TextMeshProUGUI>().text == "Continue")
             {
                 deleteTimer += Time.deltaTime;
                 if (deleteTimer > 3.0f)
                 {
+                    DataToStore auxData = LoadPlayerData(3);
+                    auxData.maxLevel = 0;
+                    auxData.charge = 0.0f;
+                    auxData.maxHp = 0;
                     deleteTimer = 0;
 
                     File.Delete(Application.streamingAssetsPath + "/Archive3.json");

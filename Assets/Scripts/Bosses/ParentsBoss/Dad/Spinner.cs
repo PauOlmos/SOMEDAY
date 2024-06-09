@@ -24,12 +24,13 @@ public class Spinner : MonoBehaviour
     public float duration;
     void Start()
     {
-        
+        gameObject.GetComponent<AudioSource>().volume = Settings.volume;
     }
 
     // Update is called once per frame
     void Update()
     {
+        gameObject.GetComponent<AudioSource>().volume = Settings.volume;
         delayTimer += Time.deltaTime;
         if (delayTimer >= delayTime)
         {

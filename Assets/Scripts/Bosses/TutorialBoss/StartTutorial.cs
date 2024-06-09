@@ -56,7 +56,7 @@ public class StartTutorial : MonoBehaviour
             {
                 if (blackInitialTimer > 1.35f)
                 {
-                    BossManager.bossAudioSource.Stop();
+                    //BossManager.bossAudioSource.Stop();
                     blackInitialTimer = blackInitialDuration;
                 }
                 
@@ -66,7 +66,7 @@ public class StartTutorial : MonoBehaviour
             {
                 if (InputManager.GetButtonDown("Jump") || InputManager.GetButtonDown("Back"))
                 {
-                    BossManager.bossAudioSource.Stop();
+                    //BossManager.bossAudioSource.Stop();
                     blackTimer = blackDuration;
                     black.CrossFadeAlpha(0.0f, 0.0f, true);
 
@@ -110,14 +110,18 @@ public class StartTutorial : MonoBehaviour
         }
         else
         {
+
+            if(blackTimer == 0.0f) BeginGame();
+
             blackTimer += Time.deltaTime;
-            if (blackTimer < blackDuration / 10)
+
+            if (blackTimer < blackDuration / 1)
             {
-                black.CrossFadeAlpha(0.0f, blackDuration / 10, false);
+                black.CrossFadeAlpha(0.0f, blackDuration / 1, false);
             }
             else
             {
-                BeginGame();
+                //BeginGame();
                 Destroy(gameObject.GetComponent<StartTutorial>());
 
             }

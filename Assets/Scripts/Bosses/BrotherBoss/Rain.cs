@@ -19,13 +19,19 @@ public class Rain : MonoBehaviour
     float[] burstCooldown = { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
     void Start()
     {
+        if (gameObject.GetComponent<AudioSource>() != null) gameObject.GetComponent<AudioSource>().volume = Settings.volume;
+
         globalCooldown = Random.Range(15, 30);
     }
 
     // Update is called once per frame
     void Update()
     {
-        globalTimer += Time.deltaTime;
+
+        
+        if(gameObject.GetComponent<AudioSource>() != null) gameObject.GetComponent<AudioSource>().volume = Settings.volume;
+
+            globalTimer += Time.deltaTime;
         if (globalTimer > globalCooldown && readyToStorm)
         {
             readyToStorm = false;
