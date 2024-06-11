@@ -33,3 +33,5 @@ Controls:
 * O (Menu): Endarrere
 
 Espero que gaudiu el joc i feu arribar qualsevol dubte, teoria, feedback o bugs tant pel mail: pauolmos.gd@gmail.com o al numero 654806944. Sort derrontant a ENTITY.
+
+Completar el forms per a rebre feedback i poder fer una valoració dels resultats i millorar l'estat del joc en un futur: https://docs.google.com/forms/d/15NqA9lU3_jU94rhhXpex8wpDrxPfTTvZnY4jhicn-UA
