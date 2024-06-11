@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XInput;
+using UnityEngine.InputSystem.DualShock;
 
 public class InputManager : MonoBehaviour
 {
@@ -12,33 +14,50 @@ public class InputManager : MonoBehaviour
 
     private static string[] xBoxFloatNames = { "LeftHorizontal", "LeftVertical", "R2Xbox", "L2Xbox", "HorizontalArrowsXbox", "VerticalArrowsXbox", "RightVerticalXbox" };
 
+    public static int controllerType;
+
+    private void Start()
+    {
+        controllerType = DetectController();
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+        if (UnityEngine.InputSystem.Gamepad.current == null || controllerType == 0) controllerType = DetectController();
+    }
 
     public static int DetectController()
     {
-        string[] joystickNames = Input.GetJoystickNames();
-        
-        foreach (string joystickName in joystickNames)
-        {
-            //Debug.Log(joystickName);
 
-            if (joystickName.Length > 0)
-            {
-                if (joystickName == "Wireless Controller")
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 2;
-                }
-            }
-        }
-        return 0;
+        if (UnityEngine.InputSystem.Gamepad.current is DualShockGamepad) return 1;
+        else if (UnityEngine.InputSystem.Gamepad.current is XInputController) return 2;
+        else return 0;
+
+        //string[] joystickNames = Input.GetJoystickNames();
+        //
+        //foreach (string joystickName in joystickNames)
+        //{
+        //    //Debug.Log(joystickName);
+        //
+        //    if (joystickName.Length > 0)
+        //    {
+        //        if (joystickName == "Wireless Controller")
+        //        {
+        //            return 1;
+        //        }
+        //        else
+        //        {
+        //            return 2;
+        //        }
+        //    }
+        //}
+        //return 0;
     }
     // Start is called before the first frame update
     public static bool GetButtonDown(string name)
     {
-        switch (DetectController())
+        switch (controllerType)
         {
             case 1:
 
@@ -69,7 +88,7 @@ public class InputManager : MonoBehaviour
     }
     public static bool GetButton(string name)
     {
-        switch (DetectController())
+        switch (controllerType)
         {
             case 1:
 
@@ -102,7 +121,7 @@ public class InputManager : MonoBehaviour
     }
     public static bool GetButtonUp(string name)
     {
-        switch (DetectController())
+        switch (controllerType)
         {
             case 1:
 
@@ -133,7 +152,7 @@ public class InputManager : MonoBehaviour
     }
     public static float GetAxis(string name)
     {
-        switch (DetectController())
+        switch (controllerType)
         {
 
             case 1:

@@ -192,7 +192,7 @@ public class CameraBehaviour : MonoBehaviour
     {
         if (pMov.grounded && pMov.pStatus != PlayerMovement.playerState.dashing)
         {
-            if (InputManager.DetectController() == 1)
+            if (InputManager.controllerType == 1)
             {
                 if (InputManager.GetAxis("R2") > -1 && passiveAbility.isCharged && passiveAbility.passive == PassiveAbility.passiveType.shoot)
                 {

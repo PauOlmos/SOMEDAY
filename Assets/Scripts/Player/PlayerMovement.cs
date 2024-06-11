@@ -188,7 +188,7 @@ public class PlayerMovement : MonoBehaviour
 
        
 
-        if (InputManager.DetectController() == 1)
+        if (InputManager.controllerType == 1)
         {
             if (InputManager.GetAxis("R2") > -1 && pStatus != playerState.dashing)
             {
