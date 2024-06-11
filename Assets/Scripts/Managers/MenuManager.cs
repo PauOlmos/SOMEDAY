@@ -261,7 +261,6 @@ public class MenuManager : MonoBehaviour
             else if(mainMenu != null)
             {
                 Application.Quit();
-                //Quit Game??
             }
             StopPhysics();
 

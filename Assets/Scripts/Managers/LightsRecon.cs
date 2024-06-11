@@ -15,7 +15,7 @@ public class LightsRecon : MonoBehaviour
         {
             string lightType = light.type.ToString();
             string lightName = light.name;
-            Debug.Log($"Light Name: {lightName}, Light Type: {lightType}");
+           // Debug.Log($"Light Name: {lightName}, Light Type: {lightType}");
         }
     }
 }

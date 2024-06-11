@@ -78,7 +78,7 @@ public class CameraBehaviour : MonoBehaviour
 
         float horizontalInput = InputManager.GetAxis("LeftHorizontal");
         float verticalInput = InputManager.GetAxis("LeftVertical");
-        righthorizontal = InputManager.GetAxis("L2");
+        //righthorizontal = InputManager.GetAxis("L2");
         rightJoystick = InputManager.GetAxis("RightVertical");
         //Debug.Log("RightJoystick" + rightJoystick);
         if (Time.timeScale != 0 && rightJoystick > 0.15f && readyBoss) gameObject.GetComponent<CinemachineFreeLook>().m_Heading.m_Bias += rightJoystick + sensitivity / 5.0f;
@@ -192,14 +192,30 @@ public class CameraBehaviour : MonoBehaviour
     {
         if (pMov.grounded && pMov.pStatus != PlayerMovement.playerState.dashing)
         {
-            if (InputManager.GetAxis("R2") > -1 && passiveAbility.isCharged && passiveAbility.passive == PassiveAbility.passiveType.shoot)
+            if (InputManager.DetectController() == 1)
             {
-                gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "R2";
-                camState = cameraState.onBoss;
+                if (InputManager.GetAxis("R2") > -1 && passiveAbility.isCharged && passiveAbility.passive == PassiveAbility.passiveType.shoot)
+                {
+                    gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "R2";
+                    camState = cameraState.onBoss;
+                }
+                else
+                {
+                    gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "L2";
+                }
             }
             else
             {
-                gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "L2";
+                if (InputManager.GetAxis("R2Xbox") > 0 && passiveAbility.isCharged && passiveAbility.passive == PassiveAbility.passiveType.shoot)
+                {
+
+                    gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = "R2Xbox";
+                    camState = cameraState.onBoss;
+                }
+                else
+                {
+                    gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.Value = 1 - InputManager.GetAxis("L2");
+                }
             }
         }
         else

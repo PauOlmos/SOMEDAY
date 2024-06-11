@@ -8,12 +8,18 @@ public class InputManager : MonoBehaviour
 
     private static string[] ps4FloatNames = { "LeftHorizontal", "LeftVertical", "R2", "L2", "HorizontalArrows", "VerticalArrows", "RightVertical" };
 
-    private static int DetectController()
+    private static string[] xBoxBoolNames = { "JumpXbox", "Dash", "BackXbox", "PauseXbox", "SwapAbilities", "XboxAttack", "Parry" }; //Done
+
+    private static string[] xBoxFloatNames = { "LeftHorizontal", "LeftVertical", "R2Xbox", "L2Xbox", "HorizontalArrowsXbox", "VerticalArrowsXbox", "RightVerticalXbox" };
+
+
+    public static int DetectController()
     {
         string[] joystickNames = Input.GetJoystickNames();
         
         foreach (string joystickName in joystickNames)
         {
+            //Debug.Log(joystickName);
 
             if (joystickName.Length > 0)
             {
@@ -21,7 +27,7 @@ public class InputManager : MonoBehaviour
                 {
                     return 1;
                 }
-                else if (joystickName.ToLower().Contains("xbox") || joystickName.ToLower().Contains("microsoft"))
+                else
                 {
                     return 2;
                 }
@@ -46,6 +52,16 @@ public class InputManager : MonoBehaviour
                 return false;
 
             case 2:
+
+                for (int i = 0; i < 7; i++)
+                {
+                    if (ps4BoolNames[i] == name)
+                    {
+                        //Debug.Log("PS4 name: " + ps4BoolNames[i] + "  Xbox name: " + xBoxBoolNames[i]);
+
+                        return Input.GetButtonDown(xBoxBoolNames[i]);
+                    }
+                }
                 return false;
                 
             default:return false;
@@ -67,6 +83,18 @@ public class InputManager : MonoBehaviour
                 return false;
 
             case 2:
+
+                for (int i = 0; i < xBoxBoolNames[i].Length; i++)
+                {
+                    if (ps4BoolNames[i] == name)
+                    {
+
+                        //Debug.Log("PS4 name: " + ps4BoolNames[i] + "  Xbox name: " + xBoxBoolNames[i]);
+
+                        return Input.GetButton(xBoxBoolNames[i]);
+                    }
+                }
+
                 return false;
                 
             default:return false;
@@ -88,6 +116,16 @@ public class InputManager : MonoBehaviour
                 return false;
 
             case 2:
+
+                for (int i = 0; i < xBoxBoolNames[i].Length; i++)
+                {
+                    if (ps4BoolNames[i] == name)
+                    {
+                       // Debug.Log("PS4 name: " + ps4BoolNames[i] + "  Xbox name: " + xBoxBoolNames[i]);
+                        return Input.GetButtonUp(xBoxBoolNames[i]);
+                    }
+                }
+
                 return false;
                 
             default:return false;
@@ -111,6 +149,15 @@ public class InputManager : MonoBehaviour
                 return 0;
 
             case 2:
+
+                for (int i = 0; i < 7; i++)
+                {
+                    if (ps4FloatNames[i] == name)
+                    {
+                        return Input.GetAxis(xBoxFloatNames[i]);
+                    }
+                }
+
                 //Same with different string[]
                 //XBox
                 return 0;

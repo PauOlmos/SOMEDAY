@@ -186,16 +186,35 @@ public class PlayerMovement : MonoBehaviour
             pStatus = playerState.stand;
         }
 
-        if (InputManager.GetAxis("R2") > -1 && pStatus != playerState.dashing)
+       
+
+        if (InputManager.DetectController() == 1)
         {
-            pStatus = playerState.shooting;
+            if (InputManager.GetAxis("R2") > -1 && pStatus != playerState.dashing)
+            {
+                pStatus = playerState.shooting;
+            }
+            if (InputManager.GetAxis("L2") > -1 && pStatus != playerState.dashing)
+            {
+                //Debug.Log("Charge");
+                pStatus = playerState.charging;
+            }
+            if (pStatus == playerState.charging && InputManager.GetAxis("L2") == -1) pStatus = playerState.moving; //AQUI
         }
-        if (InputManager.GetAxis("L2") > -1 && pStatus != playerState.dashing)
+        else
         {
-            //Debug.Log("Charge");
-            pStatus = playerState.charging;
+            if (InputManager.GetAxis("R2") > 0 && pStatus != playerState.dashing)
+            {
+                pStatus = playerState.shooting;
+            }
+            if (InputManager.GetAxis("L2") > 0 && pStatus != playerState.dashing)
+            {
+                //Debug.Log("Charge");
+                pStatus = playerState.charging;
+            }
+            if (pStatus == playerState.charging && InputManager.GetAxis("L2") == 0) pStatus = playerState.moving; //AQUI
         }
-        if (pStatus == playerState.charging && InputManager.GetAxis("L2") == -1) pStatus = playerState.moving;
+
 
 
         if (InputManager.GetButtonDown("Dash") && pStatus != playerState.charging && pStatus != playerState.shooting) {

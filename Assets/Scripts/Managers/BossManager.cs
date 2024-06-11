@@ -1081,6 +1081,11 @@ public class BossManager : MonoBehaviour
                             if (white.color.a >= 1)
                             {
                                 NextBoss();
+                                if (LoadPlayerData(Settings.archiveNum).difficulty == 2 && !File.Exists(Application.streamingAssetsPath + "/PermaCompleted.json"))
+                                {
+                                    bool klk = true;
+                                    File.WriteAllText(Application.streamingAssetsPath + "/PermaCompleted.json", klk.ToString());
+                                }
                                 SceneManager.LoadScene(3);
                             }
                         }
